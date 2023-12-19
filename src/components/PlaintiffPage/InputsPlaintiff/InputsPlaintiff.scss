@@ -1,0 +1,32 @@
+.plaintiffData {
+  // background: red;
+  display: flex;
+  gap: 10px;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    li {
+      // background: red;
+      button {
+        color: var(--Black, #222);
+        background-color: gray;
+        // background-color: aqua;
+        color: #000;
+        padding: 10px 8px;
+        width: 120px;
+        border-radius: 8px;
+        font-family: Gilroy;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin: 2px 0px;
+        transition: 0.5s;
+      }
+      button:hover {
+        background-color: rgba(128, 128, 128, 0.577);
+      }
+    }
+  }
+}

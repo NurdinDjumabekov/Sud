@@ -1,0 +1,18 @@
+.nav {
+    background-color: #343A40;
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.nav img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.nav span {
+    color: white;
+}
