@@ -1,8 +1,8 @@
 import React from 'react';
-import './AddRepresentative.scss';
+import './FizFace.scss';
 import Selects from '../../Selects/Selects';
 
-const AddRepresentative = () => {
+const FizFace = ({ typerole }) => {
   const [inputData, setInputData] = React.useState({});
   const [type, setType] = React.useState('');
   const sendData = () => {};
@@ -14,7 +14,7 @@ const AddRepresentative = () => {
 
   return (
     <div className="addPlaintiff">
-      <h3>Истец</h3>
+      <h3>{typerole === 'истца' ? 'Истец' : 'Ответчик'}</h3>
       <form onSubmit={sendData}>
         <input type="text" placeholder="ФИО" />
         <div className="date">
@@ -123,12 +123,10 @@ const AddRepresentative = () => {
             <input type="text" placeholder="Описание" />
           </div>
         </div>
-        <button className="saveBtn" type="sumbit">
-          Сохранить
-        </button>
+        <button className="saveBtn">Сохранить</button>
       </form>
     </div>
   );
 };
 
-export default AddRepresentative;
+export default FizFace;

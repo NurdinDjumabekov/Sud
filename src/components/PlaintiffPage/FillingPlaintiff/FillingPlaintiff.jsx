@@ -3,21 +3,24 @@ import './FillingPlaintiff.scss';
 import AddPlaintiff from '../AddPlaintiff/AddPlaintiff';
 import AddRepresentative from '../AddRepresentative/AddRepresentative';
 
-const FillingPlaintiff = () => {
+const FillingPlaintiff = ({ typerole }) => {
   const [btnSend, setBtnSend] = useState(true);
-
+  const selectArr = [
+    { id: 0, name: 'Мужской' },
+    { id: 1, name: 'Женский' },
+  ];
   return (
-    <div className="P_filling">
+    <div className="plaintiFilling__container">
       <div className="P_filling__mainBtn">
         {btnSend ? (
-          <button onClick={() => setBtnSend(false)}>Добавить истца</button>
-        ) : (
-          <button onClick={() => setBtnSend(true)}>
-            Добавить представителя истца
+          <button onClick={() => setBtnSend(false)}>
+            Добавить представителя {typerole}
           </button>
+        ) : (
+          <button onClick={() => setBtnSend(true)}>Добавить {typerole}</button>
         )}
       </div>
-      {btnSend ? <AddPlaintiff /> : <AddRepresentative />}
+      {btnSend ? <AddPlaintiff typerole={typerole} /> : <AddRepresentative />}
     </div>
   );
 };

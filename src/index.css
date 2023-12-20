@@ -24,3 +24,10 @@ button {
   background-color: #fb9a12 !important;
   color: #000 !important;
 }
+.plaintiFilling__container {
+  background-color: rgba(128, 128, 128, 0.527);
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  position: relative;
+}

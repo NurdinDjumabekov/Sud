@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import './InputsPlaintiff.scss';
 import FillingPlaintiff from '../FillingPlaintiff/FillingPlaintiff';
+import TargetPlaintiff from '../TargetPlaintiff/TargetPlaintiff';
 
 const InputsPlaintiff = () => {
   const [btnList, setBtnList] = useState([
     {
       id: 1,
       name: 'Истец',
-      bool: true,
-      components: <FillingPlaintiff />,
+      bool: false,
+      components: <FillingPlaintiff typerole={'истца'} />,
     },
     {
       id: 2,
       name: 'Ответчик',
       bool: false,
+      components: <FillingPlaintiff typerole={'Ответчика'} />,
     },
     {
       id: 3,
       name: 'Цена иска',
-      bool: false,
+      bool: true,
+      components: <TargetPlaintiff />,
     },
     {
       id: 4,
@@ -86,6 +89,11 @@ const InputsPlaintiff = () => {
 
   // console.log(indexComp, 'indexComp');
 
+  // <ExampleBlock
+  //   text={'nurdin nurdin adkjlalkjdk jasdljas'}
+  //   typeText={'klasdjask jdasjdjalsjdljasld jalsjdkljasldjaslklads'}
+  // />;
+
   return (
     <div className="plaintiffData">
       <ul className="plaintiffData__list">
@@ -100,6 +108,7 @@ const InputsPlaintiff = () => {
           </li>
         ))}
       </ul>
+      {/* <>{btnList?.[2]?.components}</> */}
       <>{btnList?.[indexComp]?.components}</>
     </div>
   );

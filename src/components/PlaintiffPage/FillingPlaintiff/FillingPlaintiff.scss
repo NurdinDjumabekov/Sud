@@ -1,21 +1,15 @@
-.P_filling {
-  //   background: red;
-  background-color: rgba(128, 128, 128, 0.527);
-  border-radius: 10px;
-  padding: 20px;
-  width: 100%;
-  &__mainBtn {
-    > button {
-      display: block;
-      padding: 10px;
-      border-radius: 8px;
-      font-family: Gilroy;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      margin: 2px 0px;
-      transition: 0.5s;
-    }
+.P_filling__mainBtn {
+  margin: 0 0 20px 0;
+  > button {
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    font-family: Gilroy;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 2px 0px;
+    transition: 0.5s;
   }
 }
