@@ -1,35 +1,48 @@
 .plaintiff {
   padding: 20px;
-  // height: 100vh;
   background: #f7f7f7;
+  min-width: 100%;
+  margin: 0 auto;
+  // background: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5px;
   h1 {
     font-size: 25px;
     font-weight: 600;
     // color: #679dcb;
     font-family: Gilroy;
+    margin: 0 0 30px 0;
   }
   &__type {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin: 0 0 10px 0;
-    button {
-      color: var(--Black, #222);
-      background-color: gray;
-      background-color: #000000d7;
-      color: #fff;
-      padding: 10px 0px;
-      width: 100px;
-      border-radius: 8px;
-      font-family: Gilroy;
-      font-size: 18px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      transition: 0.5s;
-    }
-    button:hover {
-      background-color: rgba(37, 35, 35, 0.652);
+    justify-content: space-between;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 0 0 10px 0;
+      button {
+        color: var(--Black, #222);
+        background-color: rgba(16, 15, 15, 0.874);
+        color: #fff;
+        padding: 10px 0px;
+        width: 100px;
+        border-radius: 8px;
+        font-family: Gilroy;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        transition: 0.5s;
+      }
+      button:hover {
+        background-color: rgb(18, 15, 15);
+      }
     }
   }
 }

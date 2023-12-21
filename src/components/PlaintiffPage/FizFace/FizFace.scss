@@ -1,4 +1,7 @@
 .addPlaintiff {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  
   h3 {
     font-size: 15px !important;
     text-align: center;
@@ -92,4 +95,13 @@
   transition: 0.5s;
   border: 1px solid #000;
   margin: 20px auto 0px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

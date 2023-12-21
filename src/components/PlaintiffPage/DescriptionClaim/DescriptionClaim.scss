@@ -1,0 +1,21 @@
+.descriptionClaim {
+  form {
+    > div {
+      label {
+        display: inline-block;
+        font-size: 18px;
+        margin: 20px 0 0 0;
+        cursor: pointer;
+      }
+      textarea {
+        width: 100%;
+        display: block;
+        height: 150px;
+        border-radius: 8px;
+        border: none;
+        padding: 5px 10px;
+        resize: none;
+      }
+    }
+  }
+}

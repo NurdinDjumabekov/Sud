@@ -34,7 +34,7 @@ const AddPlaintiff = ({ typerole }) => {
       <div className="blockfaceMan">
         {btnList?.map((item) => (
           <button
-            className={item?.bool ? 'activeBtn' : ''}
+            className={item?.bool ? 'activeBtns' : ''}
             onClick={() => {
               clickBtn(item.id);
               setLookType(item.id);

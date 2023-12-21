@@ -1,16 +1,16 @@
 .plaintiffData {
-  // background: red;
   display: flex;
   gap: 10px;
+  margin: 20px 0 0 0;
   &__list {
     display: flex;
     flex-direction: column;
-    width: 15%;
+    width: 12%;
+    padding: 18px 0 0 0;
     li {
-      // background: red;
       button {
-        color: var(--Black, #222);
-        background-color: gray;
+        color: #222;
+        background-color: rgba(128, 128, 128, 0.696);
         // background-color: aqua;
         color: #000;
         padding: 10px 8px;
@@ -25,8 +25,15 @@
         transition: 0.5s;
       }
       button:hover {
-        background-color: rgba(128, 128, 128, 0.577);
+        background-color: rgba(128, 128, 128, 0.871);
       }
     }
   }
+}
+.plantiffBlockMain {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+  padding: 100px 0px;
 }

@@ -4,15 +4,17 @@ import InputsPlaintiff from '../../components/PlaintiffPage/InputsPlaintiff/Inpu
 
 const PlaintiffPage = () => {
   const [typePlantiff, setTypePlantiff] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <div>
       <div className="plaintiff">
         <h1>Подача искового заявления</h1>
-        <button></button>
         <div className="plaintiff__type">
-          <button onClick={() => setTypePlantiff(false)}>Иск</button>
-          <button onClick={() => setTypePlantiff(true)}>ChatGPT</button>
+          <div>
+            <button onClick={() => setTypePlantiff(false)}>Иск</button>
+            <button onClick={() => setTypePlantiff(true)}>ChatGPT</button>
+          </div>
         </div>
         {typePlantiff ? '' : <InputsPlaintiff />}
       </div>

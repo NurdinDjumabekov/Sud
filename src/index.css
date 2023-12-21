@@ -20,7 +20,7 @@ button {
   cursor: pointer;
 }
 
-.activeBtn {
+.activeBtns {
   background-color: #fb9a12 !important;
   color: #000 !important;
 }

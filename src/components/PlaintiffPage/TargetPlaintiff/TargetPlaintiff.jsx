@@ -64,13 +64,13 @@ const TargetPlaintiff = () => {
 
         <div className="btnsDataSum">
           <button
-            className={btnSend ? 'activeBtn' : ''}
+            className={btnSend ? 'activeBtns' : ''}
             onClick={() => setBtnSend(true)}
           >
             Реквизины
           </button>
           <button
-            className={btnSend ? '' : 'activeBtn'}
+            className={btnSend ? '' : 'activeBtns'}
             onClick={() => setBtnSend(false)}
           >
             Калькулятор

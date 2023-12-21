@@ -1,17 +1,20 @@
+$colordescription: #fb9a12;
+
 .exampleBlock {
+  background-color: rgba(255, 255, 255, 0.564);
   width: 100%;
   padding: 15px 10px;
-  border: 1px solid rgb(78, 118, 167);
+  border: 2px solid $colordescription;
   border-radius: 8px;
   h5 {
     font-size: 16px;
-    color: rgb(78, 118, 167);
+    color: $colordescription;
     line-height: 18px;
     margin: 0 0 5px 0;
   }
   p {
     font-size: 14px;
-    color: rgb(78, 118, 167);
+    color: $colordescription;
     line-height: 18px;
   }
 }

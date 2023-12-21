@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import './InputsPlaintiff.scss';
 import FillingPlaintiff from '../FillingPlaintiff/FillingPlaintiff';
 import TargetPlaintiff from '../TargetPlaintiff/TargetPlaintiff';
+import DescriptionClaim from '../DescriptionClaim/DescriptionClaim';
+import MotivationClaim from '../MotivationClaim/MotivationClaim';
+import Justification from '../Justification/Justification';
+import FinancialResult from '../FinancialResult/FinancialResult';
+import GeneralInfo from '../GeneralInfo/GeneralInfo';
+import LinksLaw from '../LinksLaw/LinksLaw';
+import ClaimRequaire from '../ClaimRequaire/ClaimRequaire';
+import ApplicationFiles from '../ApplicationFiles/ApplicationFiles';
+import PdfFile from '../../PdfFile/PdfFile';
 
 const InputsPlaintiff = () => {
   const [btnList, setBtnList] = useState([
     {
       id: 1,
       name: 'Истец',
-      bool: false,
+      bool: true,
       components: <FillingPlaintiff typerole={'истца'} />,
     },
     {
@@ -20,56 +29,62 @@ const InputsPlaintiff = () => {
     {
       id: 3,
       name: 'Цена иска',
-      bool: true,
+      bool: false,
       components: <TargetPlaintiff />,
     },
     {
       id: 4,
       name: 'Описание',
       bool: false,
+      components: <DescriptionClaim />,
     },
     {
       id: 5,
       name: 'Мотивационная часть',
       bool: false,
+      components: <MotivationClaim />,
     },
     {
       id: 6,
       name: 'Обоснование',
       bool: false,
+      components: <Justification />,
     },
     {
       id: 7,
       name: 'Финансовый расчет',
       bool: false,
+      components: <FinancialResult />,
     },
     {
       id: 8,
       name: 'Общая информация',
       bool: false,
+      components: <GeneralInfo />,
     },
-
     {
       id: 9,
       name: 'Ссылка на законы',
       bool: false,
+      components: <LinksLaw />,
     },
-
     {
       id: 10,
       name: 'Исковые требования',
       bool: false,
+      components: <ClaimRequaire />,
     },
     {
       id: 11,
       name: 'Приложения',
       bool: false,
+      components: <ApplicationFiles />,
     },
-    {
-      id: 12,
-      name: 'Опись документов',
-      bool: false,
-    },
+    // {
+    //   id: 12,
+    //   name: 'Опись документов',
+    //   bool: false,
+    // },
   ]);
 
   const [indexComp, setIndexComp] = useState(0);
@@ -78,7 +93,7 @@ const InputsPlaintiff = () => {
     const newList = btnList.map((item) => {
       return {
         ...item,
-        bool: id === item.id ? !item.bool : false,
+        bool: id === item.id ? true : false,
       };
     });
 
@@ -87,29 +102,27 @@ const InputsPlaintiff = () => {
     setIndexComp(activeIndex);
   };
 
-  // console.log(indexComp, 'indexComp');
-
-  // <ExampleBlock
-  //   text={'nurdin nurdin adkjlalkjdk jasdljas'}
-  //   typeText={'klasdjask jdasjdjalsjdljasld jalsjdkljasldjaslklads'}
-  // />;
-
   return (
-    <div className="plaintiffData">
-      <ul className="plaintiffData__list">
-        {btnList?.map((btn) => (
-          <li key={btn.id}>
-            <button
-              className={btn?.bool ? 'activeBtn' : ''}
-              onClick={() => clickBtn(btn.id)}
-            >
-              {btn.name}
-            </button>
-          </li>
-        ))}
-      </ul>
-      {/* <>{btnList?.[2]?.components}</> */}
-      <>{btnList?.[indexComp]?.components}</>
+    <div className="plantiffBlockMain">
+      <div className="plaintiffData">
+        <ul className="plaintiffData__list">
+          {btnList?.map((btn) => (
+            <li key={btn.id}>
+              <button
+                className={btn?.bool ? 'activeBtns' : ''}
+                onClick={() => clickBtn(btn.id)}
+              >
+                {btn.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+        {/* <>{btnList?.[4]?.components}</> */}
+        <React.Fragment key={indexComp}>
+          {btnList?.[indexComp]?.components}
+        </React.Fragment>
+      </div>
+      <PdfFile />
     </div>
   );
 };

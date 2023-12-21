@@ -12,13 +12,18 @@ const FillingPlaintiff = ({ typerole }) => {
   return (
     <div className="plaintiFilling__container">
       <div className="P_filling__mainBtn">
-        {btnSend ? (
-          <button onClick={() => setBtnSend(false)}>
-            Добавить представителя {typerole}
-          </button>
-        ) : (
-          <button onClick={() => setBtnSend(true)}>Добавить {typerole}</button>
-        )}
+        <button
+          className={btnSend ? 'activeBtns' : ''}
+          onClick={() => setBtnSend(true)}
+        >
+          Добавить {typerole}
+        </button>
+        <button
+          className={btnSend ? '' : 'activeBtns'}
+          onClick={() => setBtnSend(false)}
+        >
+          Добавить представителя {typerole}
+        </button>
       </div>
       {btnSend ? <AddPlaintiff typerole={typerole} /> : <AddRepresentative />}
     </div>
