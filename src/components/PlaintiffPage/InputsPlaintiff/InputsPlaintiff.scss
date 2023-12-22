@@ -5,8 +5,10 @@
   &__list {
     display: flex;
     flex-direction: column;
-    width: 12%;
+    width: 140px;
+    gap: 5px;
     padding: 18px 0 0 0;
+    // background: red;
     li {
       button {
         color: #222;
@@ -33,7 +35,9 @@
 .plantiffBlockMain {
   display: flex;
   justify-content: center;
-  gap: 50px;
-  align-items: center;
-  padding: 100px 0px;
+  gap: 20px;
+  // align-items: center;
+  width: 100%;
+  // padding: 100px 0px;
+  // background: red;
 }

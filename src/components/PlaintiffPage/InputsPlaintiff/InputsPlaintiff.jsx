@@ -103,26 +103,25 @@ const InputsPlaintiff = () => {
   };
 
   return (
-    <div className="plantiffBlockMain">
-      <div className="plaintiffData">
-        <ul className="plaintiffData__list">
-          {btnList?.map((btn) => (
-            <li key={btn.id}>
-              <button
-                className={btn?.bool ? 'activeBtns' : ''}
-                onClick={() => clickBtn(btn.id)}
-              >
-                {btn.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-        {/* <>{btnList?.[4]?.components}</> */}
+    <div className="plaintiffData">
+      <ul className="plaintiffData__list">
+        {btnList?.map((btn) => (
+          <li key={btn.id}>
+            <button
+              className={btn?.bool ? 'activeBtns' : ''}
+              onClick={() => clickBtn(btn.id)}
+            >
+              {btn.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+      <div className="plantiffBlockMain">
         <React.Fragment key={indexComp}>
           {btnList?.[indexComp]?.components}
         </React.Fragment>
+        <PdfFile />
       </div>
-      <PdfFile />
     </div>
   );
 };

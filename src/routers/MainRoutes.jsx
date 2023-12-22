@@ -8,13 +8,13 @@ import { useSelector } from 'react-redux';
 
 function MainRoutes() {
   const { input } = useSelector((state) => state.inputSlice);
-  console.log(input, 'input');
+  // console.log(input, 'input');
   return (
     <Routes>
       <Route element={<MainLayouts />}>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<SignIn />} />
-        {/* <Route path="/plaintiff" element={<PlaintiffPage />} /> */}
+        <Route path="/" element={<SignIn />} />
+        <Route path="/main" element={<MainPage />} />
+        <Route path="/plaintiff" element={<PlaintiffPage />} />
       </Route>
     </Routes>
   );

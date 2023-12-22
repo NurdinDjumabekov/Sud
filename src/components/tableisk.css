@@ -14,12 +14,16 @@ li {
 }
 
 .create_isk_btn button {
-  background-color: #28a745;
-  border: none;
-  outline: none;
-  border-radius: 6px;
-  color: white;
-  padding: 2px 10px;
+  display: block;
+  padding: 8px 15px;
+  border-radius: 5px;
+  background: #fb9a12;
+  font-family: Gilroy;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  transition: 0.5s;
 }
 
 .table_block {
@@ -67,13 +71,15 @@ li {
 }
 
 .span_teble {
-  color: red;
+  color: #fb9a12;
 }
 
 .table_isk_td:nth-child(1) div {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* background: red; */
+  /* width: 70px; */
 }
 
 .table_isk_td:nth-child(2) span {

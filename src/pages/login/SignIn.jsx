@@ -2,14 +2,19 @@ import React from 'react';
 import logoSud from '../../asstes/images/sud-login.png';
 
 import './login.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
+  const navigate = useNavigate();
+  const sendLogIn = () => {
+    navigate('/main');
+  };
   return (
     <div className="login_block">
       <section>
         <div className="form-box">
           <div className="form-value">
-            <form action="">
+            <form onSubmit={sendLogIn}>
               <h2>Login</h2>
               <div className="inputbox">
                 <input type="email" required />
@@ -19,7 +24,9 @@ export default function SignIn() {
                 <input type="password" required />
                 <label for="">Пароль</label>
               </div>
-              <button className="login_enter">Войти</button>
+              <button className="login_enter" type="submit">
+                Войти
+              </button>
               <div className="register">
                 <p>
                   У вас нет аккаунта ? <a href="#">Зарегистрироваться</a>

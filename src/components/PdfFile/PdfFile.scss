@@ -1,4 +1,27 @@
 .pdfFile {
-  width: 60%; // 100% ширины видимой области (viewport)
-  min-height: 100%; // 100% высоты видимой области (viewport)
+  > div:nth-child(2) {
+    > div:nth-child(1) {
+      > div:nth-child(1) {
+        > div:nth-child(1) {
+          button:nth-child(1) {
+            width: 180px !important;
+            // background: red !important;
+            cursor: pointer;
+          }
+          button:nth-child(1):after {
+            content: 'Скачать документ';
+            position: absolute;
+            background: #fb9a12;
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+          }
+          button:not(:first-child) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }

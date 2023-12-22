@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   input: 'Nurdin Djumabekov',
+  inputs: {},
 };
 
 // export const dataDetailedPage = createAsyncThunk(

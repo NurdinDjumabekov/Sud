@@ -1,6 +1,8 @@
 import React from 'react';
 import './FizFace.scss';
 import Selects from '../../Selects/Selects';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeInput } from '../../../store/reducers/inputSlice';
 
 const FizFace = ({ typerole }) => {
   const [inputData, setInputData] = React.useState({});
@@ -12,11 +14,20 @@ const FizFace = ({ typerole }) => {
     { id: 1, name: 'Женский' },
   ];
 
+  const dispatch = useDispatch();
+  const { input } = useSelector((state) => state.inputSlice);
+  console.log(input, 'input');
+
   return (
     <div className="addPlaintiff">
       <h3>{typerole === 'истца' ? 'Истец' : 'Ответчик'}</h3>
       <form onSubmit={sendData}>
-        <input type="text" placeholder="ФИО" />
+        <input
+          type="text"
+          placeholder="ФИО"
+          onChange={(e) => dispatch(changeInput(e.target.value))}
+          value={input}
+        />
         <div className="date">
           <Selects
             arr={selectArr}
