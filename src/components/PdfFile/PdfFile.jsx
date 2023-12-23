@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
-import './PdfFile.scss';
-import pdf from '../../asstes/pdf/sud_pdf.pdf';
-import { Editor } from '@tinymce/tinymce-react';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeInput } from '../../store/reducers/inputSlice';
+import React, { useRef } from "react";
+import "./PdfFile.scss";
+import pdf from "../../asstes/pdf/sud_pdf.pdf";
+import { Editor } from "@tinymce/tinymce-react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeInput } from "../../store/reducers/inputSlice";
 
 const PdfFile = () => {
   const dispatch = useDispatch();
@@ -14,12 +14,8 @@ const PdfFile = () => {
     // dispatch(changeInput(content)); // Dispatch the action with the updated content
   };
 
-  const handlePrint = () => {
-    // window.print();
-  };
-
   const { input } = useSelector((state) => state.inputSlice);
-  console.log(input, 'input');
+  console.log(input, "inputttt");
 
   const initialContent = `
     <div>
@@ -49,11 +45,11 @@ const PdfFile = () => {
         initialValue={initialContent}
         init={{
           height: 900,
-          width: 1000,
+          width: 800,
           menubar: {
             file: {
-              title: 'File',
-              items: 'newdocument restoredraft | preview | print ',
+              title: "File",
+              items: "newdocument restoredraft | preview | print ",
             },
           },
           content_style: "body { font-family: 'Times New Roman', sans-serif; }",

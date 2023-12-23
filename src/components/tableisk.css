@@ -245,3 +245,23 @@ li {
 .tbody_isk tr:hover {
   background-color: #dcdcdc;
 }
+
+/* ////////////////////////////////// */
+.mainTable {
+  display: flex;
+  /* align-items: center; */
+  gap: 10px;
+}
+.mainTable__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  > button {
+    padding: 20px 5px;
+    border-radius: 8px;
+    line-height: 18px;
+    font-size: 14px;
+    background: #9a9a9a;
+    color: #fff;
+  }
+}

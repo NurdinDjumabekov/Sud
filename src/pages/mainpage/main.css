@@ -80,8 +80,22 @@
 
 .tabs_ul {
   display: flex;
+  align-items: center;
   gap: 5px;
   margin: 10px auto;
+  > li:nth-child(1){
+    > button {
+      width: 94px !important;
+    }
+  }
+  > li {
+    button {
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: #9a9a9a;
+      color: white;
+    }
+  }
 }
 
 .disableBtn,
@@ -103,7 +117,7 @@
   position: absolute;
   content: '';
   width: 500px;
-  height: 100px;
+  /* height: 100px; */
   background: #9a9a9a;
   z-index: -1;
   border-radius: 50%;

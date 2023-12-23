@@ -1,41 +1,52 @@
-import React, { useState } from 'react';
-import './main.css';
+import React, { useState } from "react";
+import "./main.css";
 
-import userIcon from '../../asstes/icons/user-icon.png';
-import onOffIcon from '../../asstes/icons/onOff.png';
-import TableLawsuit from '../../components/TableLawsuit';
-import PlaintiffPage from '../PlaintiffPage/PlaintiffPage';
-import { useNavigate } from 'react-router-dom';
+import userIcon from "../../asstes/icons/user-icon.png";
+import onOffIcon from "../../asstes/icons/onOff.png";
+import TableLawsuit from "../../components/TableLawsuit";
+import PlaintiffPage from "../PlaintiffPage/PlaintiffPage";
+import { useNavigate } from "react-router-dom";
 
 export default function MainPage() {
   const navigate = useNavigate();
   const [btnList, setBtnList] = useState([
     {
       id: 1,
-      name: 'Мои иски',
-      bool: false,
-      components: <TableLawsuit />,
+      name: "Мои иски",
+      bool: true,
     },
-    // {
-    //   id: 2,
-    //   name: 'Мои иски',
-    //   bool: false,
-    // },
+    {
+      id: 2,
+      name: "Принятые отвественным секретарём",
+      bool: false,
+    },
+    {
+      id: 3,
+      name: "Отклонённые отвественным секретарём",
+      bool: false,
+    },
+    {
+      id: 4,
+      name: "Принятые председателем",
+      bool: false,
+    },
+    {
+      id: 5,
+      name: "Отклонённые председателем",
+      bool: false,
+    },
   ]);
-
-  const [indexComp, setIndexComp] = useState(0);
 
   const clickBtn = (id) => {
     const newList = btnList.map((item) => {
       return {
         ...item,
-        bool: id === item.id ? !item.bool : false,
+        bool: id === item.id ? true : false,
       };
     });
 
     setBtnList(newList);
     const activeIndex = newList.findIndex((item) => item.bool);
-    setIndexComp(activeIndex);
   };
 
   return (
@@ -48,16 +59,11 @@ export default function MainPage() {
             <img src={onOffIcon} alt="On/Off Icon" />
           </div>
           <div className="table_container">
-            <div className="create_isk_btn">
-              <button onClick={() => navigate('/plaintiff')}>
-                + Создать черновой иск
-              </button>
-            </div>
             <ul className="tabs_ul">
               {btnList?.map((btn) => (
                 <li key={btn.id}>
                   <button
-                    className={btn?.bool ? 'activeBtn' : 'disableBtn'}
+                    className={btn?.bool ? "activeBtns" : ""}
                     onClick={() => clickBtn(btn.id)}
                   >
                     {btn.name}
@@ -65,7 +71,7 @@ export default function MainPage() {
                 </li>
               ))}
             </ul>
-            <>{btnList?.[indexComp]?.components}</>
+            <TableLawsuit />
           </div>
           <div className="footer_block">
             <span>Администратор 4/-270.00</span>
