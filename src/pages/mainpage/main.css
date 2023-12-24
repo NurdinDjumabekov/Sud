@@ -81,19 +81,20 @@
 .tabs_ul {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   margin: 10px auto;
-  > li:nth-child(1){
+  > li:nth-child(1) {
     > button {
-      width: 97px !important;
+      width: 103px !important;
     }
   }
   > li {
     button {
       padding: 5px 10px;
       border-radius: 8px;
-      background: #9a9a9a;
+      background: #555;
       color: white;
+      font-weight: 600;
     }
   }
 }

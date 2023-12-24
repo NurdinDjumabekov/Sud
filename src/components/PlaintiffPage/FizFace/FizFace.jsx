@@ -2,21 +2,25 @@ import React from 'react';
 import './FizFace.scss';
 import Selects from '../../Selects/Selects';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeInput } from '../../../store/reducers/inputSlice';
+import { changeADFF } from '../../../store/reducers/inputSlice';
+import { selectArr } from '../../../helpers/dataArr';
 
 const FizFace = ({ typerole }) => {
+  const dispatch = useDispatch();
   const [inputData, setInputData] = React.useState({});
   const [type, setType] = React.useState('');
   const sendData = () => {};
 
-  const selectArr = [
-    { id: 0, name: 'Мужской' },
-    { id: 1, name: 'Женский' },
-  ];
+  const { adff } = useSelector((state) => state.inputSlice);
 
-  const dispatch = useDispatch();
-  const { input } = useSelector((state) => state.inputSlice);
-  console.log(input, 'input');
+  const changeInput = (e) => {
+    e.preventDefault();
+    dispatch(changeADFF({ ...adff, [e.target.name]: e.target.value }));
+  };
+
+  React.useEffect(() => {
+    dispatch(changeADFF({ ...adff, sex: type }));
+  }, [type]);
 
   return (
     <div className="addPlaintiff">
@@ -25,8 +29,9 @@ const FizFace = ({ typerole }) => {
         <input
           type="text"
           placeholder="ФИО"
-          onChange={(e) => dispatch(changeInput(e.target.value))}
-          value={input}
+          name="name"
+          onChange={changeInput}
+          value={adff.name}
         />
         <div className="date">
           <Selects
@@ -35,7 +40,14 @@ const FizFace = ({ typerole }) => {
             choice={type}
             initText={'Пол *'}
           />
-          <input type="date" placeholder="дата" className="inputDate" />
+
+          <input
+            type="date"
+            placeholder="дата"
+            className="inputDate"
+            name="dob"
+            onChange={changeInput}
+          />
 
           <div className="inputsCheckbox">
             <input

@@ -2,7 +2,7 @@ import React from 'react';
 import './UrFace.scss';
 import Selects from '../../Selects/Selects';
 
-const UrFace = () => {
+const UrFace = ({ typerole }) => {
   const [type, setType] = React.useState('');
   const selectArr = [
     { id: 0, name: 'Мужской' },

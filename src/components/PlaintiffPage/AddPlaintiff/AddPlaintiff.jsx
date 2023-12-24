@@ -45,7 +45,11 @@ const AddPlaintiff = ({ typerole }) => {
           </button>
         ))}
       </div>
-      {lookType === 1 ? <FizFace typerole={typerole} /> : <UrFace />}
+      {lookType === 1 ? (
+        <FizFace typerole={typerole} />
+      ) : (
+        <UrFace typerole={typerole} />
+      )}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import './AddRepresentative.scss';
 import Selects from '../../Selects/Selects';
 
-const AddRepresentative = () => {
+const AddRepresentative = ({ typerole }) => {
   const [inputData, setInputData] = React.useState({});
   const [type, setType] = React.useState('');
   const sendData = () => {};

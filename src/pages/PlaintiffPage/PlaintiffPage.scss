@@ -1,7 +1,7 @@
 .plaintiff {
   padding: 20px;
   background: #f7f7f7;
-  min-width: 100%;
+  max-width: 2400px;
   margin: 0 auto;
   // background: red;
   position: relative;
@@ -39,6 +39,14 @@
       }
       button:hover {
         background-color: rgb(18, 15, 15);
+      }
+      .btnResult {
+        // width: 300px;
+        width: 210px;
+        display: none;
+        @media screen and (max-width: 1530px) {
+          display: block;
+        }
       }
     }
   }

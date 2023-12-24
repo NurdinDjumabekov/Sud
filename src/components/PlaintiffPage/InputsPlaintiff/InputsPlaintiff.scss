@@ -33,9 +33,14 @@
 .plantiffBlockMain {
   display: flex;
   justify-content: center;
+
   gap: 20px;
   // align-items: center;
   width: 100%;
   // padding: 100px 0px;
   // background: red;
+  @media screen and (max-width: 1730px) {
+    // flex-direction: column;
+    // justify-content: start;
+  }
 }

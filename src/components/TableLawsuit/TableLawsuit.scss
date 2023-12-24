@@ -1,12 +1,6 @@
 table {
   table-layout: fixed;
   border-collapse: collapse;
-  width: 100%;
-}
-
-ul,
-li {
-  list-style: none;
 }
 
 .create_isk_btn {
@@ -31,7 +25,7 @@ li {
 }
 
 .table_isk {
-  width: 100%;
+  width: 100% !important;
   display: table;
 }
 
@@ -39,15 +33,34 @@ li {
   box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.5);
   position: relative;
   border: 1px solid #d2d1d1;
+  height: 92vh;
+  overflow: scroll;
 }
 
+/// убмраю полосу прокрутки
+.main_tabla_isk::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.main_tabla_isk::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.main_tabla_isk::-webkit-scrollbar-thumb {
+  background-color: #888;
+  outline: 1px solid slategrey;
+}
+//////////////////////////////
+
 .table_isk thead {
-  height: 40px;
-  /* background-color: rgb(210, 209, 209); */
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .table_isk tr {
-  height: 40px;
+  height: 60px;
   border-bottom: 1px solid rgb(221, 221, 221);
   cursor: pointer;
 }
@@ -55,19 +68,19 @@ li {
 .table_isk td {
   font-size: 12px;
   font-weight: 500;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
+  background: rgb(242, 243, 242) !important;
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
 .table_isk th {
   font-size: 13px;
   font-weight: 500;
   text-align: center;
-}
-
-.user_icon_isk {
-  width: 0.8rem;
-  height: 0.8rem;
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
 .span_teble {
@@ -75,15 +88,13 @@ li {
 }
 
 .table_isk_td:nth-child(1) div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* background: red; */
-  /* width: 70px; */
+  white-space: wrap !important;
+}
+.table_isk_td:nth-child(1) div > span {
+  display: block;
 }
 
 .table_isk_td:nth-child(2) span {
-  /* background-color: #B7FEAB; */
   font-size: 12px;
   padding: 2px 5px;
   border-radius: 12px;
@@ -91,11 +102,9 @@ li {
   justify-content: center;
   align-items: center;
   gap: 2px;
-  width: 95%;
 }
 
 .table_isk_td:nth-child(3) span {
-  /* background-color: #C2EBF8; */
   font-size: 12px;
   padding: 2px 5px;
   border-radius: 12px;
@@ -103,11 +112,9 @@ li {
   justify-content: center;
   align-items: center;
   gap: 2px;
-  width: 95%;
 }
 
 .table_isk_td:nth-child(6) span {
-  /* background-color: #FF9797; */
   font-size: 12px;
   padding: 2px 5px;
   border-radius: 12px;
@@ -115,11 +122,9 @@ li {
   justify-content: center;
   align-items: center;
   gap: 2px;
-  width: 95%;
 }
 
 .table_isk_td:nth-child(7) span {
-  /* background-color: #87c1fa; */
   font-size: 12px;
   padding: 2px 5px;
   border-radius: 12px;
@@ -127,11 +132,9 @@ li {
   justify-content: center;
   align-items: center;
   gap: 2px;
-  width: 90%;
 }
 
 .table_isk_td:nth-child(8) span {
-  /* background-color: #f8c28b; */
   font-size: 12px;
   padding: 2px 5px;
   border-radius: 12px;
@@ -162,7 +165,7 @@ li {
 
 .table_isk_td:nth-child(1),
 .table_isk_th:nth-child(1) {
-  width: 50px;
+  width: 100px;
 }
 
 .table_isk_td:nth-child(2),
@@ -177,12 +180,12 @@ li {
 
 .table_isk_td:nth-child(4),
 .table_isk_th:nth-child(4) {
-  width: 120px;
+  width: 150px;
 }
 
 .table_isk_td:nth-child(5),
 .table_isk_th:nth-child(5) {
-  width: 80px;
+  width: 100px;
 }
 
 .table_isk_td:nth-child(6),
@@ -197,7 +200,7 @@ li {
 
 .table_isk_td:nth-child(8),
 .table_isk_th:nth-child(8) {
-  width: 140px;
+  width: 180px;
 }
 
 .table_isk_td:nth-child(9),
@@ -252,16 +255,27 @@ li {
   /* align-items: center; */
   gap: 10px;
 }
+
 .mainTable__inner {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: relative;
+
   > button {
-    padding: 20px 5px;
+    padding: 20px 8px;
     border-radius: 8px;
     line-height: 18px;
     font-size: 14px;
-    background: #9a9a9a;
+    background: #555;
     color: #fff;
+  }
+}
+
+.documentBlock {
+  > img {
+    display: block;
+    width: 20px;
+    height: 20px;
   }
 }

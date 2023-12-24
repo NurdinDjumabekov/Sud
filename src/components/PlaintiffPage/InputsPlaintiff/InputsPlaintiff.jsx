@@ -1,82 +1,91 @@
-import React, { useState } from "react";
-import "./InputsPlaintiff.scss";
-import FillingPlaintiff from "../FillingPlaintiff/FillingPlaintiff";
-import TargetPlaintiff from "../TargetPlaintiff/TargetPlaintiff";
-import DescriptionClaim from "../DescriptionClaim/DescriptionClaim";
-import MotivationClaim from "../MotivationClaim/MotivationClaim";
-import Justification from "../Justification/Justification";
-import FinancialResult from "../FinancialResult/FinancialResult";
-import GeneralInfo from "../GeneralInfo/GeneralInfo";
-import LinksLaw from "../LinksLaw/LinksLaw";
-import ClaimRequaire from "../ClaimRequaire/ClaimRequaire";
-import ApplicationFiles from "../ApplicationFiles/ApplicationFiles";
-import PdfFile from "../../PdfFile/PdfFile";
+import React, { useState } from 'react';
+import './InputsPlaintiff.scss';
+import FillingPlaintiff from '../FillingPlaintiff/FillingPlaintiff';
+import TargetPlaintiff from '../TargetPlaintiff/TargetPlaintiff';
+import DescriptionClaim from '../DescriptionClaim/DescriptionClaim';
+import MotivationClaim from '../MotivationClaim/MotivationClaim';
+import Justification from '../Justification/Justification';
+import FinancialResult from '../FinancialResult/FinancialResult';
+import GeneralInfo from '../GeneralInfo/GeneralInfo';
+import LinksLaw from '../LinksLaw/LinksLaw';
+import ClaimRequaire from '../ClaimRequaire/ClaimRequaire';
+import ApplicationFiles from '../ApplicationFiles/ApplicationFiles';
+import PdfFile from '../../PdfFile/PdfFile';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeLookPDF } from '../../../store/reducers/stateSlice';
+import Modals from '../../Modals/Modals';
 
 const InputsPlaintiff = () => {
+  const dispatch = useDispatch();
+  const [indexComp, setIndexComp] = useState(0);
+  const [pdfScreen, setPdfScreen] = useState(false);
+
+  const { lookPdf } = useSelector((state) => state.stateSlice);
+
   const [btnList, setBtnList] = useState([
     {
       id: 1,
-      name: "Истец",
+      name: 'Истец',
       bool: true,
-      components: <FillingPlaintiff typerole={"истца"} />,
+      components: <FillingPlaintiff typerole={'истца'} />,
     },
     {
       id: 2,
-      name: "Ответчик",
+      name: 'Ответчик',
       bool: false,
-      components: <FillingPlaintiff typerole={"Ответчика"} />,
+      components: <FillingPlaintiff typerole={'Ответчика'} />,
     },
     {
       id: 3,
-      name: "Цена иска",
+      name: 'Цена иска',
       bool: false,
       components: <TargetPlaintiff />,
     },
     {
       id: 4,
-      name: "Описание",
+      name: 'Описание',
       bool: false,
       components: <DescriptionClaim />,
     },
     {
       id: 5,
-      name: "Мотивационная часть",
+      name: 'Мотивационная часть',
       bool: false,
       components: <MotivationClaim />,
     },
     {
       id: 6,
-      name: "Обоснование",
+      name: 'Обоснование',
       bool: false,
       components: <Justification />,
     },
     {
       id: 7,
-      name: "Финансовый расчет",
+      name: 'Финансовый расчет',
       bool: false,
       components: <FinancialResult />,
     },
     {
       id: 8,
-      name: "Общая информация",
+      name: 'Общая информация',
       bool: false,
       components: <GeneralInfo />,
     },
     {
       id: 9,
-      name: "Ссылка на законы",
+      name: 'Ссылка на законы',
       bool: false,
       components: <LinksLaw />,
     },
     {
       id: 10,
-      name: "Исковые требования",
+      name: 'Исковые требования',
       bool: false,
       components: <ClaimRequaire />,
     },
     {
       id: 11,
-      name: "Приложения",
+      name: 'Приложения',
       bool: false,
       components: <ApplicationFiles />,
     },
@@ -86,8 +95,6 @@ const InputsPlaintiff = () => {
     //   bool: false,
     // },
   ]);
-
-  const [indexComp, setIndexComp] = useState(0);
 
   const clickBtn = (id) => {
     const newList = btnList.map((item) => {
@@ -102,13 +109,31 @@ const InputsPlaintiff = () => {
     setIndexComp(activeIndex);
   };
 
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 1530) {
+        setPdfScreen(false);
+      } else {
+        setPdfScreen(true);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div className="plaintiffData">
       <ul className="plaintiffData__list">
         {btnList?.map((btn) => (
           <li key={btn.id}>
             <button
-              className={btn?.bool ? "activeBtns" : ""}
+              className={btn?.bool ? 'activeBtns' : ''}
               onClick={() => clickBtn(btn.id)}
             >
               {btn.name}
@@ -120,8 +145,14 @@ const InputsPlaintiff = () => {
         <React.Fragment key={indexComp}>
           {btnList?.[indexComp]?.components}
         </React.Fragment>
-        <PdfFile />
+        {pdfScreen && <PdfFile />}
       </div>
+      <Modals
+        openModal={lookPdf}
+        setOpenModal={() => dispatch(changeLookPDF())}
+      >
+        <PdfFile modal={true} />
+      </Modals>
     </div>
   );
 };
