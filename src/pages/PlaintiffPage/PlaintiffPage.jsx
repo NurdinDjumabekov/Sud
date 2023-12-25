@@ -14,13 +14,13 @@ const PlaintiffPage = () => {
 
   return (
     <div className="plaintiff">
-      <button onClick={() => navigate('/main')} className="prevBtn">
+      <button onClick={() => navigate('/mainPlaintiff')} className="prevBtn">
         <img src={krestik} alt="x" />
       </button>
       <h1>Подача искового заявления</h1>
       <div className="plaintiff__type">
         <div>
-          <button onClick={() => navigate('/main')}>Назад</button>
+          <button onClick={() => navigate('/mainPlaintiff')}>Назад</button>
           <button onClick={() => setTypePlantiff(false)}>Иск</button>
           <button onClick={() => setTypePlantiff(true)}>ChatGPT</button>
           <button

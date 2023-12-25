@@ -1,0 +1,16 @@
+.notification {
+  width: 100%;
+  //   background: red;
+  padding: 5px 10px;
+  height: 98vh;
+  p {
+    font-size: 25px;
+  }
+  > div {
+    height: 97vh !important;
+    .table_isk_td:nth-child(1),
+    .table_isk_th:nth-child(1) {
+      width: 35px;
+    }
+  }
+}

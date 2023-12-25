@@ -50,10 +50,6 @@ export default function MainPage() {
   return (
     <div className="main">
       <div className="nav_footer">
-        {/* <div className="nav">
-            <span>Алтынай</span>
-            <img src={onOffIcon} alt="On/Off Icon" />
-          </div> */}
         <div className="table_container">
           <ul className="tabs_ul">
             {btnList?.map((btn) => (
@@ -69,9 +65,6 @@ export default function MainPage() {
           </ul>
           <TableLawsuit />
         </div>
-        {/* <div className="footer_block">
-            <span>Администратор 4/-270.00</span>
-          </div> */}
       </div>
     </div>
   );

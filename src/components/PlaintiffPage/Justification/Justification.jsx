@@ -7,7 +7,7 @@ const Justification = () => {
       <div className="descriptionClaim">
         <ExampleBlock
           text={'Пример названия и описания иска должен быть таким-то'}
-          typeText={'Пример названия и описания иска'}
+          typeText={'Пример обоснования'}
         />
         <form>
           <div>

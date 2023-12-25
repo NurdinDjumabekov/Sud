@@ -41,6 +41,7 @@ const PdfFile = ({ modal, typerole }) => {
       </div>
     </div>
   `;
+  
   return (
     <div className="pdfFile">
       <Editor

@@ -1,0 +1,24 @@
+.plaintiffBlock {
+  display: flex;
+  gap: 5px;
+  max-width: 2800px;
+  margin: 0 auto;
+  padding: 0 0 40px 0;
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    padding: 12px 0px 20px 10px;
+
+    > button {
+      padding: 20px 8px;
+      border-radius: 8px;
+      width: 105px;
+      line-height: 18px;
+      font-size: 14px;
+      background: #555;
+      color: #fff;
+    }
+  }
+}

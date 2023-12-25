@@ -17,6 +17,7 @@
     "html2pdf.js": "^0.10.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
+    "react-calendar": "^4.7.0",
     "react-data-grid": "^7.0.0-beta.41",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
