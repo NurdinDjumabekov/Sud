@@ -3,19 +3,18 @@ import './PdfFile.scss';
 import pdf from '../../asstes/pdf/sud_pdf.pdf';
 import { Editor } from '@tinymce/tinymce-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeInput } from '../../store/reducers/inputSlice';
 
-const PdfFile = ({ modal }) => {
+const PdfFile = ({ modal, typerole }) => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
 
   const handleEditorChange = (content, editor) => {
     // console.log('Content was updated:', content);
-    // dispatch(changeInput(content)); // Dispatch the action with the updated content
   };
 
   const { adff } = useSelector((state) => state.inputSlice);
-  console.log(adff, 'adff');
+  // console.log(adff, 'adff');
+  console.log(typerole, 'typerole');
 
   const initialContent = `
     <div>
@@ -29,6 +28,9 @@ const PdfFile = ({ modal }) => {
           <p style="margin:0px">Международный Третейский суд</p>
           <p style="margin:0px">при Торгово-Промышленной палате</p>
           <p style="margin:0px">Кыргызской Республики</p>
+          <p style="margin:0px">${adff.name !== '' ? `${typerole}: ` : ''} ${adff.name}</p>
+          <p style="margin:0px">${adff.name !== '' ? `Адрес: ` : ''}</p>
+          <p style="margin:0px">${adff.numberPlaintiff !== '' ? `Телефон: ` : ''} ${adff.numberPlaintiff}</p>
         </div>
       </div>
       <div font-weight: 500; font-family: 'Times New Roman', serif; font-size:16px">
@@ -39,7 +41,6 @@ const PdfFile = ({ modal }) => {
       </div>
     </div>
   `;
-
   return (
     <div className="pdfFile">
       <Editor
@@ -48,7 +49,6 @@ const PdfFile = ({ modal }) => {
         init={{
           height: modal ? 660 : 900,
           width: modal ? 800 : '100%',
-          // width: '100%',
           menubar: {
             file: {
               title: 'File',

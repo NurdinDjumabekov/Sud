@@ -127,6 +127,8 @@ const InputsPlaintiff = () => {
     };
   }, []);
 
+  // console.log(indexComp, 'indexComp');
+
   return (
     <div className="plaintiffData">
       <ul className="plaintiffData__list">
@@ -145,13 +147,18 @@ const InputsPlaintiff = () => {
         <React.Fragment key={indexComp}>
           {btnList?.[indexComp]?.components}
         </React.Fragment>
-        {pdfScreen && <PdfFile />}
+        {pdfScreen && (
+          <PdfFile typerole={indexComp === 0 ? 'Истец' : 'Ответчик'} />
+        )}
       </div>
       <Modals
         openModal={lookPdf}
         setOpenModal={() => dispatch(changeLookPDF())}
       >
-        <PdfFile modal={true} />
+        <PdfFile
+          modal={true}
+          typerole={indexComp === 0 ? 'Истец' : 'Ответчик'}
+        />
       </Modals>
     </div>
   );

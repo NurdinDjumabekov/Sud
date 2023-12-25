@@ -100,7 +100,12 @@ const FizFace = ({ typerole }) => {
         </div>
         <div className="twoInputs">
           <input type="text" placeholder="Кем выдан*" />
-          <input type="text" placeholder="Телефон*" />
+          <input
+            type="text"
+            placeholder="Телефон*"
+            name="numberPlaintiff"
+            onChange={changeInput}
+          />
         </div>
         <div className="twoInputs">
           <input type="email" placeholder="Электронная почта" />
