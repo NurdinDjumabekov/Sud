@@ -1,24 +1,66 @@
 .plaintiffBlock {
   display: flex;
-  gap: 5px;
-  max-width: 2800px;
-  margin: 0 auto;
-  padding: 0 0 40px 0;
+  gap: 10px;
+  // max-width: 2800px;
+  // margin: 0 auto;
+  // padding: 0 0 10px 0;
+
   &__inner {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    // justify-content: center;
     gap: 15px;
     position: relative;
-    padding: 12px 0px 20px 10px;
-
+    padding: 0px 20px 80px 20px;
+    background: #fff8ee;
+    min-width: 220px;
+    height: 100vh;
+    box-shadow: 0px 0px 4px 0px rgba(34, 60, 80, 0.5);
+    h1,
+    p {
+      display: inline;
+      font-size: 28px;
+      color: #000;
+      text-align: center;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 30px;
+    }
+    h1 {
+      width: 100%;
+      border-bottom: 1px solid black;
+      padding: 40px 0 10px 0;
+      margin: 0 0 80px 0;
+    }
+    p {
+      color: #fb9a12;
+    }
     > button {
-      padding: 20px 8px;
+      padding: 15px 8px;
       border-radius: 8px;
-      width: 105px;
       line-height: 18px;
       font-size: 14px;
-      background: #555;
-      color: #fff;
+      // background: #c8c4c4;
+      text-align: left;
+      color: #000;
+      font-weight: 600;
+      width: 100%;
+      color: #322f2e;
+      font-family: Roboto;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 20px; /* 133.333% */
+    }
+    .activePage {
+      // background-color: #c47344 !important;
+      // color: #000 !important;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background: #fffaf2;
+      box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.08);
     }
   }
 }

@@ -81,7 +81,6 @@ const NotificationPage = () => {
                   <tr key={index}>
                     <td className="table_isk_td">
                       <div>
-                        <span className="span_teble">{row.number}</span>
                         <span>{row.date}</span>
                       </div>
                     </td>

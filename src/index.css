@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  background-color: #fff8ee;
 }
 
 li {
@@ -20,7 +21,7 @@ button {
   cursor: pointer;
 }
 .mainBlock {
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
   /* background-color: red; */
 }
 

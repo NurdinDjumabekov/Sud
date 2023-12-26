@@ -1,16 +1,21 @@
 .notification {
   width: 100%;
   //   background: red;
-  padding: 5px 10px;
-  height: 98vh;
+  padding: 12px 10px;
+  height: 100vh;
   p {
     font-size: 25px;
   }
   > div {
-    height: 97vh !important;
+    height: 98vh !important;
     .table_isk_td:nth-child(1),
     .table_isk_th:nth-child(1) {
-      width: 35px;
+      min-width: 25px;
+      max-width: 35px;
+      @media screen and (max-width: 1110px) {
+        min-width: 50px;
+        max-width: 65px;
+      }
     }
   }
 }

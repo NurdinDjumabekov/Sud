@@ -30,7 +30,7 @@ const AddPlaintiff = ({ typerole }) => {
   };
 
   return (
-    <div>
+    <div className='addPlaintiff'>
       <div className="blockfaceMan">
         {btnList?.map((item) => (
           <button

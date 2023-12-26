@@ -23,7 +23,7 @@ const FizFace = ({ typerole }) => {
   }, [type]);
 
   return (
-    <div className="addPlaintiff">
+    <div className="addPlaintiffFiz">
       <h3>{typerole === 'истца' ? 'Истец' : 'Ответчик'}</h3>
       <form onSubmit={sendData}>
         <input

@@ -33,7 +33,7 @@ table {
   box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.5);
   position: relative;
   border: 1px solid #d2d1d1;
-  height: 94vh;
+  height: 92vh;
   overflow: scroll;
 }
 
@@ -70,7 +70,8 @@ table {
   font-weight: 500;
   text-align: center;
   cursor: pointer;
-  background: rgb(242, 243, 242) !important;
+  // background: rgb(242, 243, 242) !important;
+  background-color: #fff8ee;
   border: 1px solid #ddd;
   padding: 8px;
 }
@@ -150,8 +151,10 @@ table {
 
 .table_isk th {
   font-weight: 600;
-  color: white;
-  background-color: #555;
+  color: black;
+  // background-color: #fff8ee;
+  // background-color: #55555542;
+  background: #f4f2ef;
 }
 
 .table_isk_td:nth-child(1) {
@@ -207,6 +210,12 @@ table {
 .table_isk_th:nth-child(9) {
   width: 200px;
   border-right: 1px solid rgb(234, 234, 234);
+  span {
+    margin: 5px 0 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .table_scroll {

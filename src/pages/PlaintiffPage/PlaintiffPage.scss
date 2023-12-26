@@ -1,6 +1,6 @@
 .plaintiff {
   padding: 20px;
-  background: #f7f7f7;
+  background: #fff8ee;
   max-width: 2400px;
   margin: 0 auto;
   // background: red;
@@ -8,7 +8,6 @@
   h1 {
     font-size: 25px;
     font-weight: 600;
-    // color: #679dcb;
     font-family: Gilroy;
     margin: 0 0 30px 0;
   }
@@ -25,8 +24,8 @@
       margin: 0 0 10px 0;
       button {
         color: var(--Black, #222);
-        background-color: rgba(16, 15, 15, 0.874);
-        color: #fff;
+        // background-color: rgba(16, 15, 15, 0.874);
+        color: #000;
         padding: 10px 0px;
         width: 100px;
         border-radius: 8px;
@@ -36,9 +35,10 @@
         font-weight: 700;
         line-height: normal;
         transition: 0.5s;
+        box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.5);
       }
       button:hover {
-        background-color: rgb(18, 15, 15);
+        background-color: rgba(18, 15, 15, 0.159);
       }
       .btnResult {
         // width: 300px;

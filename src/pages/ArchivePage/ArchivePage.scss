@@ -1,0 +1,42 @@
+.archivePage {
+  padding: 10px 10px 0 10px;
+  height: 98vh;
+  .searchBlock {
+    padding: 5px 0px 15px 0;
+    display: flex;
+    gap: 20px;
+    input {
+      border: none;
+      box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.5);
+      height: 40px;
+      width: 600px;
+      padding: 2px 10px;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+    > button {
+      margin: 0;
+      width: 80px;
+      height: 40px !important;
+    }
+  }
+  .main_tabla_isk {
+    height: 92vh;
+    .table_isk_td:nth-child(1),
+    .table_isk_th:nth-child(1) {
+      width: 40px;
+    }
+    .table_isk_td:nth-child(2),
+    .table_isk_th:nth-child(2) {
+      width: 60px;
+    }
+    .table_isk_td:nth-child(3),
+    .table_isk_th:nth-child(3) {
+      width: 60px;
+    }
+    .table_isk_td:nth-child(4),
+    .table_isk_th:nth-child(4) {
+      width: 100px;
+    }
+  }
+}

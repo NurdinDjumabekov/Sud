@@ -1,11 +1,9 @@
-// CalendarTodoPage.jsx
-
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-import './CalendarTodoPage.scss';
+import './CalendarMeetings.scss';
 import Modals from '../../components/Modals/Modals';
 
-const CalendarTodoPage = () => {
+const CalendarMeetings = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [textForDate, setTextForDate] = useState({});
   const [inputText, setInputText] = useState('');
@@ -45,7 +43,7 @@ const CalendarTodoPage = () => {
 
   return (
     <div className="CalendarTodoPage">
-      <h6>Календарь дел</h6>
+      <h6>Календарь заседаний</h6>
       <div className="calendar-container">
         <Calendar
           onChange={handleDateChange}
@@ -78,4 +76,4 @@ const CalendarTodoPage = () => {
   );
 };
 
-export default CalendarTodoPage;
+export default CalendarMeetings;

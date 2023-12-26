@@ -1,20 +1,24 @@
-.blockfaceMan {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  display: flex;
-  gap: 10px;
-  > button {
-    display: block;
-    padding: 8px;
-    border-radius: 8px;
-    background-color: rgb(230, 233, 229);
-    font-family: Gilroy;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    margin: 2px 0px;
-    transition: 0.5s;
+.addPlaintiff {
+  .blockfaceMan {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    gap: 10px;
+    background: transparent;
+
+    > button {
+      display: block;
+      padding: 8px;
+      border-radius: 8px;
+      background-color: #fff8ee;
+      font-family: Gilroy;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      margin: 2px 0px;
+      transition: 0.5s;
+    }
   }
 }

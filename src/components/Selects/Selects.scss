@@ -10,7 +10,7 @@
     font-family: 'Poppins', sans-serif;
   }
   .selectBlock {
-    background-color: #fff;
+    // background-color: #fff;
     padding: 0px 5px;
     position: relative;
     border-radius: 5px;
@@ -56,6 +56,8 @@
 
       p {
         color: var(--Gray-Text, #828282);
+        background-color: #fff;
+
         font-family: Gilroy;
         cursor: pointer;
         font-size: 13px;
