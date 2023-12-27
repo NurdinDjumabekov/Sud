@@ -8,18 +8,28 @@
     position: relative;
     width: 600px;
     input {
-      border: none;
-      box-shadow: 0px 0px 2px 0px rgba(34, 60, 80, 0.753);
+      // box-shadow: 0px 0px 2px 0px rgba(34, 60, 80, 0.753);
       height: 40px;
       padding: 2px 140px 2px 10px;
       border-radius: 7px;
       width: 100%;
       font-size: 15px;
       background: #fff;
-      // border: 2px solid #gray;
+      border: 1px solid #000;
+      color: #121111cb;
+      text-align: left;
+      font-family: Roboto;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 20px;
     }
-    input::placeholder{
-      color: #ddd;
+    input::placeholder {
+      color: #121111cb;
+      text-align: left;
+      font-family: Roboto;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 20px;
     }
     > button {
       margin: 0;
@@ -28,14 +38,13 @@
       position: absolute;
       right: 0;
       top: 0;
-      background: #cfe2ff;
+      background: #4650dd;
       color: #fff;
       width: 120px;
       border-radius: 0 5px 5px 0;
       box-shadow: none !important;
       font-size: 22px;
       padding: 0 !important;
-
     }
   }
   .main_tabla_isk {
@@ -55,6 +64,20 @@
     .table_isk_td:nth-child(4),
     .table_isk_th:nth-child(4) {
       width: 100px;
+    }
+    .table_isk_td {
+      font-weight: 400;
+      text-align: left;
+      span {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 18px !important;
+        font-weight: 500;
+        width: 100%;
+        text-align: left;
+      }
     }
   }
 }

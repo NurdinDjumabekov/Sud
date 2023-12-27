@@ -1,3 +1,5 @@
+$widthMenu: 350px;
+
 .plaintiffBlock {
   display: flex;
   gap: 5px;
@@ -11,9 +13,9 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    min-width: 280px;
-    width: 280px;
-    max-width: 280px;
+    min-width: $widthMenu;
+    width: $widthMenu;
+    max-width: $widthMenu;
     height: 100vh;
     box-shadow: 0px 0px 4px 0px rgba(34, 60, 80, 0.5);
     // border: 1px solid rgba(34, 60, 80, 0.5);
@@ -63,7 +65,7 @@
             color: #322f2e;
             text-align: left;
             font-family: Roboto;
-            font-size: 15px;
+            font-size: 20px;
             font-weight: 700;
             line-height: 20px;
             width: 100%;
@@ -73,7 +75,7 @@
               border-radius: 50%;
               display: inline-block;
               border: 1px solid #000;
-              color:#000;
+              color: #000;
               height: 20px;
               min-width: 20px;
               text-align: center;
@@ -86,31 +88,31 @@
               align-items: center;
               font-weight: 500;
               transform: rotate(4deg);
-            }          
+            }
           }
         }
         > img {
           width: 16px;
           height: 16px;
         }
-     }
+      }
     }
     .activePage {
       background-color: #4650dd !important;
       p {
-          color: #fff !important;
+        color: #fff !important;
       }
     }
-    .noActiveInnerBtn{
+    .noActiveInnerBtn {
       transition: 0.5s;
     }
-    .activeInnerBtn{
+    .activeInnerBtn {
       transform: rotate(180deg);
       transition: 0.5s;
     }
     &__pages {
       animation: innerPages 0.5s ease forwards;
-      box-shadow: inset 4px -2px 5px 0 rgba(0,0,0,.075);
+      box-shadow: inset 4px -2px 5px 0 rgba(0, 0, 0, 0.075);
       padding: 0 0 5px 0;
       > li {
         > button {
@@ -120,12 +122,12 @@
           color: #322f2e;
           text-align: left;
           font-family: Roboto;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 600;
           line-height: 20px;
           background: #fff;
         }
-        .activeBtnsPage{
+        .activeBtnsPage {
           background: #7e85e7;
           color: #fff !important;
         }
