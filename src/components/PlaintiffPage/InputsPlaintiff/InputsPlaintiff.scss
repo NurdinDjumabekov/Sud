@@ -7,28 +7,43 @@
     flex-direction: column;
     width: 140px;
     gap: 5px;
+    padding: 5px 0 0 0 ;
     // padding: 18px 0 0 0;
     // background: red;
+    width: 280px;
     li {
+      display: flex;
+      align-items: center;
+      padding: 0 0 0 5px;
+      > img {
+        width: 15px;
+        height: 15px;
+      }
       button {
         // background-color: rgba(128, 128, 128, 0.329);
-        color: #000;
+        color: #748194;
         padding: 10px 8px;
-        width: 120px;
-        border-radius: 8px;
+        // width: 120px;
         font-family: Gilroy;
-        font-size: 14px;
+        font-size: 18px;
         font-style: normal;
         font-weight: 600;
         line-height: normal;
         margin: 2px 0px;
         transition: 0.5s;
-        box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.5);
+        background: transparent !important;
+        // box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.5);
       }
       button:hover {
         background-color: rgba(128, 128, 128, 0.315);
       }
+      
     }
+    .activeBtnsPlaint {
+      > button {
+         color: #4650dd;
+      }
+     }
   }
 }
 .plantiffBlockMain {

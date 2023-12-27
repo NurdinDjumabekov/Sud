@@ -1,3 +1,8 @@
+
+$paddingTableInner: 2px 18px;
+
+
+
 table {
   table-layout: fixed;
   border-collapse: collapse;
@@ -30,33 +35,27 @@ table {
 }
 
 .main_tabla_isk {
-  box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.5);
   position: relative;
-  border: 1px solid #d2d1d1;
-  height: 92vh;
-  overflow: scroll;
+  height: 99vh;
+  overflow-y: scroll;
+  border: 1px solid #4650dd93;
+  border: 1px solid #4650dd28;
+  padding-bottom: 0 !important;
 }
-
-/// убмраю полосу прокрутки
 .main_tabla_isk::-webkit-scrollbar {
-  width: 0.5em;
+  width: 0px
 }
 
-.main_tabla_isk::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.main_tabla_isk::-webkit-scrollbar-thumb {
-  background-color: #888;
-  outline: 1px solid slategrey;
-}
 //////////////////////////////
 
 .table_isk thead {
   height: 60px;
   position: sticky;
-  top: 0;
+  top: -1px;
   z-index: 1;
+  tr {
+      border-top: 2px solid #4650dd42;
+  }
 }
 
 .table_isk tr {
@@ -70,9 +69,9 @@ table {
   font-weight: 500;
   text-align: center;
   cursor: pointer;
-  // background: rgb(242, 243, 242) !important;
-  background-color: #fff8ee;
-  border: 1px solid #ddd;
+  background-color: #fff;
+  border: 1px solid #4650dd42;
+
   padding: 8px;
 }
 
@@ -80,12 +79,12 @@ table {
   font-size: 13px;
   font-weight: 500;
   text-align: center;
-  border: 1px solid #ddd;
+  border: 1px solid #4650dd42;
   padding: 8px;
 }
 
 .span_teble {
-  color: #fb9a12;
+  color: #4650dd;
 }
 
 .table_isk_td:nth-child(1) div {
@@ -93,68 +92,67 @@ table {
 }
 .table_isk_td:nth-child(1) div > span {
   display: block;
+  // background: red;
+  text-align: left !important;
+  padding: 2px 10px;
+
 }
 
 .table_isk_td:nth-child(2) span {
   font-size: 12px;
-  padding: 2px 5px;
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2px;
+  padding: $paddingTableInner;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  text-align: left !important;
 }
 
 .table_isk_td:nth-child(3) span {
   font-size: 12px;
-  padding: 2px 5px;
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2px;
+  padding: $paddingTableInner;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
 }
+
 
 .table_isk_td:nth-child(6) span {
   font-size: 12px;
-  padding: 2px 5px;
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2px;
+  padding: $paddingTableInner;
+  
+  // background: red;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
 }
 
 .table_isk_td:nth-child(7) span {
-  font-size: 12px;
-  padding: 2px 5px;
+  padding: $paddingTableInner;
   border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
 }
 
 .table_isk_td:nth-child(8) span {
-  font-size: 12px;
-  padding: 2px 5px;
+  padding: $paddingTableInner;
   border-radius: 12px;
 }
 
 .table_isk_td:nth-child(9) span {
-  font-size: 12px;
   display: flex;
   justify-content: start;
   align-items: center;
-  gap: 5px;
 }
 
 .table_isk th {
-  font-weight: 600;
-  color: black;
-  // background-color: #fff8ee;
-  // background-color: #55555542;
-  background: #f4f2ef;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.76);
+  font-size: 16px;
+  background: #c4d9f8;
+  color: #fff;
+  text-align: left;
+  padding: 0 25px;
 }
 
 .table_isk_td:nth-child(1) {
@@ -168,7 +166,8 @@ table {
 
 .table_isk_td:nth-child(1),
 .table_isk_th:nth-child(1) {
-  width: 100px;
+  width: 90px;
+  // text-align: center;
 }
 
 .table_isk_td:nth-child(2),
@@ -184,11 +183,15 @@ table {
 .table_isk_td:nth-child(4),
 .table_isk_th:nth-child(4) {
   width: 150px;
+  padding: $paddingTableInner;
+
 }
 
 .table_isk_td:nth-child(5),
 .table_isk_th:nth-child(5) {
   width: 100px;
+  padding: $paddingTableInner;
+
 }
 
 .table_isk_td:nth-child(6),
@@ -198,7 +201,7 @@ table {
 
 .table_isk_td:nth-child(7),
 .table_isk_th:nth-child(7) {
-  width: 100px;
+  width: 140px;
 }
 
 .table_isk_td:nth-child(8),
@@ -210,13 +213,37 @@ table {
 .table_isk_th:nth-child(9) {
   width: 200px;
   border-right: 1px solid rgb(234, 234, 234);
+  padding: $paddingTableInner;
+
   span {
     margin: 5px 0 5px 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    gap: 15px;
+    // align-items: center;
+    img {
+      display: block;
+      width: 20px;
+      height: 20px;
+    }
   }
 }
+.table_isk_td {
+  font-weight: 400;
+  text-align: left;
+  span {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px !important;
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+
+  }
+}
+
 
 .table_scroll {
   max-height: calc(90vh - 120px);

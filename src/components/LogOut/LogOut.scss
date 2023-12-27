@@ -1,12 +1,23 @@
 .logout {
-  position: absolute;
+  // position: absolute;
   bottom: 20px;
   left: 10px;
-  display: block;
   padding: 15px 20px !important;
-  line-height: 18px;
-  font-size: 14px;
-  // background: #555;
-  color: #fff;
-  width: 190px !important;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  > img {
+    width: 24px;
+    height: 24px;
+  }
+  > p {
+    display: block !important;
+    line-height: 19px !important;
+    font-size: 14px !important;
+    color: #000 !important;
+    width: 120px !important;
+    text-align: left !important;
+  }
+  
 }

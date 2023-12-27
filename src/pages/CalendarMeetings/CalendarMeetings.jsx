@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import Calendar from 'react-calendar';
-import './CalendarMeetings.scss';
-import Modals from '../../components/Modals/Modals';
+import React, { useState, useEffect } from "react";
+import Calendar from "react-calendar";
+import "./CalendarMeetings.scss";
+import Modals from "../../components/Modals/Modals";
 
 const CalendarMeetings = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [textForDate, setTextForDate] = useState({});
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMode, setModalMode] = useState('input');
+  const [modalMode, setModalMode] = useState("input");
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    setModalMode(isDateWithText(date) ? 'text' : 'input');
+    setModalMode(isDateWithText(date) ? "text" : "input");
   };
 
   const handleTextChange = (event) => {
@@ -24,12 +24,12 @@ const CalendarMeetings = () => {
       ...textForDate,
       [selectedDate.toISOString()]: inputText,
     });
-    setInputText('');
-    setModalMode('text');
+    setInputText("");
+    setModalMode("text");
   };
 
   const handleCloseModal = () => {
-    setInputText('');
+    setInputText("");
     setIsModalOpen(false);
   };
 
@@ -43,19 +43,19 @@ const CalendarMeetings = () => {
 
   return (
     <div className="CalendarTodoPage">
-      <h6>Календарь заседаний</h6>
+      {/* <h6>Календарь заседаний</h6> */}
       <div className="calendar-container">
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
           tileClassName={({ date }) =>
-            isDateWithText(date) ? 'has-text' : null
+            isDateWithText(date) ? "has-text" : null
           }
           calendarType="US"
         />
 
         <Modals openModal={isModalOpen} setOpenModal={handleCloseModal}>
-          {modalMode === 'input' ? (
+          {modalMode === "input" ? (
             <div>
               <textarea
                 value={inputText}
@@ -64,7 +64,7 @@ const CalendarMeetings = () => {
               />
               <button onClick={handleSaveText}>Сохранить</button>
             </div>
-          ) : modalMode === 'text' ? (
+          ) : modalMode === "text" ? (
             <div className="textResult">
               <strong>Текст для выбранной даты:</strong>
               <p>{textForDate[selectedDate.toISOString()]}</p>

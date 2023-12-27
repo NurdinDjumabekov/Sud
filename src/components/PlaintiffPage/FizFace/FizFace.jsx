@@ -1,14 +1,14 @@
-import React from 'react';
-import './FizFace.scss';
-import Selects from '../../Selects/Selects';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeADFF } from '../../../store/reducers/inputSlice';
-import { selectArr } from '../../../helpers/dataArr';
+import React from "react";
+import "./FizFace.scss";
+import Selects from "../../Selects/Selects";
+import { useDispatch, useSelector } from "react-redux";
+import { changeADFF } from "../../../store/reducers/inputSlice";
+import { selectArr } from "../../../helpers/dataArr";
 
 const FizFace = ({ typerole }) => {
   const dispatch = useDispatch();
   const [inputData, setInputData] = React.useState({});
-  const [type, setType] = React.useState('');
+  const [type, setType] = React.useState("");
   const sendData = () => {};
 
   const { adff } = useSelector((state) => state.inputSlice);
@@ -24,7 +24,7 @@ const FizFace = ({ typerole }) => {
 
   return (
     <div className="addPlaintiffFiz">
-      <h3>{typerole === 'истца' ? 'Истец' : 'Ответчик'}</h3>
+      <h3>{typerole === "истца" ? "Истец" : "Ответчик"}</h3>
       <form onSubmit={sendData}>
         <input
           type="text"
@@ -38,7 +38,7 @@ const FizFace = ({ typerole }) => {
             arr={selectArr}
             change={setType}
             choice={type}
-            initText={'Пол *'}
+            initText={"Пол *"}
           />
 
           <input
@@ -118,19 +118,19 @@ const FizFace = ({ typerole }) => {
               arr={selectArr}
               change={setType}
               choice={type}
-              initText={'Страна *'}
+              initText={"Страна *"}
             />
             <Selects
               arr={selectArr}
               change={setType}
               choice={type}
-              initText={'Область *'}
+              initText={"Область *"}
             />
             <Selects
               arr={selectArr}
               change={setType}
               choice={type}
-              initText={'Район *'}
+              initText={"Район *"}
             />
             <input type="text" placeholder="Город" />
           </div>
@@ -139,7 +139,7 @@ const FizFace = ({ typerole }) => {
               arr={selectArr}
               change={setType}
               choice={type}
-              initText={'Адресный элемент *'}
+              initText={"Адресный элемент *"}
             />
             <input type="text" placeholder="Улица" />
             <input type="text" placeholder="Номер объекта" />

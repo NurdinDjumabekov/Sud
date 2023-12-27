@@ -1,6 +1,7 @@
 .plaintiffBlock {
   display: flex;
-  gap: 10px;
+  gap: 5px;
+  width: 100%;
   // max-width: 2800px;
   // margin: 0 auto;
   // padding: 0 0 10px 0;
@@ -9,14 +10,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    // justify-content: center;
-    gap: 15px;
     position: relative;
-    padding: 0px 20px 80px 20px;
-    background: #fff8ee;
-    min-width: 220px;
+    min-width: 280px;
+    width: 280px;
+    max-width: 280px;
     height: 100vh;
     box-shadow: 0px 0px 4px 0px rgba(34, 60, 80, 0.5);
+    // border: 1px solid rgba(34, 60, 80, 0.5);
     h1,
     p {
       display: inline;
@@ -30,37 +30,117 @@
     }
     h1 {
       width: 100%;
-      border-bottom: 1px solid black;
-      padding: 40px 0 10px 0;
+      border-bottom: 1px solid #4650dd;
+      padding: 40px 0 5px 0;
       margin: 0 0 80px 0;
     }
     p {
-      color: #fb9a12;
+      color: #4650dd;
     }
-    > button {
-      padding: 15px 8px;
-      border-radius: 8px;
-      line-height: 18px;
-      font-size: 14px;
-      // background: #c8c4c4;
+    > div {
+      background: transparent;
       text-align: left;
-      color: #000;
-      font-weight: 600;
       width: 100%;
-      color: #322f2e;
-      font-family: Roboto;
-      font-size: 15px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 20px; /* 133.333% */
+      gap: 5px;
+      > button {
+        padding: 15px 35px 15px 20px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        > div {
+          background: transparent;
+          text-align: left;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          .imgIcon {
+            width: 20px;
+            height: 20px;
+          }
+          > p {
+            color: #322f2e;
+            text-align: left;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 20px;
+            width: 100%;
+            position: relative;
+            > button {
+              background: #fff;
+              border-radius: 50%;
+              display: inline-block;
+              border: 1px solid #000;
+              color:#000;
+              height: 20px;
+              min-width: 20px;
+              text-align: center;
+              font-size: 12px;
+              position: absolute;
+              right: -30px;
+              top: -5px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-weight: 500;
+              transform: rotate(4deg);
+            }          
+          }
+        }
+        > img {
+          width: 16px;
+          height: 16px;
+        }
+     }
     }
     .activePage {
-      // background-color: #c47344 !important;
-      // color: #000 !important;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      background: #fffaf2;
-      box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.08);
+      background-color: #4650dd !important;
+      p {
+          color: #fff !important;
+      }
     }
+    .noActiveInnerBtn{
+      transition: 0.5s;
+    }
+    .activeInnerBtn{
+      transform: rotate(180deg);
+      transition: 0.5s;
+    }
+    &__pages {
+      animation: innerPages 0.5s ease forwards;
+      box-shadow: inset 4px -2px 5px 0 rgba(0,0,0,.075);
+      padding: 0 0 5px 0;
+      > li {
+        > button {
+          text-align: left !important;
+          padding: 10px 8px 10px 20px;
+          width: 100%;
+          color: #322f2e;
+          text-align: left;
+          font-family: Roboto;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 20px;
+          background: #fff;
+        }
+        .activeBtnsPage{
+          background: #7e85e7;
+          color: #fff !important;
+        }
+      }
+    }
+  }
+}
+
+@keyframes innerPages {
+  from {
+    opacity: 0;
+    height: 0;
+  }
+  to {
+    height: 250px;
+    opacity: 1;
   }
 }

@@ -5,7 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  background-color: #fff8ee;
+  
 }
 
 li {
@@ -20,19 +20,16 @@ button {
   border: none;
   cursor: pointer;
 }
-.mainBlock {
-  /* background-color: #f7f7f7; */
-  /* background-color: red; */
-}
+
 
 .activeBtns {
-  background-color: #fb9a12 !important;
-  color: #000 !important;
+  background-color: #4650dd !important;
+  color: #fff !important;
 }
 .plaintiFilling__container {
-  background-color: rgba(128, 128, 128, 0.144);
+  /* background-color: rgba(128, 128, 128, 0.144); */
   border-radius: 10px;
-  padding: 20px;
+  padding: 5px;
   width: 100%;
   min-width: 600px;
   position: relative;

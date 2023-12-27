@@ -48,7 +48,7 @@ const PdfFile = ({ modal, typerole }) => {
         apiKey="frhhgiuyhy64k6q9ojm6xdiqqvkg6ee4yka7yracc74t2i5a"
         initialValue={initialContent}
         init={{
-          height: modal ? 660 : 900,
+          height: modal ? 660 : 800,
           width: modal ? 800 : '100%',
           menubar: {
             file: {

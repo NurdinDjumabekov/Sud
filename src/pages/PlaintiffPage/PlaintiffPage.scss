@@ -1,15 +1,14 @@
 .plaintiff {
   padding: 20px;
-  background: #fff8ee;
   max-width: 2400px;
   margin: 0 auto;
-  // background: red;
   position: relative;
   h1 {
     font-size: 25px;
-    font-weight: 600;
-    font-family: Gilroy;
+    font-weight: 800;
+    font-family: "Poppins",sans-serif;
     margin: 0 0 30px 0;
+    color: rgb(44, 123, 229);
   }
   &__type {
     display: flex;

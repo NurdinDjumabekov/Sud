@@ -15,11 +15,12 @@
           button:nth-child(1):after {
             content: 'Скачать документ';
             position: absolute;
-            background: #fb9a12;
+            background: #4650dd;
             padding: 10px 32px;
             border-radius: 8px;
             font-size: 15px;
             font-weight: 500;
+            color: #fff;
           }
           button:not(:first-child) {
             display: none;
