@@ -54,7 +54,6 @@ const ArchivePage = () => {
             </tr>
           </thead>
           <tbody className="tbody_isk">
-            {/* Используем map для отображения строк */}
             {rowsData.map((row, index) => (
               <tr key={index}>
                 <td className="table_isk_td">
