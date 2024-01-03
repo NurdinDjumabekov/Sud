@@ -112,17 +112,3 @@ export const { changeInput, changeADFF, changeADUF, changeRP } =
 
 export default inputSlice.reducer;
 
-// export const dataDetailedPage = createAsyncThunk(
-//   'dataDetailedPage',
-//   async (info, { dispatch }) => {
-//     dispatch(changePreloader(true));
-//     try {
-//       const { data } = await standartAxios(info?.url, info.lang);
-//       dispatch(changeEveryLang(data));
-//       dispatch(changePreloader(false));
-//     } catch (err) {
-//       console.log(err);
-//       dispatch(changePreloader(false));
-//     }
-//   }
-// );

@@ -9,8 +9,10 @@ import CalendarTodoPage from '../pages/CalendarTodoPage/CalendarTodoPage';
 import CalendarMeetings from '../pages/CalendarMeetings/CalendarMeetings';
 import ArchivePage from '../pages/ArchivePage/ArchivePage';
 import { Preloader } from '../components/Preloader/Preloader';
+import { useSelector } from 'react-redux';
 
 function MainRoutes() {
+  const { preloader } = useSelector((state) => state.requestSlice);
   return (
     <>
       <Routes>
@@ -24,7 +26,7 @@ function MainRoutes() {
         </Route>
         <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
       </Routes>
-      {false && <Preloader />}
+      {preloader && <Preloader />}
     </>
   );
 }
