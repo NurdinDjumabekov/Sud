@@ -44,34 +44,36 @@ const CalendarTodoPage = () => {
   //   }, [modalMode]);
 
   return (
-    <div className="CalendarTodoPage">
-      {/* <h6>Календарь дел</h6> */}
-      <div className="calendar-container">
-        <Calendar
-          onChange={handleDateChange}
-          value={selectedDate}
-          tileClassName={({ date }) =>
-            isDateWithText(date) ? "has-text" : null
-          }
-        />
+    <div className="mainTables">
+      <div className="CalendarTodoPage">
+        {/* <h6>Календарь дел</h6> */}
+        <div className="calendar-container">
+          <Calendar
+            onChange={handleDateChange}
+            value={selectedDate}
+            tileClassName={({ date }) =>
+              isDateWithText(date) ? "has-text" : null
+            }
+          />
 
-        <Modals openModal={isModalOpen} setOpenModal={handleCloseModal}>
-          {modalMode === "input" ? (
-            <div>
-              <textarea
-                value={inputText}
-                onChange={handleTextChange}
-                placeholder="Введите текст"
-              />
-              <button onClick={handleSaveText}>Сохранить</button>
-            </div>
-          ) : modalMode === "text" ? (
-            <div className="textResult">
-              <strong>Текст для выбранной даты:</strong>
-              <p>{textForDate[selectedDate.toISOString()]}</p>
-            </div>
-          ) : null}
-        </Modals>
+          <Modals openModal={isModalOpen} setOpenModal={handleCloseModal}>
+            {modalMode === "input" ? (
+              <div>
+                <textarea
+                  value={inputText}
+                  onChange={handleTextChange}
+                  placeholder="Введите текст"
+                />
+                <button onClick={handleSaveText}>Сохранить</button>
+              </div>
+            ) : modalMode === "text" ? (
+              <div className="textResult">
+                <strong>Текст для выбранной даты:</strong>
+                <p>{textForDate[selectedDate.toISOString()]}</p>
+              </div>
+            ) : null}
+          </Modals>
+        </div>
       </div>
     </div>
   );

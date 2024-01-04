@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import './AddPlaintiff.scss';
-import FizFace from '../FizFace/FizFace';
-import UrFace from '../UrFace/UrFace';
+import React, { useState } from "react";
+import "./AddPlaintiff.scss";
+import FizFace from "../FizFace/FizFace";
+import UrFace from "../UrFace/UrFace";
 
 const AddPlaintiff = ({ typerole }) => {
   const [lookType, setLookType] = useState(1);
   const [btnList, setBtnList] = useState([
     {
       id: 1,
-      name: 'Физическое лицо',
+      name: "Физическое лицо",
       bool: true,
     },
     {
       id: 2,
-      name: 'Юридическое лицо',
+      name: "Юридическое лицо",
       bool: false,
     },
   ]);
@@ -30,8 +30,9 @@ const AddPlaintiff = ({ typerole }) => {
   };
 
   return (
-    <div className='addPlaintiff'>
-      <div className="blockfaceMan">
+    <div className="addPlaintiff">
+      {/* <h4>Истец</h4> */}
+      {/* <div className="blockfaceMan">
         {btnList?.map((item) => (
           <button
             className={item?.bool ? 'activeBtns' : ''}
@@ -44,7 +45,7 @@ const AddPlaintiff = ({ typerole }) => {
             {item.name}
           </button>
         ))}
-      </div>
+      </div> */}
       {lookType === 1 ? (
         <FizFace typerole={typerole} />
       ) : (

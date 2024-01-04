@@ -4,9 +4,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-  
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
 }
+.mainBlock,html {
+  background: #f9fafd;
+}
+
 
 li {
   list-style: none;

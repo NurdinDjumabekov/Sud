@@ -7,6 +7,7 @@ import { Table } from '../Table/Table';
 
 export default function TableLawsuit() {
   const navigate = useNavigate();
+  /// delete
   return (
     <div className="mainTable">
       <Table />

@@ -33,7 +33,7 @@ const FizFace = ({ typerole }) => {
           onChange={changeInput}
           value={adff.name}
         />
-        <div className="date">
+        {/* <div className="date">
           <Selects
             arr={selectArr}
             change={setType}
@@ -150,7 +150,7 @@ const FizFace = ({ typerole }) => {
             <input type="text" placeholder="Почтовый индекс" />
             <input type="text" placeholder="Описание" />
           </div>
-        </div>
+        </div> */}
         <button className="saveBtn">Сохранить</button>
       </form>
     </div>

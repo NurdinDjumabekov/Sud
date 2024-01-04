@@ -1,277 +1,363 @@
 $paddingTableInner: 2px 18px;
 
-table {
-  table-layout: fixed;
-  border-collapse: collapse;
-}
+// #344050
+// #f9fafd
+.mainTables {
+  height: 93vh;
+  // background: red;
+  padding: 20px;
+  width: 100%;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
 
-.create_isk_btn {
-  margin: 10px auto;
-}
-
-.create_isk_btn button {
-  display: block;
-  padding: 8px 15px;
-  border-radius: 5px;
-  background: #fb9a12;
-  font-family: Gilroy;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  transition: 0.5s;
-}
-
-.table_block {
-  border-radius: 60px;
-}
-
-.table_isk {
-  width: 100% !important;
-  display: table;
-}
-
-.main_tabla_isk {
-  position: relative;
-  height: 99vh;
-  overflow-y: scroll;
-  border: 1px solid #4650dd93;
-  border: 1px solid #4650dd28;
-  padding-bottom: 0 !important;
-}
-.main_tabla_isk::-webkit-scrollbar {
-  width: 0px;
-}
-
-//////////////////////////////
-
-.table_isk thead {
-  height: 60px;
-  position: sticky;
-  top: -1px;
-  z-index: 1;
-  tr {
-    border-top: 2px solid #4650dd42;
+  .choice__plaintiff {
+    display: inline-flex;
+    align-items: center;
+    background: red;
+    height: 40px;
+    margin: 0 0 20px 0;
+    background: #f9fafd;
+    border-radius: 5px;
+    border: 1px solid #edf2f9;
+    li {
+      // background: red;
+      button {
+        color:#4d5969;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: 'Montserrat', sans-serif;
+        background: #f9fafd;
+        margin: 0 15px;
+        // background: red;
+        height: 40px;
+        transition: 0.2s;
+      }
+      .activeBtnsPlaintiff {
+        color: #4d5969;
+        box-shadow:  0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);;
+        border-radius: 5px;
+        margin: 0 !important;  
+        height: 37px;
+        padding: 0 15px;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: 'Montserrat', sans-serif;
+        background: #fff;
+      }
+    }
+    // &::-webkit-scrollbar {
+    //   width: 0px;
+    // }
   }
-}
 
-.table_isk tr {
-  height: 60px;
-  border-bottom: 1px solid rgb(221, 221, 221);
-  cursor: pointer;
-}
 
-.table_isk td {
-  font-size: 12px;
-  font-weight: 500;
-  text-align: center;
-  cursor: pointer;
-  background-color: #fff;
-  border: 1px solid #4650dd42;
+  .main_tabla_isk {
+    position: relative;
+    // height: 99vh;
+    // height: 500px;
+    // width: 95%;
+    overflow-y: scroll;
+    border: 1px solid rgb( 237, 242, 249);
+    padding-bottom: 0 !important;
+    height: 93%;
+    table {
+      // table-layout: fixed;
+      border-collapse: collapse;
+      border-radius: 8px;
+    }
 
-  padding: 8px;
-}
+    .create_isk_btn {
+      margin: 10px auto;
+    }
 
-.table_isk th {
-  font-size: 13px;
-  font-weight: 500;
-  text-align: center;
-  border: 1px solid #4650dd81;
-  padding: 8px;
-}
-
-.span_teble {
-  color: #4650dd;
-}
-
-.table_isk_td:nth-child(1) div {
-  white-space: wrap !important;
-}
-.table_isk_td:nth-child(1) div > span {
-  display: block;
-  // background: red;
-  text-align: left !important;
-  padding: 2px 10px;
-}
-
-.table_isk_td:nth-child(2) span {
-  font-size: 12px;
-  padding: $paddingTableInner;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  text-align: left !important;
-}
-
-.table_isk_td:nth-child(3) span {
-  font-size: 12px;
-  padding: $paddingTableInner;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-}
-
-.table_isk_td:nth-child(6) span {
-  font-size: 12px;
-  padding: $paddingTableInner;
-
-  // background: red;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-}
-
-.table_isk_td:nth-child(7) span {
-  padding: $paddingTableInner;
-  border-radius: 12px;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-}
-
-.table_isk_td:nth-child(8) span {
-  padding: $paddingTableInner;
-  border-radius: 12px;
-}
-
-.table_isk_td:nth-child(9) span {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-}
-
-.table_isk th {
-  font-weight: 700;
-  color: rgba(0, 0, 0, 0.76);
-  font-size: 16px;
-  background: #c4d9f8;
-  color: #fff;
-  text-align: left;
-  padding: 0 25px;
-}
-
-.table_isk_td:nth-child(1) {
-  padding-left: 5px;
-  white-space: nowrap;
-}
-
-.tbody_isk tr:nth-child(even) {
-  background-color: #ededed;
-}
-
-.table_isk_td:nth-child(1),
-.table_isk_th:nth-child(1) {
-  width: 90px;
-  // text-align: center;
-}
-
-.table_isk_td:nth-child(2),
-.table_isk_th:nth-child(2) {
-  width: 220px;
-}
-
-.table_isk_td:nth-child(3),
-.table_isk_th:nth-child(3) {
-  width: 210px;
-}
-
-.table_isk_td:nth-child(4),
-.table_isk_th:nth-child(4) {
-  width: 150px;
-  padding: $paddingTableInner;
-}
-
-.table_isk_td:nth-child(5),
-.table_isk_th:nth-child(5) {
-  width: 100px;
-  padding: $paddingTableInner;
-}
-
-.table_isk_td:nth-child(6),
-.table_isk_th:nth-child(6) {
-  width: 12.67rem;
-}
-
-.table_isk_td:nth-child(7),
-.table_isk_th:nth-child(7) {
-  width: 140px;
-}
-
-.table_isk_td:nth-child(8),
-.table_isk_th:nth-child(8) {
-  width: 180px;
-}
-
-.table_isk_td:nth-child(9),
-.table_isk_th:nth-child(9) {
-  width: 200px;
-  border-right: 1px solid rgb(234, 234, 234);
-  padding: $paddingTableInner;
-
-  span {
-    margin: 5px 0 5px 0;
-    display: flex;
-    // justify-content: center;
-    gap: 15px;
-    // align-items: center;
-    img {
+    .create_isk_btn button {
       display: block;
-      width: 20px;
-      height: 20px;
+      padding: 8px 15px;
+      border-radius: 5px;
+      background: #fb9a12;
+      font-family: Gilroy;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      transition: 0.5s;
+    }
+
+    .table_block {
+      border-radius: 60px;
+    }
+
+    .table_isk {
+      width: 100% !important;
+      display: table;
+    }
+
+  
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+
+    //////////////////////////////
+
+    .table_isk thead {
+      height: 60px;
+      // position: sticky;
+      top: -1px;
+      z-index: 1;
+      border: 1px solid rgb( 237, 242, 249);
+    
+      // > tr {
+      //   border-bottom: 1px solid rgb(221, 221, 221);
+      // }
+    }
+
+    .table_isk tr {
+      height: 60px;
+      cursor: pointer;
+      // background: red;
+    }
+
+    .table_isk td {
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid rgb( 237, 242, 249);
+      padding: 8px;
+      position: relative;
+      .innerTable {
+        display: flex;
+        flex-direction: column;
+        max-height: 350px;
+        // background: red;
+        .table_isk_td__inner {
+          margin: 0 0 5px 0;
+        }
+      //   position: absolute;
+      //   left: 0;
+      //   top: 0;
+      //   min-height: 450px !important;
+      //   width: 150px;
+      //   display: flex;
+      //   flex-direction: column;
+      }
+    }
+
+    .table_isk th {
+      font-size: 13px;
+      font-weight: 500;
+      text-align: center;
+      // border: 1px solid #4650dd81;
+      padding: 8px;
+    }
+
+    // .span_teble {
+    //   color: #4650dd;
+    // }
+
+    .table_isk_td:nth-child(1) div {
+      white-space: wrap !important;
+    }
+    .table_isk_td:nth-child(1) div > span {
+      display: block;
+      // background: red;
+      text-align: left !important;
+      padding: 2px 10px;
+    }
+
+    .table_isk_td:nth-child(2) span {
+      font-size: 12px;
+      padding: $paddingTableInner;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+      text-align: left !important;
+    }
+
+    .table_isk_td:nth-child(3) span {
+      font-size: 12px;
+      padding: $paddingTableInner;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+    }
+
+    .table_isk_td:nth-child(6) span {
+      font-size: 12px;
+      padding: $paddingTableInner;
+
+      // background: red;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+    }
+
+    .table_isk_td:nth-child(7) span {
+      padding: $paddingTableInner;
+      border-radius: 12px;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+    }
+
+    .table_isk_td:nth-child(8) span {
+      padding: $paddingTableInner;
+      border-radius: 12px;
+    }
+
+    .table_isk_td:nth-child(9) span {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+    }
+
+    .table_isk th {
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.76);
+      font-size: 14px;
+      background: #c4d9f8;
+      background: rgb( 237, 242, 249);
+      color: #fff;
+      text-align: left;
+      padding: 0 25px;
+      color: #344050;
+    }
+
+    .table_isk_td:nth-child(1) {
+      padding-left: 5px;
+      white-space: nowrap;
+    }
+
+    // .tbody_isk tr:nth-child(even) {
+    //   background-color: #ededed;
+    // }
+
+    .table_isk_td:nth-child(1),
+    .table_isk_th:nth-child(1) {
+      width: 90px;
+      // text-align: center;
+    }
+
+    .table_isk_td:nth-child(2),
+    .table_isk_th:nth-child(2) {
+      width: 220px;
+    }
+
+    .table_isk_td:nth-child(3),
+    .table_isk_th:nth-child(3) {
+      width: 210px;
+    }
+
+    .table_isk_td:nth-child(4),
+    .table_isk_th:nth-child(4) {
+      width: 150px;
+      padding: $paddingTableInner;
+    }
+
+    .table_isk_td:nth-child(5),
+    .table_isk_th:nth-child(5) {
+      width: 100px;
+      padding: $paddingTableInner;
+    }
+
+    .table_isk_td:nth-child(6),
+    .table_isk_th:nth-child(6) {
+      width: 12.67rem;
+    }
+
+    .table_isk_td:nth-child(7),
+    .table_isk_th:nth-child(7) {
+      width: 140px;
+    }
+
+    .table_isk_td:nth-child(8),
+    .table_isk_th:nth-child(8) {
+      width: 180px;
+    }
+
+    .table_isk_td:nth-child(9),
+    .table_isk_th:nth-child(9) {
+      width: 200px;
+      border-right: 1px solid rgb(234, 234, 234);
+      padding: $paddingTableInner;
+      span {
+        margin: 5px 0 5px 0;
+        display: flex;
+        // justify-content: center;
+        gap: 8px;
+        // align-items: center;
+        img {
+          display: block;
+          min-width: 20px !important;
+          height: 20px !important;
+        }
+        p {
+          color:#4d5969;
+          font-size: 14px;
+          font-weight: 500;
+          font-family: 'Montserrat', sans-serif;
+          background: #f9fafd;
+          background: transparent;
+        }
+      }
+    }
+    .table_isk_td {
+      font-weight: 400;
+      text-align: left;
+      span {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-align: left;
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px !important;
+        // background: red;
+      }
+    }
+
+    .table_scroll {
+      max-height: calc(90vh - 120px);
+      overflow-x: auto;
+    }
+
+    /* Кастомный скролл */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f100;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: rgb(234, 234, 234);
+    }
+
+    /* Handle on hover */
+    // ::-webkit-scrollbar-thumb:hover {
+    //   background: #555;
+    // }
+
+    .modal_isk_one {
+      position: absolute;
+      top: 0;
+      left: -4.5rem;
+      background-color: white;
+      z-index: 100;
+      width: calc(100% + 4.5rem);
+      height: 100%;
+      padding: 20px;
+    }
+
+    .tbody_isk tr:hover {
+      // background-color: #dcdcdc;
     }
   }
-}
-.table_isk_td {
-  font-weight: 400;
-  text-align: left;
-  span {
-    width: 100%;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 18px !important;
-    font-weight: 500;
-    width: 100%;
-    text-align: left;
-  }
-}
-
-.table_scroll {
-  max-height: calc(90vh - 120px);
-  overflow-x: auto;
-}
-
-/* Кастомный скролл */
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f100;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: rgb(234, 234, 234);
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.modal_isk_one {
-  position: absolute;
-  top: 0;
-  left: -4.5rem;
-  background-color: white;
-  z-index: 100;
-  width: calc(100% + 4.5rem);
-  height: 100%;
-  padding: 20px;
-}
-
-.tbody_isk tr:hover {
-  background-color: #dcdcdc;
+ 
 }

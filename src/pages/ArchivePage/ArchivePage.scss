@@ -1,6 +1,6 @@
 .archivePage {
   padding: 10px 10px 0 10px;
-  height: 98vh;
+  height: 100%;
   .searchBlock {
     margin: 5px 0px 15px 0;
     display: flex;
@@ -48,7 +48,7 @@
     }
   }
   .main_tabla_isk {
-    height: 92vh;
+    height: 93%;
     .table_isk_td:nth-child(1),
     .table_isk_th:nth-child(1) {
       width: 40px;
@@ -80,4 +80,5 @@
       }
     }
   }
+  
 }

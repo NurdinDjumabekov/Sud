@@ -70,46 +70,55 @@ const NotificationPage = () => {
   ];
 
   return (
-    <div className="notification">
-      {rowsData?.length === 0 ? (
-        <p>Уведомлений пока что нету</p>
-      ) : (
-        <>
-          <div className="main_tabla_isk">
-            <table className="table_isk">
-              <thead>
-                <tr>
-                  <th className="table_isk_th">Дата</th>
-                  <th className="table_isk_th">Номер</th>
-                  <th className="table_isk_th">Уведомления</th>
-                  <th className="table_isk_th">Статус</th>
-                </tr>
-              </thead>
-              <tbody className="tbody_isk">
-                {/* Используем map для отображения строк */}
-                {rowsData.map((row, index) => (
-                  <tr key={index}>
-                    <td className="table_isk_td">
-                      <div>
-                        <span>{row.date}</span>
-                      </div>
-                    </td>
-                    <td className="table_isk_td">
-                      <span>{row.number}</span>
-                    </td>
-                    <td className="table_isk_td">
-                      <span>{row.status}</span>
-                    </td>
-                    <td className="table_isk_td">
-                      <span>{row.description}</span>
-                    </td>
+    <div className="mainTables">
+      <div className="notification">
+        {rowsData?.length === 0 ? (
+          <p>Уведомлений пока что нету</p>
+        ) : (
+          <>
+            <div className="main_tabla_isk">
+              <table className="table_isk">
+                <thead>
+                  <tr>
+                    <th className="table_isk_th">Дата</th>
+                    <th className="table_isk_th">Номер</th>
+                    <th className="table_isk_th">Уведомления</th>
+                    <th className="table_isk_th">Статус</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </>
-      )}
+                </thead>
+                <tbody className="tbody_isk">
+                  {/* Используем map для отображения строк */}
+                  {rowsData.map((row, index) => (
+                    <tr
+                      key={index}
+                      style={
+                        +index % 2 === 0
+                          ? { background: "#fff" }
+                          : { background: "#f9fafd" }
+                      }
+                    >
+                      <td className="table_isk_td">
+                        <div>
+                          <span>{row.date}</span>
+                        </div>
+                      </td>
+                      <td className="table_isk_td">
+                        <span>{row.number}</span>
+                      </td>
+                      <td className="table_isk_td">
+                        <span>{row.status}</span>
+                      </td>
+                      <td className="table_isk_td">
+                        <span>{row.description}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

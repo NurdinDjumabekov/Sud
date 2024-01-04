@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
-import './InputsPlaintiff.scss';
-import FillingPlaintiff from '../FillingPlaintiff/FillingPlaintiff';
-import TargetPlaintiff from '../TargetPlaintiff/TargetPlaintiff';
-import DescriptionClaim from '../DescriptionClaim/DescriptionClaim';
-import MotivationClaim from '../MotivationClaim/MotivationClaim';
-import Justification from '../Justification/Justification';
-import FinancialResult from '../FinancialResult/FinancialResult';
-import GeneralInfo from '../GeneralInfo/GeneralInfo';
-import LinksLaw from '../LinksLaw/LinksLaw';
-import ClaimRequaire from '../ClaimRequaire/ClaimRequaire';
-import ApplicationFiles from '../ApplicationFiles/ApplicationFiles';
-import PdfFile from '../../PdfFile/PdfFile';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeLookPDF } from '../../../store/reducers/stateSlice';
-import Modals from '../../Modals/Modals';
-import imsIcon from '../../../asstes/icons/IconPage/archive.svg';
+import React, { useState } from "react";
+import "./InputsPlaintiff.scss";
+import FillingPlaintiff from "../FillingPlaintiff/FillingPlaintiff";
+import TargetPlaintiff from "../TargetPlaintiff/TargetPlaintiff";
+import DescriptionClaim from "../DescriptionClaim/DescriptionClaim";
+import MotivationClaim from "../MotivationClaim/MotivationClaim";
+import Justification from "../Justification/Justification";
+import FinancialResult from "../FinancialResult/FinancialResult";
+import GeneralInfo from "../GeneralInfo/GeneralInfo";
+import LinksLaw from "../LinksLaw/LinksLaw";
+import ClaimRequaire from "../ClaimRequaire/ClaimRequaire";
+import ApplicationFiles from "../ApplicationFiles/ApplicationFiles";
+import PdfFile from "../../PdfFile/PdfFile";
+import { useDispatch, useSelector } from "react-redux";
+import { changeLookPDF } from "../../../store/reducers/stateSlice";
+import Modals from "../../Modals/Modals";
+
+//// imgs
+import imsIcon from "../../../asstes/icons/IconPage/archive.svg";
+import plaintiffs from "../../../asstes/icons/plaintiff/plaintiff.svg";
+import many from "../../../asstes/icons/plaintiff/many.svg";
+import description from "../../../asstes/icons/plaintiff/description.svg";
 
 const InputsPlaintiff = () => {
   const dispatch = useDispatch();
@@ -29,77 +34,77 @@ const InputsPlaintiff = () => {
   const [btnList, setBtnList] = useState([
     {
       id: 1,
-      name: 'Истец',
+      name: "Истец",
       bool: true,
-      components: <FillingPlaintiff typerole={'истца'} />,
-      icon: imsIcon,
+      components: <FillingPlaintiff typerole={"истца"} />,
+      icon: plaintiffs,
     },
     {
       id: 2,
-      name: 'Ответчик',
+      name: "Ответчик",
       bool: false,
-      components: <FillingPlaintiff typerole={'Ответчика'} />,
-      icon: imsIcon,
+      components: <FillingPlaintiff typerole={"Ответчика"} />,
+      icon: plaintiffs,
     },
     {
       id: 3,
-      name: 'Цена иска',
+      name: "Цена иска",
       bool: false,
       components: <TargetPlaintiff />,
-      icon: imsIcon,
+      icon: many,
     },
     {
       id: 4,
-      name: 'Описание',
+      name: "Описание",
       bool: false,
       components: <DescriptionClaim />,
-      icon: imsIcon,
+      icon: description,
     },
     {
       id: 5,
-      name: 'Мотивационная часть',
+      name: "Мотивационная часть",
       bool: false,
       components: <MotivationClaim />,
       icon: imsIcon,
     },
     {
       id: 6,
-      name: 'Обоснование',
+      name: "Обоснование",
       bool: false,
       components: <Justification />,
       icon: imsIcon,
     },
     {
       id: 7,
-      name: 'Финансовый расчет',
+      name: "Финансовый расчет",
       bool: false,
       components: <FinancialResult />,
       icon: imsIcon,
     },
     {
       id: 8,
-      name: 'Общая информация',
+      name: "Общая информация",
       bool: false,
       components: <GeneralInfo />,
       icon: imsIcon,
     },
     {
       id: 9,
-      name: 'Ссылка на законы',
+      name: "Ссылка на законы",
       bool: false,
       components: <LinksLaw />,
       icon: imsIcon,
     },
     {
       id: 10,
-      name: 'Исковые требования',
+      name: "Исковые требования",
       bool: false,
       components: <ClaimRequaire />,
       icon: imsIcon,
     },
     {
       id: 11,
-      name: 'Приложения',
+      name: "Приложения",
       bool: false,
       components: <ApplicationFiles />,
       icon: imsIcon,
@@ -135,10 +140,10 @@ const InputsPlaintiff = () => {
 
     handleResize();
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -146,40 +151,22 @@ const InputsPlaintiff = () => {
 
   return (
     <div className="plaintiffData">
-      <ul className="plaintiffData__list">
+      {/* <ul className="plaintiffData__list">
         {btnList?.map((btn) => (
-          <li key={btn.id} className={btn?.bool ? 'activeBtnsPlaint' : ''}>
+          <li key={btn.id} className={btn?.bool ? "activeBtnsPlaint" : ""}>
             <div>
               <img src={btn.icon} alt="icon" onClick={() => clickBtn(btn.id)} />
               <button onClick={() => clickBtn(btn.id)}>{btn.name}</button>
             </div>
-            {btn.id === 1 && lookInnerType ? (
-              <div className="plaintiffData__list__inner">
-                <button
-                  className={btnSend ? 'activeBtns' : ''}
-                  onClick={() => setBtnSend(true)}
-                >
-                  Добавить истца
-                </button>
-                <button
-                  className={btnSend ? '' : 'activeBtns'}
-                  onClick={() => setBtnSend(false)}
-                >
-                  Добавить представителя истца
-                </button>
-              </div>
-            ) : (
-              ''
-            )}
           </li>
         ))}
-      </ul>
+      </ul> */}
       <div className="plantiffBlockMain">
         <React.Fragment key={indexComp}>
           {btnList?.[indexComp]?.components}
         </React.Fragment>
         {pdfScreen && (
-          <PdfFile typerole={indexComp === 0 ? 'Истец' : 'Ответчик'} />
+          <PdfFile typerole={indexComp === 0 ? "Истец" : "Ответчик"} />
         )}
       </div>
       <Modals
@@ -188,7 +175,7 @@ const InputsPlaintiff = () => {
       >
         <PdfFile
           modal={true}
-          typerole={indexComp === 0 ? 'Истец' : 'Ответчик'}
+          typerole={indexComp === 0 ? "Истец" : "Ответчик"}
         />
       </Modals>
     </div>

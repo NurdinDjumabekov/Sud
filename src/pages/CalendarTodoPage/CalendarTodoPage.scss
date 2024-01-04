@@ -1,10 +1,11 @@
 @import 'react-calendar/dist/Calendar.css';
+$nextPrevBtn : 250px;
 
 .CalendarTodoPage {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: 99vh;
+  height: 100%;
   width: 100%;
   padding: 10px 0 0 0px;
   // background: red;
@@ -40,9 +41,8 @@
     // border: none;
     top: 0;
     left: 0;
-    border: 2px solid #cfe2ff !important;
+    border: 2px solid rgb(237, 242, 249) !important;
     border-radius: 5px;
-
   }
 
   .react-calendar__navigation {
@@ -51,7 +51,7 @@
     padding: 10px 10px 50px 10px;
     // margin: 0 !important;
     // border-radius: 4px 4px 0 0;
-    background: #cfe2ff;
+    background: rgb(237, 242, 249);
     // position: relative;
     > button:nth-child(1) {
       display: none !important;
@@ -66,11 +66,11 @@
         position: absolute;
         //   background: red;
         display: block;
-        width: 150px;
+        width: $nextPrevBtn;
         top: 0;
         left: 0;
-        color: #0d6efd;
-        font-weight: 800;
+        color: #344050;
+        font-weight: 600;
       }
     }
     > button:nth-child(3) {
@@ -86,6 +86,9 @@
         display: inline-block;
         height: 1px;
         margin: 20px 0 0 0 ;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
       }
     }
     > button:nth-child(4) {
@@ -98,11 +101,14 @@
         position: absolute;
         //   background: red;
         display: block;
-        width: 150px;
-        left: -105px;
-        color: #0d6efd;
+        width: $nextPrevBtn;
+        left: -$nextPrevBtn + 50px;
+        color: #344050;
         font-weight: 800;
         top: 7px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
       }
     }
     > button:nth-child(5) {
@@ -120,6 +126,7 @@
   .react-calendar__month-view {
     display: table;
     width: 100%;
+    
   }
 
   .react-calendar__month-view__weekdays,
@@ -153,31 +160,29 @@
     text-align: center;
     padding: 10px;
     transition: background-color 0.3s ease;
+    background: #f9fafd;
   }
 
   .react-calendar__month-view__weekdays__weekday {
-    border: 1px solid #cbcaca !important;
-    border: 1px solid #cfe2ff !important;
+    border: 1px solid rgb(237, 242, 249) !important;
 
     color: #000;
-    // background-color: #cbcaca49;
     font-size: 18px;
     margin: 0px 0px 10px 0;
     > abbr {
       text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
       font-weight: 700;
-      font-size: 25px;
-      line-height: 35px;
     }
   }
 
   .react-calendar__month-view__days__day {
-    border: 1px solid #cbcaca !important;
-    border: 1px solid #cfe2ff !important;
+    border: 1px solid rgb(237, 242, 249) !important;
 
     margin: 1px 0px 0 0 !important;
     background: transparent;
-    color: #0d6dfd98;
+    color: #5e6e82;
     //   padding: 40px 0px !important;
     font-weight: 700;
     font-size: 18px;
