@@ -6,7 +6,7 @@ const initialState = {
   adff: {
     name: '',
     sex: '', // пол
-    dob: '', /// data of birth
+    dob: '22.22.2002', /// data of birth
     inn: '',
     passportSeries: '', // серия паспорта
     timePassportStart: '', // дата выдачи паспорта

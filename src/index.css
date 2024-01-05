@@ -34,8 +34,8 @@ button {
 .plaintiFilling__container {
   border-radius: 10px;
   padding: 5px;
-  width: 100%;
-  min-width: 600px;
+  width: 1000px;
+  /* min-width: 600px; */
   position: relative;
 }
 

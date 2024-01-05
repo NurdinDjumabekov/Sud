@@ -19,12 +19,12 @@ function MainRoutes() {
         <Route path="/" element={<SignIn />} />
         <Route element={<MainLayouts />}>
           <Route path="/mainPlaintiff" element={<MainPage />} />
+          <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
           <Route path="/notifPlaintiff" element={<NotificationPage />} />
           <Route path="/calTodoPlaintiff" element={<CalendarTodoPage />} />
           <Route path="/meetingsPlaintiff" element={<CalendarMeetings />} />
           <Route path="/archive" element={<ArchivePage />} />
         </Route>
-        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
       </Routes>
       {preloader && <Preloader />}
     </>

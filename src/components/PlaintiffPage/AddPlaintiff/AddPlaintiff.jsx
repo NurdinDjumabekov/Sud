@@ -28,14 +28,14 @@ const AddPlaintiff = ({ typerole }) => {
 
     setBtnList(newList);
   };
+  console.log(btnList, "btnList");
 
   return (
     <div className="addPlaintiff">
-      {/* <h4>Истец</h4> */}
-      {/* <div className="blockfaceMan">
+      <div className="btnsType">
         {btnList?.map((item) => (
           <button
-            className={item?.bool ? 'activeBtns' : ''}
+            className={item?.bool ? "activeBtnsPlaintiff" : ""}
             onClick={() => {
               clickBtn(item.id);
               setLookType(item.id);
@@ -45,7 +45,7 @@ const AddPlaintiff = ({ typerole }) => {
             {item.name}
           </button>
         ))}
-      </div> */}
+      </div>
       {lookType === 1 ? (
         <FizFace typerole={typerole} />
       ) : (
