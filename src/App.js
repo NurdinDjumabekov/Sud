@@ -1,8 +1,8 @@
-import MainRoutes from './routers/MainRoutes';
+import MainRoutes from "./routers/MainRoutes";
 
 function App() {
   return (
-    <div className='mainBlock'>
+    <div className="mainBlock">
       <MainRoutes />
     </div>
   );

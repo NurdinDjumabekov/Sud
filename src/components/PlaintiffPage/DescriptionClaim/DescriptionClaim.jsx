@@ -1,14 +1,14 @@
-import React from 'react';
-import ExampleBlock from '../../ExampleBlock/ExampleBlock';
-import './DescriptionClaim.scss';
+import React from "react";
+import ExampleBlock from "../../ExampleBlock/ExampleBlock";
+import "./DescriptionClaim.scss";
 
 const DescriptionClaim = () => {
   return (
     <div className="plaintiFilling__container">
       <div className="descriptionClaim">
         <ExampleBlock
-          text={'Пример названия и описания иска должен быть таким-то'}
-          typeText={' Пример названия и описания иска'}
+          text={"Пример названия и описания иска должен быть таким-то"}
+          typeText={" Пример названия и описания иска"}
         />
         <form>
           <div>

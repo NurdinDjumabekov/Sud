@@ -1,82 +1,120 @@
-import React from 'react';
-import Selects from '../../Selects/Selects';
-import './TargetPlaintiff.scss';
-import Requisites from '../../Requisites/Requisites';
-import Calculator from '../../Calculator/Calculator';
-import ExampleBlock from '../../ExampleBlock/ExampleBlock';
+import React from "react";
+import Selects from "../../Selects/Selects";
+import "./TargetPlaintiff.scss";
+import Requisites from "../../Requisites/Requisites";
+import Calculator from "../../Calculator/Calculator";
+import ExampleBlock from "../../ExampleBlock/ExampleBlock";
+import { useSelector } from "react-redux";
+import DataInput from "../DataInput/DataInput";
 
 const TargetPlaintiff = () => {
-  const [type, setType] = React.useState('');
+  const [type, setType] = React.useState("");
   const [btnSend, setBtnSend] = React.useState(true);
+
+  const { adff } = useSelector((state) => state.inputSlice);
 
   const sendData = () => {};
 
+  const changeInput = (e) => {
+    e.preventDefault();
+    // dispatch(changeADFF({ ...adff, [e.target.name]: e.target.value }));
+  };
+
   const selectArr = [
-    { id: 0, name: 'Мужской' },
-    { id: 1, name: 'Женский' },
+    { id: 0, name: "Мужской" },
+    { id: 1, name: "Женский" },
   ];
 
   return (
     <div className="plaintiFilling__container">
-      <div className="targetPlaintiff">
-        <div>
-          <input type="text" placeholder="сумма иска" name="" />
-          <Selects
-            arr={selectArr}
-            change={setType}
-            choice={type}
-            initText={'Фунт'}
-          />
-          <input type="text" name="" placeholder="арбитр. сбор" />
-          <Selects
-            arr={selectArr}
-            change={setType}
-            choice={type}
-            initText={'Валюта арбитра'}
-          />
-        </div>
-        <div>
-          <input type="text" placeholder="Рег. сбор" name="" />
-          <Selects
-            arr={selectArr}
-            change={setType}
-            choice={type}
-            initText={'фунт'}
-          />
-          <input type="text" placeholder="сумма доплаты" name="" />
-          <Selects
-            arr={selectArr}
-            change={setType}
-            choice={type}
-            initText={'валюта надбавок'}
-          />
-        </div>
-        <div className="dataTarget">
-          <label>
-            <p>Крайний срок уплаты арбитражного сбора *</p>
-            <input type="date" placeholder="дата" className="inputDate" />
-          </label>
-          <label>
-            <p>Красный срок доплаты арбитражного сбора *</p>
-            <input type="date" placeholder="дата" className="inputDate" />
-          </label>
-        </div>
-
-        <div className="btnsDataSum">
-          <button
-            className={btnSend ? 'activeBtns' : ''}
-            onClick={() => setBtnSend(true)}
-          >
-            Реквизины
-          </button>
-          <button
-            className={btnSend ? '' : 'activeBtns'}
-            onClick={() => setBtnSend(false)}
-          >
-            Калькулятор
-          </button>
-        </div>
-        {btnSend ? <Requisites /> : <Calculator />}
+      <div className="addPlaintiff">
+        <form className="targetPlaintiff">
+          <div className="twoInputs">
+            <div>
+              <p>Сумма иска</p>
+              <input type="text" placeholder="Cумма иска" name="" />
+            </div>
+            <Selects
+              arr={selectArr}
+              change={setType}
+              choice={type}
+              initText={"Фунт"}
+            />
+          </div>
+          <div className="twoInputs">
+            <div>
+              <p>Арбитражный сбор</p>
+              <input type="text" name="" placeholder="Арбитр. сбор" />
+            </div>
+            <Selects
+              arr={selectArr}
+              change={setType}
+              choice={type}
+              initText={"Валюта арбитра"}
+            />
+          </div>
+          <div className="twoInputs">
+            <div>
+              <p>Регистрационные сборы</p>
+              <input type="text" placeholder="Рег. сбор" name="" />{" "}
+            </div>
+            <Selects
+              arr={selectArr}
+              change={setType}
+              choice={type}
+              initText={"валюта регистрационного сбора"}
+            />
+          </div>
+          <div className="twoInputs">
+            <div>
+              <p>Сумма доплаты</p>
+              <input type="text" placeholder="Cумма доплаты" name="" />
+            </div>
+            <Selects
+              arr={selectArr}
+              change={setType}
+              choice={type}
+              initText={"Валюта надбавок"}
+            />
+          </div>
+          <div className="twoInputs">
+            <DataInput
+              props={{
+                title: "Крайний срок уплаты арбитражного сбора *",
+                placeholder: "",
+                nameInput: "dob",
+                change: changeInput,
+                keyData: adff.dob,
+              }}
+            />
+            <DataInput
+              props={{
+                title: "Крайний срок уплаты арбитражного сбора *",
+                placeholder: "",
+                nameInput: "dob",
+                change: changeInput,
+                keyData: adff.dob,
+              }}
+            />
+          </div>
+          <div className="choiceBtnsTarget">
+            <div className="choiceBtnsTarget__inner">
+              <span
+                className={btnSend ? "activeBtnsPlaintiff" : ""}
+                onClick={() => setBtnSend(true)}
+              >
+                Реквизины
+              </span>
+              <span
+                className={btnSend ? "" : "activeBtnsPlaintiff"}
+                onClick={() => setBtnSend(false)}
+              >
+                Калькулятор
+              </span>
+            </div>
+          </div>
+          {btnSend ? <Requisites /> : <Calculator />}
+        </form>
       </div>
     </div>
   );

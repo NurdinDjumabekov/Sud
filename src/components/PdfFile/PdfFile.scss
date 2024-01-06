@@ -1,8 +1,10 @@
 .pdfFile {
-  min-width: 800px;
-  @media screen and (max-width: 1730px) {
-    min-width: 600px;
-  }
+  max-width: 100%;
+  min-width: 1200px;
+  // @media screen and (max-width: 1730px) {
+  //   min-width: 600px;
+  // }
+  height: 90vh;
   > div:nth-child(2) {
     > div:nth-child(1) {
       > div:nth-child(1) {
@@ -15,12 +17,19 @@
           button:nth-child(1):after {
             content: 'Скачать документ';
             position: absolute;
-            background: #4650dd;
-            padding: 10px 32px;
+            padding: 8px 18px;
+            top: 5px;
+            left: 5px;
             border-radius: 8px;
-            font-size: 15px;
-            font-weight: 500;
-            color: #fff;
+            width: 200px;
+            color: #4d5969;
+            box-shadow:  0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);;
+            // height: 37px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            background: #fff;
+            text-align: center;
           }
           button:not(:first-child) {
             display: none;

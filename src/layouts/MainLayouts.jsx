@@ -11,7 +11,7 @@ import calTodoPlaintiff from "../asstes/icons/IconPage/calendar2.svg";
 import archive from "../asstes/icons/IconPage/archive.svg";
 import arrow from "../asstes/icons/IconPage/arrow.svg";
 ////
-import create2 from "../asstes/icons/IconPage/create2.svg";
+// import create2 from "../asstes/icons/IconPage/create2.svg";
 // import myIski from "../asstes/icons/IconPage/me_iski.svg";
 // import notif from "../asstes/icons/IconPage/notification.svg";
 // import meetingsPlaintiff from "../asstes/icons/IconPage/calendar.svg";
@@ -27,7 +27,7 @@ import meetingsPlaintiffWhite from "../asstes/icons/IconPageWhite/calendar.svg";
 import calTodoPlaintiffWhite from "../asstes/icons/IconPageWhite/calendar2.svg";
 import archiveWhite from "../asstes/icons/IconPageWhite/archive.svg";
 import arrowWhite from "../asstes/icons/IconPageWhite/arrow.svg";
-////// imgsWhite
+
 import logo from "../asstes/images/logo.png";
 
 function MainLayouts() {
@@ -86,45 +86,6 @@ function MainLayouts() {
     },
   ]);
 
-  const [btnList, setBtnList] = useState([
-    {
-      id: 1,
-      name: "Мои иски",
-      bool: true,
-    },
-    {
-      id: 2,
-      name: "Принятые отвественным секретарём",
-      bool: false,
-    },
-    {
-      id: 3,
-      name: "Отклонённые отвественным секретарём",
-      bool: false,
-    },
-    {
-      id: 4,
-      name: "Принятые председателем",
-      bool: false,
-    },
-    {
-      id: 5,
-      name: "Отклонённые председателем",
-      bool: false,
-    },
-  ]);
-  /// delete
-
-  const clickBtn = (id) => {
-    const newList = btnList.map((item) => {
-      return {
-        ...item,
-        bool: id === item.id ? true : false,
-      };
-    });
-    setBtnList(newList);
-  };
-
   React.useEffect(() => {
     const newPage = pages.map((i) => {
       if (i.path === location.pathname) {
@@ -147,6 +108,8 @@ function MainLayouts() {
     }
   }, [location.pathname]);
 
+  console.log(location.pathname);
+  ///location.pathname === "/plaintiffCreate"
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">
@@ -183,7 +146,14 @@ function MainLayouts() {
         ))}
         <LogOut />
       </div>
-      <div className="plaintiffBlock__content">
+      <div
+        className="plaintiffBlock__content"
+        style={
+          location.pathname === "/plaintiffCreate"
+            ? { alignItems: "start", marginTop: "26px" }
+            : {}
+        }
+      >
         <Outlet />
       </div>
     </div>

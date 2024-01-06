@@ -1,6 +1,7 @@
 $widthMenu: 320px;
 $widthAllContent: 100%;
 
+
 .plaintiffBlock {
   display: flex;
   gap: 5px;
@@ -9,7 +10,6 @@ $widthAllContent: 100%;
   margin: 0 auto;
   background: #f9fafd;
   padding: 0 10px;
-  // box-shadow: 0px 0px 4px 0px rgba(34, 60, 80, 0.5);  
 
   &__inner {
     display: flex;
@@ -153,10 +153,11 @@ $widthAllContent: 100%;
     }
   }
   &__content {
-    // background: red;
     width: $widthAllContent;
     display: flex;
     align-items: center;
+    // background: red;
+    height: 98vh;
   }
 }
 

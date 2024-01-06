@@ -4,17 +4,23 @@ $colordescription: #c4d9f8;
   background-color: rgba(255, 255, 255, 0.564);
   width: 100%;
   padding: 15px 10px;
-  border: 2px solid $colordescription;
+  border: 1px solid #d8e2ef;
   border-radius: 8px;
   h5 {
     font-size: 16px;
-    color: #4650dd;
+    color: #5e6e82;
     line-height: 18px;
-    margin: 0 0 5px 0;
+    margin: 0 0 15px 0;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
   }
   p {
     font-size: 14px;
-    color: #4650dd;
-    line-height: 18px;
+    color: #222;
+    line-height: 20px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
   }
 }

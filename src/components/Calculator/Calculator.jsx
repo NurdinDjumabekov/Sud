@@ -1,28 +1,28 @@
-import React from 'react';
-import Selects from '../Selects/Selects';
-import './Calculator.scss';
+import React from "react";
+import Selects from "../Selects/Selects";
+import "./Calculator.scss";
 
 const Calculator = () => {
-  const [type, setType] = React.useState('');
+  const [type, setType] = React.useState("");
 
   const selectArr = [
-    { id: 0, name: 'Мужской' },
-    { id: 1, name: 'Женский' },
+    { id: 0, name: "Мужской" },
+    { id: 1, name: "Женский" },
   ];
   return (
     <div className="calculator">
       <div className="calculator__count">
-        <label>
+        <div>
           <p>Сумма иска в USD</p>
-          <input type="number" name="" />
-        </label>
+          <input type="text" placeholder="Cумма доплаты" name="" />
+        </div>
         <Selects
           arr={selectArr}
           change={setType}
           choice={type}
-          initText={'Тип спора'}
+          initText={"Тип спора"}
         />
-        <button>Расчитать</button>
+        <button className="btnCal">Расчитать</button>
       </div>
       <div className="calculator__result">
         <div>
@@ -32,7 +32,7 @@ const Calculator = () => {
             <h5> Обычный регламент</h5>
           </div>
         </div>
-        <div className='tablesresult'>
+        <div className="tablesresult">
           <div>
             <p>Регистрационный (c НДС 12% и налогом с продаж 2%) $0 </p>
           </div>

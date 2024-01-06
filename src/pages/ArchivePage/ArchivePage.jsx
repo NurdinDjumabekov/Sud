@@ -38,10 +38,10 @@ const ArchivePage = () => {
   return (
     <div className="mainTables">
       <div className="archivePage">
-        <div className="searchBlock">
+        {/* <div className="searchBlock">
           <input type="search" placeholder="Поиск по наименованию иска" />
           <button className="saveBtn">Поиск</button>
-        </div>
+        </div> */}
         <div className="main_tabla_isk">
           <table className="table_isk">
             <thead>

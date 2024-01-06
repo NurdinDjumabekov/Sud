@@ -4,6 +4,7 @@
   h5 {
     font-size: 22px;
     text-align: center;
+    margin: 0 0 40px 0;
   }
   .applicationFiles__inner {
     margin: 0 0 20px 0;
@@ -15,11 +16,19 @@
       > button {
         padding: 5px 10px;
         border-radius: 5px;
-        background-color: #fb9a12;
-        color: #000;
+        background-color: #a9afb8;
+        color: #333;
+        min-width: 220px;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: 'Montserrat', sans-serif;
       }
       > span {
-        font-size: 12px;
+       
+        font-weight: 600;
+        font-family: 'Montserrat', sans-serif;
+        color: #5e6e82;
+        font-size: 16px;
         b {
           color: red;
           font-size: 15px;

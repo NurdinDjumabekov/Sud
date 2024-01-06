@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
-import './PdfFile.scss';
-import pdf from '../../asstes/pdf/sud_pdf.pdf';
-import { Editor } from '@tinymce/tinymce-react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef } from "react";
+import "./PdfFile.scss";
+import pdf from "../../asstes/pdf/sud_pdf.pdf";
+import { Editor } from "@tinymce/tinymce-react";
+import { useDispatch, useSelector } from "react-redux";
 
 const PdfFile = ({ modal, typerole }) => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const PdfFile = ({ modal, typerole }) => {
 
   const { adff } = useSelector((state) => state.inputSlice);
   // console.log(adff, 'adff');
-  console.log(typerole, 'typerole');
+  // console.log(typerole, "typerole");
 
   const initialContent = `
     <div>
@@ -28,9 +28,13 @@ const PdfFile = ({ modal, typerole }) => {
           <p style="margin:0px">Международный Третейский суд</p>
           <p style="margin:0px">при Торгово-Промышленной палате</p>
           <p style="margin:0px">Кыргызской Республики</p>
-          <p style="margin:0px">${adff.name !== '' ? `${typerole}: ` : ''} ${adff.name}</p>
-          <p style="margin:0px">${adff.name !== '' ? `Адрес: ` : ''}</p>
-          <p style="margin:0px">${adff.numberPlaintiff !== '' ? `Телефон: ` : ''} ${adff.numberPlaintiff}</p>
+          <p style="margin:0px">${adff.name !== "" ? `${typerole}: ` : ""} ${
+    adff.name
+  }</p>
+          <p style="margin:0px">${adff.name !== "" ? `Адрес: ` : ""}</p>
+          <p style="margin:0px">${
+            adff.numberPlaintiff !== "" ? `Телефон: ` : ""
+          } ${adff.numberPlaintiff}</p>
         </div>
       </div>
       <div font-weight: 500; font-family: 'Times New Roman', serif; font-size:16px">
@@ -41,19 +45,21 @@ const PdfFile = ({ modal, typerole }) => {
       </div>
     </div>
   `;
-  
+
   return (
     <div className="pdfFile">
       <Editor
         apiKey="frhhgiuyhy64k6q9ojm6xdiqqvkg6ee4yka7yracc74t2i5a"
         initialValue={initialContent}
         init={{
-          height: modal ? 660 : 800,
-          width: modal ? 800 : '100%',
+          // height: modal ? 660 : 800,
+          // width: modal ? 800 : '100%',
+          height: "100%",
+          width: "100%",
           menubar: {
             file: {
-              title: 'File',
-              items: 'newdocument restoredraft | preview | print ',
+              title: "File",
+              items: "newdocument restoredraft | preview | print ",
             },
           },
           content_style: "body { font-family: 'Times New Roman', sans-serif; }",

@@ -12,7 +12,6 @@
   background: #f9fafd;
 }
 
-
 li {
   list-style: none;
 }
@@ -37,6 +36,7 @@ button {
   width: 1000px;
   /* min-width: 600px; */
   position: relative;
+  height: 90vh;
 }
 
 .noneData {

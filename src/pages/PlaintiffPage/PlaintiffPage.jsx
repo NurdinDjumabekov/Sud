@@ -5,30 +5,150 @@ import { useNavigate } from "react-router-dom";
 import krestik from "../../asstes/icons/krestik.svg";
 import { useDispatch } from "react-redux";
 import { changeLookPDF } from "../../store/reducers/stateSlice";
+import FillingPlaintiff from "../../components/PlaintiffPage/FillingPlaintiff/FillingPlaintiff";
+import TargetPlaintiff from "../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff";
+import DescriptionClaim from "../../components/PlaintiffPage/DescriptionClaim/DescriptionClaim";
+import MotivationClaim from "../../components/PlaintiffPage/MotivationClaim/MotivationClaim";
+import Justification from "../../components/PlaintiffPage/Justification/Justification";
+import FinancialResult from "../../components/PlaintiffPage/FinancialResult/FinancialResult";
+import GeneralInfo from "../../components/PlaintiffPage/GeneralInfo/GeneralInfo";
+import LinksLaw from "../../components/PlaintiffPage/LinksLaw/LinksLaw";
+import ClaimRequaire from "../../components/PlaintiffPage/ClaimRequaire/ClaimRequaire";
+import ApplicationFiles from "../../components/PlaintiffPage/ApplicationFiles/ApplicationFiles";
+//// imgs
+import imsIcon from "../../asstes/icons/IconPage/archive.svg";
+import plaintiffs from "../../asstes/icons/plaintiff/plaintiff.svg";
+import many from "../../asstes/icons/plaintiff/many.svg";
+import description from "../../asstes/icons/plaintiff/description.svg";
+//// delete
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [typePlantiff, setTypePlantiff] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  const [indexComp, setIndexComp] = useState(0);
+  const [lookInnerType, setLookInnerType] = useState(true);
+
+  const [btnList, setBtnList] = useState([
+    {
+      id: 1,
+      name: "Истец",
+      bool: true,
+      components: <FillingPlaintiff typerole={"истца"} />,
+    },
+    {
+      id: 2,
+      name: "Ответчик",
+      bool: false,
+      components: <FillingPlaintiff typerole={"Ответчика"} />,
+    },
+    {
+      id: 3,
+      name: "Цена иска",
+      bool: false,
+      components: <TargetPlaintiff />,
+    },
+    {
+      id: 4,
+      name: "Описание",
+      bool: false,
+      components: <DescriptionClaim />,
+    },
+    {
+      id: 5,
+      name: "Мотивационная часть",
+      bool: false,
+      components: <MotivationClaim />,
+    },
+    {
+      id: 6,
+      name: "Обоснование",
+      bool: false,
+      components: <Justification />,
+    },
+    {
+      id: 7,
+      name: "Финансовый расчет",
+      bool: false,
+      components: <FinancialResult />,
+    },
+    {
+      id: 8,
+      name: "Общая информация",
+      bool: false,
+      components: <GeneralInfo />,
+    },
+    {
+      id: 9,
+      name: "Ссылка на законы",
+      bool: false,
+      components: <LinksLaw />,
+    },
+    {
+      id: 10,
+      name: "Исковые требования",
+      bool: false,
+      components: <ClaimRequaire />,
+    },
+    {
+      id: 11,
+      name: "Приложения",
+      bool: false,
+      components: <ApplicationFiles />,
+    },
+  ]);
+
+  const clickBtn = (id) => {
+    const newList = btnList.map((item) => {
+      return {
+        ...item,
+        bool: id === item.id ? true : false,
+      };
+    });
+
+    setBtnList(newList);
+    const activeIndex = newList.findIndex((item) => item.bool);
+    setIndexComp(activeIndex);
+    if (id === 1) {
+      setLookInnerType(!lookInnerType);
+    } else {
+      setLookInnerType(false);
+    }
+  };
 
   return (
     <div className="plaintiff">
-      <button onClick={() => navigate(-1)} className="prevBtn">
+      {/* <button onClick={() => navigate(-1)} className="prevBtn">
         <img src={krestik} alt="x" />
-      </button>
-      <h1>Подача искового заявления</h1>
+      </button> */}
+      {/* /// delete */}
+      <ul className="btnsType plaintiffTypes">
+        {btnList?.map((btn) => (
+          <button
+            key={btn.id}
+            onClick={() => clickBtn(btn.id)}
+            className={btn?.bool ? "activeBtnsPlaintiff" : ""}
+          >
+            {btn.name}
+          </button>
+        ))}
+      </ul>
       <div className="plaintiff__type">
-        <div>
+        {/* <div>
           <button
             onClick={() => dispatch(changeLookPDF(true))}
             className="btnResult"
           >
             Посмотреть результат
           </button>
-        </div>
+        </div> */}
+        {/* /// для адаптивки */}
       </div>
-      {typePlantiff ? "" : <InputsPlaintiff />}
+      {typePlantiff ? (
+        ""
+      ) : (
+        <InputsPlaintiff btnList={btnList} indexComp={indexComp} />
+      )}
     </div>
   );
 };

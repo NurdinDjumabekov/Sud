@@ -1,0 +1,18 @@
+.dataPlaintiff {
+    height: 90vh !important; 
+    width: 1000px !important;
+    .main_tabla_isk{
+        .table_isk_td:nth-child(1),
+        .table_isk_th:nth-child(1) {
+            width: 50% !important;
+            // background: green !important;
+            // text-align: center;
+        }
+        .table_isk_td:nth-child(2),
+        .table_isk_th:nth-child(2) {
+            width: 50% !important;
+            // background: green !important;
+            // text-align: center;
+        }
+    }
+}

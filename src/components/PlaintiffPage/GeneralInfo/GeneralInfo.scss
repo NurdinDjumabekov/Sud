@@ -10,9 +10,6 @@
       margin: 10px 0 20px;
       > div {
         width: 100%;
-        > h5 {
-          font-size: 11px;
-        }
         > div {
           width: 100%;
         }
@@ -21,7 +18,7 @@
     .blockCheckBox {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 2px;
       > input {
         width: 20px;
         height: 20px;

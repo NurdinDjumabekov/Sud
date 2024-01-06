@@ -14,7 +14,7 @@ $paddingTableInner: 2px 18px;
   .choice__plaintiff {
     display: inline-flex;
     align-items: center;
-    background: red;
+    // background: red;
     height: 40px;
     margin: 0 0 20px 0;
     background: #f9fafd;
@@ -236,6 +236,7 @@ $paddingTableInner: 2px 18px;
     .table_isk_td:nth-child(1),
     .table_isk_th:nth-child(1) {
       width: 90px;
+      // background: red;
       // text-align: center;
     }
 
