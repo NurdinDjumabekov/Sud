@@ -6,7 +6,7 @@ const DataArrPlaintiff = ({ arr }) => {
   return (
     <>
       {arr?.length === 0 ? (
-        <p>У вас пока что нету исков...</p>
+        <p className="emptyData">У вас пока что нету исков...</p>
       ) : (
         <div className="mainTables dataPlaintiff">
           <div className="main_tabla_isk">

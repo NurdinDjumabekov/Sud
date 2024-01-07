@@ -1,14 +1,11 @@
 import React from "react";
 import Selects from "../Selects/Selects";
 import "./Calculator.scss";
+import { selectArr } from "../../helpers/dataArr";
 
 const Calculator = () => {
   const [type, setType] = React.useState("");
 
-  const selectArr = [
-    { id: 0, name: "Мужской" },
-    { id: 1, name: "Женский" },
-  ];
   return (
     <div className="calculator">
       <div className="calculator__count">
@@ -20,7 +17,7 @@ const Calculator = () => {
           arr={selectArr}
           change={setType}
           choice={type}
-          initText={"Тип спора"}
+          initText={'Тип спора'}
         />
         <button className="btnCal">Расчитать</button>
       </div>
