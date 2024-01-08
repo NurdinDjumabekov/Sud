@@ -15,9 +15,12 @@ import DataArrPlaintiff from "../DataArrPlaintiff/DataArrPlaintiff";
 const InputsPlaintiff = ({ btnList, setBtnList, indexComp }) => {
   const dispatch = useDispatch();
   const [pdfScreen, setPdfScreen] = useState(false);
+  // const [lookAddPlaintiff, setLookAddPlaintiff] = useState(false);
 
   const { plaintiffType } = useSelector((state) => state.typesSlice);
-  const { lookPdf } = useSelector((state) => state.stateSlice);
+  const { lookPdf, lookAddPlaintiff } = useSelector(
+    (state) => state.stateSlice
+  );
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   React.useEffect(() => {
@@ -41,13 +44,15 @@ const InputsPlaintiff = ({ btnList, setBtnList, indexComp }) => {
   return (
     <div className="plaintiffData">
       <div className="plantiffBlockMain">
-        <DataArrPlaintiff arr={todosApplications} />
-        {/* <React.Fragment key={indexComp}>
-          {btnList?.[indexComp]?.components}
-        </React.Fragment>
+        {!lookAddPlaintiff && <DataArrPlaintiff arr={todosApplications} />}
+        {lookAddPlaintiff && (
+          <React.Fragment key={indexComp}>
+            {btnList?.[indexComp]?.components}
+          </React.Fragment>
+        )}
         {pdfScreen && (
           <PdfFile typerole={indexComp === 0 ? "Истец" : "Ответчик"} />
-        )} */}
+        )}
       </div>
       {/* <Modals
         openModal={lookPdf}

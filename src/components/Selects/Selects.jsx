@@ -1,14 +1,15 @@
-import React from 'react';
-import './Selects.scss';
-import img from '../../asstes/icons/arrowBtn.svg';
+import React from "react";
+import "./Selects.scss";
+import img from "../../asstes/icons/arrowBtn.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { changeADFF, changeADUF } from "../../store/reducers/inputSlice";
 
-const Selects = ({ arr, change, choice, initText }) => {
+const Selects = (props) => {
+  const { arr, initText, keys, type } = props;
+  const dispatch = useDispatch();
   const [active, setActive] = React.useState(false);
   const accordionRef = React.useRef(null);
-
-  React.useEffect(() => {
-    change(arr?.[0]?.name);
-  }, []);
+  const { adff, aduf } = useSelector((state) => state.inputSlice);
 
   React.useEffect(() => {
     const handleChange = (e) => {
@@ -21,16 +22,20 @@ const Selects = ({ arr, change, choice, initText }) => {
       }
     };
 
-    document.addEventListener('click', handleChange);
+    document.addEventListener("click", handleChange);
 
     return () => {
-      document.removeEventListener('click', handleChange);
+      document.removeEventListener("click", handleChange);
     };
   }, [active]);
 
-  const clickSelect = (id, name) => {
+  const clickSelect = (name) => {
     setActive(false);
-    change(name);
+    if (type === "adff") {
+      dispatch(changeADFF({ ...adff, [keys.type]: name }));
+    } else {
+      dispatch(changeADUF({ ...aduf, [keys.type]: name }));
+    }
   };
 
   return (
@@ -41,17 +46,17 @@ const Selects = ({ arr, change, choice, initText }) => {
           className="selectBlock__inner"
           onClick={() => setActive((prevState) => !prevState)}
         >
-          <p>{choice}</p>
+          <p>{keys.typeKey}</p>
           <img
             src={img}
             alt="<"
-            style={active ? { transform: 'rotate(90deg)' } : {}}
+            style={active ? { transform: "rotate(90deg)" } : {}}
           />
         </div>
         {active && (
           <div className="selectBlock__activeBlock">
             {arr?.map((sel) => (
-              <p onClick={() => clickSelect(sel?.id, sel?.name)} key={sel.id}>
+              <p onClick={() => clickSelect(sel?.name)} key={sel.id}>
                 {sel.name}
               </p>
             ))}

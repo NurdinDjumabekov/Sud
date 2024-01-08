@@ -1,47 +1,34 @@
 import React, { useState } from "react";
 import "./ChoiceNoneData.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { changeADFF } from "../../../store/reducers/inputSlice";
 
 const ChoiceNoneData = ({ props }) => {
-  const [btnList, setBtnList] = React.useState([
-    {
-      id: 1,
-      name: "Да",
-      bool: false,
-    },
-    {
-      id: 2,
-      name: "Нет",
-      bool: true,
-    },
-  ]);
+  const dispatch = useDispatch();
+  const { adff } = useSelector((state) => state.inputSlice);
 
-  const clickBtn = (id) => {
-    const newList = btnList.map((item) => {
-      return {
-        ...item,
-        bool: id === item.id ? true : false,
-      };
-    });
-    setBtnList(newList);
+  const clickBtn = (bool) => {
+    dispatch(changeADFF({ ...adff, [props.type]: bool }));
   };
 
   return (
-    <>
-      <div className="choiceNoneData">
-        <label htmlFor="checkboxDate">{props.title}</label>
-        <div className="choiceNoneData__inner">
-          {btnList?.map((btn) => (
-            <button
-              className={btn?.bool ? "activeBtnsPlaintiff" : ""}
-              onClick={() => clickBtn(btn.id)}
-              key={btn.id}
-            >
-              {btn.name}
-            </button>
-          ))}
-        </div>
+    <div className="choiceNoneData">
+      <label htmlFor="checkboxDate">{props.title}</label>
+      <div className="choiceNoneData__inner">
+        <span
+          className={props?.typeKey ? "activeBtnsPlaintiff" : ""}
+          onClick={() => clickBtn(true)}
+        >
+          Да
+        </span>
+        <span
+          className={props?.typeKey ? "" : "activeBtnsPlaintiff"}
+          onClick={() => clickBtn(false)}
+        >
+          Нет
+        </span>
       </div>
-    </>
+    </div>
   );
 };
 

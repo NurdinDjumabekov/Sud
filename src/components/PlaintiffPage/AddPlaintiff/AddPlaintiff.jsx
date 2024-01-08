@@ -28,7 +28,6 @@ const AddPlaintiff = ({ typerole }) => {
 
     setBtnList(newList);
   };
-  console.log(btnList, "btnList");
 
   return (
     <div className="addPlaintiff">

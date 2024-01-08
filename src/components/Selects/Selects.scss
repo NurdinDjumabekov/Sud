@@ -40,6 +40,10 @@
         font-size: 18px;
         font-family: 'Montserrat', sans-serif;
         padding: 0;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       img {

@@ -110,24 +110,33 @@
 
     .twoo {
       justify-content: start;
-      gap: 85px;
+      gap: 78px;
     }
    
   }
 }
-.saveBtn {
-  display: block;
-  border-radius: 8px;
-  font-style: normal;
-  line-height: normal;
-  transition: 0.5s;
-  margin: 20px auto 0px;
-  box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.5);
-  font-weight: 600;
-  font-family: 'Montserrat', sans-serif;
-  color: #5e6e82;
-  font-size: 18px;
-  padding:10px 20px;
+.btnsSave {
+  // background: red;
+  justify-content: center !important;
+  gap: 50px;
+  .saveBtn {
+    display: block;
+    border-radius: 8px;
+    font-style: normal;
+    line-height: normal;
+    transition: 0.5s;
+    margin: 20px 0 0px;
+    box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.5);
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    color: #5e6e82;
+    font-size: 18px;
+    padding:10px 20px;
+    background: transparent !important;
+  }
+  span {
+    cursor: pointer;
+  }
 }
 
 @keyframes fadeIn {

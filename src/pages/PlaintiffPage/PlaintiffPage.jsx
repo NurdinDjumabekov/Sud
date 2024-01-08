@@ -3,7 +3,7 @@ import "./PlaintiffPage.scss";
 import InputsPlaintiff from "../../components/PlaintiffPage/InputsPlaintiff/InputsPlaintiff";
 import { useNavigate } from "react-router-dom";
 import krestik from "../../asstes/icons/krestik.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeLookPDF } from "../../store/reducers/stateSlice";
 import FillingPlaintiff from "../../components/PlaintiffPage/FillingPlaintiff/FillingPlaintiff";
 import TargetPlaintiff from "../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff";
@@ -28,6 +28,9 @@ const PlaintiffPage = () => {
   const [typePlantiff, setTypePlantiff] = useState(false);
   const [indexComp, setIndexComp] = useState(0);
   const [lookInnerType, setLookInnerType] = useState(true);
+
+  const { adff } = useSelector((state) => state.inputSlice);
+  const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
 
   const [btnList, setBtnList] = useState([
     {
@@ -115,6 +118,7 @@ const PlaintiffPage = () => {
       setLookInnerType(false);
     }
   };
+  console.log(lookAddPlaintiff);
 
   return (
     <div className="plaintiff">
@@ -144,11 +148,11 @@ const PlaintiffPage = () => {
         </div> */}
         {/* /// для адаптивки */}
       </div>
-      {typePlantiff ? (
+      <InputsPlaintiff btnList={btnList} indexComp={indexComp} />
+      {/* {typePlantiff ? (
         ""
       ) : (
-        <InputsPlaintiff btnList={btnList} indexComp={indexComp} />
-      )}
+      )} */}
     </div>
   );
 };

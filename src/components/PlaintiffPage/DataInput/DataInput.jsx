@@ -1,57 +1,42 @@
-// import React, { useState } from "react";
-// import "./DataInput.scss";
-
-// const DataInput = ({ props, dispatch }) => {
-//   //   console.log(props.keyData);
-//   const [inputData, setInputData] = useState("");
-//   return (
-//     <>
-//       <div className="date__inner">
-//         <p>{props.title}</p>
-//         <input
-//           type="text"
-//           placeholder={props.placeholder}
-//           className="inputDate"
-//           name={props.nameInput}
-//           onChange={props?.change}
-//           //   readOnly
-//           value={props.keyData}
-//         />
-//       </div>
-//       <input type="date" placeholder="дата" className="inputDate" name="dob" />
-//     </>
-//   );
-// };
-
-// export default DataInput;
-
 import React, { useState } from "react";
 import "./DataInput.scss";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch, useSelector } from "react-redux";
+import { changeADFF, changeADUF } from "../../../store/reducers/inputSlice";
 
 const YourComponent = ({ props }) => {
-  //   const [selectedDate, setSelectedDate] = useState(new Date());
+  const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState("");
-  // формат 15/01/2024
+  const { adff, aduf } = useSelector((state) => state.inputSlice);
+
+  // формат даты 15/01/2024
+  // dd/MM/yyyy
+
+  const transformData = (data) => {
+    const formattedDate = data.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+    setSelectedDate(data);
+
+    if (props.typeChange === "adff") {
+      dispatch(changeADFF({ ...adff, [props.nameInput]: formattedDate }));
+    } else {
+      dispatch(changeADUF({ ...aduf, [props.nameInput]: formattedDate }));
+    }
+  };
 
   return (
     <div className="date__inner">
       <p>{props.title}</p>
-      {/* <input
-        type="text"
-        placeholder={props.placeholder}
-        className="inputDate"
-        name={props.nameInput}
-        onChange={props?.change}
-        //   readOnly
-        value={props.keyData}
-      /> */}
       <DatePicker
         selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
+        onChange={(date) => transformData(date)}
         placeholderText="Выберите дату"
+        // locale="en-GB"
         dateFormat="dd/MM/yyyy"
       />
     </div>

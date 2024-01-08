@@ -108,8 +108,7 @@ function MainLayouts() {
     }
   }, [location.pathname]);
 
-  console.log(location.pathname);
-  ///location.pathname === "/plaintiffCreate"
+  // console.log(location.pathname);
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">

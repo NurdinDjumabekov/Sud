@@ -1,6 +1,7 @@
 .dataPlaintiff {
   height: 90vh !important;
-  width: 1000px !important;
+  width: 1100px !important;
+  // margin: 5px 5px 0px !important;
   .main_tabla_isk {
     .table_isk_td:nth-child(1),
     .table_isk_th:nth-child(1) {
@@ -26,4 +27,24 @@
   font-size: 25px;
   font-weight: 600;
   font-family: 'Montserrat', sans-serif;
+}
+.add{
+  margin: 0px 0px 15px 0px !important;
+  background: transparent !important;
+  border: none !important;
+  > button {
+    font-size: 18px !important;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    // background: transparent !important;
+    background: rgba(237, 242, 249, 0.404) !important;
+    border-radius: 5px;
+
+    box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);;
+
+    &:hover{
+      background: rgb(237, 242, 249);
+      transition: 0.8s;
+    }
+  }
 }
