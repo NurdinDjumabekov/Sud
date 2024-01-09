@@ -11,17 +11,18 @@ import plaintiffs from "../../../asstes/icons/plaintiff/plaintiff.svg";
 import many from "../../../asstes/icons/plaintiff/many.svg";
 import description from "../../../asstes/icons/plaintiff/description.svg";
 import DataArrPlaintiff from "../DataArrPlaintiff/DataArrPlaintiff";
+import FillingPlaintiff from "../FillingPlaintiff/FillingPlaintiff";
 
 const InputsPlaintiff = ({ btnList, setBtnList, indexComp }) => {
   const dispatch = useDispatch();
   const [pdfScreen, setPdfScreen] = useState(false);
-  // const [lookAddPlaintiff, setLookAddPlaintiff] = useState(false);
 
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { plaintiffType } = useSelector((state) => state.typesSlice);
   const { lookPdf, lookAddPlaintiff } = useSelector(
     (state) => state.stateSlice
   );
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  console.log(todosApplications, "todosApplications");
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -44,12 +45,9 @@ const InputsPlaintiff = ({ btnList, setBtnList, indexComp }) => {
   return (
     <div className="plaintiffData">
       <div className="plantiffBlockMain">
-        {!lookAddPlaintiff && <DataArrPlaintiff arr={todosApplications} />}
-        {lookAddPlaintiff && (
-          <React.Fragment key={indexComp}>
-            {btnList?.[indexComp]?.components}
-          </React.Fragment>
-        )}
+        <React.Fragment key={indexComp}>
+          {btnList?.[indexComp]?.components}
+        </React.Fragment>
         {pdfScreen && (
           <PdfFile typerole={indexComp === 0 ? "Истец" : "Ответчик"} />
         )}

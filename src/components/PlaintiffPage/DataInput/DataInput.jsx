@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changeADFF, changeADUF } from "../../../store/reducers/inputSlice";
 
-const YourComponent = ({ props }) => {
+const DataInput = ({ props }) => {
   const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState("");
   const { adff, aduf } = useSelector((state) => state.inputSlice);
@@ -43,4 +43,4 @@ const YourComponent = ({ props }) => {
   );
 };
 
-export default YourComponent;
+export default DataInput;

@@ -1,0 +1,98 @@
+.listDocs {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+    // background: red;
+    overflow-y: scroll;
+    height: 80vh;
+    > div {
+        width: 45%;
+        .everyCard {
+            // background-color: red;
+            border-bottom: 2px solid #4d5969a8;
+            padding: 8px 0px 20px 0;
+            margin: 10px 0 20px 0;
+            display: flex;
+            justify-content: start;
+            gap: 20px;
+            // align-items: center;
+            border-bottom-style: dotted;
+            cursor: pointer;
+            &__date {
+                border-radius: 5px;
+                width: 90px;
+                // height: 65px;
+                background: #fff;
+                border: 2px solid #e63757;
+                h5 {
+                    border-radius: 3px 3px 0 0;
+                    background: #e63757;
+                    color:#fff;
+                    font-size: 16px;
+                    font-weight: 600;
+                    font-family: 'Montserrat', sans-serif;
+                    text-align: center;
+                    padding: 3px 0px 5px 0;
+                }
+                p {
+                    color:#4d5969;
+                    font-size: 28px;
+                    font-weight: 600;
+                    line-height: 40px;
+                    font-family: 'Montserrat', sans-serif;
+                    text-align: center;
+                }
+            }
+            &__data {
+                width: 75%;
+                h5{
+                    color: rgb( 44, 123, 229);
+                    font-size: 21px;
+                    font-weight: 600;
+                    line-height: normal;
+                    font-family: 'Montserrat', sans-serif;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                p {
+                    color:#4d5969;
+                    font-size: 18px;
+                    font-weight: 600;
+                    line-height: normal;
+                    font-family: 'Montserrat', sans-serif;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+            &__btns {
+                // background: red;
+                // width: 50px;
+                padding: 10px 0 0 0;
+                display: flex;
+                // flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                gap: 5px;
+                > button {
+                    width: 30px;
+                    height: 30px;
+                    background: transparent;
+                    padding: 2px;
+                    // border: 1px solid #000;
+                    border-radius: 5px;
+                    > img {
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+    &::-webkit-scrollbar {
+        width: 0px;
+      }
+}

@@ -12,17 +12,31 @@ import {
 } from "../../../helpers/dataArr";
 import DataInput from "../DataInput/DataInput";
 import ChoiceNoneData from "../ChoiceNoneData/ChoiceNoneData";
-import { addTodosApplications } from "../../../store/reducers/applicationsSlice";
+import {
+  addTodosDefendant,
+  addTodosDefendantResper,
+  addTodosPlaitiff,
+  addTodosPlaitiffResper,
+} from "../../../store/reducers/applicationsSlice";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 
 const FizFace = ({ typerole }) => {
   const dispatch = useDispatch();
-  const [type, setType] = React.useState("");
   const { adff } = useSelector((state) => state.inputSlice);
+  const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
 
   const sendData = (e) => {
     e.preventDefault();
-    dispatch(addTodosApplications(adff));
+    if (typerole === "истца" && lookAddPlaintiff === 1) {
+      dispatch(addTodosPlaitiff(adff));
+    } else if (typerole === "истца" && lookAddPlaintiff === 2) {
+      dispatch(addTodosPlaitiffResper(adff));
+    } else if (typerole === "ответчика" && lookAddPlaintiff === 1) {
+      dispatch(addTodosDefendant(adff));
+    } else if (typerole === "ответчика" && lookAddPlaintiff === 2) {
+      dispatch(addTodosDefendantResper(adff));
+    }
+    dispatch(changeLookAddPlaintiff(0));
   };
 
   const changeInput = (e) => {
@@ -30,13 +44,19 @@ const FizFace = ({ typerole }) => {
     dispatch(changeADFF({ ...adff, [e.target.name]: e.target.value }));
   };
 
-  React.useEffect(() => {
-    dispatch(changeADFF({ ...adff, sex: type }));
-  }, [type]);
-
   return (
     <div className="addPlaintiffFiz">
-      <h3>{typerole === "истца" ? "Истец" : "Ответчик"}</h3>
+      <h3>
+        {lookAddPlaintiff === 1 ? (
+          <> {typerole === "истца" ? "Истец" : "Ответчик"} </>
+        ) : (
+          <>
+            {typerole === "истца"
+              ? "Представитель истца"
+              : "Представитель ответчика"}
+          </>
+        )}
+      </h3>
       <form onSubmit={sendData}>
         <div className="twoInputs">
           <div>
@@ -303,7 +323,7 @@ const FizFace = ({ typerole }) => {
           </button>
           <span
             className="saveBtn"
-            onClick={() => dispatch(changeLookAddPlaintiff(false))}
+            onClick={() => dispatch(changeLookAddPlaintiff(0))}
           >
             Отменить и выйти
           </span>

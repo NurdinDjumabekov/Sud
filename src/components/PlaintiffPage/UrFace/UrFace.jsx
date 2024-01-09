@@ -13,6 +13,7 @@ import {
   typeCompanyArr,
   typeOrganization,
 } from "../../../helpers/dataArr";
+import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 
 const UrFace = ({ typerole }) => {
   const dispatch = useDispatch();
@@ -296,6 +297,12 @@ const UrFace = ({ typerole }) => {
           <button className="saveBtn" type="submit">
             Сохранить
           </button>
+          <span
+            className="saveBtn"
+            onClick={() => dispatch(changeLookAddPlaintiff(0))}
+          >
+            Отменить и выйти
+          </span>
         </div>
       </form>
     </>

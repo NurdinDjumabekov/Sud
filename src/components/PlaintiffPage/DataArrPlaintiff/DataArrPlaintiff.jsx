@@ -1,61 +1,32 @@
 import React from "react";
 import "./DataArrPlaintiff.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
+import FillingPlaintiff from "../FillingPlaintiff/FillingPlaintiff";
+import DocsList from "../DocsList/DocsList";
 
-const DataArrPlaintiff = ({ arr, setLookAddPlaintiff }) => {
-  // console.log(arr, "arr");
+const DataArrPlaintiff = ({ arr, typerole }) => {
   const dispatch = useDispatch();
+  const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
+  console.log(lookAddPlaintiff, "lookAddPlaintiff");
+
   return (
     <div>
-      <div className="addDocPlaintiff"></div>
-      <div className="mainTables dataPlaintiff">
-        <ul className="btnsType add">
-          <button onClick={() => dispatch(changeLookAddPlaintiff(true))}>
-            Добавить истца
-          </button>
-          <button onClick={() => dispatch(changeLookAddPlaintiff(true))}>
-            Добавить представителя истца
-          </button>
-        </ul>
-        <div className="main_tabla_isk">
-          <table className="table_isk">
-            <thead>
-              <tr>
-                <th className="table_isk_th">Истец</th>
-                <th className="table_isk_th">Преставитель истца</th>
-              </tr>
-            </thead>
-            <tbody className="tbody_isk">
-              {arr.map((row, index) => (
-                <tr
-                  key={index}
-                  style={
-                    +index % 2 === 0
-                      ? { background: "#fff" }
-                      : { background: "#f9fafd" }
-                  }
-                >
-                  <td className="table_isk_td">
-                    <div>
-                      <span className="span_teble">
-                        {row.name}
-                        {row.dob}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="table_isk_td">
-                    <span>{row.dob}</span>
-                    <span>{row.dob}</span>
-                    <span>{row.dob}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {lookAddPlaintiff == 0 && (
+        <div className="mainTables dataPlaintiff">
+          <ul className="btnsType add">
+            <button onClick={() => dispatch(changeLookAddPlaintiff(1))}>
+              Добавить {typerole}
+            </button>
+            <button onClick={() => dispatch(changeLookAddPlaintiff(2))}>
+              Добавить представителя {typerole}
+            </button>
+          </ul>
+          <DocsList typerole={typerole} />
         </div>
-      </div>
-      {/* )} */}
+      )}
+      {lookAddPlaintiff === 1 && <FillingPlaintiff typerole={typerole} />}
+      {lookAddPlaintiff === 2 && <FillingPlaintiff typerole={typerole} />}
     </div>
   );
 };

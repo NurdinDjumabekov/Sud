@@ -4,7 +4,10 @@ import InputsPlaintiff from "../../components/PlaintiffPage/InputsPlaintiff/Inpu
 import { useNavigate } from "react-router-dom";
 import krestik from "../../asstes/icons/krestik.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { changeLookPDF } from "../../store/reducers/stateSlice";
+import {
+  changeLookAddPlaintiff,
+  changeLookPDF,
+} from "../../store/reducers/stateSlice";
 import FillingPlaintiff from "../../components/PlaintiffPage/FillingPlaintiff/FillingPlaintiff";
 import TargetPlaintiff from "../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff";
 import DescriptionClaim from "../../components/PlaintiffPage/DescriptionClaim/DescriptionClaim";
@@ -20,6 +23,7 @@ import imsIcon from "../../asstes/icons/IconPage/archive.svg";
 import plaintiffs from "../../asstes/icons/plaintiff/plaintiff.svg";
 import many from "../../asstes/icons/plaintiff/many.svg";
 import description from "../../asstes/icons/plaintiff/description.svg";
+import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff";
 //// delete
 
 const PlaintiffPage = () => {
@@ -31,19 +35,24 @@ const PlaintiffPage = () => {
 
   const { adff } = useSelector((state) => state.inputSlice);
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const [btnList, setBtnList] = useState([
     {
       id: 1,
       name: "Истец",
       bool: true,
-      components: <FillingPlaintiff typerole={"истца"} />,
+      components: (
+        <DataArrPlaintiff arr={todosApplications} typerole={"истца"} />
+      ),
     },
     {
       id: 2,
       name: "Ответчик",
       bool: false,
-      components: <FillingPlaintiff typerole={"Ответчика"} />,
+      components: (
+        <DataArrPlaintiff arr={todosApplications} typerole={"ответчика"} />
+      ),
     },
     {
       id: 3,
@@ -118,7 +127,6 @@ const PlaintiffPage = () => {
       setLookInnerType(false);
     }
   };
-  console.log(lookAddPlaintiff);
 
   return (
     <div className="plaintiff">
@@ -130,7 +138,10 @@ const PlaintiffPage = () => {
         {btnList?.map((btn) => (
           <button
             key={btn.id}
-            onClick={() => clickBtn(btn.id)}
+            onClick={() => {
+              clickBtn(btn.id);
+              dispatch(changeLookAddPlaintiff(0));
+            }}
             className={btn?.bool ? "activeBtnsPlaintiff" : ""}
           >
             {btn.name}
@@ -149,10 +160,6 @@ const PlaintiffPage = () => {
         {/* /// для адаптивки */}
       </div>
       <InputsPlaintiff btnList={btnList} indexComp={indexComp} />
-      {/* {typePlantiff ? (
-        ""
-      ) : (
-      )} */}
     </div>
   );
 };
