@@ -14,6 +14,7 @@ const DocsList = ({ typerole }) => {
       <DocsListInner
         arr={todosApplications?.plaitiff}
         arr2={todosApplications?.plaitiffResper}
+        typerole={typerole}
       />
     );
   } else if (typerole === "ответчика") {
@@ -21,6 +22,7 @@ const DocsList = ({ typerole }) => {
       <DocsListInner
         arr={todosApplications?.defendant}
         arr2={todosApplications?.defendantResper}
+        typerole={typerole}
       />
     );
   }

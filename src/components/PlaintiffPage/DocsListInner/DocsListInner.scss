@@ -9,7 +9,6 @@
     > div {
         width: 45%;
         .everyCard {
-            // background-color: red;
             border-bottom: 2px solid #4d5969a8;
             padding: 8px 0px 20px 0;
             margin: 10px 0 20px 0;
@@ -90,6 +89,10 @@
                     }
                 }
             }
+            // &:hover {
+            //     transition: 1.5s;
+              
+            // }
         }
     }
     &::-webkit-scrollbar {

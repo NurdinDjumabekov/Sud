@@ -2,35 +2,13 @@ import React, { useState } from "react";
 import "./AddPlaintiff.scss";
 import FizFace from "../FizFace/FizFace";
 import UrFace from "../UrFace/UrFace";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeTypeFace } from "../../../store/reducers/inputSlice";
 
 const AddPlaintiff = ({ typerole }) => {
+  const dispatch = useDispatch();
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
-
-  const [lookType, setLookType] = useState(1);
-  const [btnList, setBtnList] = useState([
-    {
-      id: 1,
-      name: "Физическое лицо",
-      bool: true,
-    },
-    {
-      id: 2,
-      name: "Юридическое лицо",
-      bool: false,
-    },
-  ]);
-
-  const clickBtn = (id) => {
-    const newList = btnList.map((item) => {
-      return {
-        ...item,
-        bool: id === item.id ? !item.bool : false,
-      };
-    });
-    setBtnList(newList);
-  };
-  // console.log(lookAddPlaintiff, "lookAddPlaintiff");
+  const { typeFace } = useSelector((state) => state.inputSlice);
 
   return (
     <>
@@ -44,20 +22,24 @@ const AddPlaintiff = ({ typerole }) => {
       ) : (
         <div className="addPlaintiff">
           <div className="btnsType">
-            {btnList?.map((item) => (
-              <button
-                className={item?.bool ? "activeBtnsPlaintiff" : ""}
-                onClick={() => {
-                  clickBtn(item.id);
-                  setLookType(item.id);
-                }}
-                key={item.id}
-              >
-                {item.name}
-              </button>
-            ))}
+            <button
+              className={typeFace === 1 ? "activeBtnsPlaintiff" : ""}
+              onClick={() => {
+                dispatch(changeTypeFace(1)); // физ лицо, юр лицо
+              }}
+            >
+              Физическое лицо
+            </button>
+            <button
+              className={typeFace === 2 ? "activeBtnsPlaintiff" : ""}
+              onClick={() => {
+                dispatch(changeTypeFace(2)); // физ лицо, юр лицо
+              }}
+            >
+              Юридическое лицо
+            </button>
           </div>
-          {lookType === 1 ? (
+          {typeFace === 1 ? (
             <FizFace typerole={typerole} />
           ) : (
             <UrFace typerole={typerole} />

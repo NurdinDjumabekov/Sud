@@ -22,7 +22,7 @@ const InputsPlaintiff = ({ btnList, setBtnList, indexComp }) => {
   const { lookPdf, lookAddPlaintiff } = useSelector(
     (state) => state.stateSlice
   );
-  console.log(todosApplications, "todosApplications");
+  // console.log(todosApplications, "todosApplications");
 
   React.useEffect(() => {
     const handleResize = () => {

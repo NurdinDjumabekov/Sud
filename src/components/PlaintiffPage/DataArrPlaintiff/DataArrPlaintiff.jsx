@@ -4,21 +4,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 import FillingPlaintiff from "../FillingPlaintiff/FillingPlaintiff";
 import DocsList from "../DocsList/DocsList";
+import { changeTypeFace, clearADFF } from "../../../store/reducers/inputSlice";
 
 const DataArrPlaintiff = ({ arr, typerole }) => {
   const dispatch = useDispatch();
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
-  console.log(lookAddPlaintiff, "lookAddPlaintiff");
+  // console.log(lookAddPlaintiff, "lookAddPlaintiff");
 
   return (
     <div>
       {lookAddPlaintiff == 0 && (
         <div className="mainTables dataPlaintiff">
           <ul className="btnsType add">
-            <button onClick={() => dispatch(changeLookAddPlaintiff(1))}>
+            <button
+              onClick={() => {
+                dispatch(changeLookAddPlaintiff(1));
+                dispatch(clearADFF());
+                dispatch(changeTypeFace(1));
+              }}
+            >
               Добавить {typerole}
             </button>
-            <button onClick={() => dispatch(changeLookAddPlaintiff(2))}>
+            <button
+              onClick={() => {
+                dispatch(changeLookAddPlaintiff(2));
+                dispatch(changeTypeFace(1));
+              }}
+            >
               Добавить представителя {typerole}
             </button>
           </ul>

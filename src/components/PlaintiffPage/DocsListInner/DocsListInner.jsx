@@ -1,11 +1,42 @@
 import React from "react";
 import "./DocsListInner.scss";
+import {
+  changeADFF,
+  changeADUF,
+  changeTypeFace,
+} from "../../../store/reducers/inputSlice";
+import { useDispatch } from "react-redux";
+import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 
-const DocsListInner = ({ arr, arr2 }) => {
-  console.log(arr, "arr");
+const DocsListInner = ({ arr, arr2, typerole }) => {
+  const dispatch = useDispatch();
+  // console.log(arr);
+  // console.log(arr2);
+  // console.log(typerole,"typerole");
+  const changeAddPlaintiff = (objData, type) => {
+    if (type === "plaint" && typerole === "истца") {
+      console.log(objData);
+      dispatch(changeLookAddPlaintiff(1));
+      dispatch(changeTypeFace(objData.typeFace));
+    } else if (type === "represen" && typerole === "истца") {
+      // console.log(objData, "nnn");
+      dispatch(changeLookAddPlaintiff(2));
+    } else if (type === "plaint" && typerole === "ответчика") {
+      // console.log(objData, "6556+5 ответчика");
+      dispatch(changeLookAddPlaintiff(1));
+      dispatch(changeTypeFace(objData.typeFace));
+    } else if (type === "represen" && typerole === "ответчика") {
+      // console.log(objData, "nnn ответчика");
+      dispatch(changeLookAddPlaintiff(2));
+    }
+
+    dispatch(changeADUF(objData));
+    dispatch(changeADFF(objData));
+  };
+
   return (
     <div className="listDocs">
-      {arr?.length === 0 && arr?.length === 0 ? (
+      {arr?.length === 0 && arr2?.length === 0 ? (
         <p className="emptyData" style={{ height: "70vh" }}>
           список исков пока что отсутствует...
         </p>
@@ -13,7 +44,11 @@ const DocsListInner = ({ arr, arr2 }) => {
         <>
           <div>
             {arr?.map((i) => (
-              <div key={i.id} className="everyCard">
+              <div
+                key={i.id}
+                className="everyCard"
+                onClick={() => changeAddPlaintiff(i, "plaint")}
+              >
                 <div>
                   <div className="everyCard__date">
                     <h5>Февраль</h5>
@@ -22,15 +57,22 @@ const DocsListInner = ({ arr, arr2 }) => {
                 </div>
                 <div className="everyCard__data">
                   <h5>ФИО: {i.name ? i.name : "не указано"}</h5>
-                  <p>Лицо: юридическое</p>
+                  {i.typeFace === "" ? (
+                    " не указано"
+                  ) : (
+                    <p>
+                      Лицо:
+                      {i?.typeFace === 1 ? " физическое" : " юридическое"}
+                    </p>
+                  )}
                   <p>
-                    Адрес:
+                    Адрес
                     {i.country && i.city ? (
                       <>
-                        {i.country},{i.city}
+                        : {i.country},{i.city}
                       </>
                     ) : (
-                      " не указан"
+                      ": не указан"
                     )}
                   </p>
                 </div>
@@ -39,7 +81,11 @@ const DocsListInner = ({ arr, arr2 }) => {
           </div>
           <div>
             {arr2?.map((i) => (
-              <div key={i.id} className="everyCard">
+              <div
+                key={i.id}
+                className="everyCard"
+                onClick={() => changeAddPlaintiff(i, "represen")}
+              >
                 <div>
                   <div className="everyCard__date">
                     <h5>Февраль</h5>
@@ -48,7 +94,14 @@ const DocsListInner = ({ arr, arr2 }) => {
                 </div>
                 <div className="everyCard__data">
                   <h5>ФИО: {i.name ? i.name : "не указано"}</h5>
-                  <p>Лицо: юридическое</p>
+                  {i.typeFace === "" ? (
+                    " не указано"
+                  ) : (
+                    <p>
+                      Лицо:
+                      {i?.typeFace === 1 ? " физическое" : " юридическое"}
+                    </p>
+                  )}
                   <p>
                     Адрес:
                     {i.country && i.city ? (
@@ -70,80 +123,3 @@ const DocsListInner = ({ arr, arr2 }) => {
 };
 
 export default DocsListInner;
-
-// <div>
-//         {todosApplications?.length === 0 ? (
-//           <p className="emptyData"></p>
-//         ) : (
-//           <>
-//             {todosApplications?.map((i) => (
-//               <div key={i.id} className="everyCard">
-//                 <div>
-//                   <div className="everyCard__date">
-//                     <h5>Февраль</h5>
-//                     <p>25</p>
-//                   </div>
-//                   {/* <div className="everyCard__btns">
-//                     <button>
-//                       <img src={editBtn} alt="edit" />
-//                     </button>
-//                     <button>
-//                       <img src={deleteBtn} alt="delete" />
-//                     </button>
-//                   </div> */}
-//                 </div>
-//                 <div className="everyCard__data">
-//                   <h5>ФИО: {i.name ? i.name : "не указано"}</h5>
-//                   <p>Лицо: юридическое</p>
-//                   <p>
-//                     Адрес:
-//                     {i.country && i.city ? (
-//                       <>
-//                         {i.country},{i.city}
-//                       </>
-//                     ) : (
-//                       " не указан"
-//                     )}
-//                   </p>
-//                 </div>
-//               </div>
-//             ))}
-//           </>
-//         )}
-//       </div>
-
-// <div>
-// {todosApplications?.map((i) => (
-//   <div key={i.id} className="everyCard">
-//     <div>
-//       <div className="everyCard__date">
-//         <h5>Февраль</h5>
-//         <p>25</p>
-//       </div>
-//       <div className="everyCard__btns">
-//         <button>
-//           <img src={deleteBtn} alt="delete" />
-//         </button>
-//         <button>
-//           <img src={editBtn} alt="edit" />
-//         </button>
-//       </div>
-//     </div>
-//     <div className="everyCard__data">
-//       <h5>ФИО: {i.name ? i.name : "не указано"}</h5>
-//       <p>Лицо: юридическое</p>
-//       <p>Лицssо: sadasdasdasdasdasas</p>
-//       <p>
-//         Адрес:
-//         {i.country && i.city ? (
-//           <>
-//             {i.country},{i.city}
-//           </>
-//         ) : (
-//           " не указан"
-//         )}
-//       </p>
-//     </div>
-//   </div>
-// ))}
-// </div>

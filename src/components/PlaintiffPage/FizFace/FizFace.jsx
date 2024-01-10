@@ -2,7 +2,11 @@ import React from "react";
 import "./FizFace.scss";
 import Selects from "../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
-import { changeADFF } from "../../../store/reducers/inputSlice";
+import {
+  changeADFF,
+  clearADFF,
+  clearADUF,
+} from "../../../store/reducers/inputSlice";
 import {
   selectAddresElement,
   selectArr,
@@ -22,21 +26,23 @@ import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 
 const FizFace = ({ typerole }) => {
   const dispatch = useDispatch();
-  const { adff } = useSelector((state) => state.inputSlice);
+  const { adff, typeFace } = useSelector((state) => state.inputSlice);
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
 
   const sendData = (e) => {
     e.preventDefault();
     if (typerole === "истца" && lookAddPlaintiff === 1) {
-      dispatch(addTodosPlaitiff(adff));
+      dispatch(addTodosPlaitiff({ ...adff, typeFace }));
     } else if (typerole === "истца" && lookAddPlaintiff === 2) {
-      dispatch(addTodosPlaitiffResper(adff));
+      dispatch(addTodosPlaitiffResper({ ...adff, typeFace }));
     } else if (typerole === "ответчика" && lookAddPlaintiff === 1) {
-      dispatch(addTodosDefendant(adff));
+      dispatch(addTodosDefendant({ ...adff, typeFace }));
     } else if (typerole === "ответчика" && lookAddPlaintiff === 2) {
-      dispatch(addTodosDefendantResper(adff));
+      dispatch(addTodosDefendantResper({ ...adff, typeFace }));
     }
     dispatch(changeLookAddPlaintiff(0));
+    dispatch(clearADFF());
+    dispatch(clearADUF());
   };
 
   const changeInput = (e) => {
@@ -323,7 +329,11 @@ const FizFace = ({ typerole }) => {
           </button>
           <span
             className="saveBtn"
-            onClick={() => dispatch(changeLookAddPlaintiff(0))}
+            onClick={() => {
+              dispatch(changeLookAddPlaintiff(0));
+              dispatch(clearADFF());
+              dispatch(clearADUF());
+            }}
           >
             Отменить и выйти
           </span>

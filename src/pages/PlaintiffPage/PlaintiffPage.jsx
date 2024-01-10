@@ -33,7 +33,7 @@ const PlaintiffPage = () => {
   const [indexComp, setIndexComp] = useState(0);
   const [lookInnerType, setLookInnerType] = useState(true);
 
-  const { adff } = useSelector((state) => state.inputSlice);
+  const { adff, typeFace } = useSelector((state) => state.inputSlice);
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
@@ -127,6 +127,8 @@ const PlaintiffPage = () => {
       setLookInnerType(false);
     }
   };
+
+  console.log(todosApplications, "todosApplications");
 
   return (
     <div className="plaintiff">

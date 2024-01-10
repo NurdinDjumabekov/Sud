@@ -29,6 +29,7 @@ const DataInput = ({ props }) => {
     }
   };
 
+
   return (
     <div className="date__inner">
       <p>{props.title}</p>

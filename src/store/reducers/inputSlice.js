@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   input: "Nurdin Djumabekov",
+  typeFace: 2,
   //// addPlaintiffFizFace
   adff: {
     name: "",
@@ -32,6 +33,7 @@ const initialState = {
     apartament: "",
     emailIndex: "",
     description: "",
+    role: "",
   },
 
   //// addPlaintiffUrFace
@@ -65,6 +67,7 @@ const initialState = {
     description: "",
 
     type: true, //true - Руководитель компании, false - Адрес компании
+    role: "",
   },
 
   ////// representativePlaintiff
@@ -105,17 +108,93 @@ const inputSlice = createSlice({
     changeADFF: (state, action) => {
       state.adff = action.payload;
     },
+    clearADFF: (state, action) => {
+      state.adff = {
+        name: "",
+        sex: "",
+        dob: "",
+        inn: "",
+        unknownDob: false,
+        unknownInn: false,
+        unknownPassport: false,
+        unknownDataPassport: false,
+        passportSeries: "",
+        timePassportStart: "",
+        timePassportEnd: "",
+        organizationPassport: "",
+        numberPlaintiff: "",
+        email: "",
+        email2: "",
+        country: "",
+        region: "",
+        district: "",
+        city: "",
+        adddreselement: "",
+        street: "",
+        numObj: "",
+        index: "",
+        apartament: "",
+        emailIndex: "",
+        description: "",
+        role: "",
+      };
+    },
     //// addPlaintiffUrFace
     changeADUF: (state, action) => {
       state.aduf = action.payload;
+    },
+    clearADUF: (state, action) => {
+      state.aduf = {
+        name: "",
+        dataReg: "",
+        inn: "",
+        okpo: "",
+        email: "",
+        email2: "",
+        numPhone: "",
+        typeOrganization: "",
+        typeCompany: "",
+        country: "",
+
+        userStatus: "",
+        startData: "",
+        endData: "",
+        fioBoss: "",
+
+        country: "",
+        region: "",
+        district: "",
+        city: "",
+        adddreselement: "",
+        street: "",
+        numObj: "",
+        index: "",
+        apartament: "",
+        emailIndex: "",
+        description: "",
+
+        type: true,
+        role: "",
+      };
     },
     ////// representativePlaintiff
     changeRP: (state, action) => {
       state.rp = action.payload;
     },
+    ////////////////////////
+    changeTypeFace: (state, action) => {
+      state.typeFace = action.payload;
+    },
   },
 });
-export const { changeInput, changeADFF, changeADUF, changeRP } =
-  inputSlice.actions;
+export const {
+  changeInput,
+  changeADFF,
+  clearADFF,
+  changeADUF,
+  clearADUF,
+  changeRP,
+  changeTypeFace,
+} = inputSlice.actions;
 
 export default inputSlice.reducer;

@@ -3,7 +3,12 @@ import "./UrFace.scss";
 import Selects from "../../Selects/Selects";
 import DataInput from "../DataInput/DataInput";
 import { useDispatch, useSelector } from "react-redux";
-import { changeADUF } from "../../../store/reducers/inputSlice";
+import {
+  changeADUF,
+  changeTypeFace,
+  clearADFF,
+  clearADUF,
+} from "../../../store/reducers/inputSlice";
 import {
   UserStatus,
   selectAddresElement,
@@ -14,21 +19,37 @@ import {
   typeOrganization,
 } from "../../../helpers/dataArr";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
+import {
+  addTodosDefendant,
+  addTodosPlaitiff,
+} from "../../../store/reducers/applicationsSlice";
 
 const UrFace = ({ typerole }) => {
   const dispatch = useDispatch();
 
+  const { aduf, typeFace } = useSelector((state) => state.inputSlice);
+
   const sendData = (e) => {
     e.preventDefault();
+    if (typerole === "истца") {
+      dispatch(addTodosPlaitiff({ ...aduf, typeFace }));
+    } else if (typerole === "ответчика") {
+      dispatch(addTodosDefendant({ ...aduf, typeFace }));
+    }
+    dispatch(changeLookAddPlaintiff(0));
+    dispatch(clearADFF());
+    dispatch(clearADUF());
   };
-  const { aduf } = useSelector((state) => state.inputSlice);
-
-  console.log(aduf, "aduf");
+  // console.log(aduf, "aduf");
 
   const changeInput = (e) => {
     e.preventDefault();
     dispatch(changeADUF({ ...aduf, [e.target.name]: e.target.value }));
   };
+
+  React.useEffect(() => {
+    return () => dispatch(changeTypeFace(1));
+  }, []);
 
   return (
     <>
@@ -43,11 +64,13 @@ const UrFace = ({ typerole }) => {
               name="name"
               onChange={changeInput}
               value={aduf.name}
+              required
             />
           </div>
           <div>
             <p>Номер телефона</p>
             <input
+              required
               type="text"
               placeholder="Номер телефона"
               name="numPhone"
@@ -60,6 +83,7 @@ const UrFace = ({ typerole }) => {
           <div>
             <p>Ваш ИНН</p>
             <input
+              required
               type="text"
               placeholder="ИНН"
               name="inn"
@@ -70,6 +94,7 @@ const UrFace = ({ typerole }) => {
           <div>
             <p>ОКПО</p>
             <input
+              required
               type="text"
               placeholder="Общереспубликанский Классификатор Предприятий и Организаций"
               name="okpo"
@@ -82,6 +107,7 @@ const UrFace = ({ typerole }) => {
           <div>
             <p>Электронная почта</p>
             <input
+              required
               type="text"
               placeholder="Электронная почта"
               name="email"
@@ -92,6 +118,7 @@ const UrFace = ({ typerole }) => {
           <div>
             <p>Второй адрес электронной почты</p>
             <input
+              required
               type="text"
               placeholder="Второй адрес электронной почты"
               name="email2"
@@ -133,18 +160,18 @@ const UrFace = ({ typerole }) => {
         </div>
         <div className="btnsTypeMain">
           <div className="btnsType">
-            <button
+            <span
               className={aduf?.type ? "activeBtnsPlaintiff" : ""}
               onClick={() => dispatch(changeADUF({ ...aduf, type: true }))}
             >
               Руководитель компании
-            </button>
-            <button
+            </span>
+            <span
               className={aduf?.type ? "" : "activeBtnsPlaintiff"}
               onClick={() => dispatch(changeADUF({ ...aduf, type: false }))}
             >
               Адрес компании
-            </button>
+            </span>
           </div>
         </div>
         {aduf?.type ? (
@@ -178,6 +205,7 @@ const UrFace = ({ typerole }) => {
               <div>
                 <p>ФИО руководителя</p>
                 <input
+                  required
                   type="text"
                   placeholder="ФИО руководителя"
                   name="fioBoss"
@@ -213,6 +241,7 @@ const UrFace = ({ typerole }) => {
               <div>
                 <p>Город</p>
                 <input
+                  required
                   type="text"
                   placeholder="Ваш город проживания"
                   name="city"
@@ -229,6 +258,7 @@ const UrFace = ({ typerole }) => {
               <div>
                 <p>Улица</p>
                 <input
+                  required
                   type="text"
                   placeholder="Улица"
                   name="street"
@@ -241,6 +271,7 @@ const UrFace = ({ typerole }) => {
               <div>
                 <p>Номер объекта</p>
                 <input
+                  required
                   type="text"
                   placeholder="Номер объекта"
                   name="numObj"
@@ -251,6 +282,7 @@ const UrFace = ({ typerole }) => {
               <div>
                 <p>Буквенный индекс</p>
                 <input
+                  required
                   type="text"
                   placeholder="Буквенный индекс"
                   name="index"
@@ -261,6 +293,7 @@ const UrFace = ({ typerole }) => {
               <div>
                 <p>Квартира</p>
                 <input
+                  required
                   type="text"
                   placeholder="Квартира"
                   name="apartament"
@@ -273,6 +306,7 @@ const UrFace = ({ typerole }) => {
               <div>
                 <p>Почтовый индекс</p>
                 <input
+                  required
                   type="text"
                   placeholder="Почтовый индекс"
                   name="emailIndex"
@@ -283,6 +317,7 @@ const UrFace = ({ typerole }) => {
               <div>
                 <p>Описание</p>
                 <input
+                  required
                   type="text"
                   placeholder="Описание"
                   name="description"
@@ -299,7 +334,11 @@ const UrFace = ({ typerole }) => {
           </button>
           <span
             className="saveBtn"
-            onClick={() => dispatch(changeLookAddPlaintiff(0))}
+            onClick={() => {
+              dispatch(changeLookAddPlaintiff(0));
+              dispatch(clearADFF());
+              dispatch(clearADUF());
+            }}
           >
             Отменить и выйти
           </span>
