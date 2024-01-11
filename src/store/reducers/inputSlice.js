@@ -70,30 +70,22 @@ const initialState = {
     role: "",
   },
 
-  ////// representativePlaintiff
-  rp: {
-    name: "",
-    sex: "", // пол
-    dob: "", /// data of birth
-    inn: "",
-    passportSeries: "", // серия паспорта
-    timePassportStart: "", // дата выдачи паспорта
-    timePassportEnd: "", // дата истечения паспорта
-    organizationPassport: "", // кем выдан
-    numberPlaintiff: "",
-    email: "",
-    email2: "",
-    country: "",
-    region: "", /// область
-    district: "", //// район
-    city: "",
-    adddreselement: "", // адресный элемент
-    street: "",
-    numObj: "",
-    index: "",
-    apartament: "",
-    emailIndex: "",
-    description: "",
+  // цена иска
+  priceDocs: {
+    summ: 0,
+    summ_curr: "",
+
+    arbitr_fee: 0,
+    arbitr_curr: "",
+
+    registr_fee: 0,
+    registr_curr: "",
+
+    doplata_summ: 0,
+    nadbavka_curr: "",
+
+    arbitr_pay_end_date: "",
+    arbitr_doplata_end_date: "",
   },
 };
 
@@ -177,13 +169,12 @@ const inputSlice = createSlice({
         role: "",
       };
     },
-    ////// representativePlaintiff
-    changeRP: (state, action) => {
-      state.rp = action.payload;
-    },
     ////////////////////////
     changeTypeFace: (state, action) => {
       state.typeFace = action.payload;
+    },
+    changePriceDocs: (state, action) => {
+      state.priceDocs = action.payload;
     },
   },
 });
@@ -195,6 +186,7 @@ export const {
   clearADUF,
   changeRP,
   changeTypeFace,
+  changePriceDocs,
 } = inputSlice.actions;
 
 export default inputSlice.reducer;

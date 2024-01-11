@@ -15,7 +15,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
   // console.log(typerole,"typerole");
   const changeAddPlaintiff = (objData, type) => {
     if (type === "plaint" && typerole === "истца") {
-      console.log(objData);
+      // console.log(objData);
       dispatch(changeLookAddPlaintiff(1));
       dispatch(changeTypeFace(objData.typeFace));
     } else if (type === "represen" && typerole === "истца") {

@@ -325,7 +325,7 @@ const FizFace = ({ typerole }) => {
         </div>
         <div className="btnsSave">
           <button className="saveBtn" type="submit">
-            Сохранить
+            Сохранить данные {typerole}
           </button>
           <span
             className="saveBtn"

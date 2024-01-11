@@ -2,11 +2,13 @@ import React from "react";
 import Selects from "../Selects/Selects";
 import "./Calculator.scss";
 import { selectArr } from "../../helpers/dataArr";
+import { useSelector } from "react-redux";
 
 const Calculator = () => {
-  const [type, setType] = React.useState("");
+  const { adff } = useSelector((state) => state.inputSlice);
 
   return (
+    /// пока что не тр0гаю!
     <div className="calculator">
       <div className="calculator__count">
         <div>
@@ -15,9 +17,9 @@ const Calculator = () => {
         </div>
         <Selects
           arr={selectArr}
-          change={setType}
-          choice={type}
-          initText={'Тип спора'}
+          initText={"Тип спора"}
+          keys={{ typeKey: adff.sex, type: "sex" }}
+          type="adff"
         />
         <button className="btnCal">Расчитать</button>
       </div>

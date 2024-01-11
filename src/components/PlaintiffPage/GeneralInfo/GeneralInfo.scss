@@ -19,9 +19,11 @@
       display: flex;
       align-items: center;
       gap: 2px;
+      
       > input {
         width: 20px;
         height: 20px;
+        cursor: pointer;
       }
       > label {
         margin: 0 0 0 10px;

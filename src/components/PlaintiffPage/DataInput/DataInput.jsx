@@ -4,12 +4,12 @@ import "./DataInput.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { changeADFF, changeADUF } from "../../../store/reducers/inputSlice";
+import { changeADFF, changeADUF, changePriceDocs } from "../../../store/reducers/inputSlice";
 
 const DataInput = ({ props }) => {
   const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState("");
-  const { adff, aduf } = useSelector((state) => state.inputSlice);
+  const { adff, aduf, priceDocs } = useSelector((state) => state.inputSlice);
 
   // формат даты 15/01/2024
   // dd/MM/yyyy
@@ -24,11 +24,12 @@ const DataInput = ({ props }) => {
 
     if (props.typeChange === "adff") {
       dispatch(changeADFF({ ...adff, [props.nameInput]: formattedDate }));
-    } else {
+    } else if (props.typeChange === "aduf") {
       dispatch(changeADUF({ ...aduf, [props.nameInput]: formattedDate }));
+    } else if (props.typeChange === "priceDocs") {
+      dispatch(changePriceDocs({ ...priceDocs, [props.nameInput]: formattedDate }));
     }
   };
-
 
   return (
     <div className="date__inner">

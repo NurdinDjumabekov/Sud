@@ -2,14 +2,20 @@ import React from "react";
 import "./Selects.scss";
 import img from "../../asstes/icons/arrowBtn.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { changeADFF, changeADUF } from "../../store/reducers/inputSlice";
+import {
+  changeADFF,
+  changeADUF,
+  changePriceDocs,
+} from "../../store/reducers/inputSlice";
+import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
 
 const Selects = (props) => {
   const { arr, initText, keys, type } = props;
   const dispatch = useDispatch();
   const [active, setActive] = React.useState(false);
   const accordionRef = React.useRef(null);
-  const { adff, aduf } = useSelector((state) => state.inputSlice);
+  const { adff, aduf, priceDocs } = useSelector((state) => state.inputSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   React.useEffect(() => {
     const handleChange = (e) => {
@@ -33,8 +39,12 @@ const Selects = (props) => {
     setActive(false);
     if (type === "adff") {
       dispatch(changeADFF({ ...adff, [keys.type]: name }));
-    } else {
+    } else if (type === "aduf") {
       dispatch(changeADUF({ ...aduf, [keys.type]: name }));
+    } else if (type === "priceDocs") {
+      dispatch(changePriceDocs({ ...priceDocs, [keys.type]: name }));
+    } else if (type === "todos") {
+      dispatch(changeTodosApplications({ ...todosApplications, [keys.type]: name }));
     }
   };
 

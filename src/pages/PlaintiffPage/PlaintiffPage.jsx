@@ -24,6 +24,8 @@ import plaintiffs from "../../asstes/icons/plaintiff/plaintiff.svg";
 import many from "../../asstes/icons/plaintiff/many.svg";
 import description from "../../asstes/icons/plaintiff/description.svg";
 import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff";
+import { checkDataIsks } from "../../helpers/checkDataIsks";
+import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
 //// delete
 
 const PlaintiffPage = () => {
@@ -128,6 +130,15 @@ const PlaintiffPage = () => {
     }
   };
 
+  const saveData = () => {
+    if (checkDataIsks(todosApplications)) {
+      navigate("/mainPlaintiff");
+      alert("Ваши данные успешно сохранены");
+      dispatch(clearTodosApplications());
+    } else {
+      alert("Нету заполненных полей!");
+    }
+  };
   console.log(todosApplications, "todosApplications");
 
   return (
@@ -136,31 +147,36 @@ const PlaintiffPage = () => {
         <img src={krestik} alt="x" />
       </button> */}
       {/* /// delete */}
-      <ul className="btnsType plaintiffTypes">
-        {btnList?.map((btn) => (
-          <button
-            key={btn.id}
-            onClick={() => {
-              clickBtn(btn.id);
-              dispatch(changeLookAddPlaintiff(0));
-            }}
-            className={btn?.bool ? "activeBtnsPlaintiff" : ""}
-          >
-            {btn.name}
-          </button>
-        ))}
-      </ul>
-      <div className="plaintiff__type">
-        {/* <div>
+      <div className="sadasdasdas">
+        <button className="activeBtnsPlaintiff" onClick={saveData}>
+          Сохранить весь документ
+        </button>
+        <ul className="btnsType plaintiffTypes">
+          {btnList?.map((btn) => (
+            <button
+              key={btn.id}
+              onClick={() => {
+                clickBtn(btn.id);
+                dispatch(changeLookAddPlaintiff(0));
+              }}
+              className={btn?.bool ? "activeBtnsPlaintiff" : ""}
+            >
+              {btn.name}
+            </button>
+          ))}
+        </ul>
+      </div>
+      {/* <div className="plaintiff__type">
+        <div>
           <button
             onClick={() => dispatch(changeLookPDF(true))}
             className="btnResult"
           >
             Посмотреть результат
           </button>
-        </div> */}
-        {/* /// для адаптивки */}
-      </div>
+        </div>
+      </div> */}
+      {/* /// для адаптивки */}
       <InputsPlaintiff btnList={btnList} indexComp={indexComp} />
     </div>
   );

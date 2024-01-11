@@ -137,10 +137,11 @@ const UrFace = ({ typerole }) => {
           <DataInput
             props={{
               title: "Дата первичной регистрации",
-              placeholder: "",
               nameInput: "dataReg",
+              placeholder: "",
               change: changeInput,
-              keyData: "aduf.dataReg",
+              keyData: aduf.dataReg,
+              typeChange: "aduf",
             }}
           />
           <Selects
@@ -184,20 +185,20 @@ const UrFace = ({ typerole }) => {
               />
               <DataInput
                 props={{
-                  title: "Дата вашего рождения",
-                  placeholder: "",
+                  title: "Дата назначения *",
                   nameInput: "startData",
-                  change: changeInput,
+                  placeholder: "",
                   keyData: aduf.startData,
+                  typeChange: "aduf",
                 }}
               />
               <DataInput
                 props={{
-                  title: "Дата вашего рождения",
-                  placeholder: "",
+                  title: "Дата истечения *",
                   nameInput: "endData",
-                  change: changeInput,
+                  placeholder: "",
                   keyData: aduf.endData,
+                  typeChange: "aduf",
                 }}
               />
             </div>
@@ -330,7 +331,7 @@ const UrFace = ({ typerole }) => {
         )}
         <div className="btnsSave">
           <button className="saveBtn" type="submit">
-            Сохранить
+            Сохранить данные {typerole}
           </button>
           <span
             className="saveBtn"

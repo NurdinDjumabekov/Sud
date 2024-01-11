@@ -1,14 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  // todosApplications: [
-  //    { id: 1, name: "Marmeladov Chakchabek", dob: "27.01.2002" },
-  // ],
   todosApplications: {
     plaitiff: [], //1
     plaitiffResper: [], //2
     defendant: [], //3
     defendantResper: [], //4
+    name: "",
+    description: "",
+    motivation: "",
+    obosnovanie: "",
+    finance_raschet: "",
+    law_links: "",
+    claim: "",
+
+    ///////////////////////////////
+    prim_pravo: "",
+    reglament: "",
+    haracter_spor: "",
+    arbitr_lang: "",
+    arbitr_po_dogovor: false, // заменить на 1 и 0
   },
 };
 
@@ -100,6 +111,29 @@ const applicationsSlice = createSlice({
         ];
       }
     },
+    changeTodosApplications: (state, action) => {
+      state.todosApplications = action.payload;
+    },
+    clearTodosApplications: (state, action) => {
+      state.todosApplications = {
+        plaitiff: [],
+        plaitiffResper: [],
+        defendant: [],
+        defendantResper: [],
+        name: "",
+        description: "",
+        motivation: "",
+        obosnovanie: "",
+        finance_raschet: "",
+        law_links: "",
+        claim: "",
+        prim_pravo: "",
+        reglament: "",
+        haracter_spor: "",
+        arbitr_lang: "",
+        arbitr_po_dogovor: false,
+      };
+    },
   },
 });
 export const {
@@ -107,6 +141,8 @@ export const {
   addTodosPlaitiffResper,
   addTodosDefendant,
   addTodosDefendantResper,
+  changeTodosApplications,
+  clearTodosApplications,
 } = applicationsSlice.actions;
 
 export default applicationsSlice.reducer;
