@@ -12,8 +12,8 @@ const DocsList = ({ typerole }) => {
   if (typerole === "истца") {
     return (
       <DocsListInner
-        arr={todosApplications?.plaitiff}
-        arr2={todosApplications?.plaitiffResper}
+        arr={todosApplications?.plaintiff}
+        arr2={todosApplications?.plaintiffResper}
         typerole={typerole}
       />
     );

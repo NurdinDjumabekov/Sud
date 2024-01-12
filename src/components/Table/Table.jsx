@@ -4,303 +4,11 @@ import imgPdf from "../../asstes/icons/pdf.svg";
 import pdfFileImg from "../../asstes/images/pdfFile.png";
 import pdfFile from "./../../asstes/pdf/sud_pdf.pdf";
 import Modals from "../Modals/Modals";
+import { useSelector } from "react-redux";
 
 export const Table = () => {
   const [lookPdf, setLookPdf] = useState(false);
-  const rowsData = [
-    {
-      id: "1",
-      number: "№ 212",
-      date: "19.12.2023",
-      plaintiff: "Alisher Duishenaly",
-      defendant: [
-        "Sadirdinov Ruslan",
-        "Sadirdinov Ruslan",
-        "Alisher Duishenaly",
-        "Djumabekov Nurdin",
-        "Сейитбеков Тимур Сейитович",
-      ],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "2",
-      number: "№ 32",
-      date: "19.12.2023",
-      plaintiff: "Falcon – Admin Dashboard & WebApp Template",
-      defendant: ["Alisher Duishenaly"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "3",
-      number: "№ 445",
-      date: "19.12.2023",
-      plaintiff: "Djumabekov Nurdin",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "4",
-      number: "№ 554",
-      date: "19.12.2023",
-      plaintiff: "Djumabekov Nurdin",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Sadirdinov Ruslan",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "5",
-      number: "№ 12",
-      date: "19.12.2023",
-      plaintiff: "Djumabekov Nurdin",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "6",
-      number: "№ 45",
-      date: "19.12.2023",
-      plaintiff: "Sadirdinov Ruslan",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "7",
-      number: "№ 876",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "8",
-      number: "№ 67",
-      date: "19.12.2023",
-      plaintiff: "Alisher Duishenaly",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "9",
-      number: "№ 54",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "10",
-      number: "№ 43",
-      date: "19.12.2023",
-      plaintiff: "Alisher Duishenaly",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "11",
-      number: "№ 865",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "12",
-      number: "№ 27",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "13",
-      number: "№ 37",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "14",
-      number: "№ 47",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "15",
-      number: "№ 93",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "16",
-      number: "№ 38",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "17",
-      number: "№ 86",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "18",
-      number: "№ 37",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "19",
-      number: "№ 28",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "20",
-      number: "№ 18",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "21",
-      number: "№ 39",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-    {
-      id: "22",
-      number: "№ 94",
-      date: "19.12.2023",
-      plaintiff: "Джумабеков Нурдин Арленович",
-      defendant: ["Sadirdinov Ruslan"],
-      arbitrationFee: "0 валют",
-      regulation: "не выбран",
-      arbitrators: "Арбриты не назначены",
-      secretary: "Эльнура",
-      status: "Ответчик уведомлен",
-      documentType: "Определение об отказе иска",
-    },
-  ];
+  const { listTodos } = useSelector((state) => state.applicationsSlice);
 
   const openPdfInNewTab = () => {
     setLookPdf(true);
@@ -334,6 +42,7 @@ export const Table = () => {
       bool: false,
     },
   ]);
+
   const clickBtn = (id) => {
     const newList = btnList.map((item) => {
       return {
@@ -343,6 +52,8 @@ export const Table = () => {
     });
     setBtnList(newList);
   };
+
+  console.log(listTodos, "listTodos");
 
   return (
     <>
@@ -375,8 +86,7 @@ export const Table = () => {
               </tr>
             </thead>
             <tbody className="tbody_isk">
-              {/* Используем map для отображения строк */}
-              {rowsData.map((row, index) => (
+              {listTodos.map((row, index) => (
                 <tr
                   key={index}
                   style={
@@ -387,17 +97,20 @@ export const Table = () => {
                 >
                   <td className="table_isk_td">
                     <div>
-                      <span className="span_teble">{row.number}</span>
+                      <span className="span_teble">№ {row.codeid}</span>
                     </div>
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.plaintiff}</span>
+                    <span>
+                      {row?.plaintiff?.length === 0
+                        ? "ФИО истца отсутствует"
+                        : row?.plaintiff?.[0]?.name}
+                    </span>
                   </td>
-                  {/* ////////////////////////////// */}
                   {/* <td
                     className="table_isk_td"
                     style={
-                      row?.defendant?.length === 1
+                      row?.plaintiff?.length === 1
                         ? {}
                         : {
                             display: "flex",
@@ -407,15 +120,15 @@ export const Table = () => {
                           }
                     }
                   >
-                    {row?.defendant?.length === 1 ? (
-                      <span>{row.defendant?.[0]}</span>
+                    {row?.plaintiff?.length === 1 ? (
+                      <span>{row.plaintiff?.[0]?.name}</span>
                     ) : (
                       <>
-                        {row?.defendant?.map((i) => (
+                        {row?.plaintiff?.map((i) => (
                           <>
                             <div className="innerTable">
                               <td className="table_isk_td__inner">
-                                <span>{i}</span>
+                                <span>{i.name}</span>
                               </td>
                             </div>
                           </>
@@ -424,28 +137,51 @@ export const Table = () => {
                     )}
                   </td> */}
                   <td className="table_isk_td">
-                    <span>{row.defendant?.[0]}</span>
+                    <span>
+                      {row?.defendant?.length === 0
+                        ? "ФИО истца отсутствует"
+                        : row?.defendant?.[0]?.name}
+                    </span>
                   </td>
                   {/* ///////////////////////////////////// */}
                   <td className="table_isk_td">
-                    <span>{row.arbitrationFee}</span>
+                    <span>{row.arbitr_fee}</span>
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.regulation}</span>
+                    <span>{row.reglament ? row.reglament : "не выбран"}</span>
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.arbitrators}</span>
+                    {row?.arbitrs?.length === 0 ? (
+                      <span>Арбитр не назначен</span>
+                    ) : (
+                      row?.arbitrs?.map((i) => <span>{i?.name}</span>)
+                    )}
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.secretary}</span>
+                    {/* <span>{row.secretary}</span> */}
+                    <span>Nurdin</span>
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.status}</span>
+                    <span>
+                      {row.isk_status_name ? row.isk_status_name : "Ожидание"}
+                    </span>
+                    {/* <div className="statusIsks">
+                      <button>Подать иск</button>
+                      <button>Редактировать иск</button>
+                    </div> */}
                   </td>
                   <td className="table_isk_td">
                     <span className="documentBlock" onClick={openPdfInNewTab}>
-                      <img src={imgPdf} alt="pdf" />
-                      <p>{row.documentType}</p>
+                      {row.files?.length === 0 ? (
+                        <p>Документы оттутствуют</p>
+                      ) : (
+                        row?.files?.map((i) => (
+                          <div>
+                            <img src={imgPdf} alt="pdf" />
+                            <p>{row?.documentType}</p>
+                          </div>
+                        ))
+                      )}
                     </span>
                     {/* <span className="documentBlock" onClick={openPdfInNewTab}>
                     <img src={imgPdf} alt="pdf" />
@@ -458,11 +194,11 @@ export const Table = () => {
           </table>
         </div>
       </div>
-      {lookPdf && (
+      {/* {lookPdf && (
         <Modals openModal={lookPdf} setOpenModal={setLookPdf}>
           <iframe src={pdfFile} width={700} height={850}></iframe>
         </Modals>
-      )}
+      )} */}
     </>
   );
 };

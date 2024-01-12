@@ -2,10 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   todosApplications: {
-    plaitiff: [], //1
-    plaitiffResper: [], //2
+    plaintiff: [], //1 plaintiff
+    plaintiffResper: [], //2
     defendant: [], //3
     defendantResper: [], //4
+
     name: "",
     description: "",
     motivation: "",
@@ -13,58 +14,104 @@ const initialState = {
     finance_raschet: "",
     law_links: "",
     claim: "",
+    ///////////////////////////////
+    summ: 0,
+    summ_curr: "", /// select должен быть по id
+    arbitr_fee: 0,
+    arbitr_curr: "", /// select должен быть по id
+    registr_fee: 0,
+    registr_curr: "", /// select должен быть по id
+    doplata_summ: 0,
 
+    nadbavka_curr: "", //
+    arbitr_pay_end_date: "", //
+    arbitr_doplata_end_date: "", //
     ///////////////////////////////
     prim_pravo: "",
     reglament: "",
     haracter_spor: "",
     arbitr_lang: "",
     arbitr_po_dogovor: false, // заменить на 1 и 0
+    //// временно, потом удалю!
+    number: 1,
   },
+  //// массив дел
+  listTodos: [
+    // {
+    //   codeid: "5",
+    //   plaintiff: [
+    //     {
+    //       codeid: "2",
+    //       name: "Djumabekov Nurdin",
+    //       fiz_face_type: 2,
+    //     },
+    //   ],
+    //   defendant: [
+    //     {
+    //       codeid: "2",
+    //       name: "John Elnsssura",
+    //       fiz_face_type: 2,
+    //     },
+    //     {
+    //       codeid: "3",
+    //       name: "John Elnsssura",
+    //       fiz_face_type: 2,
+    //     },
+    //   ],
+    //   name: "Your Name",
+    //   arbitr_fee: 1000,
+    //   arbitr_curr: 1,
+    //   isk_status: null, ///// 1 - 4
+    //   isk_status_name: null,
+    //   reglament: "",
+    //   arbitrs: [],
+    //   files: [],
+    // },
+  ],
 };
 
 const applicationsSlice = createSlice({
   name: "applicationsSlice",
   initialState,
   reducers: {
-    addTodosPlaitiff: (state, action) => {
-      const { plaitiff } = state.todosApplications;
+    addTodosPlaintiff: (state, action) => {
+      const { plaintiff } = state.todosApplications;
       if (action.payload.id) {
-        const newArr = plaitiff.map((obj) => {
+        const newArr = plaintiff.map((obj) => {
           if (obj.id === action.payload.id) {
             return action.payload;
           } else {
             return obj;
           }
         });
-        state.todosApplications.plaitiff = newArr;
+        state.todosApplications.plaintiff = newArr;
       } else {
         const id =
-          plaitiff.length === 0 ? 1 : plaitiff[plaitiff.length - 1].id + 1;
-        state.todosApplications.plaitiff = [
-          ...plaitiff,
+          plaintiff.length === 0 ? 1 : plaintiff[plaintiff.length - 1].id + 1;
+        state.todosApplications.plaintiff = [
+          ...plaintiff,
           { ...action.payload, id },
         ];
       }
     },
-    addTodosPlaitiffResper: (state, action) => {
-      const { plaitiffResper } = state.todosApplications;
+    addTodosPlaintiffResper: (state, action) => {
+      const { plaintiffResper } = state.todosApplications;
       if (action.payload.id) {
-        const newArr = plaitiffResper.map((obj) => {
+        const newArr = plaintiffResper.map((obj) => {
           if (obj.id === action.payload.id) {
             return action.payload;
           } else {
             return obj;
           }
         });
-        state.todosApplications.plaitiffResper = newArr;
+        state.todosApplications.plaintiffResper = newArr;
       } else {
         const id =
-          plaitiffResper.length === 0
+          plaintiffResper.length === 0
             ? 1
-            : plaitiffResper[plaitiffResper.length - 1].id + 1;
-        state.todosApplications.plaitiffResper = [
-          ...plaitiffResper,
+            : plaintiffResper[plaintiffResper.length - 1].id + 1;
+        state.todosApplications.plaintiffResper = [
+          ...plaintiffResper,
           { ...action.payload, id },
         ];
       }
@@ -116,8 +163,8 @@ const applicationsSlice = createSlice({
     },
     clearTodosApplications: (state, action) => {
       state.todosApplications = {
-        plaitiff: [],
-        plaitiffResper: [],
+        plaintiff: [],
+        plaintiffResper: [],
         defendant: [],
         defendantResper: [],
         name: "",
@@ -127,6 +174,16 @@ const applicationsSlice = createSlice({
         finance_raschet: "",
         law_links: "",
         claim: "",
+        summ: 0,
+        summ_curr: "",
+        arbitr_fee: 0,
+        arbitr_curr: "",
+        registr_fee: 0,
+        registr_curr: "",
+        doplata_summ: 0,
+        nadbavka_curr: "",
+        arbitr_pay_end_date: "",
+        arbitr_doplata_end_date: "",
         prim_pravo: "",
         reglament: "",
         haracter_spor: "",
@@ -134,15 +191,34 @@ const applicationsSlice = createSlice({
         arbitr_po_dogovor: false,
       };
     },
+    changeListTodos: (state, action) => {
+      state.listTodos = action.payload;
+    },
+    addListTodos: (state, action) => {
+      /// добавлени нового обьекта!
+      state.listTodos = [
+        ...state.listTodos,
+        {
+          ...action.payload,
+          codeid: "5",
+          isk_status: null,
+          isk_status_name: null,
+          arbitrs: [],
+          files: [],
+        },
+      ];
+    },
   },
 });
 export const {
-  addTodosPlaitiff,
-  addTodosPlaitiffResper,
+  addTodosPlaintiff,
+  addTodosPlaintiffResper,
   addTodosDefendant,
   addTodosDefendantResper,
   changeTodosApplications,
   clearTodosApplications,
+  changeListTodos,
+  addListTodos,
 } = applicationsSlice.actions;
 
 export default applicationsSlice.reducer;

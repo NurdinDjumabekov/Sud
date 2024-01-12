@@ -3,24 +3,25 @@ import Selects from "../../Selects/Selects";
 import "./TargetPlaintiff.scss";
 import Requisites from "../../Requisites/Requisites";
 import Calculator from "../../Calculator/Calculator";
-import ExampleBlock from "../../ExampleBlock/ExampleBlock";
 import { useDispatch, useSelector } from "react-redux";
 import DataInput from "../DataInput/DataInput";
-import { changePriceDocs } from "../../../store/reducers/inputSlice";
+import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
 
 const TargetPlaintiff = () => {
   const dispatch = useDispatch();
-  const [type, setType] = React.useState("");
   const [btnSend, setBtnSend] = React.useState(true);
 
-  const { priceDocs } = useSelector((state) => state.inputSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const sendData = () => {};
 
   const changeInput = (e) => {
     e.preventDefault();
     dispatch(
-      changePriceDocs({ ...priceDocs, [e.target.name]: e.target.value })
+      changeTodosApplications({
+        ...todosApplications,
+        [e.target.name]: e.target.value,
+      })
     );
   };
 
@@ -29,7 +30,6 @@ const TargetPlaintiff = () => {
     { id: 1, name: "Женский" },
   ];
 
-  console.log(priceDocs, "priceDocs");
   return (
     <div className="plaintiFilling__container">
       <div className="addPlaintiff">
@@ -42,15 +42,15 @@ const TargetPlaintiff = () => {
                 placeholder="Cумма иска"
                 name="summ"
                 onChange={changeInput}
-                value={priceDocs.summ}
+                value={todosApplications.summ}
                 required
               />
             </div>
             <Selects
               arr={selectArr}
               initText={"Фунт"}
-              keys={{ typeKey: priceDocs.summ_curr, type: "summ_curr" }}
-              type="priceDocs"
+              keys={{ typeKey: todosApplications.summ_curr, type: "summ_curr" }}
+              type="todos"
             />
           </div>
           <div className="twoInputs">
@@ -61,15 +61,18 @@ const TargetPlaintiff = () => {
                 name="arbitr_fee"
                 placeholder="Арбитр. сбор"
                 onChange={changeInput}
-                value={priceDocs.arbitr_fee}
+                value={todosApplications.arbitr_fee}
                 required
               />
             </div>
             <Selects
               arr={selectArr}
               initText={"Валюта арбитра"}
-              keys={{ typeKey: priceDocs.arbitr_curr, type: "arbitr_curr" }}
-              type="priceDocs"
+              keys={{
+                typeKey: todosApplications.arbitr_curr,
+                type: "arbitr_curr",
+              }}
+              type="todos"
             />
           </div>
           <div className="twoInputs">
@@ -80,15 +83,18 @@ const TargetPlaintiff = () => {
                 placeholder="Рег. сбор"
                 name="registr_fee"
                 onChange={changeInput}
-                value={priceDocs.registr_fee}
+                value={todosApplications.registr_fee}
                 required
               />
             </div>
             <Selects
               arr={selectArr}
               initText={"валюта регистрационного сбора"}
-              keys={{ typeKey: priceDocs.registr_curr, type: "registr_curr" }}
-              type="priceDocs"
+              keys={{
+                typeKey: todosApplications.registr_curr,
+                type: "registr_curr",
+              }}
+              type="todos"
             />
           </div>
           <div className="twoInputs">
@@ -99,15 +105,18 @@ const TargetPlaintiff = () => {
                 placeholder="Cумма доплаты"
                 name="doplata_summ"
                 onChange={changeInput}
-                value={priceDocs.doplata_summ}
+                value={todosApplications.doplata_summ}
                 required
               />
             </div>
             <Selects
               arr={selectArr}
               initText={"Валюта надбавок"}
-              keys={{ typeKey: priceDocs.nadbavka_curr, type: "nadbavka_curr" }}
-              type="priceDocs"
+              keys={{
+                typeKey: todosApplications.nadbavka_curr,
+                type: "nadbavka_curr",
+              }}
+              type="todos"
             />
           </div>
 
@@ -116,16 +125,16 @@ const TargetPlaintiff = () => {
               props={{
                 title: "Крайний срок уплаты арбитражного сбора *",
                 nameInput: "arbitr_pay_end_date",
-                keyData: priceDocs.arbitr_pay_end_date,
-                typeChange: "priceDocs",
+                keyData: todosApplications.arbitr_pay_end_date,
+                typeChange: "todos",
               }}
             />
             <DataInput
               props={{
                 title: "Крайний срок доплаты арбитражного сбора *",
                 nameInput: "arbitr_doplata_end_date",
-                keyData: priceDocs.arbitr_doplata_end_date,
-                typeChange: "priceDocs",
+                keyData: todosApplications.arbitr_doplata_end_date,
+                typeChange: "todos",
               }}
             />
           </div>

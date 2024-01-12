@@ -1,7 +1,7 @@
 export const checkDataIsks = (obj) => {
   if (
-    obj.plaitiff?.length === 0 &&
-    obj.plaitiffResper?.length === 0 &&
+    obj.plaintiff?.length === 0 &&
+    obj.plaintiffResper?.length === 0 &&
     obj.defendant?.length === 0 &&
     obj.defendantResper?.length === 0 &&
     obj.name === "" &&
@@ -14,7 +14,17 @@ export const checkDataIsks = (obj) => {
     obj.prim_pravo === "" &&
     obj.reglament === "" &&
     obj.haracter_spor === "" &&
-    obj.arbitr_lang === ""
+    obj.arbitr_lang === "" &&
+    obj.summ === 0 &&
+    obj.summ_curr === "" &&
+    obj.arbitr_fee === 0 &&
+    obj.arbitr_curr === "" &&
+    obj.registr_fee === 0 &&
+    obj.registr_curr === "" &&
+    obj.doplata_summ === 0 &&
+    obj.nadbavka_curr === "" &&
+    obj.arbitr_pay_end_date === "" &&
+    obj.arbitr_doplata_end_date === ""
   ) {
     return false;
   } else {

@@ -19,7 +19,7 @@ const initialState = {
     timePassportStart: "", // дата выдачи паспорта
     timePassportEnd: "", // дата истечения паспорта
     organizationPassport: "", // кем выдан
-    numberPlaintiff: "",
+    numPhone: "",
     email: "",
     email2: "",
     country: "",
@@ -70,23 +70,10 @@ const initialState = {
     role: "",
   },
 
-  // цена иска
-  priceDocs: {
-    summ: 0,
-    summ_curr: "",
+  // цена иска /// можно удалить
+  priceDocs: {},
 
-    arbitr_fee: 0,
-    arbitr_curr: "",
-
-    registr_fee: 0,
-    registr_curr: "",
-
-    doplata_summ: 0,
-    nadbavka_curr: "",
-
-    arbitr_pay_end_date: "",
-    arbitr_doplata_end_date: "",
-  },
+  /// хренения докусентов
 };
 
 const inputSlice = createSlice({
@@ -114,7 +101,7 @@ const inputSlice = createSlice({
         timePassportStart: "",
         timePassportEnd: "",
         organizationPassport: "",
-        numberPlaintiff: "",
+        numPhone: "",
         email: "",
         email2: "",
         country: "",

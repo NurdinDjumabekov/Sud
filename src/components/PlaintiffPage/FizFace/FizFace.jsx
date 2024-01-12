@@ -19,8 +19,8 @@ import ChoiceNoneData from "../ChoiceNoneData/ChoiceNoneData";
 import {
   addTodosDefendant,
   addTodosDefendantResper,
-  addTodosPlaitiff,
-  addTodosPlaitiffResper,
+  addTodosPlaintiff,
+  addTodosPlaintiffResper,
 } from "../../../store/reducers/applicationsSlice";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 
@@ -32,9 +32,9 @@ const FizFace = ({ typerole }) => {
   const sendData = (e) => {
     e.preventDefault();
     if (typerole === "истца" && lookAddPlaintiff === 1) {
-      dispatch(addTodosPlaitiff({ ...adff, typeFace }));
+      dispatch(addTodosPlaintiff({ ...adff, typeFace }));
     } else if (typerole === "истца" && lookAddPlaintiff === 2) {
-      dispatch(addTodosPlaitiffResper({ ...adff, typeFace }));
+      dispatch(addTodosPlaintiffResper({ ...adff, typeFace }));
     } else if (typerole === "ответчика" && lookAddPlaintiff === 1) {
       dispatch(addTodosDefendant({ ...adff, typeFace }));
     } else if (typerole === "ответчика" && lookAddPlaintiff === 2) {
@@ -49,6 +49,8 @@ const FizFace = ({ typerole }) => {
     e.preventDefault();
     dispatch(changeADFF({ ...adff, [e.target.name]: e.target.value }));
   };
+
+  console.log(adff, "adff");
 
   return (
     <div className="addPlaintiffFiz">
@@ -81,9 +83,9 @@ const FizFace = ({ typerole }) => {
             <input
               type="text"
               placeholder="Телефон*"
-              name="numberPlaintiff"
+              name="numPhone"
               onChange={changeInput}
-              value={adff.numberPlaintiff}
+              value={adff.numPhone}
               required
             />
           </div>
@@ -120,14 +122,25 @@ const FizFace = ({ typerole }) => {
               type: "unknownDob",
             }}
           />
-          <DataInput
-            props={{
-              title: "Дата вашего рождения",
-              nameInput: "dob",
-              keyData: adff.dob,
-              typeChange: "adff",
-            }}
-          />
+          {!adff.unknownDob ? (
+            <DataInput
+              props={{
+                title: "Дата вашего рождения",
+                nameInput: "dob",
+                keyData: adff.dob,
+                typeChange: "adff",
+              }}
+            />
+          ) : (
+            <div>
+              <p>Дата вашего рождения</p>
+              <input
+                placeholder="не обязательное поле"
+                readOnly
+                className={adff.unknownDob ? "disableInput" : ""}
+              />
+            </div>
+          )}
           <Selects
             arr={selectArr}
             initText={"Пол *"}
@@ -150,8 +163,10 @@ const FizFace = ({ typerole }) => {
               placeholder="ИНН"
               name="inn"
               onChange={changeInput}
-              value={adff.inn}
+              value={adff.unknownInn ? "" : adff.inn}
               required
+              className={adff.unknownInn ? "disableInput" : ""}
+              readOnly={adff.unknownInn ? true : false}
             />
           </div>
         </div>
@@ -170,8 +185,10 @@ const FizFace = ({ typerole }) => {
               placeholder="Серия и номер паспорта"
               name="passportSeries"
               onChange={changeInput}
-              value={adff.passportSeries}
               required
+              value={adff.unknownPassport ? "" : adff.passportSeries}
+              className={adff.unknownPassport ? "disableInput" : ""}
+              readOnly={adff.unknownPassport ? true : false}
             />
           </div>
           <div>
@@ -181,8 +198,10 @@ const FizFace = ({ typerole }) => {
               placeholder="Кем выдан*"
               name="organizationPassport"
               onChange={changeInput}
-              value={adff.organizationPassport}
               required
+              value={adff.unknownPassport ? "" : adff.organizationPassport}
+              className={adff.unknownPassport ? "disableInput" : ""}
+              readOnly={adff.unknownPassport ? true : false}
             />
           </div>
         </div>
@@ -194,22 +213,45 @@ const FizFace = ({ typerole }) => {
               type: "unknownDataPassport",
             }}
           />
-          <DataInput
-            props={{
-              title: "Дата выдачи",
-              nameInput: "timePassportStart",
-              keyData: adff.timePassportStart,
-              typeChange: "adff",
-            }}
-          />
-          <DataInput
-            props={{
-              title: "Дата истечения срока",
-              nameInput: "timePassportEnd",
-              keyData: adff.timePassportEnd,
-              typeChange: "adff",
-            }}
-          />
+          {!adff.unknownDataPassport ? (
+            <>
+              <DataInput
+                props={{
+                  title: "Дата выдачи",
+                  nameInput: "timePassportStart",
+                  keyData: adff.timePassportStart,
+                  typeChange: "adff",
+                }}
+              />
+              <DataInput
+                props={{
+                  title: "Дата истечения срока",
+                  nameInput: "timePassportEnd",
+                  keyData: adff.timePassportEnd,
+                  typeChange: "adff",
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <div>
+                <p>Дата выдачи</p>
+                <input
+                  placeholder="не обязательное поле"
+                  readOnly
+                  className={adff.unknownDob ? "disableInput" : ""}
+                />
+              </div>
+              <div>
+                <p>Дата истечения срока</p>
+                <input
+                  placeholder="не обязательное поле"
+                  readOnly
+                  className={adff.unknownDob ? "disableInput" : ""}
+                />
+              </div>
+            </>
+          )}
         </div>
         <h4>
           <p>Адрес</p>

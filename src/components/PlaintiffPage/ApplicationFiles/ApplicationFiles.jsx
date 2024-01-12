@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import './ApplicationFiles.scss';
-import krestik from '../../../asstes/icons/krestik.svg';
+import React, { useState } from "react";
+import "./ApplicationFiles.scss";
+import krestik from "../../../asstes/icons/krestik.svg";
 
 const ApplicationFiles = () => {
   const [selectedFilesArray, setSelectedFilesArray] = useState(
@@ -8,17 +8,17 @@ const ApplicationFiles = () => {
   );
 
   const applications = [
-    'Копия искового заявления',
-    'Истец *',
-    'Доверенность представителя Истца',
-    'Представитель Истца *',
-    'Квитанция об уплате регистрационного и арбитражного сбора',
-    'Заявление об избрании арбитра',
-    'Соглашение об арбитражной оговорке',
-    'Расчет исковых требований',
-    'Почтовая квитанция о направлении копии искового заявления с приложенными документами ответчику',
-    'Копии искового завявления с приложенными документами',
-    'Иные документы для рассмотрения ',
+    "Копия искового заявления",
+    "Истец *",
+    "Доверенность представителя Истца",
+    "Представитель Истца *",
+    "Квитанция об уплате регистрационного и арбитражного сбора",
+    "Заявление об избрании арбитра",
+    "Соглашение об арбитражной оговорке",
+    "Расчет исковых требований",
+    "Почтовая квитанция о направлении копии искового заявления с приложенными документами ответчику",
+    "Копии искового завявления с приложенными документами",
+    "Иные документы для рассмотрения ",
   ];
 
   const handleFileChange = (setIndex, e) => {
@@ -43,6 +43,8 @@ const ApplicationFiles = () => {
     fileInput.click();
   };
 
+  console.log(selectedFilesArray, "selectedFilesArray");
+
   return (
     <div className="plaintiFilling__container">
       <div className="applicationFiles">
@@ -57,17 +59,17 @@ const ApplicationFiles = () => {
                 id={`fileInput-${setIndex}`}
                 type="file"
                 onChange={(e) => handleFileChange(setIndex, e)}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 multiple
               />
               <button>Выбрать файлы</button>
               <span>
-                {applications[setIndex].includes('*')
+                {applications[setIndex].includes("*")
                   ? applications[setIndex]
                   : `${applications[setIndex]} *`}
               </span>
             </div>
-            <div className='filesBlock'>
+            <div className="filesBlock">
               {selectedFiles.map((file, fileIndex) => (
                 <div key={fileIndex} className="file-item">
                   <span>{file.name}</span>

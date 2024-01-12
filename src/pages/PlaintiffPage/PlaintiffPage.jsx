@@ -23,20 +23,20 @@ import imsIcon from "../../asstes/icons/IconPage/archive.svg";
 import plaintiffs from "../../asstes/icons/plaintiff/plaintiff.svg";
 import many from "../../asstes/icons/plaintiff/many.svg";
 import description from "../../asstes/icons/plaintiff/description.svg";
+//// delete
 import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff";
 import { checkDataIsks } from "../../helpers/checkDataIsks";
-import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
-//// delete
+import {
+  clearTodosApplications,
+  addListTodos,
+} from "../../store/reducers/applicationsSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [typePlantiff, setTypePlantiff] = useState(false);
   const [indexComp, setIndexComp] = useState(0);
   const [lookInnerType, setLookInnerType] = useState(true);
 
-  const { adff, typeFace } = useSelector((state) => state.inputSlice);
-  const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const [btnList, setBtnList] = useState([
@@ -106,7 +106,7 @@ const PlaintiffPage = () => {
     },
     {
       id: 11,
-      name: "Приложения",
+      name: "Документы",
       bool: false,
       components: <ApplicationFiles />,
     },
@@ -134,19 +134,16 @@ const PlaintiffPage = () => {
     if (checkDataIsks(todosApplications)) {
       navigate("/mainPlaintiff");
       alert("Ваши данные успешно сохранены");
+      dispatch(addListTodos(todosApplications));
       dispatch(clearTodosApplications());
     } else {
       alert("Нету заполненных полей!");
     }
   };
-  console.log(todosApplications, "todosApplications");
 
+  // console.log(todosApplications, "todosApplications");
   return (
     <div className="plaintiff">
-      {/* <button onClick={() => navigate(-1)} className="prevBtn">
-        <img src={krestik} alt="x" />
-      </button> */}
-      {/* /// delete */}
       <div className="sadasdasdas">
         <button className="activeBtnsPlaintiff" onClick={saveData}>
           Сохранить весь документ
@@ -183,3 +180,11 @@ const PlaintiffPage = () => {
 };
 
 export default PlaintiffPage;
+{
+  /* <button onClick={() => navigate(-1)} className="prevBtn">
+        <img src={krestik} alt="x" />
+      </button> */
+}
+{
+  /* /// delete */
+}

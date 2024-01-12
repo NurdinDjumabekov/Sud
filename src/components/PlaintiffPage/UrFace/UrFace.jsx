@@ -21,7 +21,7 @@ import {
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 import {
   addTodosDefendant,
-  addTodosPlaitiff,
+  addTodosPlaintiff,
 } from "../../../store/reducers/applicationsSlice";
 
 const UrFace = ({ typerole }) => {
@@ -32,7 +32,7 @@ const UrFace = ({ typerole }) => {
   const sendData = (e) => {
     e.preventDefault();
     if (typerole === "истца") {
-      dispatch(addTodosPlaitiff({ ...aduf, typeFace }));
+      dispatch(addTodosPlaintiff({ ...aduf, typeFace }));
     } else if (typerole === "ответчика") {
       dispatch(addTodosDefendant({ ...aduf, typeFace }));
     }
