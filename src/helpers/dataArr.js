@@ -54,3 +54,12 @@ export const UserStatus = [
   { id: 4, name: "Директор" },
   { id: 5, name: "Президент" },
 ];
+
+export const typeValuta = [
+  { id: 0, name: "Сом" },
+  { id: 1, name: "Рубль" },
+  { id: 2, name: "Тенге" },
+  { id: 3, name: "Тенге" },
+  { id: 4, name: "Тенге" },
+  { id: 5, name: "Тенге" },
+];

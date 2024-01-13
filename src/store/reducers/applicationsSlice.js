@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   todosApplications: {
+    codeid: 0,
     plaintiff: [], //1 plaintiff
     plaintiffResper: [], //2
     defendant: [], //3
@@ -32,42 +33,8 @@ const initialState = {
     haracter_spor: "",
     arbitr_lang: "",
     arbitr_po_dogovor: false, // заменить на 1 и 0
-    //// временно, потом удалю!
-    number: 1,
   },
   //// массив дел
-  listTodos: [
-    // {
-    //   codeid: "5",
-    //   plaintiff: [
-    //     {
-    //       codeid: "2",
-    //       name: "Djumabekov Nurdin",
-    //       fiz_face_type: 2,
-    //     },
-    //   ],
-    //   defendant: [
-    //     {
-    //       codeid: "2",
-    //       name: "John Elnsssura",
-    //       fiz_face_type: 2,
-    //     },
-    //     {
-    //       codeid: "3",
-    //       name: "John Elnsssura",
-    //       fiz_face_type: 2,
-    //     },
-    //   ],
-    //   name: "Your Name",
-    //   arbitr_fee: 1000,
-    //   arbitr_curr: 1,
-    //   isk_status: null, ///// 1 - 4
-    //   isk_status_name: null,
-    //   reglament: "",
-    //   arbitrs: [],
-    //   files: [],
-    // },
-  ],
 };
 
 const applicationsSlice = createSlice({
@@ -163,6 +130,7 @@ const applicationsSlice = createSlice({
     },
     clearTodosApplications: (state, action) => {
       state.todosApplications = {
+        codeid: 0,
         plaintiff: [],
         plaintiffResper: [],
         defendant: [],
@@ -191,23 +159,6 @@ const applicationsSlice = createSlice({
         arbitr_po_dogovor: false,
       };
     },
-    changeListTodos: (state, action) => {
-      state.listTodos = action.payload;
-    },
-    addListTodos: (state, action) => {
-      /// добавлени нового обьекта!
-      state.listTodos = [
-        ...state.listTodos,
-        {
-          ...action.payload,
-          codeid: "5",
-          isk_status: null,
-          isk_status_name: null,
-          arbitrs: [],
-          files: [],
-        },
-      ];
-    },
   },
 });
 export const {
@@ -217,8 +168,6 @@ export const {
   addTodosDefendantResper,
   changeTodosApplications,
   clearTodosApplications,
-  changeListTodos,
-  addListTodos,
 } = applicationsSlice.actions;
 
 export default applicationsSlice.reducer;

@@ -4,11 +4,18 @@ import imgPdf from "../../asstes/icons/pdf.svg";
 import pdfFileImg from "../../asstes/images/pdfFile.png";
 import pdfFile from "./../../asstes/pdf/sud_pdf.pdf";
 import Modals from "../Modals/Modals";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeStatusCreateIsks } from "../../store/reducers/stateSlice";
+import { useNavigate } from "react-router-dom";
+import { changeCreateIdIsk } from "../../store/reducers/sendDocsSlice";
+import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
 
 export const Table = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [lookPdf, setLookPdf] = useState(false);
-  const { listTodos } = useSelector((state) => state.applicationsSlice);
+  const { listTodos } = useSelector((state) => state.sendDocsSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const openPdfInNewTab = () => {
     setLookPdf(true);
@@ -139,7 +146,7 @@ export const Table = () => {
                   <td className="table_isk_td">
                     <span>
                       {row?.defendant?.length === 0
-                        ? "ФИО истца отсутствует"
+                        ? "ФИО ответчика отсутствует"
                         : row?.defendant?.[0]?.name}
                     </span>
                   </td>
@@ -165,18 +172,27 @@ export const Table = () => {
                     <span>
                       {row.isk_status_name ? row.isk_status_name : "Ожидание"}
                     </span>
-                    {/* <div className="statusIsks">
-                      <button>Подать иск</button>
+                    <div className="statusIsks">
+                      <button
+                        onClick={() => {
+                          dispatch(changeStatusCreateIsks(true));
+                          navigate("/plaintiffCreate");
+                          dispatch(changeCreateIdIsk(row?.codeid));
+                          dispatch(changeTodosApplications({...todosApplications,codeid:row?.codeid}))
+                        }}
+                      >
+                        Подать иск
+                      </button>
                       <button>Редактировать иск</button>
-                    </div> */}
+                    </div>
                   </td>
                   <td className="table_isk_td">
                     <span className="documentBlock" onClick={openPdfInNewTab}>
                       {row.files?.length === 0 ? (
                         <p>Документы оттутствуют</p>
                       ) : (
-                        row?.files?.map((i) => (
-                          <div>
+                        row?.files?.map((i, ind) => (
+                          <div key={ind}>
                             <img src={imgPdf} alt="pdf" />
                             <p>{row?.documentType}</p>
                           </div>

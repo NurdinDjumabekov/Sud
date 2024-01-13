@@ -222,6 +222,10 @@ $paddingTableInner: 2px 18px;
     .table_isk_td:nth-child(8) span {
       padding: $paddingTableInner;
       border-radius: 12px;
+      // flex-direction: column;
+      // align-items: center;
+
+
     }
 
     .table_isk_td:nth-child(9) span {

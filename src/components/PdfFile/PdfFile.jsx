@@ -13,21 +13,16 @@ const PdfFile = ({ modal, typerole }) => {
   };
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
+
   // console.log(adff, 'adff');
   // console.log(typerole, "typerole");
-
-  console.log(todosApplications, "todosApplications");
+  // console.log(todosApplications, "todosApplications");
 
   const transformData = (arr, type) => {
-    let allText = `<div style="font-weight: 500;font-size: 20px;">`;
+    let allText = `<div style="font-weight: 500; font-size: 20px;">`;
 
     for (const text of arr) {
-      // const titleText = `<div style="display:flex; align-items:center;margin: 25px 0px 0px 0px;"><h3 style="margin: 0px">${
-      //   type === 1 ? "Истец:" : "Представитель по доверенности:"
-      // }</h3><p style="margin: 0px 0px 0px 5px; line-height: 20px">${
-      //   text.name
-      // }</p></div>`;
-      const titleText = `<div style="display:flex; align-items:center;margin: 35px 0px 0px 0px;"><h3 style="display:inline;margin: 0px 5px 0px 0px;">${mainText(
+      const titleText = `<div style="display:inline-block;margin: 35px 0px 0px 0px;"><h3 style="display:inline;margin: 0px 5px 0px 0px;">${mainText(
         type
       )} </h3>    ${text.name}</div>`;
       const phoneText = `<div style="display:flex; align-items:center"><span>Телефон: </span> ${text.numPhone}</div>`;
@@ -44,11 +39,11 @@ const PdfFile = ({ modal, typerole }) => {
     if (type === 1) {
       return "Истец: ";
     } else if (type === 2) {
-      return "Представитель по доверенности: ";
+      return "<h3 style='display:flex; margin: 0px 0px 5px 0px'>Представитель по доверенности: </h3>";
     } else if (type === 3) {
       return "Ответчик: ";
     } else if (type === 4) {
-      return "Представитель ответчика: ";
+      return "<h3 style='display:flex; margin: 0px 0px 5px 0px'>Представитель ответчика: </h3>";
     }
   };
 
@@ -82,6 +77,14 @@ const PdfFile = ({ modal, typerole }) => {
               todosApplications?.defendantResper,
               4
             )}</div>
+            <p style=" font-size: 20px;">${
+              todosApplications?.summ || todosApplications?.summ_curr
+                ? `Цена иска: ${
+                    todosApplications?.summ === "" ? 0 : todosApplications?.summ
+                  } ${todosApplications?.summ_curr}`
+                : ""
+            }
+            </p>
         </div>
         </div>
         <h4 style="text-align:center; font-size: 25px;">${
@@ -92,7 +95,6 @@ const PdfFile = ({ modal, typerole }) => {
         <p style=" font-size: 20px;">${todosApplications?.obosnovanie}</p>
         <p style=" font-size: 20px;">${todosApplications?.finance_raschet}</p>
     </div>
-
   `;
 
   return (

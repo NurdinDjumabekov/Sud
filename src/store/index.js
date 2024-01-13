@@ -1,9 +1,28 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import {
+  combineReducers,
+  configureStore,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+//// slice
 import inputSlice from "./reducers/inputSlice";
 import stateSlice from "./reducers/stateSlice";
 import typesSlice from "./reducers/typesSlice";
 import requestSlice from "./reducers/requestSlice";
 import applicationsSlice from "./reducers/applicationsSlice";
+import sendDocsSlice from "./reducers/sendDocsSlice";
+import saveDataSlice from "./reducers/saveDataSlice";
 
 const reducer = combineReducers({
   inputSlice,
@@ -11,8 +30,27 @@ const reducer = combineReducers({
   typesSlice,
   requestSlice,
   applicationsSlice,
+  sendDocsSlice,
+  saveDataSlice,
 });
 
-export const store = configureStore({
-  reducer,
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["saveDataSlice"],
+};
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
+
+export const persistor = persistStore(store);
+export { store };

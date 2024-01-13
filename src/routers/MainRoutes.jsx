@@ -12,7 +12,12 @@ import { Preloader } from "../components/Preloader/Preloader";
 import { useSelector } from "react-redux";
 
 function MainRoutes() {
-  const { preloader } = useSelector((state) => state.requestSlice);
+  const { preloader } = useSelector((state) => state.sendDocsSlice);
+  const { statusCreateIsks } = useSelector((state) => state.stateSlice);
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  // console.log(tokenA);
+
+  // console.log(statusCreateIsks, "statusCreateIsks");
   return (
     <>
       <Routes>

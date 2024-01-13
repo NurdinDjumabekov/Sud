@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   changeLookAddPlaintiff,
   changeLookPDF,
+  changeStatusCreateIsks,
 } from "../../store/reducers/stateSlice";
 import FillingPlaintiff from "../../components/PlaintiffPage/FillingPlaintiff/FillingPlaintiff";
 import TargetPlaintiff from "../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff";
@@ -26,10 +27,12 @@ import description from "../../asstes/icons/plaintiff/description.svg";
 //// delete
 import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff";
 import { checkDataIsks } from "../../helpers/checkDataIsks";
+import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
 import {
-  clearTodosApplications,
   addListTodos,
-} from "../../store/reducers/applicationsSlice";
+  createIsk,
+  sendEveryIsks,
+} from "../../store/reducers/sendDocsSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -38,6 +41,10 @@ const PlaintiffPage = () => {
   const [lookInnerType, setLookInnerType] = useState(true);
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  // const { statusCreateIsks } = useSelector((state) => state.stateSlice);
+  // const { createIdIsk } = useSelector((state) => state.sendDocsSlice);
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  // console.log(statusCreateIsks, "statusCreateIsks");
 
   const [btnList, setBtnList] = useState([
     {
@@ -134,6 +141,7 @@ const PlaintiffPage = () => {
     if (checkDataIsks(todosApplications)) {
       navigate("/mainPlaintiff");
       alert("Ваши данные успешно сохранены");
+      dispatch(sendEveryIsks({ todosApplications, tokenA }));
       dispatch(addListTodos(todosApplications));
       dispatch(clearTodosApplications());
     } else {
@@ -141,7 +149,13 @@ const PlaintiffPage = () => {
     }
   };
 
-  // console.log(todosApplications, "todosApplications");
+  React.useEffect(() => {
+    dispatch(createIsk(tokenA));
+    return () => dispatch(clearTodosApplications());
+  }, []);
+
+  console.log(todosApplications, "todosApplications");
+  // console.log(createIdIsk, "createIdIsk");
   return (
     <div className="plaintiff">
       <div className="sadasdasdas">

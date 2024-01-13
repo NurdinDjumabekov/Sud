@@ -1,13 +1,17 @@
-import React from 'react';
-import logoSud from '../../asstes/images/sud-login.png';
+import React from "react";
+import logoSud from "../../asstes/images/sud-login.png";
 
-import './SingIn.scss';
-import { useNavigate } from 'react-router-dom';
+import "./SingIn.scss";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authLogin } from "../../store/reducers/authSlice";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const sendLogIn = () => {
-    navigate('/mainPlaintiff');
+    navigate("/mainPlaintiff");
+    dispatch(authLogin());
   };
 
   return (
