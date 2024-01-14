@@ -123,15 +123,23 @@ export const createFizFace = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        if (info?.fiz_face_type === 1) {
-          dispatch(addTodosPlaintiff({ ...info?.adff, fiz_face_type: 1 }));
-        } else if (info?.fiz_face_type === 2) {
-          dispatch(addTodosDefendant({ ...info?.adff, fiz_face_type: 2 }));
-        } else if (info?.fiz_face_type === 3) {
-          dispatch(addTodosPlaintiffResper({ ...info?.adff, fiz_face_type: 3 }));
-        } else if (info?.fiz_face_type === 4) {
-          dispatch(addTodosDefendantResper({ ...info?.adff, fiz_face_type: 4 }));
-        }
+        // if (info?.fiz_face_type === 1) {
+        //   dispatch(
+        //     addTodosPlaintiff({ ...info?.adff, typeFace: info?.typeFace })
+        //   );
+        // } else if (info?.fiz_face_type === 3) {
+        //   dispatch(
+        //     addTodosPlaintiffResper({ ...info?.adff, typeFace: info?.typeFace })
+        //   );
+        // } else if (info?.fiz_face_type === 2) {
+        //   dispatch(
+        //     addTodosDefendant({ ...info?.adff, typeFace: info?.typeFace })
+        //   );
+        // } else if (info?.fiz_face_type === 4) {
+        //   dispatch(
+        //     addTodosDefendantResper({ ...info?.adff, typeFace: info?.typeFace })
+        //   );
+        // }
       } else {
         throw Error(`Error: ${response.status}`);
       }

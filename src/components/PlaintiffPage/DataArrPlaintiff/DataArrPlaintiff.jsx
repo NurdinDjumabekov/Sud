@@ -25,11 +25,11 @@ const DataArrPlaintiff = ({ arr, typerole }) => {
               onClick={() => {
                 dispatch(changeLookAddPlaintiff(1));
                 dispatch(changeTypeFace(1));
-                if (typerole === "истца") {
-                  dispatch(changeADFF({ ...adff, fiz_face_type: 1 }));
-                } else if (typerole === "ответчика") {
-                  dispatch(changeADFF({ ...adff, fiz_face_type: 2 }));
-                }
+                // if (typerole === "истца") {
+                //   dispatch(changeADFF({ ...adff, fiz_face_type: 1 }));
+                // } else if (typerole === "ответчика") {
+                //   dispatch(changeADFF({ ...adff, fiz_face_type: 2 }));
+                // }
               }}
             >
               Добавить {typerole}
@@ -38,11 +38,11 @@ const DataArrPlaintiff = ({ arr, typerole }) => {
               onClick={() => {
                 dispatch(changeLookAddPlaintiff(2));
                 dispatch(changeTypeFace(1));
-                if (typerole === "истца") {
-                  dispatch(changeADFF({ ...adff, fiz_face_type: 3 }));
-                } else if (typerole === "ответчика") {
-                  dispatch(changeADFF({ ...adff, fiz_face_type: 4 }));
-                }
+                // if (typerole === "истца") {
+                //   dispatch(changeADFF({ ...adff, fiz_face_type: 3 }));
+                // } else if (typerole === "ответчика") {
+                //   dispatch(changeADFF({ ...adff, fiz_face_type: 4 }));
+                // }
               }}
             >
               Добавить представителя {typerole}

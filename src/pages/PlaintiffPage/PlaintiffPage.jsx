@@ -141,10 +141,10 @@ const PlaintiffPage = () => {
     console.log(todosApplications, "todosApplications");
     if (checkDataIsks(todosApplications)) {
       dispatch(sendEveryIsks({ todosApplications, tokenA }));
-      // navigate("/mainPlaintiff");
-      // alert("Ваши данные успешно сохранены");
+      navigate("/mainPlaintiff");
+      alert("Ваши данные успешно сохранены");
       // dispatch(addListTodos(todosApplications));
-      // dispatch(clearTodosApplications());
+      dispatch(clearTodosApplications());
     } else {
       alert("Нету заполненных полей!");
     }
