@@ -23,26 +23,38 @@ import {
   addTodosPlaintiffResper,
 } from "../../../store/reducers/applicationsSlice";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
+import {
+  createFizFace,
+  toTakeIdFizFace,
+} from "../../../store/reducers/sendDocsSlice";
 
 const FizFace = ({ typerole }) => {
   const dispatch = useDispatch();
   const { adff, typeFace } = useSelector((state) => state.inputSlice);
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+
+  console.log(typeFace, "typeFace");
+  console.log(typeFace, "typeFace");
 
   const sendData = (e) => {
     e.preventDefault();
     if (typerole === "истца" && lookAddPlaintiff === 1) {
-      dispatch(addTodosPlaintiff({ ...adff, typeFace }));
+      dispatch(createFizFace({ adff, fiz_face_type: 1, tokenA }));
+      // dispatch(addTodosPlaintiff({ ...adff, typeFace }));
     } else if (typerole === "истца" && lookAddPlaintiff === 2) {
-      dispatch(addTodosPlaintiffResper({ ...adff, typeFace }));
+      dispatch(createFizFace({ adff, fiz_face_type: 3, tokenA }));
+      // dispatch(addTodosPlaintiffResper({ ...adff, typeFace }));
     } else if (typerole === "ответчика" && lookAddPlaintiff === 1) {
-      dispatch(addTodosDefendant({ ...adff, typeFace }));
+      dispatch(createFizFace({ adff, fiz_face_type: 2, tokenA }));
+      // dispatch(addTodosDefendant({ ...adff, typeFace }));
     } else if (typerole === "ответчика" && lookAddPlaintiff === 2) {
-      dispatch(addTodosDefendantResper({ ...adff, typeFace }));
+      dispatch(createFizFace({ adff, fiz_face_type: 4, tokenA }));
+      // dispatch(addTodosDefendantResper({ ...adff, typeFace }));
     }
     dispatch(changeLookAddPlaintiff(0));
-    dispatch(clearADFF());
-    dispatch(clearADUF());
+    // dispatch(clearADFF());
+    // dispatch(clearADUF());
   };
 
   const changeInput = (e) => {
@@ -50,8 +62,13 @@ const FizFace = ({ typerole }) => {
     dispatch(changeADFF({ ...adff, [e.target.name]: e.target.value }));
   };
 
-  console.log(adff, "adff");
+  React.useEffect(() => {
+    /// 0 = создание иска , остальное изменение иска
+    console.log(adff, "adff");
+    return () => dispatch(clearADFF());
+  }, []);
 
+  console.log(adff);
   return (
     <div className="addPlaintiffFiz">
       <h3>
@@ -122,7 +139,7 @@ const FizFace = ({ typerole }) => {
               type: "unknownDob",
             }}
           />
-          {!adff.unknownDob ? (
+          {adff.unknownDob === 0 ? (
             <DataInput
               props={{
                 title: "Дата вашего рождения",
@@ -137,7 +154,7 @@ const FizFace = ({ typerole }) => {
               <input
                 placeholder="не обязательное поле"
                 readOnly
-                className={adff.unknownDob ? "disableInput" : ""}
+                className={adff.unknownDob === 1 ? "disableInput" : ""}
               />
             </div>
           )}
@@ -163,10 +180,10 @@ const FizFace = ({ typerole }) => {
               placeholder="ИНН"
               name="inn"
               onChange={changeInput}
-              value={adff.unknownInn ? "" : adff.inn}
+              value={adff.unknownInn === 1 ? "" : adff.inn}
               required
-              className={adff.unknownInn ? "disableInput" : ""}
-              readOnly={adff.unknownInn ? true : false}
+              className={adff.unknownInn === 1 ? "disableInput" : ""}
+              readOnly={adff.unknownInn === 1 ? true : false}
             />
           </div>
         </div>
@@ -186,9 +203,9 @@ const FizFace = ({ typerole }) => {
               name="passportSeries"
               onChange={changeInput}
               required
-              value={adff.unknownPassport ? "" : adff.passportSeries}
-              className={adff.unknownPassport ? "disableInput" : ""}
-              readOnly={adff.unknownPassport ? true : false}
+              value={adff.unknownPassport === 1 ? "" : adff.passportSeries}
+              className={adff.unknownPassport === 1 ? "disableInput" : ""}
+              readOnly={adff.unknownPassport === 1 ? true : false}
             />
           </div>
           <div>
@@ -213,7 +230,7 @@ const FizFace = ({ typerole }) => {
               type: "unknownDataPassport",
             }}
           />
-          {!adff.unknownDataPassport ? (
+          {adff.unknownDataPassport === 0 ? (
             <>
               <DataInput
                 props={{
@@ -239,7 +256,7 @@ const FizFace = ({ typerole }) => {
                 <input
                   placeholder="не обязательное поле"
                   readOnly
-                  className={adff.unknownDob ? "disableInput" : ""}
+                  className={adff.unknownDob === 1 ? "disableInput" : ""}
                 />
               </div>
               <div>
@@ -247,7 +264,7 @@ const FizFace = ({ typerole }) => {
                 <input
                   placeholder="не обязательное поле"
                   readOnly
-                  className={adff.unknownDob ? "disableInput" : ""}
+                  className={adff.unknownDob === 1 ? "disableInput" : ""}
                 />
               </div>
             </>

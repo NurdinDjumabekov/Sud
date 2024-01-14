@@ -23,6 +23,7 @@ import requestSlice from "./reducers/requestSlice";
 import applicationsSlice from "./reducers/applicationsSlice";
 import sendDocsSlice from "./reducers/sendDocsSlice";
 import saveDataSlice from "./reducers/saveDataSlice";
+import selectsSlice from "./reducers/selectsSlice";
 
 const reducer = combineReducers({
   inputSlice,
@@ -32,6 +33,7 @@ const reducer = combineReducers({
   applicationsSlice,
   sendDocsSlice,
   saveDataSlice,
+  selectsSlice,
 });
 
 const persistConfig = {

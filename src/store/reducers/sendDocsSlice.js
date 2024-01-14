@@ -1,5 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { changeADFF, changeADUF } from "./inputSlice";
+import {
+  addTodosDefendant,
+  addTodosDefendantResper,
+  addTodosPlaintiff,
+  addTodosPlaintiffResper,
+  changeTodosApplications,
+} from "./applicationsSlice";
 
 const initialState = {
   preloader: false,
@@ -28,10 +36,10 @@ export const toTakeIsksList = createAsyncThunk(
     }
   }
 );
-
+//// для получения id иска
 export const createIsk = createAsyncThunk(
   "createIsk",
-  async function (token, { dispatch, rejectWithValue }) {
+  async function (info, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
         method: "POST",
@@ -40,12 +48,28 @@ export const createIsk = createAsyncThunk(
           action_type: 1, /// для создания иска
         },
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${info.tokenA}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        return response?.data?.codeid;
-        // console.log(response?.data?.codeid);
+        dispatch(
+          changeTodosApplications({
+            ...info?.todosApplications,
+            codeid: response?.data?.codeid,
+          })
+        );
+        dispatch(
+          changeADFF({
+            ...info?.adff,
+            code_isk: response?.data?.codeid,
+          })
+        );
+        dispatch(
+          changeADUF({
+            ...info?.aduf,
+            code_isk: response?.data?.codeid,
+          })
+        );
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -57,17 +81,80 @@ export const createIsk = createAsyncThunk(
 
 export const sendEveryIsks = createAsyncThunk(
   "sendEveryIsks",
-  async function (data, { dispatch, rejectWithValue }) {
+  async function (info, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
         method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/get`,
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
+        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
+        data: {
+          ...info?.todosApplications,
+          action_type: 2, /// для редактировования созданного иска
+        },
+        headers: {
+          Authorization: `Bearer ${info.tokenA}`,
+        },
       });
       if (response.status >= 200 && response.status < 300) {
-        return response?.data;
+        console.log(response, "create");
+        // return response?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const createFizFace = createAsyncThunk(
+  "toTakeIdFizFace",
+  async function (info, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/crud/fiz_face`,
+        data: {
+          ...info?.adff,
+          fiz_face_type: info?.fiz_face_type,
+          action_type: 1,
+        },
+        headers: {
+          Authorization: `Bearer ${info?.tokenA}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        if (info?.fiz_face_type === 1) {
+          dispatch(addTodosPlaintiff({ ...info?.adff, fiz_face_type: 1 }));
+        } else if (info?.fiz_face_type === 2) {
+          dispatch(addTodosDefendant({ ...info?.adff, fiz_face_type: 2 }));
+        } else if (info?.fiz_face_type === 3) {
+          dispatch(addTodosPlaintiffResper({ ...info?.adff, fiz_face_type: 3 }));
+        } else if (info?.fiz_face_type === 4) {
+          dispatch(addTodosDefendantResper({ ...info?.adff, fiz_face_type: 4 }));
+        }
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const toTakeIdUrFace = createAsyncThunk(
+  "toTakeIdUrFace",
+  async function (info, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/crud/fiz_face`,
+        headers: {
+          Authorization: `Bearer ${info?.tokenA}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        console.log(response, "response");
+        dispatch(changeADUF({ ...info.aduf, codeid: response?.data?.codeid }));
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -128,6 +215,17 @@ const sendDocsSlice = createSlice({
       state.preloader = false;
     });
     builder.addCase(createIsk.pending, (state, action) => {
+      state.preloader = true;
+    });
+    ///// toTakeIdFizFace
+    builder.addCase(createFizFace.fulfilled, (state, action) => {
+      state.preloader = false;
+    });
+    builder.addCase(createFizFace.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloader = false;
+    });
+    builder.addCase(createFizFace.pending, (state, action) => {
       state.preloader = true;
     });
   },

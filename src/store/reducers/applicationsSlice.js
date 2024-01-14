@@ -17,23 +17,59 @@ const initialState = {
     claim: "",
     ///////////////////////////////
     summ: 0,
-    summ_curr: "", /// select должен быть по id
+    summ_curr: 1, /// select должен быть по id
     arbitr_fee: 0,
-    arbitr_curr: "", /// select должен быть по id
+    arbitr_curr: 1, /// select должен быть по id
     registr_fee: 0,
-    registr_curr: "", /// select должен быть по id
+    registr_curr: 1, /// select должен быть по id
     doplata_summ: 0,
+    nadbavka_curr: 1, /// select должен быть по id
 
-    nadbavka_curr: "", //
     arbitr_pay_end_date: "", //
     arbitr_doplata_end_date: "", //
     ///////////////////////////////
-    prim_pravo: "",
-    reglament: "",
-    haracter_spor: "",
-    arbitr_lang: "",
-    arbitr_po_dogovor: false, // заменить на 1 и 0
+    prim_pravo: 1,
+    reglament: 1,
+    haracter_spor: 1,
+    arbitr_lang: 1,
+    arbitr_po_dogovor: 1, // заменить на 1 и 0
+    status: "1", /// why?
+    //////////////////
   },
+  // todosApplications: {
+  //   codeid: 0,
+  //   plaintiff: [], //1 plaintiff
+  //   plaintiffResper: [], //2
+  //   defendant: [], //3
+  //   defendantResper: [], //4
+
+  //   name: "adasd",
+  //   description: "adasd",
+  //   motivation: "adasd",
+  //   obosnovanie: "adasd",
+  //   finance_raschet: "adasd",
+  //   law_links: "adasd",
+  //   claim: "adasd",
+  //   ///////////////////////////////
+  //   summ: 0,
+  //   summ_curr: 1, /// select должен быть по id
+  //   arbitr_fee: 0,
+  //   arbitr_curr: 1, /// select должен быть по id
+  //   registr_fee: 0,
+  //   registr_curr: 1, /// select должен быть по id
+  //   doplata_summ: 0,
+  //   nadbavka_curr: 1, /// select должен быть по id
+
+  //   arbitr_pay_end_date: "2024-01-31", //
+  //   arbitr_doplata_end_date: "2024-01-31", //
+  //   ///////////////////////////////
+  //   prim_pravo: "1", /// why?
+  //   reglament: 1,
+  //   haracter_spor: 1,
+  //   arbitr_lang: 1,
+  //   arbitr_po_dogovor: 1, // заменить на 1 и 0
+  //   status: "1", /// why?
+  // },
   //// массив дел
 };
 

@@ -2,18 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   input: "Nurdin Djumabekov",
-  typeFace: 2,
+  typeFace: 1,
   //// addPlaintiffFizFace
   adff: {
+    codeid: 0,
+    code_fiz_face: 2,
+    fiz_face_type: 0, // 1-plaintiff, 2-defendant, 3 - plaintiff representative, 4 - defendant representative
+    code_isk: 0,
     name: "",
-    sex: "", // пол
+    sex: 1, // пол
     dob: "", /// data of birth
     inn: "",
     ///////////////////////////
-    unknownDob: false, // неизвестная дата рождения
-    unknownInn: false, // неизвестный ИНН
-    unknownPassport: false, // неизвестный паспорт
-    unknownDataPassport: false, // не учитывать срок действия паспорта
+    unknownDob: 0, // неизвестная дата рождения
+    unknownInn: 0, // неизвестный ИНН
+    unknownPassport: 0, // неизвестный паспорт
+    unknownDataPassport: 0, // не учитывать срок действия паспорта
     ///////////////////////////
     passportSeries: "", // серия паспорта
     timePassportStart: "", // дата выдачи паспорта
@@ -22,22 +26,23 @@ const initialState = {
     numPhone: "",
     email: "",
     email2: "",
-    country: "",
-    region: "", /// область
-    district: "", //// район
+    country: 1,
+    region: 1, /// область
+    district: 1, //// район
     city: "",
-    adddreselement: "", // адресный элемент
+    adddreselement: 1, // адресный элемент
     street: "",
     numObj: "",
     index: "",
     apartament: "",
     emailIndex: "",
     description: "",
-    role: "",
   },
 
   //// addPlaintiffUrFace
   aduf: {
+    codeid: 0,
+    code_fiz_face: 0,
     name: "",
     dataReg: "", // дата регистрации
     inn: "",
@@ -89,33 +94,38 @@ const inputSlice = createSlice({
     },
     clearADFF: (state, action) => {
       state.adff = {
+        codeid: 0,
+        code_fiz_face: 0,
+        fiz_face_type: 0, // 1-plaintiff, 2-defendant, 3 - plaintiff representative, 4 - defendant representative
+        code_isk: 0,
         name: "",
-        sex: "",
-        dob: "",
+        sex: 1, // пол
+        dob: "", /// data of birth
         inn: "",
-        unknownDob: false,
-        unknownInn: false,
-        unknownPassport: false,
-        unknownDataPassport: false,
-        passportSeries: "",
-        timePassportStart: "",
-        timePassportEnd: "",
-        organizationPassport: "",
+        ///////////////////////////
+        unknownDob: 0, // неизвестная дата рождения
+        unknownInn: 0, // неизвестный ИНН
+        unknownPassport: 0, // неизвестный паспорт
+        unknownDataPassport: 0, // не учитывать срок действия паспорта
+        ///////////////////////////
+        passportSeries: "", // серия паспорта
+        timePassportStart: "", // дата выдачи паспорта
+        timePassportEnd: "", // дата истечения паспорта
+        organizationPassport: "", // кем выдан
         numPhone: "",
         email: "",
         email2: "",
-        country: "",
-        region: "",
-        district: "",
+        country: 1,
+        region: 1, /// область
+        district: 1, //// район
         city: "",
-        adddreselement: "",
+        adddreselement: 1, // адресный элемент
         street: "",
         numObj: "",
         index: "",
         apartament: "",
         emailIndex: "",
         description: "",
-        role: "",
       };
     },
     //// addPlaintiffUrFace
@@ -124,6 +134,8 @@ const inputSlice = createSlice({
     },
     clearADUF: (state, action) => {
       state.aduf = {
+        codeid: 0,
+        code_fiz_face: 0,
         name: "",
         dataReg: "",
         inn: "",

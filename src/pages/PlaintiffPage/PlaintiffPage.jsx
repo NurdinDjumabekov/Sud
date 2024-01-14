@@ -41,8 +41,8 @@ const PlaintiffPage = () => {
   const [lookInnerType, setLookInnerType] = useState(true);
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { adff, aduf } = useSelector((state) => state.inputSlice);
   // const { statusCreateIsks } = useSelector((state) => state.stateSlice);
-  // const { createIdIsk } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   // console.log(statusCreateIsks, "statusCreateIsks");
 
@@ -138,19 +138,20 @@ const PlaintiffPage = () => {
   };
 
   const saveData = () => {
+    console.log(todosApplications, "todosApplications");
     if (checkDataIsks(todosApplications)) {
-      navigate("/mainPlaintiff");
-      alert("Ваши данные успешно сохранены");
       dispatch(sendEveryIsks({ todosApplications, tokenA }));
-      dispatch(addListTodos(todosApplications));
-      dispatch(clearTodosApplications());
+      // navigate("/mainPlaintiff");
+      // alert("Ваши данные успешно сохранены");
+      // dispatch(addListTodos(todosApplications));
+      // dispatch(clearTodosApplications());
     } else {
       alert("Нету заполненных полей!");
     }
   };
 
   React.useEffect(() => {
-    dispatch(createIsk(tokenA));
+    dispatch(createIsk({ todosApplications, tokenA, adff, aduf }));
     return () => dispatch(clearTodosApplications());
   }, []);
 

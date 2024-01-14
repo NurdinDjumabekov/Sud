@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   lookPdf: false,
-  lookAddPlaintiff: 0, // тип истец, представ. истца, ответчик предст. ответчика
+  lookAddPlaintiff: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
   statusCreateIsks: false, // статус для создания false - создание иска, true - редактирование иска
   /// delete
 };

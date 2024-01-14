@@ -4,13 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 import FillingPlaintiff from "../FillingPlaintiff/FillingPlaintiff";
 import DocsList from "../DocsList/DocsList";
-import { changeTypeFace, clearADFF } from "../../../store/reducers/inputSlice";
+import {
+  changeADFF,
+  changeTypeFace,
+  clearADFF,
+} from "../../../store/reducers/inputSlice";
 
 const DataArrPlaintiff = ({ arr, typerole }) => {
   const dispatch = useDispatch();
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
+  const { adff, aduf } = useSelector((state) => state.inputSlice);
   // console.log(lookAddPlaintiff, "lookAddPlaintiff");
-
+  // console.log(typerole, "typerole");
   return (
     <div>
       {lookAddPlaintiff == 0 && (
@@ -19,8 +24,12 @@ const DataArrPlaintiff = ({ arr, typerole }) => {
             <button
               onClick={() => {
                 dispatch(changeLookAddPlaintiff(1));
-                dispatch(clearADFF());
                 dispatch(changeTypeFace(1));
+                if (typerole === "истца") {
+                  dispatch(changeADFF({ ...adff, fiz_face_type: 1 }));
+                } else if (typerole === "ответчика") {
+                  dispatch(changeADFF({ ...adff, fiz_face_type: 2 }));
+                }
               }}
             >
               Добавить {typerole}
@@ -29,6 +38,11 @@ const DataArrPlaintiff = ({ arr, typerole }) => {
               onClick={() => {
                 dispatch(changeLookAddPlaintiff(2));
                 dispatch(changeTypeFace(1));
+                if (typerole === "истца") {
+                  dispatch(changeADFF({ ...adff, fiz_face_type: 3 }));
+                } else if (typerole === "ответчика") {
+                  dispatch(changeADFF({ ...adff, fiz_face_type: 4 }));
+                }
               }}
             >
               Добавить представителя {typerole}

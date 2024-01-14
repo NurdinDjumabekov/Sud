@@ -23,11 +23,13 @@ import {
   addTodosDefendant,
   addTodosPlaintiff,
 } from "../../../store/reducers/applicationsSlice";
+import { toTakeIdUrFace } from "../../../store/reducers/sendDocsSlice";
 
 const UrFace = ({ typerole }) => {
   const dispatch = useDispatch();
 
   const { aduf, typeFace } = useSelector((state) => state.inputSlice);
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
 
   const sendData = (e) => {
     e.preventDefault();
@@ -48,6 +50,9 @@ const UrFace = ({ typerole }) => {
   };
 
   React.useEffect(() => {
+    if (aduf?.codeid === 0) {
+      dispatch(toTakeIdUrFace({ aduf, tokenA }));
+    }
     return () => dispatch(changeTypeFace(1));
   }, []);
 

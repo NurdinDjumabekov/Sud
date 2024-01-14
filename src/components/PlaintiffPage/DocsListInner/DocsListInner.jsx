@@ -10,23 +10,17 @@ import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 
 const DocsListInner = ({ arr, arr2, typerole }) => {
   const dispatch = useDispatch();
-  // console.log(arr);
-  // console.log(arr2);
-  // console.log(typerole,"typerole");
+  
   const changeAddPlaintiff = (objData, type) => {
     if (type === "plaint" && typerole === "истца") {
-      // console.log(objData);
       dispatch(changeLookAddPlaintiff(1));
       dispatch(changeTypeFace(objData.typeFace));
     } else if (type === "represen" && typerole === "истца") {
-      // console.log(objData, "nnn");
       dispatch(changeLookAddPlaintiff(2));
     } else if (type === "plaint" && typerole === "ответчика") {
-      // console.log(objData, "6556+5 ответчика");
       dispatch(changeLookAddPlaintiff(1));
       dispatch(changeTypeFace(objData.typeFace));
     } else if (type === "represen" && typerole === "ответчика") {
-      // console.log(objData, "nnn ответчика");
       dispatch(changeLookAddPlaintiff(2));
     }
 

@@ -16,14 +16,14 @@ const ChoiceNoneData = ({ props }) => {
       <label htmlFor="checkboxDate">{props.title}</label>
       <div className="choiceNoneData__inner">
         <span
-          className={props?.typeKey ? "activeBtnsPlaintiff" : ""}
-          onClick={() => clickBtn(true)}
+          className={props?.typeKey === 1 ? "activeBtnsPlaintiff" : ""}
+          onClick={() => clickBtn(1)}
         >
           Да
         </span>
         <span
-          className={props?.typeKey ? "" : "activeBtnsPlaintiff"}
-          onClick={() => clickBtn(false)}
+          className={props?.typeKey === 1 ? "" : "activeBtnsPlaintiff"}
+          onClick={() => clickBtn(0)}
         >
           Нет
         </span>
