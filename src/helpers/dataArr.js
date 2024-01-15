@@ -1,6 +1,6 @@
 export const selectArr = [
-  { id: 0, name: "Мужской" },
-  { id: 1, name: "Женский" },
+  { id: 1, name: "Мужской" },
+  { id: 2, name: "Женский" },
 ];
 
 export const selectCountry = [
@@ -47,12 +47,12 @@ export const typeCompanyArr = [
   { id: 2, name: "ОАО" },
 ];
 
-export const UserStatus = [
+export const selectUserStatus = [
   { id: 0, name: "Председатель правления" },
   { id: 1, name: "Генеральный деректор" },
-  { id: 3, name: "Временный администратор" },
-  { id: 4, name: "Директор" },
-  { id: 5, name: "Президент" },
+  { id: 2, name: "Временный администратор" },
+  { id: 3, name: "Директор" },
+  { id: 4, name: "Президент" },
 ];
 
 export const typeValuta = [

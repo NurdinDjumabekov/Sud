@@ -1,18 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { changeADFF, changeADUF } from "./inputSlice";
-import {
-  addTodosDefendant,
-  addTodosDefendantResper,
-  addTodosPlaintiff,
-  addTodosPlaintiffResper,
-  changeTodosApplications,
-} from "./applicationsSlice";
+import { changeTodosApplications } from "./applicationsSlice";
+import { changeActionType } from "../../helpers/changeActionType";
+import { transformCreateData } from "../../helpers/transformCreateData";
 
 const initialState = {
   preloader: false,
   listTodos: [],
-  createIdIsk: 0, /// delete
 };
 
 export const toTakeIsksList = createAsyncThunk(
@@ -36,8 +31,9 @@ export const toTakeIsksList = createAsyncThunk(
     }
   }
 );
+
 //// для получения id иска
-export const createIsk = createAsyncThunk(
+export const createIdIsk = createAsyncThunk(
   "createIsk",
   async function (info, { dispatch, rejectWithValue }) {
     try {
@@ -106,8 +102,49 @@ export const sendEveryIsks = createAsyncThunk(
   }
 );
 
+/// plaintiff
+/// defendant
+/// plaintiffResper
+/// defendantResper
+/// code_fiz_face: 1,
+
+export const createEveryIsk = createAsyncThunk(
+  "createEveryIsk",
+  async function (info, { dispatch, rejectWithValue }) {
+    try {
+      const faceData = info?.typeFace === 1 ? info?.adff : info?.aduf;
+      const obj = transformCreateData(info, info?.role, faceData);
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
+        data: {
+          action_type: 2,
+          ...obj,
+        },
+        headers: {
+          Authorization: `Bearer ${info?.tokenA}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        const newdata = changeActionType(response?.data);
+        dispatch(
+          changeTodosApplications({
+            ...info?.todosApplications,
+            ...newdata,
+          })
+        );
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+////////////////////delete
 export const createFizFace = createAsyncThunk(
-  "toTakeIdFizFace",
+  "createFizFace",
   async function (info, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
@@ -213,16 +250,28 @@ const sendDocsSlice = createSlice({
     builder.addCase(toTakeIsksList.pending, (state, action) => {
       state.preloader = true;
     });
-    ///// createIsk
-    builder.addCase(createIsk.fulfilled, (state, action) => {
+    ///// createIdIsk
+    builder.addCase(createIdIsk.fulfilled, (state, action) => {
       state.preloader = false;
       state.createIdIsk = action.payload;
     });
-    builder.addCase(createIsk.rejected, (state, action) => {
+    builder.addCase(createIdIsk.rejected, (state, action) => {
       state.error = action.payload;
       state.preloader = false;
     });
-    builder.addCase(createIsk.pending, (state, action) => {
+    builder.addCase(createIdIsk.pending, (state, action) => {
+      state.preloader = true;
+    });
+    ////// createEveryIsk
+    builder.addCase(createEveryIsk.fulfilled, (state, action) => {
+      state.preloader = false;
+      // state.createEveryIsk = action.payload;
+    });
+    builder.addCase(createEveryIsk.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloader = false;
+    });
+    builder.addCase(createEveryIsk.pending, (state, action) => {
       state.preloader = true;
     });
     ///// toTakeIdFizFace

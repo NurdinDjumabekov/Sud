@@ -77,14 +77,7 @@ const PdfFile = ({ modal, typerole }) => {
               todosApplications?.defendantResper,
               4
             )}</div>
-            <p style=" font-size: 20px;">${
-              todosApplications?.summ || todosApplications?.summ_curr
-                ? `Цена иска: ${
-                    todosApplications?.summ === "" ? 0 : todosApplications?.summ
-                  } ${todosApplications?.summ_curr}`
-                : ""
-            }
-            </p>
+           
         </div>
         </div>
         <h4 style="text-align:center; font-size: 25px;">${
@@ -96,6 +89,15 @@ const PdfFile = ({ modal, typerole }) => {
         <p style=" font-size: 20px;">${todosApplications?.finance_raschet}</p>
     </div>
   `;
+
+  // <p style=" font-size: 20px;">${
+  //   todosApplications?.summ || todosApplications?.summ_curr
+  //     ? `Цена иска: ${
+  //         todosApplications?.summ === "" ? 0 : todosApplications?.summ
+  //       } ${todosApplications?.summ_curr}`
+  //     : ""
+  // }
+  // </p>
 
   return (
     <div className="pdfFile">

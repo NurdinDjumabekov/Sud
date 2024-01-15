@@ -10,11 +10,11 @@ import {
   clearADUF,
 } from "../../../store/reducers/inputSlice";
 import {
-  UserStatus,
   selectAddresElement,
   selectCountry,
   selectDistrict,
   selectRegion,
+  selectUserStatus,
   typeCompanyArr,
   typeOrganization,
 } from "../../../helpers/dataArr";
@@ -23,13 +23,26 @@ import {
   addTodosDefendant,
   addTodosPlaintiff,
 } from "../../../store/reducers/applicationsSlice";
-import { toTakeIdUrFace } from "../../../store/reducers/sendDocsSlice";
+import {
+  createEveryIsk,
+  toTakeIdUrFace,
+} from "../../../store/reducers/sendDocsSlice";
 
 const UrFace = ({ typerole }) => {
   const dispatch = useDispatch();
 
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { aduf, typeFace } = useSelector((state) => state.inputSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const {
+    selCountries,
+    selDistrict,
+    selTypeAddress,
+    selRegions,
+    selTypeOrganiz,
+    selTypeCompany,
+    selTypePosition,
+  } = useSelector((state) => state.selectsSlice);
 
   const sendData = (e) => {
     e.preventDefault();
@@ -38,11 +51,20 @@ const UrFace = ({ typerole }) => {
     } else if (typerole === "ответчика") {
       dispatch(addTodosDefendant({ ...aduf, typeFace }));
     }
+    dispatch(
+      createEveryIsk({
+        todosApplications,
+        tokenA,
+        action_type: 1,
+        aduf,
+        typeFace,
+      })
+    );
     dispatch(changeLookAddPlaintiff(0));
     dispatch(clearADFF());
     dispatch(clearADUF());
   };
-  // console.log(aduf, "aduf");
+  console.log(aduf, "aduf");
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -50,9 +72,8 @@ const UrFace = ({ typerole }) => {
   };
 
   React.useEffect(() => {
-    if (aduf?.codeid === 0) {
-      dispatch(toTakeIdUrFace({ aduf, tokenA }));
-    }
+    console.log("ur face");
+
     return () => dispatch(changeTypeFace(1));
   }, []);
 
@@ -134,7 +155,7 @@ const UrFace = ({ typerole }) => {
         </div>
         <div className="threeInputs">
           <Selects
-            arr={typeOrganization}
+            arr={selTypeOrganiz}
             initText={"Вид организационно-правовой нормы"}
             keys={{ typeKey: aduf.typeOrganization, type: "typeOrganization" }}
             type="aduf"
@@ -150,7 +171,7 @@ const UrFace = ({ typerole }) => {
             }}
           />
           <Selects
-            arr={typeCompanyArr}
+            arr={selTypeCompany}
             initText={"Тип компании"}
             keys={{ typeKey: aduf.typeCompany, type: "typeCompany" }}
             type="aduf"
@@ -158,35 +179,36 @@ const UrFace = ({ typerole }) => {
         </div>
         <div className="threeInputs">
           <Selects
-            arr={selectCountry}
+            arr={selCountries}
             initText={"Страна"}
-            keys={{ typeKey: aduf.country, type: "country" }}
+            keys={{ typeKey: aduf.country_ur, type: "country_ur" }}
             type="aduf"
           />
         </div>
         <div className="btnsTypeMain">
           <div className="btnsType">
             <span
-              className={aduf?.type ? "activeBtnsPlaintiff" : ""}
-              onClick={() => dispatch(changeADUF({ ...aduf, type: true }))}
+              className={aduf?.type === 1 ? "activeBtnsPlaintiff" : ""}
+              onClick={() => dispatch(changeADUF({ ...aduf, type: 1 }))}
             >
               Руководитель компании
             </span>
             <span
-              className={aduf?.type ? "" : "activeBtnsPlaintiff"}
-              onClick={() => dispatch(changeADUF({ ...aduf, type: false }))}
+              className={aduf?.type === 1 ? "" : "activeBtnsPlaintiff"}
+              onClick={() => dispatch(changeADUF({ ...aduf, type: 2 }))}
             >
               Адрес компании
             </span>
           </div>
         </div>
-        {aduf?.type ? (
+        {aduf?.type === 1 ? (
           <>
             <div className="threeInputs">
               <Selects
-                arr={UserStatus}
+                arr={selTypePosition}
                 initText={"Должность в компании"}
                 keys={{ typeKey: aduf.userStatus, type: "userStatus" }}
+                type="aduf"
               />
               <DataInput
                 props={{
@@ -225,19 +247,19 @@ const UrFace = ({ typerole }) => {
           <>
             <div className="threeInputs">
               <Selects
-                arr={selectCountry}
+                arr={selCountries}
                 initText={"Страна *"}
                 keys={{ typeKey: aduf.country, type: "country" }}
                 type="aduf"
               />
               <Selects
-                arr={selectRegion}
+                arr={selRegions}
                 initText={"Область *"}
                 keys={{ typeKey: aduf.region, type: "region" }}
                 type="aduf"
               />
               <Selects
-                arr={selectDistrict}
+                arr={selDistrict}
                 initText={"Район *"}
                 keys={{ typeKey: aduf.district, type: "district" }}
                 type="aduf"
@@ -256,7 +278,7 @@ const UrFace = ({ typerole }) => {
                 />
               </div>
               <Selects
-                arr={selectAddresElement}
+                arr={selTypeAddress}
                 initText={"Адресный элемент *"}
                 keys={{ typeKey: aduf.adddreselement, type: "adddreselement" }}
                 type="aduf"

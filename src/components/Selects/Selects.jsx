@@ -42,7 +42,10 @@ const Selects = (props) => {
       dispatch(
         changeTodosApplications({ ...todosApplications, [keys.type]: id })
       );
+    } else if (type === "code_fiz_face") {
+      dispatch(changeADFF({ ...adff, code_fiz_face: +id }));
     }
+    setName(name);
   };
 
   React.useEffect(() => {
@@ -72,7 +75,15 @@ const Selects = (props) => {
         {active && (
           <div className="selectBlock__activeBlock">
             {arr?.map((sel) => (
-              <p onClick={() => clickSelect(sel?.name, sel.id)} key={sel.id}>
+              <p
+                onClick={() =>
+                  clickSelect(
+                    sel?.name,
+                    type === "code_fiz_face" ? sel.codeid : sel.id
+                  )
+                }
+                key={type === "code_fiz_face" ? sel.codeid : sel.id}
+              >
                 {sel.name}
               </p>
             ))}

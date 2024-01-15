@@ -13,11 +13,12 @@ import { useSelector } from "react-redux";
 
 function MainRoutes() {
   const { preloader } = useSelector((state) => state.sendDocsSlice);
+  const { preloaderSel } = useSelector((state) => state.selectsSlice);
   const { statusCreateIsks } = useSelector((state) => state.stateSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+  // console.log(statusCreateIsks, "statusCreateIsks");
   // console.log(tokenA);
 
-  // console.log(statusCreateIsks, "statusCreateIsks");
   return (
     <>
       <Routes>
@@ -32,6 +33,7 @@ function MainRoutes() {
         </Route>
       </Routes>
       {preloader && <Preloader />}
+      {preloaderSel && <Preloader />}
     </>
   );
 }

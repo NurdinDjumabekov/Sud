@@ -2,31 +2,209 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
+  preloaderSel: false,
   selCountries: [],
-  selDistrict: [],
   selRegions: [],
+  selDistrict: [],
   selTypeAddress: [],
   selTypeOrganiz: [],
   selTypeCompany: [],
+  
   selTypePosition: [],
   selTypeValuta: [],
   selTypeTypeDocs: [],
 };
 
+/// selCountries
 export const toTakeCountries = createAsyncThunk(
   "toTakeCountries",
   async function (token, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
         method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/isks/get`,
+        url: `http://mttp-renaissance.333.kg/api/get/country`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        console.log(response);
-        // return response?.data;
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+/// selDistrict
+export const toTakeDistrict = createAsyncThunk(
+  "toTakeDistrict",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/district?code_region=1`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+/// selRegions
+export const toTakeRegions = createAsyncThunk(
+  "toTakeRegions",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/region?code_country=1`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+/// selTypeAddress
+export const toTakeTypeAddress = createAsyncThunk(
+  "toTakeTypeAddress",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/address_type`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+/// selTypeOrganiz
+export const toTakeTypeOrganiz = createAsyncThunk(
+  "toTakeTypeOrganiz",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/org_type`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+/// selTypeCompany
+export const toTakeTypeCompany = createAsyncThunk(
+  "toTakeTypeCompany",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/company_type`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+/// selTypePosition
+export const toTakeTypePosition = createAsyncThunk(
+  "toTakeTypePosition",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/position_type`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+/// selTypeValuta
+export const toTakeTypeValuta = createAsyncThunk(
+  "toTakeTypeValuta",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/currency`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+/// selTypeTypeDocs
+export const toTakeTypeTypeDocs = createAsyncThunk(
+  "toTakeTypeTypeDocs",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/document_type?razdel=1`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -42,15 +220,115 @@ const selectsSlice = createSlice({
   extraReducers: (builder) => {
     ///// toTakeCountries
     builder.addCase(toTakeCountries.fulfilled, (state, action) => {
-      state.preloader = false;
-      state.listTodos = action.payload;
+      state.preloaderSel = false;
+      state.selCountries = action.payload;
     });
     builder.addCase(toTakeCountries.rejected, (state, action) => {
       state.error = action.payload;
-      state.preloader = false;
+      state.preloaderSel = false;
     });
     builder.addCase(toTakeCountries.pending, (state, action) => {
-      state.preloader = true;
+      state.preloaderSel = true;
+    });
+    ///// selDistrict
+    builder.addCase(toTakeDistrict.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selDistrict = action.payload;
+    });
+    builder.addCase(toTakeDistrict.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeDistrict.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+    ///// selRegions
+    builder.addCase(toTakeRegions.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selRegions = action.payload;
+    });
+    builder.addCase(toTakeRegions.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeRegions.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+    ///// selTypeAddress
+    builder.addCase(toTakeTypeAddress.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selTypeAddress = action.payload;
+    });
+    builder.addCase(toTakeTypeAddress.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeTypeAddress.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+
+    ///// selTypeOrganiz
+    builder.addCase(toTakeTypeOrganiz.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selTypeOrganiz = action.payload;
+    });
+    builder.addCase(toTakeTypeOrganiz.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeTypeOrganiz.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+
+    ///// selTypeCompany
+    builder.addCase(toTakeTypeCompany.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selTypeCompany = action.payload;
+    });
+    builder.addCase(toTakeTypeCompany.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeTypeCompany.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+
+    ///// selTypePosition
+    builder.addCase(toTakeTypePosition.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selTypePosition = action.payload;
+    });
+    builder.addCase(toTakeTypePosition.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeTypePosition.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+
+    ///// selTypeValuta
+    builder.addCase(toTakeTypeValuta.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selTypeValuta = action.payload;
+    });
+    builder.addCase(toTakeTypeValuta.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeTypeValuta.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+    ///// selTypeTypeDocs
+    builder.addCase(toTakeTypeTypeDocs.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selTypeTypeDocs = action.payload;
+    });
+    builder.addCase(toTakeTypeTypeDocs.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeTypeTypeDocs.pending, (state, action) => {
+      state.preloaderSel = true;
     });
   },
 });

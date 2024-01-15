@@ -5,9 +5,9 @@ const initialState = {
   typeFace: 1,
   //// addPlaintiffFizFace
   adff: {
+    action_type: 0,
     codeid: 0,
-    code_fiz_face: 2,
-    fiz_face_type: 0, // 1-plaintiff, 2-defendant, 3 - plaintiff representative, 4 - defendant representative
+    code_fiz_face: 0, // для ответчиков, чтобы можно было их связать с теми, кого они представляют
     code_isk: 0,
     name: "",
     sex: 1, // пол
@@ -41,38 +41,37 @@ const initialState = {
 
   //// addPlaintiffUrFace
   aduf: {
+    code_isk: 0,
     codeid: 0,
-    code_fiz_face: 0,
     name: "",
-    dataReg: "", // дата регистрации
+    numPhone: "",
     inn: "",
     okpo: "",
     email: "",
     email2: "",
-    numPhone: "",
-    typeOrganization: "",
-    typeCompany: "",
-    country: "",
+    typeOrganization: 1,
+    dataReg: "", // дата регистрации
+    typeCompany: 1,
+    country_ur: 1,
 
-    userStatus: "", //// должность в компании
+    userStatus: 1, //// должность в компании
     startData: "",
     endData: "",
     fioBoss: "",
 
-    country: "",
-    region: "", /// область
-    district: "", //// район
+    country: 1,
+    district: 1, //// район
+    region: 1, /// область
     city: "",
-    adddreselement: "", // адресный элемент
+    adddreselement: 1, // адресный элемент
     street: "",
     numObj: "",
     index: "",
     apartament: "",
     emailIndex: "",
     description: "",
-
-    type: true, //true - Руководитель компании, false - Адрес компании
-    role: "",
+    ur_face_type: 1, // 1-plaintiff, 2-defendan
+    type: 1, //1 - Руководитель компании, 2 - Адрес компании
   },
 
   // цена иска /// можно удалить
@@ -94,9 +93,9 @@ const inputSlice = createSlice({
     },
     clearADFF: (state, action) => {
       state.adff = {
+        action_type: 0,
         codeid: 0,
         code_fiz_face: 0,
-        fiz_face_type: 0, // 1-plaintiff, 2-defendant, 3 - plaintiff representative, 4 - defendant representative
         code_isk: 0,
         name: "",
         sex: 1, // пол
@@ -134,38 +133,37 @@ const inputSlice = createSlice({
     },
     clearADUF: (state, action) => {
       state.aduf = {
+        code_isk: 0,
         codeid: 0,
-        code_fiz_face: 0,
         name: "",
-        dataReg: "",
+        numPhone: "",
         inn: "",
         okpo: "",
         email: "",
         email2: "",
-        numPhone: "",
         typeOrganization: "",
+        dataReg: "", // дата регистрации
         typeCompany: "",
-        country: "",
+        country_ur: "",
 
-        userStatus: "",
+        userStatus: "", //// должность в компании
         startData: "",
         endData: "",
         fioBoss: "",
 
         country: "",
-        region: "",
-        district: "",
+        district: "", //// район
+        region: "", /// область
         city: "",
-        adddreselement: "",
+        adddreselement: "", // адресный элемент
         street: "",
         numObj: "",
         index: "",
         apartament: "",
         emailIndex: "",
         description: "",
-
-        type: true,
-        role: "",
+        ur_face_type: 1, // 1-plaintiff, 2-defendan
+        type: 1, //1 - Руководитель компании, 2 - Адрес компании
       };
     },
     ////////////////////////

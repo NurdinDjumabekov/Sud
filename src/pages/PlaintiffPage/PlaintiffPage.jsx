@@ -30,9 +30,20 @@ import { checkDataIsks } from "../../helpers/checkDataIsks";
 import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
 import {
   addListTodos,
-  createIsk,
+  createIdIsk,
   sendEveryIsks,
 } from "../../store/reducers/sendDocsSlice";
+import {
+  toTakeCountries,
+  toTakeDistrict,
+  toTakeRegions,
+  toTakeTypeAddress,
+  toTakeTypeCompany,
+  toTakeTypeOrganiz,
+  toTakeTypePosition,
+  toTakeTypeTypeDocs,
+  toTakeTypeValuta,
+} from "../../store/reducers/selectsSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -42,8 +53,8 @@ const PlaintiffPage = () => {
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf } = useSelector((state) => state.inputSlice);
-  // const { statusCreateIsks } = useSelector((state) => state.stateSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+  // const { statusCreateIsks } = useSelector((state) => state.stateSlice);
   // console.log(statusCreateIsks, "statusCreateIsks");
 
   const [btnList, setBtnList] = useState([
@@ -151,12 +162,23 @@ const PlaintiffPage = () => {
   };
 
   React.useEffect(() => {
-    dispatch(createIsk({ todosApplications, tokenA, adff, aduf }));
+    dispatch(createIdIsk({ todosApplications, tokenA, adff, aduf })); /// для того чтобы взть id для создания иска
+    /// селекты
+    dispatch(toTakeCountries(tokenA));
+    dispatch(toTakeDistrict(tokenA));
+    dispatch(toTakeRegions(tokenA));
+    dispatch(toTakeTypeAddress(tokenA));
+    dispatch(toTakeTypeOrganiz(tokenA));
+    dispatch(toTakeTypeCompany(tokenA));
+    dispatch(toTakeTypePosition(tokenA));
+    dispatch(toTakeTypeValuta(tokenA));
+    dispatch(toTakeTypeTypeDocs(tokenA));
     return () => dispatch(clearTodosApplications());
   }, []);
 
   console.log(todosApplications, "todosApplications");
   // console.log(createIdIsk, "createIdIsk");
+
   return (
     <div className="plaintiff">
       <div className="sadasdasdas">

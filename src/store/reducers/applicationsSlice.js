@@ -36,40 +36,6 @@ const initialState = {
     status: "1", /// why?
     //////////////////
   },
-  // todosApplications: {
-  //   codeid: 0,
-  //   plaintiff: [], //1 plaintiff
-  //   plaintiffResper: [], //2
-  //   defendant: [], //3
-  //   defendantResper: [], //4
-
-  //   name: "adasd",
-  //   description: "adasd",
-  //   motivation: "adasd",
-  //   obosnovanie: "adasd",
-  //   finance_raschet: "adasd",
-  //   law_links: "adasd",
-  //   claim: "adasd",
-  //   ///////////////////////////////
-  //   summ: 0,
-  //   summ_curr: 1, /// select должен быть по id
-  //   arbitr_fee: 0,
-  //   arbitr_curr: 1, /// select должен быть по id
-  //   registr_fee: 0,
-  //   registr_curr: 1, /// select должен быть по id
-  //   doplata_summ: 0,
-  //   nadbavka_curr: 1, /// select должен быть по id
-
-  //   arbitr_pay_end_date: "2024-01-31", //
-  //   arbitr_doplata_end_date: "2024-01-31", //
-  //   ///////////////////////////////
-  //   prim_pravo: "1", /// why?
-  //   reglament: 1,
-  //   haracter_spor: 1,
-  //   arbitr_lang: 1,
-  //   arbitr_po_dogovor: 1, // заменить на 1 и 0
-  //   status: "1", /// why?
-  // },
   //// массив дел
 };
 
@@ -78,24 +44,10 @@ const applicationsSlice = createSlice({
   initialState,
   reducers: {
     addTodosPlaintiff: (state, action) => {
-      const { plaintiff } = state.todosApplications;
-      if (action.payload.id) {
-        const newArr = plaintiff.map((obj) => {
-          if (obj.id === action.payload.id) {
-            return action.payload;
-          } else {
-            return obj;
-          }
-        });
-        state.todosApplications.plaintiff = newArr;
-      } else {
-        const id =
-          plaintiff.length === 0 ? 1 : plaintiff[plaintiff.length - 1].id + 1;
-        state.todosApplications.plaintiff = [
-          ...plaintiff,
-          { ...action.payload, id },
-        ];
-      }
+      state.todosApplications = {
+        ...state.todosApplications,
+        plaintiff: [...state.todosApplications.plaintiff, action.payload],
+      };
     },
     addTodosPlaintiffResper: (state, action) => {
       const { plaintiffResper } = state.todosApplications;

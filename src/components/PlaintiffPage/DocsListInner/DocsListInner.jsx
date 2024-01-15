@@ -10,7 +10,7 @@ import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 
 const DocsListInner = ({ arr, arr2, typerole }) => {
   const dispatch = useDispatch();
-  
+
   const changeAddPlaintiff = (objData, type) => {
     if (type === "plaint" && typerole === "истца") {
       dispatch(changeLookAddPlaintiff(1));
@@ -39,7 +39,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
           <div>
             {arr?.map((i) => (
               <div
-                key={i.id}
+                key={i.codeid}
                 className="everyCard"
                 onClick={() => changeAddPlaintiff(i, "plaint")}
               >
@@ -76,7 +76,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
           <div>
             {arr2?.map((i) => (
               <div
-                key={i.id}
+                key={i.codeid}
                 className="everyCard"
                 onClick={() => changeAddPlaintiff(i, "represen")}
               >
