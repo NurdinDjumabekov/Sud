@@ -1,65 +1,65 @@
 export const selectArr = [
-  { id: 1, name: "Мужской" },
-  { id: 2, name: "Женский" },
+  { codeid: 1, name: "Мужской" },
+  { codeid: 2, name: "Женский" },
 ];
 
 export const selectCountry = [
-  { id: 0, name: "Кыргызстан" },
-  { id: 1, name: "Казахстан" },
-  { id: 2, name: "Россия" },
-  { id: 3, name: "Узбекистан" },
-  { id: 4, name: "Кыргызстан" },
-  { id: 5, name: "Казахстан" },
+  { codeid: 0, name: "Кыргызстан" },
+  { codeid: 1, name: "Казахстан" },
+  { codeid: 2, name: "Россия" },
+  { codeid: 3, name: "Узбекистан" },
+  { codeid: 4, name: "Кыргызстан" },
+  { codeid: 5, name: "Казахстан" },
 ];
 
 export const selectRegion = [
-  { id: 0, name: "Новгородный" },
-  { id: 1, name: "Промежуточный" },
+  { codeid: 0, name: "Новгородный" },
+  { codeid: 1, name: "Промежуточный" },
 ];
 
 export const selectDistrict = [
-  { id: 0, name: "Араванский" },
-  { id: 1, name: "Конский" },
-  { id: 2, name: "Божественный" },
-  { id: 3, name: "Логичный" },
-  { id: 4, name: "Бодрый" },
+  { codeid: 0, name: "Араванский" },
+  { codeid: 1, name: "Конский" },
+  { codeid: 2, name: "Божественный" },
+  { codeid: 3, name: "Логичный" },
+  { codeid: 4, name: "Бодрый" },
 ];
 
 export const selectAddresElement = [
-  { id: 0, name: "Станция" },
-  { id: 1, name: "Участок" },
-  { id: 2, name: "Улица" },
-  { id: 3, name: "Бульвар" },
-  { id: 4, name: "Площадь" },
-  { id: 5, name: "Канал" },
-  { id: 6, name: "Проспект" },
-  { id: 7, name: "Шоссе" },
+  { codeid: 0, name: "Станция" },
+  { codeid: 1, name: "Участок" },
+  { codeid: 2, name: "Улица" },
+  { codeid: 3, name: "Бульвар" },
+  { codeid: 4, name: "Площадь" },
+  { codeid: 5, name: "Канал" },
+  { codeid: 6, name: "Проспект" },
+  { codeid: 7, name: "Шоссе" },
 ];
 
 export const typeOrganization = [
-  { id: 0, name: "ОсОО" },
-  { id: 1, name: "ОсДо" },
+  { codeid: 0, name: "ОсОО" },
+  { codeid: 1, name: "ОсДо" },
 ];
 
 export const typeCompanyArr = [
-  { id: 0, name: "ЗАО" },
-  { id: 1, name: "АО" },
-  { id: 2, name: "ОАО" },
+  { codeid: 0, name: "ЗАО" },
+  { codeid: 1, name: "АО" },
+  { codeid: 2, name: "ОАО" },
 ];
 
 export const selectUserStatus = [
-  { id: 0, name: "Председатель правления" },
-  { id: 1, name: "Генеральный деректор" },
-  { id: 2, name: "Временный администратор" },
-  { id: 3, name: "Директор" },
-  { id: 4, name: "Президент" },
+  { codeid: 0, name: "Председатель правления" },
+  { codeid: 1, name: "Генеральный деректор" },
+  { codeid: 2, name: "Временный администратор" },
+  { codeid: 3, name: "Директор" },
+  { codeid: 4, name: "Президент" },
 ];
 
 export const typeValuta = [
-  { id: 0, name: "Сом" },
-  { id: 1, name: "Рубль" },
-  { id: 2, name: "Тенге" },
-  { id: 3, name: "Тенге" },
-  { id: 4, name: "Тенге" },
-  { id: 5, name: "Тенге" },
+  { codeid: 0, name: "Сом" },
+  { codeid: 1, name: "Рубль" },
+  { codeid: 2, name: "Тенге" },
+  { codeid: 3, name: "Тенге" },
+  { codeid: 4, name: "Тенге" },
+  { codeid: 5, name: "Тенге" },
 ];

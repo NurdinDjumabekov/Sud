@@ -4,11 +4,7 @@ import "./DataInput.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeADFF,
-  changeADUF,
-  changePriceDocs,
-} from "../../../store/reducers/inputSlice";
+import { changeADFF, changeADUF } from "../../../store/reducers/inputSlice";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
 
 const DataInput = ({ props }) => {
@@ -32,10 +28,6 @@ const DataInput = ({ props }) => {
       dispatch(changeADFF({ ...adff, [props.nameInput]: formattedDate }));
     } else if (props.typeChange === "aduf") {
       dispatch(changeADUF({ ...aduf, [props.nameInput]: formattedDate }));
-    } else if (props.typeChange === "priceDocs") {
-      dispatch(
-        changePriceDocs({ ...priceDocs, [props.nameInput]: formattedDate })
-      );
     } else if (props.typeChange === "todos") {
       dispatch(
         changeTodosApplications({

@@ -10,6 +10,7 @@ import CalendarMeetings from "../pages/CalendarMeetings/CalendarMeetings";
 import ArchivePage from "../pages/ArchivePage/ArchivePage";
 import { Preloader } from "../components/Preloader/Preloader";
 import { useSelector } from "react-redux";
+import Alerts from "../components/Alerts/Alerts";
 
 function MainRoutes() {
   const { preloader } = useSelector((state) => state.sendDocsSlice);
@@ -34,6 +35,7 @@ function MainRoutes() {
       </Routes>
       {preloader && <Preloader />}
       {preloaderSel && <Preloader />}
+      <Alerts />
     </>
   );
 }

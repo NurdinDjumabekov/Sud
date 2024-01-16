@@ -10,10 +10,8 @@ import { changeTodosApplications } from "../../../store/reducers/applicationsSli
 const TargetPlaintiff = () => {
   const dispatch = useDispatch();
   const [btnSend, setBtnSend] = React.useState(true);
-
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-
-  const sendData = () => {};
+  const { selCurrency } = useSelector((state) => state.selectsSlice);
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -25,10 +23,6 @@ const TargetPlaintiff = () => {
     );
   };
 
-  const selectArr = [
-    { id: 0, name: "Мужской" },
-    { id: 1, name: "Женский" },
-  ];
   console.log(todosApplications);
 
   return (
@@ -48,7 +42,7 @@ const TargetPlaintiff = () => {
               />
             </div>
             <Selects
-              arr={selectArr}
+              arr={selCurrency}
               initText={"Фунт"}
               keys={{ typeKey: todosApplications.summ_curr, type: "summ_curr" }}
               type="todos"
@@ -67,7 +61,7 @@ const TargetPlaintiff = () => {
               />
             </div>
             <Selects
-              arr={selectArr}
+              arr={selCurrency}
               initText={"Валюта арбитра"}
               keys={{
                 typeKey: todosApplications.arbitr_curr,
@@ -89,7 +83,7 @@ const TargetPlaintiff = () => {
               />
             </div>
             <Selects
-              arr={selectArr}
+              arr={selCurrency}
               initText={"валюта регистрационного сбора"}
               keys={{
                 typeKey: todosApplications.registr_curr,
@@ -111,7 +105,7 @@ const TargetPlaintiff = () => {
               />
             </div>
             <Selects
-              arr={selectArr}
+              arr={selCurrency}
               initText={"Валюта надбавок"}
               keys={{
                 typeKey: todosApplications.nadbavka_curr,
@@ -120,7 +114,6 @@ const TargetPlaintiff = () => {
               type="todos"
             />
           </div>
-
           <div className="twoInputs">
             <DataInput
               props={{

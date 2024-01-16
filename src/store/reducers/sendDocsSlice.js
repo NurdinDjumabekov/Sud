@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { changeADFF, changeADUF } from "./inputSlice";
+import { changeADFF, changeADUF, changeDocsIsks } from "./inputSlice";
 import { changeTodosApplications } from "./applicationsSlice";
 import { changeActionType } from "../../helpers/changeActionType";
 import { transformCreateData } from "../../helpers/transformCreateData";
@@ -63,6 +63,12 @@ export const createIdIsk = createAsyncThunk(
         dispatch(
           changeADUF({
             ...info?.aduf,
+            code_isk: response?.data?.codeid,
+          })
+        );
+        dispatch(
+          changeDocsIsks({
+            ...info?.docsIsks,
             code_isk: response?.data?.codeid,
           })
         );

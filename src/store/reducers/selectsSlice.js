@@ -9,13 +9,13 @@ const initialState = {
   selTypeAddress: [],
   selTypeOrganiz: [],
   selTypeCompany: [],
-  
   selTypePosition: [],
   selTypeValuta: [],
   selTypeTypeDocs: [],
+  selCurrency: [],
 };
 
-/// selCountries
+/// toTakeCountries
 export const toTakeCountries = createAsyncThunk(
   "toTakeCountries",
   async function (token, { dispatch, rejectWithValue }) {
@@ -37,7 +37,7 @@ export const toTakeCountries = createAsyncThunk(
     }
   }
 );
-/// selDistrict
+/// toTakeDistrict
 export const toTakeDistrict = createAsyncThunk(
   "toTakeDistrict",
   async function (token, { dispatch, rejectWithValue }) {
@@ -59,7 +59,7 @@ export const toTakeDistrict = createAsyncThunk(
     }
   }
 );
-/// selRegions
+/// toTakeRegions
 export const toTakeRegions = createAsyncThunk(
   "toTakeRegions",
   async function (token, { dispatch, rejectWithValue }) {
@@ -81,7 +81,7 @@ export const toTakeRegions = createAsyncThunk(
     }
   }
 );
-/// selTypeAddress
+/// toTakeTypeAddress
 export const toTakeTypeAddress = createAsyncThunk(
   "toTakeTypeAddress",
   async function (token, { dispatch, rejectWithValue }) {
@@ -103,7 +103,7 @@ export const toTakeTypeAddress = createAsyncThunk(
     }
   }
 );
-/// selTypeOrganiz
+/// toTakeTypeOrganiz
 export const toTakeTypeOrganiz = createAsyncThunk(
   "toTakeTypeOrganiz",
   async function (token, { dispatch, rejectWithValue }) {
@@ -125,7 +125,7 @@ export const toTakeTypeOrganiz = createAsyncThunk(
     }
   }
 );
-/// selTypeCompany
+/// toTakeTypeCompany
 export const toTakeTypeCompany = createAsyncThunk(
   "toTakeTypeCompany",
   async function (token, { dispatch, rejectWithValue }) {
@@ -147,7 +147,7 @@ export const toTakeTypeCompany = createAsyncThunk(
     }
   }
 );
-/// selTypePosition
+/// toTakeTypePosition
 export const toTakeTypePosition = createAsyncThunk(
   "toTakeTypePosition",
   async function (token, { dispatch, rejectWithValue }) {
@@ -169,7 +169,7 @@ export const toTakeTypePosition = createAsyncThunk(
     }
   }
 );
-/// selTypeValuta
+/// toTakeTypeValuta
 export const toTakeTypeValuta = createAsyncThunk(
   "toTakeTypeValuta",
   async function (token, { dispatch, rejectWithValue }) {
@@ -191,7 +191,7 @@ export const toTakeTypeValuta = createAsyncThunk(
     }
   }
 );
-/// selTypeTypeDocs
+/// toTakeTypeTypeDocs
 export const toTakeTypeTypeDocs = createAsyncThunk(
   "toTakeTypeTypeDocs",
   async function (token, { dispatch, rejectWithValue }) {
@@ -199,6 +199,28 @@ export const toTakeTypeTypeDocs = createAsyncThunk(
       const response = await axios({
         method: "GET",
         url: `http://mttp-renaissance.333.kg/api/get/document_type?razdel=1`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+//////toTakeCurrency
+export const toTakeCurrency = createAsyncThunk(
+  "toTakeCurrency",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/currency`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -328,6 +350,18 @@ const selectsSlice = createSlice({
       state.preloaderSel = false;
     });
     builder.addCase(toTakeTypeTypeDocs.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+    ///// toTakeCurrency
+    builder.addCase(toTakeCurrency.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selCurrency = action.payload;
+    });
+    builder.addCase(toTakeCurrency.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeCurrency.pending, (state, action) => {
       state.preloaderSel = true;
     });
   },

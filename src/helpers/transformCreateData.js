@@ -3,7 +3,6 @@ export const transformCreateData = (info, role, faceData) => {
     return {
       ...info?.todosApplications,
       plaintiff: [
-        ...info?.todosApplications?.plaintiff,
         {
           ...faceData,
           action_type: 1,
@@ -18,7 +17,6 @@ export const transformCreateData = (info, role, faceData) => {
     return {
       ...info?.todosApplications,
       defendant: [
-        ...info?.todosApplications?.defendant,
         {
           ...faceData,
           action_type: 1,
@@ -33,7 +31,6 @@ export const transformCreateData = (info, role, faceData) => {
     return {
       ...info?.todosApplications,
       plaintiffResper: [
-        ...info?.todosApplications?.plaintiffResper,
         {
           ...faceData,
           action_type: 1,
@@ -48,7 +45,6 @@ export const transformCreateData = (info, role, faceData) => {
     return {
       ...info?.todosApplications,
       defendantResper: [
-        ...info?.todosApplications?.defendantResper,
         {
           ...faceData,
           action_type: 1,

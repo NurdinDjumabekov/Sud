@@ -3,10 +3,12 @@ import "./PdfFile.scss";
 import pdf from "../../asstes/pdf/sud_pdf.pdf";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
+import { searchIdCurrency } from "../../helpers/searchIdCurrency";
 
 const PdfFile = ({ modal, typerole }) => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
+  const { selCurrency } = useSelector((state) => state.selectsSlice);
 
   const handleEditorChange = (content, editor) => {
     // console.log('Content was updated:', content);
@@ -20,7 +22,6 @@ const PdfFile = ({ modal, typerole }) => {
 
   const transformData = (arr, type) => {
     let allText = `<div style="font-weight: 500; font-size: 20px;">`;
-
     for (const text of arr) {
       const titleText = `<div style="display:inline-block;margin: 35px 0px 0px 0px;"><h3 style="display:inline;margin: 0px 5px 0px 0px;">${mainText(
         type
@@ -77,27 +78,69 @@ const PdfFile = ({ modal, typerole }) => {
               todosApplications?.defendantResper,
               4
             )}</div>
-           
+             <p style=" font-size: 20px;">${
+               todosApplications?.summ === "0" ||
+               todosApplications?.summ === "" ||
+               todosApplications?.summ === 0
+                 ? ""
+                 : `Цена иска: ${
+                     todosApplications?.summ === ""
+                       ? ""
+                       : `${todosApplications?.summ}${" "}${
+                           searchIdCurrency(
+                             selCurrency,
+                             +todosApplications?.summ_curr
+                           )
+                             ? searchIdCurrency(
+                                 selCurrency,
+                                 +todosApplications?.summ_curr
+                               )
+                             : ""
+                         }`
+                   }`
+             }
+              </p>
+          </div>
         </div>
-        </div>
-        <h4 style="text-align:center; font-size: 25px;">${
-          todosApplications?.name
-        }</h4>
-        <p style=" font-size: 20px;">${todosApplications?.description}</p>
-        <p style=" font-size: 20px;">${todosApplications?.motivation}</p>
-        <p style=" font-size: 20px;">${todosApplications?.obosnovanie}</p>
-        <p style=" font-size: 20px;">${todosApplications?.finance_raschet}</p>
+        ${
+          todosApplications?.name === ""
+            ? ""
+            : `<h4 style="text-align:center; font-size: 25px;">
+              ${todosApplications?.name}
+            </h4>`
+        }
+        ${
+          todosApplications?.description === ""
+            ? ""
+            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.description}</p>`
+        }
+        ${
+          todosApplications?.motivation === ""
+            ? ""
+            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.motivation}</p>`
+        }
+        ${
+          todosApplications?.obosnovanie === ""
+            ? ""
+            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.obosnovanie}</p>`
+        }
+        ${
+          todosApplications?.finance_raschet === ""
+            ? ""
+            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.finance_raschet}</p>`
+        }
+        ${
+          todosApplications?.law_links === ""
+            ? ""
+            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.law_links}</p>`
+        }
+        ${
+          todosApplications?.claim === ""
+            ? ""
+            : `<p style=" font-size: 20px; text-indent: 40px;">${todosApplications?.claim}</p>`
+        }
     </div>
   `;
-
-  // <p style=" font-size: 20px;">${
-  //   todosApplications?.summ || todosApplications?.summ_curr
-  //     ? `Цена иска: ${
-  //         todosApplications?.summ === "" ? 0 : todosApplications?.summ
-  //       } ${todosApplications?.summ_curr}`
-  //     : ""
-  // }
-  // </p>
 
   return (
     <div className="pdfFile">

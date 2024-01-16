@@ -16,15 +16,14 @@ const initialState = {
     law_links: "",
     claim: "",
     ///////////////////////////////
-    summ: 0,
-    summ_curr: 1, /// select должен быть по id
-    arbitr_fee: 0,
-    arbitr_curr: 1, /// select должен быть по id
-    registr_fee: 0,
-    registr_curr: 1, /// select должен быть по id
-    doplata_summ: 0,
-    nadbavka_curr: 1, /// select должен быть по id
-
+    summ: "0",
+    summ_curr: 0,/// select
+    arbitr_fee: "0",
+    arbitr_curr: 0, /// select
+    registr_fee: "0",
+    registr_curr: 0, /// select
+    doplata_summ: "0",
+    nadbavka_curr: 0, /// select
     arbitr_pay_end_date: "", //
     arbitr_doplata_end_date: "", //
     ///////////////////////////////
@@ -37,6 +36,7 @@ const initialState = {
     //////////////////
   },
   //// массив дел
+  applicationList: [],
 };
 
 const applicationsSlice = createSlice({
@@ -147,6 +147,9 @@ const applicationsSlice = createSlice({
         arbitr_po_dogovor: false,
       };
     },
+    changeApplicationList: (state, action) => {
+      state.applicationList = action.payload;
+    },
   },
 });
 export const {
@@ -156,6 +159,7 @@ export const {
   addTodosDefendantResper,
   changeTodosApplications,
   clearTodosApplications,
+  changeApplicationList,
 } = applicationsSlice.actions;
 
 export default applicationsSlice.reducer;

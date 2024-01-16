@@ -26,11 +26,11 @@ const initialState = {
     numPhone: "",
     email: "",
     email2: "",
-    country: 1,
-    region: 1, /// область
-    district: 1, //// район
+    country: 0, /// select
+    region: 0, /// область /// select
+    district: 0, //// район /// select
+    adddreselement: 0, // адресный элемент /// select
     city: "",
-    adddreselement: 1, // адресный элемент
     street: "",
     numObj: "",
     index: "",
@@ -49,21 +49,21 @@ const initialState = {
     okpo: "",
     email: "",
     email2: "",
-    typeOrganization: 1,
+    typeOrganization: 0, /// select
     dataReg: "", // дата регистрации
-    typeCompany: 1,
-    country_ur: 1,
+    typeCompany: 0, /// select
+    country_ur: 0, /// select
 
-    userStatus: 1, //// должность в компании
+    userStatus: 0, //// должность в компании /// select
     startData: "",
     endData: "",
     fioBoss: "",
 
-    country: 1,
-    district: 1, //// район
-    region: 1, /// область
+    country: 0, /// select
+    district: 0, //// район   /// select
+    region: 0, /// область   /// select
+    adddreselement: 0, // адресный элемент   /// select
     city: "",
-    adddreselement: 1, // адресный элемент
     street: "",
     numObj: "",
     index: "",
@@ -74,10 +74,12 @@ const initialState = {
     type: 1, //1 - Руководитель компании, 2 - Адрес компании
   },
 
-  // цена иска /// можно удалить
-  priceDocs: {},
-
-  /// хренения докусентов
+  docsIsks: {
+    files: [
+      // { base64: "jkh", name: "sssdsshdfdfdfhh.docx", code_file: 3 },
+    ],
+    code_isk: 0,
+  },
 };
 
 const inputSlice = createSlice({
@@ -95,30 +97,30 @@ const inputSlice = createSlice({
       state.adff = {
         action_type: 0,
         codeid: 0,
-        code_fiz_face: 0,
+        code_fiz_face: 0, // для ответчиков, чтобы можно было их связать с теми, кого они представляют
         code_isk: 0,
         name: "",
-        sex: 1, // пол
-        dob: "", /// data of birth
+        sex: 1, 
+        dob: "", 
         inn: "",
         ///////////////////////////
-        unknownDob: 0, // неизвестная дата рождения
-        unknownInn: 0, // неизвестный ИНН
-        unknownPassport: 0, // неизвестный паспорт
-        unknownDataPassport: 0, // не учитывать срок действия паспорта
+        unknownDob: 0,
+        unknownInn: 0,
+        unknownPassport: 0, 
+        unknownDataPassport: 0, 
         ///////////////////////////
-        passportSeries: "", // серия паспорта
-        timePassportStart: "", // дата выдачи паспорта
-        timePassportEnd: "", // дата истечения паспорта
-        organizationPassport: "", // кем выдан
+        passportSeries: "", 
+        timePassportStart: "", 
+        timePassportEnd: "",
+        organizationPassport: "", 
         numPhone: "",
         email: "",
         email2: "",
-        country: 1,
-        region: 1, /// область
-        district: 1, //// район
+        country: 0, 
+        region: 0, 
+        district: 0, 
+        adddreselement: 0, 
         city: "",
-        adddreselement: 1, // адресный элемент
         street: "",
         numObj: "",
         index: "",
@@ -141,37 +143,37 @@ const inputSlice = createSlice({
         okpo: "",
         email: "",
         email2: "",
-        typeOrganization: "",
-        dataReg: "", // дата регистрации
-        typeCompany: "",
-        country_ur: "",
+        typeOrganization: 0,
+        dataReg: "", 
+        typeCompany: 0,
+        country_ur: 0,
 
-        userStatus: "", //// должность в компании
+        userStatus: 0,
         startData: "",
         endData: "",
         fioBoss: "",
 
-        country: "",
-        district: "", //// район
-        region: "", /// область
+        country: 0,
+        district: 0, 
+        region: 0, 
+        adddreselement: 0, 
         city: "",
-        adddreselement: "", // адресный элемент
         street: "",
         numObj: "",
         index: "",
         apartament: "",
         emailIndex: "",
         description: "",
-        ur_face_type: 1, // 1-plaintiff, 2-defendan
-        type: 1, //1 - Руководитель компании, 2 - Адрес компании
+        ur_face_type: 1, 
+        type: 1,
       };
     },
     ////////////////////////
     changeTypeFace: (state, action) => {
       state.typeFace = action.payload;
     },
-    changePriceDocs: (state, action) => {
-      state.priceDocs = action.payload;
+    changeDocsIsks: (state, action) => {
+      state.docsIsks = action.payload;
     },
   },
 });
@@ -183,7 +185,7 @@ export const {
   clearADUF,
   changeRP,
   changeTypeFace,
-  changePriceDocs,
+  changeDocsIsks,
 } = inputSlice.actions;
 
 export default inputSlice.reducer;

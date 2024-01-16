@@ -9,24 +9,13 @@ import {
   clearADFF,
   clearADUF,
 } from "../../../store/reducers/inputSlice";
-import {
-  selectAddresElement,
-  selectCountry,
-  selectDistrict,
-  selectRegion,
-  selectUserStatus,
-  typeCompanyArr,
-  typeOrganization,
-} from "../../../helpers/dataArr";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 import {
   addTodosDefendant,
   addTodosPlaintiff,
 } from "../../../store/reducers/applicationsSlice";
-import {
-  createEveryIsk,
-  toTakeIdUrFace,
-} from "../../../store/reducers/sendDocsSlice";
+import { createEveryIsk } from "../../../store/reducers/sendDocsSlice";
+import { changeAlertText } from "../../../store/reducers/typesSlice";
 
 const UrFace = ({ typerole }) => {
   const dispatch = useDispatch();
@@ -46,25 +35,66 @@ const UrFace = ({ typerole }) => {
 
   const sendData = (e) => {
     e.preventDefault();
-    if (typerole === "истца") {
-      dispatch(addTodosPlaintiff({ ...aduf, typeFace }));
-    } else if (typerole === "ответчика") {
-      dispatch(addTodosDefendant({ ...aduf, typeFace }));
+    if (aduf?.typeOrganization === 0) {
+      alertFN("Заполните вид организационно-правовой нормы");
+    } else {
+      if (aduf?.dataReg === "") {
+        alertFN("Заполните дату первичной регистрации");
+      } else {
+        if (aduf?.typeCompany === 0) {
+          alertFN("Заполните тип компании");
+        } else {
+          if (aduf?.country_ur === 0) {
+            alertFN("Выберите страну");
+          } else {
+            checkData();
+          }
+        }
+      }
     }
+  };
+  console.log(aduf, "aduf");
+
+  const alertFN = (text) => {
     dispatch(
-      createEveryIsk({
-        todosApplications,
-        tokenA,
-        action_type: 1,
-        aduf,
-        typeFace,
+      changeAlertText({
+        text: text,
+        backColor: "#f9fafd",
+        state: true,
       })
     );
+  };
+
+  const checkData = () => {
+    if (typerole === "истца") {
+      dispatch(addTodosPlaintiff({ ...aduf, typeFace }));
+      dispatch(
+        createEveryIsk({
+          todosApplications,
+          tokenA,
+          action_type: 1,
+          aduf,
+          typeFace,
+          role: 1,
+        })
+      );
+    } else if (typerole === "ответчика") {
+      dispatch(addTodosDefendant({ ...aduf, typeFace }));
+      dispatch(
+        createEveryIsk({
+          todosApplications,
+          tokenA,
+          action_type: 1,
+          aduf,
+          typeFace,
+          role: 2,
+        })
+      );
+    }
     dispatch(changeLookAddPlaintiff(0));
     dispatch(clearADFF());
     dispatch(clearADUF());
   };
-  console.log(aduf, "aduf");
 
   const changeInput = (e) => {
     e.preventDefault();

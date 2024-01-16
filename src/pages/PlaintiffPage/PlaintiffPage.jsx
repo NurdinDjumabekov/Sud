@@ -35,6 +35,7 @@ import {
 } from "../../store/reducers/sendDocsSlice";
 import {
   toTakeCountries,
+  toTakeCurrency,
   toTakeDistrict,
   toTakeRegions,
   toTakeTypeAddress,
@@ -44,6 +45,7 @@ import {
   toTakeTypeTypeDocs,
   toTakeTypeValuta,
 } from "../../store/reducers/selectsSlice";
+import { changeAlertText } from "../../store/reducers/typesSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -52,7 +54,7 @@ const PlaintiffPage = () => {
   const [lookInnerType, setLookInnerType] = useState(true);
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { adff, aduf } = useSelector((state) => state.inputSlice);
+  const { adff, aduf, docsIsks } = useSelector((state) => state.inputSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   // const { statusCreateIsks } = useSelector((state) => state.stateSlice);
   // console.log(statusCreateIsks, "statusCreateIsks");
@@ -149,20 +151,34 @@ const PlaintiffPage = () => {
   };
 
   const saveData = () => {
-    console.log(todosApplications, "todosApplications");
     if (checkDataIsks(todosApplications)) {
       dispatch(sendEveryIsks({ todosApplications, tokenA }));
       navigate("/mainPlaintiff");
-      alert("Ваши данные успешно сохранены");
+      // alert("Ваши данные успешно сохранены");
+      dispatch(
+        changeAlertText({
+          text: "Ваши данные успешно сохранены!",
+          backColor: "#f9fafd",
+          state: true,
+        })
+      );
       // dispatch(addListTodos(todosApplications));
       dispatch(clearTodosApplications());
+      localStorage.removeItem("selectedFilesArray"); /// стираю данные файлов(docs)
     } else {
-      alert("Нету заполненных полей!");
+      // alert("Нету заполненных полей!");
+      dispatch(
+        changeAlertText({
+          text: "Нету заполненных полей!",
+          backColor: "#f9fafd",
+          state: true,
+        })
+      );
     }
   };
 
   React.useEffect(() => {
-    dispatch(createIdIsk({ todosApplications, tokenA, adff, aduf })); /// для того чтобы взть id для создания иска
+    dispatch(createIdIsk({ todosApplications, tokenA, adff, aduf, docsIsks })); /// для того чтобы взть id для создания иска
     /// селекты
     dispatch(toTakeCountries(tokenA));
     dispatch(toTakeDistrict(tokenA));
@@ -173,11 +189,16 @@ const PlaintiffPage = () => {
     dispatch(toTakeTypePosition(tokenA));
     dispatch(toTakeTypeValuta(tokenA));
     dispatch(toTakeTypeTypeDocs(tokenA));
-    return () => dispatch(clearTodosApplications());
+    dispatch(toTakeCurrency(tokenA));
+    return () => {
+      dispatch(clearTodosApplications());
+      localStorage.removeItem("selectedFilesArray"); /// стираю данные файлов(docs)
+    };
   }, []);
 
-  console.log(todosApplications, "todosApplications");
+  // console.log(todosApplications, "todosApplications");
   // console.log(createIdIsk, "createIdIsk");
+  // console.log(docsIsks, "docsIsks");
 
   return (
     <div className="plaintiff">

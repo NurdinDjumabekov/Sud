@@ -50,7 +50,7 @@ const Selects = (props) => {
 
   React.useEffect(() => {
     for (const i of arr) {
-      if (keys?.typeKey === i?.id) {
+      if (+keys?.typeKey === +i?.codeid) {
         setName(i.name);
       }
     }
@@ -76,13 +76,8 @@ const Selects = (props) => {
           <div className="selectBlock__activeBlock">
             {arr?.map((sel) => (
               <p
-                onClick={() =>
-                  clickSelect(
-                    sel?.name,
-                    type === "code_fiz_face" ? sel.codeid : sel.id
-                  )
-                }
-                key={type === "code_fiz_face" ? sel.codeid : sel.id}
+                onClick={() => clickSelect(sel?.name, +sel.codeid)}
+                key={sel.codeid}
               >
                 {sel.name}
               </p>
