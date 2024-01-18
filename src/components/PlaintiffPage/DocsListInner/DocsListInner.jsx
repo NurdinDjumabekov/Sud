@@ -5,11 +5,18 @@ import {
   changeADUF,
   changeTypeFace,
 } from "../../../store/reducers/inputSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
+import imgFizFace from "../../../asstes/icons/plaintiff/fiz_face.svg";
+import imgUrFace from "../../../asstes/icons/plaintiff/ur_face.svg";
+import editImg from "../../../asstes/icons/editBtn.svg";
+import deleteImg from "../../../asstes/icons/deleteBtn.svg";
+import { deleteEveryIsk } from "../../../store/reducers/applicationsSlice";
 
 const DocsListInner = ({ arr, arr2, typerole }) => {
   const dispatch = useDispatch();
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const changeAddPlaintiff = (objData, type) => {
     if (type === "plaint" && typerole === "истца") {
@@ -23,9 +30,42 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
     } else if (type === "represen" && typerole === "ответчика") {
       dispatch(changeLookAddPlaintiff(2));
     }
+    dispatch(
+      changeADUF({
+        ...objData,
+        action_type: 2,
+      })
+    );
+    dispatch(
+      changeADFF({
+        ...objData,
+        action_type: 2,
+      })
+    );
+  };
 
-    dispatch(changeADUF(objData));
-    dispatch(changeADFF(objData));
+  const sortSend = (objData, type) => {
+    dispatch(
+      deleteEveryIsk({
+        objData,
+        tokenA,
+        role: type,
+        todosApplications,
+        typeFace: 1,
+      })
+    );
+  };
+  
+  const deleteIsks = (objData, type) => {
+    if (type === "plaint" && typerole === "истца") { /// истец
+      sortSend(objData, 1);
+    } else if (type === "plaint" && typerole === "ответчика") { //// ответчик
+      sortSend(objData, 2);
+    } else if (type === "represen" && typerole === "истца") { /// представитель истеца
+      sortSend(objData, 3);
+    } else if (type === "represen" && typerole === "ответчика") { ///// представитель ответчика
+      sortSend(objData, 4);
+    }
   };
 
   return (
@@ -38,16 +78,17 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
         <>
           <div>
             {arr?.map((i) => (
-              <div
-                key={i.codeid}
-                className="everyCard"
-                onClick={() => changeAddPlaintiff(i, "plaint")}
-              >
-                <div>
-                  <div className="everyCard__date">
+              <div key={i.codeid} className="everyCard">
+                <div className="everyCard__imgs">
+                  {/* <div className="everyCard__date">
                     <h5>Февраль</h5>
                     <p>25</p>
-                  </div>
+                  </div> */}
+                  {i?.typeFace === 1 ? (
+                    <img src={imgFizFace} alt="faceImg" />
+                  ) : (
+                    <img src={imgUrFace} alt="faceImg" />
+                  )}
                 </div>
                 <div className="everyCard__data">
                   <h5>ФИО: {i.name ? i.name : "не указано"}</h5>
@@ -70,21 +111,30 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
                     )}
                   </p>
                 </div>
+                <div className="everyCard__btns">
+                  <button onClick={() => changeAddPlaintiff(i, "plaint")}>
+                    <img src={editImg} alt="edit" />
+                  </button>
+                  <button onClick={() => deleteIsks(i, "plaint")}>
+                    <img src={deleteImg} alt="delete" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
           <div>
             {arr2?.map((i) => (
-              <div
-                key={i.codeid}
-                className="everyCard"
-                onClick={() => changeAddPlaintiff(i, "represen")}
-              >
-                <div>
-                  <div className="everyCard__date">
+              <div key={i.codeid} className="everyCard">
+                <div className="everyCard__imgs">
+                  {/* <div className="everyCard__date">
                     <h5>Февраль</h5>
                     <p>25</p>
-                  </div>
+                  </div> */}
+                  {i?.typeFace === 1 ? (
+                    <img src={imgFizFace} alt="faceImg" />
+                  ) : (
+                    <img src={imgUrFace} alt="faceImg" />
+                  )}
                 </div>
                 <div className="everyCard__data">
                   <h5>ФИО: {i.name ? i.name : "не указано"}</h5>
@@ -106,6 +156,14 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
                       " не указан"
                     )}
                   </p>
+                </div>
+                <div className="everyCard__btns">
+                  <button onClick={() => changeAddPlaintiff(i, "represen")}>
+                    <img src={editImg} alt="" />
+                  </button>
+                  <button onClick={() => deleteIsks(i, "represen")}>
+                    <img src={deleteImg} alt="" />
+                  </button>
                 </div>
               </div>
             ))}

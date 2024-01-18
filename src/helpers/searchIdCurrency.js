@@ -4,6 +4,5 @@ export const searchIdCurrency = (arr, id) => {
       return i?.name;
     }
   });
-  console.log(newArr?.[0]?.name, "newArr");
   return newArr?.[0]?.name;
 };

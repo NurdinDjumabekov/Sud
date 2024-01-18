@@ -3,23 +3,20 @@ import "./GeneralInfo.scss";
 import Selects from "../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { selectUserStatus } from "../../../helpers/dataArr";
 
 const GeneralInfo = () => {
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const dispatch = useDispatch();
 
-  const selectArr = [
-    { id: 0, name: "Мужской" },
-    { id: 1, name: "Женский" },
-  ];
-
+  console.log(todosApplications, "todosApplications");
   return (
     <div className="plaintiFilling__container">
       <div className="generalInfo">
         <form>
           <div className="blockSelects">
             <Selects
-              arr={selectArr}
+              arr={selectUserStatus}
               initText={"Применимое право"}
               keys={{
                 typeKey: todosApplications.prim_pravo,
@@ -28,7 +25,7 @@ const GeneralInfo = () => {
               type="todos"
             />
             <Selects
-              arr={selectArr}
+              arr={selectUserStatus}
               initText={"Регламент"}
               keys={{
                 typeKey: todosApplications.reglament,
@@ -39,7 +36,7 @@ const GeneralInfo = () => {
           </div>
           <div className="blockSelects">
             <Selects
-              arr={selectArr}
+              arr={selectUserStatus}
               initText={"Характер спора"}
               keys={{
                 typeKey: todosApplications.haracter_spor,
@@ -49,7 +46,7 @@ const GeneralInfo = () => {
             />
 
             <Selects
-              arr={selectArr}
+              arr={selectUserStatus}
               initText={"Язык арбитража"}
               keys={{
                 typeKey: todosApplications.arbitr_lang,
@@ -62,16 +59,16 @@ const GeneralInfo = () => {
             <input
               type="checkbox"
               id="lab"
-              name="arbitr_po_dogovor"
+              name="is_arbitr_po_dogovor"
               onChange={(e) =>
                 dispatch(
                   changeTodosApplications({
                     ...todosApplications,
-                    arbitr_po_dogovor: e.target.checked,
+                    is_arbitr_po_dogovor: e.target.checked ? 1 : 0,
                   })
                 )
               }
-              checked={todosApplications.arbitr_po_dogovor}
+              checked={todosApplications.is_arbitr_po_dogovor === 1}
             />
             <label htmlFor="lab">Выбрать арбитра по договору</label>
           </div>

@@ -4,6 +4,7 @@ import img from "../../asstes/icons/arrowBtn.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { changeADFF, changeADUF } from "../../store/reducers/inputSlice";
 import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
+import { changeTypePay } from "../../store/reducers/stateSlice";
 
 const Selects = (props) => {
   const { arr, initText, keys, type } = props;
@@ -13,6 +14,7 @@ const Selects = (props) => {
   const accordionRef = React.useRef(null);
   const { adff, aduf } = useSelector((state) => state.inputSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { typePay } = useSelector((state) => state.stateSlice);
 
   React.useEffect(() => {
     const handleChange = (e) => {
@@ -44,6 +46,8 @@ const Selects = (props) => {
       );
     } else if (type === "code_fiz_face") {
       dispatch(changeADFF({ ...adff, code_fiz_face: +id }));
+    } else if (type === "typePay") {
+      dispatch(changeTypePay(+id));
     }
     setName(name);
   };

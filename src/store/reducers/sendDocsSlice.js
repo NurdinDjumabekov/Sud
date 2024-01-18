@@ -114,12 +114,13 @@ export const sendEveryIsks = createAsyncThunk(
 /// defendantResper
 /// code_fiz_face: 1,
 
+/// create and edit plaintiff
 export const createEveryIsk = createAsyncThunk(
   "createEveryIsk",
   async function (info, { dispatch, rejectWithValue }) {
+    const faceData = info?.typeFace === 1 ? info?.adff : info?.aduf;
+    const obj = transformCreateData(info, info?.role, faceData);
     try {
-      const faceData = info?.typeFace === 1 ? info?.adff : info?.aduf;
-      const obj = transformCreateData(info, info?.role, faceData);
       const response = await axios({
         method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/crud`,
@@ -148,64 +149,29 @@ export const createEveryIsk = createAsyncThunk(
   }
 );
 
-////////////////////delete
-export const createFizFace = createAsyncThunk(
-  "createFizFace",
+/// deletePlaintiff // удаление исков
+export const deleteIsks = createAsyncThunk(
+  "deleteIsks",
   async function (info, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
         method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/crud/fiz_face`,
+        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
         data: {
-          ...info?.adff,
-          fiz_face_type: info?.fiz_face_type,
-          action_type: 1,
+          action_type: 3,
+          codeid: +info?.codeid,
         },
         headers: {
           Authorization: `Bearer ${info?.tokenA}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        // if (info?.fiz_face_type === 1) {
-        //   dispatch(
-        //     addTodosPlaintiff({ ...info?.adff, typeFace: info?.typeFace })
-        //   );
-        // } else if (info?.fiz_face_type === 3) {
-        //   dispatch(
-        //     addTodosPlaintiffResper({ ...info?.adff, typeFace: info?.typeFace })
-        //   );
-        // } else if (info?.fiz_face_type === 2) {
-        //   dispatch(
-        //     addTodosDefendant({ ...info?.adff, typeFace: info?.typeFace })
-        //   );
-        // } else if (info?.fiz_face_type === 4) {
-        //   dispatch(
-        //     addTodosDefendantResper({ ...info?.adff, typeFace: info?.typeFace })
-        //   );
-        // }
-      } else {
-        throw Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const toTakeIdUrFace = createAsyncThunk(
-  "toTakeIdUrFace",
-  async function (info, { dispatch, rejectWithValue }) {
-    try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/crud/fiz_face`,
-        headers: {
-          Authorization: `Bearer ${info?.tokenA}`,
-        },
-      });
-      if (response.status >= 200 && response.status < 300) {
-        console.log(response, "response");
-        dispatch(changeADUF({ ...info.aduf, codeid: response?.data?.codeid }));
+        // console.log(info?.todosApplications);
+        // return {
+        //   todosApplications: info?.todosApplications,
+        //   codeid: +info?.objData?.codeid,
+        //   role: info?.role,
+        // };
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -238,9 +204,6 @@ const sendDocsSlice = createSlice({
           files: [],
         },
       ];
-    },
-    changeCreateIdIsk: (state, action) => {
-      state.createIdIsk = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -280,24 +243,9 @@ const sendDocsSlice = createSlice({
     builder.addCase(createEveryIsk.pending, (state, action) => {
       state.preloader = true;
     });
-    ///// toTakeIdFizFace
-    builder.addCase(createFizFace.fulfilled, (state, action) => {
-      state.preloader = false;
-    });
-    builder.addCase(createFizFace.rejected, (state, action) => {
-      state.error = action.payload;
-      state.preloader = false;
-    });
-    builder.addCase(createFizFace.pending, (state, action) => {
-      state.preloader = true;
-    });
   },
 });
-export const {
-  changePreloader,
-  changeListTodos,
-  addListTodos,
-  changeCreateIdIsk,
-} = sendDocsSlice.actions;
+export const { changePreloader, changeListTodos, addListTodos } =
+  sendDocsSlice.actions;
 
 export default sendDocsSlice.reducer;

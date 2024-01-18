@@ -65,11 +65,11 @@ const FizFace = ({ typerole }) => {
     }
   };
   const addData = (type) => {
+    /// action_type 1 - создание , 2 - редактирование
     dispatch(
       createEveryIsk({
         todosApplications,
         tokenA,
-        action_type: 1,
         adff,
         typeFace,
         role: type,
@@ -106,7 +106,7 @@ const FizFace = ({ typerole }) => {
     dispatch(changeADFF({ ...adff, [e.target.name]: e.target.value }));
   };
 
-  console.log(adff, "adff");
+  // console.log(adff, "adff");
 
   return (
     <div className="addPlaintiffFiz">

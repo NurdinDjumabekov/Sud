@@ -1,4 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { transformCreateData } from "../../helpers/transformCreateData";
+import { sortDeletePlaintiff } from "../../helpers/sortDeletePlaintiff";
 
 const initialState = {
   todosApplications: {
@@ -17,7 +20,7 @@ const initialState = {
     claim: "",
     ///////////////////////////////
     summ: "0",
-    summ_curr: 0,/// select
+    summ_curr: 0, /// select
     arbitr_fee: "0",
     arbitr_curr: 0, /// select
     registr_fee: "0",
@@ -27,21 +30,257 @@ const initialState = {
     arbitr_pay_end_date: "", //
     arbitr_doplata_end_date: "", //
     ///////////////////////////////
-    prim_pravo: 1,
-    reglament: 1,
-    haracter_spor: 1,
-    arbitr_lang: 1,
-    arbitr_po_dogovor: 1, // заменить на 1 и 0
-    status: "1", /// why?
+    prim_pravo: 1, /// select
+    reglament: 1, /// select
+    haracter_spor: 1, /// select
+    arbitr_lang: 1, /// select
+    is_arbitr_po_dogovor: 0, //  1 - true и 0 - false
+    status: 1, /// why?
     //////////////////
   },
   //// массив дел
-  applicationList: [],
+  applicationList: [], // для сохранения файлов
+  preloaderDocs: false,
 };
+
+/// editIsks /// для получения всех загружаемых данных
+export const editIsks = createAsyncThunk(
+  "editIsks",
+  async function (info, { dispatch, rejectWithValue }) {
+    const { id, tokenA, navigate } = info;
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/isks/get/${id}`,
+        headers: {
+          Authorization: `Bearer ${tokenA}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return { data: response?.data, navigate };
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// toTakeTypeTypeDocs /// для получения всех загружаемых данных
+export const toTakeTypeTypeDocs = createAsyncThunk(
+  "toTakeTypeTypeDocs",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/document_type?razdel=1`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        // console.log(response?.data?.data);
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// sendDocsIsks /// для отправки документов
+export const sendDocsIsks = createAsyncThunk(
+  "sendDocsIsks",
+  async function (info, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/isks/crud/files`,
+        headers: {
+          Authorization: `Bearer ${info?.tokenA}`,
+        },
+        data: {
+          ...info?.fileData,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        // console.log(response?.data?.codeid_file, "response");
+        return {
+          fileData: info?.fileData,
+          codeid_file: response?.data?.codeid_file,
+        };
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// deleteDocsIsks /// для получения всех загружаемых данных
+export const deleteDocsIsks = createAsyncThunk(
+  "deleteDocsIsks",
+  async function (info, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/isks/del/files`,
+        headers: {
+          Authorization: `Bearer ${info?.tokenA}`,
+        },
+        data: {
+          codeid_file: info?.file,
+          code_isk: info?.code_isk,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return info?.file;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// deletePlaintiff // удаление истоцов и ответчиков(представителей тоже)
+export const deleteEveryIsk = createAsyncThunk(
+  "deleteEveryIsk",
+  async function (info, { dispatch, rejectWithValue }) {
+    const faceData = { action_type: 3, codeid: +info?.objData?.codeid };
+    const obj = transformCreateData(info, info?.role, faceData);
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
+        data: {
+          action_type: 2,
+          ...obj,
+        },
+        headers: {
+          Authorization: `Bearer ${info?.tokenA}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        console.log(info?.todosApplications);
+        return {
+          todosApplications: info?.todosApplications,
+          codeid: +info?.objData?.codeid,
+          role: info?.role,
+        };
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const applicationsSlice = createSlice({
   name: "applicationsSlice",
   initialState,
+  extraReducers: (builder) => {
+    ///// selTypeTypeDocs
+    builder.addCase(toTakeTypeTypeDocs.fulfilled, (state, action) => {
+      state.preloaderDocs = false;
+      state.applicationList = action?.payload?.map((i) => {
+        return {
+          codeid: i.codeid,
+          name: i.name,
+          status: i.status,
+          arrDocs: [],
+        };
+      });
+    });
+    builder.addCase(toTakeTypeTypeDocs.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderDocs = false;
+    });
+    builder.addCase(toTakeTypeTypeDocs.pending, (state, action) => {
+      state.preloaderDocs = true;
+    });
+
+    ///// sendDocsIsks
+    builder.addCase(sendDocsIsks.fulfilled, (state, action) => {
+      state.preloaderDocs = false;
+      state.applicationList = state.applicationList?.map((i) => {
+        if (+i?.codeid === +action?.payload?.fileData?.file?.code_file) {
+          return {
+            ...i,
+            arrDocs: [
+              ...i?.arrDocs,
+              {
+                code_file: +action?.payload?.fileData?.file?.code_file,
+                name: action?.payload?.fileData?.file?.name,
+                codeid_file: action?.payload?.codeid_file,
+              },
+            ],
+          };
+        } else {
+          return i;
+        }
+      });
+    });
+    builder.addCase(sendDocsIsks.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderDocs = false;
+    });
+    builder.addCase(sendDocsIsks.pending, (state, action) => {
+      state.preloaderDocs = true;
+    });
+
+    ///// deleteDocsIsks
+    builder.addCase(deleteDocsIsks.fulfilled, (state, action) => {
+      state.preloaderDocs = false;
+      state.applicationList = state.applicationList.map((item) => ({
+        ...item,
+        arrDocs: item.arrDocs.filter(
+          (doc) => doc.codeid_file !== action.payload
+        ),
+        //// удаляю документ, если у них похожи документы
+      }));
+    });
+    builder.addCase(deleteDocsIsks.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderDocs = false;
+    });
+    builder.addCase(deleteDocsIsks.pending, (state, action) => {
+      state.preloaderDocs = true;
+    });
+
+    ////// editIsks
+    builder.addCase(editIsks.fulfilled, (state, action) => {
+      state.preloaderDocs = false;
+      state.todosApplications = action.payload?.data;
+      action.payload?.navigate("/plaintiffCreate");
+    });
+    builder.addCase(editIsks.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderDocs = false;
+    });
+    builder.addCase(editIsks.pending, (state, action) => {
+      state.preloaderDocs = true;
+    });
+
+    /// deleteEveryIsk
+    builder.addCase(deleteEveryIsk.fulfilled, (state, action) => {
+      state.preloaderDocs = false;
+      state.todosApplications = sortDeletePlaintiff(action.payload);
+    });
+    builder.addCase(deleteEveryIsk.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderDocs = false;
+    });
+    builder.addCase(deleteEveryIsk.pending, (state, action) => {
+      state.preloaderDocs = true;
+    });
+  },
   reducers: {
     addTodosPlaintiff: (state, action) => {
       state.todosApplications = {
@@ -119,10 +358,10 @@ const applicationsSlice = createSlice({
     clearTodosApplications: (state, action) => {
       state.todosApplications = {
         codeid: 0,
-        plaintiff: [],
-        plaintiffResper: [],
-        defendant: [],
-        defendantResper: [],
+        plaintiff: [], //1 plaintiff
+        plaintiffResper: [], //2
+        defendant: [], //3
+        defendantResper: [], //4
         name: "",
         description: "",
         motivation: "",
@@ -130,21 +369,22 @@ const applicationsSlice = createSlice({
         finance_raschet: "",
         law_links: "",
         claim: "",
-        summ: 0,
-        summ_curr: "",
-        arbitr_fee: 0,
-        arbitr_curr: "",
-        registr_fee: 0,
-        registr_curr: "",
-        doplata_summ: 0,
-        nadbavka_curr: "",
-        arbitr_pay_end_date: "",
-        arbitr_doplata_end_date: "",
-        prim_pravo: "",
-        reglament: "",
-        haracter_spor: "",
-        arbitr_lang: "",
-        arbitr_po_dogovor: false,
+        summ: "0",
+        summ_curr: 0, /// select
+        arbitr_fee: "0",
+        arbitr_curr: 0, /// select
+        registr_fee: "0",
+        registr_curr: 0, /// select
+        doplata_summ: "0",
+        nadbavka_curr: 0, /// select
+        arbitr_pay_end_date: "", //
+        arbitr_doplata_end_date: "", //
+        prim_pravo: 1,
+        reglament: 1,
+        haracter_spor: 1,
+        arbitr_lang: 1,
+        is_arbitr_po_dogovor: 0, // заменить на 1 и 0
+        status: "1", /// why?
       };
     },
     changeApplicationList: (state, action) => {

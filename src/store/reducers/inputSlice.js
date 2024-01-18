@@ -4,42 +4,80 @@ const initialState = {
   input: "Nurdin Djumabekov",
   typeFace: 1,
   //// addPlaintiffFizFace
+  // adff: {
+  //   action_type: 0,
+  //   codeid: 0,
+  //   code_fiz_face: 0, // для ответчиков, чтобы можно было их связать с теми, кого они представляют
+  //   code_isk: 0,
+  //   name: "",
+  //   sex: 1, // пол
+  //   dob: "", /// data of birth
+  //   inn: "",
+  //   ///////////////////////////
+  //   unknownDob: 0, // неизвестная дата рождения
+  //   unknownInn: 0, // неизвестный ИНН
+  //   unknownPassport: 0, // неизвестный паспорт
+  //   unknownDataPassport: 0, // не учитывать срок действия паспорта
+  //   ///////////////////////////
+  //   passportSeries: "", // серия паспорта
+  //   timePassportStart: "", // дата выдачи паспорта
+  //   timePassportEnd: "", // дата истечения паспорта
+  //   organizationPassport: "", // кем выдан
+  //   numPhone: "",
+  //   email: "",
+  //   email2: "",
+  //   country: 0, /// select
+  //   region: 0, /// область /// select
+  //   district: 0, //// район /// select
+  //   adddreselement: 0, // адресный элемент /// select
+  //   city: "",
+  //   street: "",
+  //   numObj: "",
+  //   index: "",
+  //   apartament: "",
+  //   emailIndex: "",
+  //   description: "",
+  //   typeFace : 1
+  // },
+
+  //// addPlaintiffUrFace
+
   adff: {
-    action_type: 0,
+    action_type: 1,
     codeid: 0,
     code_fiz_face: 0, // для ответчиков, чтобы можно было их связать с теми, кого они представляют
     code_isk: 0,
-    name: "",
+    name: "Nurdin Djumabekov",
     sex: 1, // пол
-    dob: "", /// data of birth
-    inn: "",
+    dob: "03/01/2024", /// data of birth
+    inn: "1241231231212",
     ///////////////////////////
     unknownDob: 0, // неизвестная дата рождения
     unknownInn: 0, // неизвестный ИНН
     unknownPassport: 0, // неизвестный паспорт
     unknownDataPassport: 0, // не учитывать срок действия паспорта
     ///////////////////////////
-    passportSeries: "", // серия паспорта
-    timePassportStart: "", // дата выдачи паспорта
-    timePassportEnd: "", // дата истечения паспорта
-    organizationPassport: "", // кем выдан
-    numPhone: "",
-    email: "",
-    email2: "",
-    country: 0, /// select
-    region: 0, /// область /// select
-    district: 0, //// район /// select
-    adddreselement: 0, // адресный элемент /// select
-    city: "",
-    street: "",
-    numObj: "",
-    index: "",
-    apartament: "",
-    emailIndex: "",
-    description: "",
+    passportSeries: "asdsa", // серия паспорта
+    timePassportStart: "03/01/2024", // дата выдачи паспорта
+    timePassportEnd: "03/01/2024", // дата истечения паспорта
+    organizationPassport: "dsadsa", // кем выдан
+    numPhone: "asdas",
+    email: "asdsa@sadasd",
+    email2: "sadsad@asdasd",
+    country: 31, /// select
+    region: 9, /// область /// select
+    district: 11, //// район /// select
+    adddreselement: 1, // адресный элемент /// select
+    city: "Бишкек",
+    street: "Жайылма",
+    numObj: "19",
+    index: "dasdasd",
+    apartament: "sadas",
+    emailIndex: "adsa",
+    description: "sadas",
+    typeFace: 1,
   },
 
-  //// addPlaintiffUrFace
   aduf: {
     code_isk: 0,
     codeid: 0,
@@ -95,38 +133,39 @@ const inputSlice = createSlice({
     },
     clearADFF: (state, action) => {
       state.adff = {
-        action_type: 0,
+        action_type: 1,
         codeid: 0,
         code_fiz_face: 0, // для ответчиков, чтобы можно было их связать с теми, кого они представляют
         code_isk: 0,
-        name: "",
-        sex: 1, 
-        dob: "", 
-        inn: "",
+        name: "Nurdin Djumabekov",
+        sex: 1, // пол
+        dob: "03/01/2024", /// data of birth
+        inn: "1241231231212",
         ///////////////////////////
-        unknownDob: 0,
-        unknownInn: 0,
-        unknownPassport: 0, 
-        unknownDataPassport: 0, 
+        unknownDob: 0, // неизвестная дата рождения
+        unknownInn: 0, // неизвестный ИНН
+        unknownPassport: 0, // неизвестный паспорт
+        unknownDataPassport: 0, // не учитывать срок действия паспорта
         ///////////////////////////
-        passportSeries: "", 
-        timePassportStart: "", 
-        timePassportEnd: "",
-        organizationPassport: "", 
-        numPhone: "",
-        email: "",
-        email2: "",
-        country: 0, 
-        region: 0, 
-        district: 0, 
-        adddreselement: 0, 
-        city: "",
-        street: "",
-        numObj: "",
-        index: "",
-        apartament: "",
-        emailIndex: "",
-        description: "",
+        passportSeries: "asdsa", // серия паспорта
+        timePassportStart: "03/01/2024", // дата выдачи паспорта
+        timePassportEnd: "03/01/2024", // дата истечения паспорта
+        organizationPassport: "dsadsa", // кем выдан
+        numPhone: "asdas",
+        email: "asdsa@sadasd",
+        email2: "sadsad@asdasd",
+        country: 31, /// select
+        region: 9, /// область /// select
+        district: 11, //// район /// select
+        adddreselement: 1, // адресный элемент /// select
+        city: "Бишкек",
+        street: "Жайылма",
+        numObj: "19",
+        index: "dasdasd",
+        apartament: "sadas",
+        emailIndex: "adsa",
+        description: "sadas",
+        typeFace: 1,
       };
     },
     //// addPlaintiffUrFace
@@ -135,6 +174,7 @@ const inputSlice = createSlice({
     },
     clearADUF: (state, action) => {
       state.aduf = {
+        action_type: 1,
         code_isk: 0,
         codeid: 0,
         name: "",
@@ -144,7 +184,7 @@ const inputSlice = createSlice({
         email: "",
         email2: "",
         typeOrganization: 0,
-        dataReg: "", 
+        dataReg: "",
         typeCompany: 0,
         country_ur: 0,
 
@@ -154,9 +194,9 @@ const inputSlice = createSlice({
         fioBoss: "",
 
         country: 0,
-        district: 0, 
-        region: 0, 
-        adddreselement: 0, 
+        district: 0,
+        region: 0,
+        adddreselement: 0,
         city: "",
         street: "",
         numObj: "",
@@ -164,7 +204,7 @@ const inputSlice = createSlice({
         apartament: "",
         emailIndex: "",
         description: "",
-        ur_face_type: 1, 
+        ur_face_type: 1,
         type: 1,
       };
     },

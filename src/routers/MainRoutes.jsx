@@ -15,10 +15,13 @@ import Alerts from "../components/Alerts/Alerts";
 function MainRoutes() {
   const { preloader } = useSelector((state) => state.sendDocsSlice);
   const { preloaderSel } = useSelector((state) => state.selectsSlice);
-  const { statusCreateIsks } = useSelector((state) => state.stateSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  // console.log(statusCreateIsks, "statusCreateIsks");
+  const { adff, aduf } = useSelector((state) => state.inputSlice);
   // console.log(tokenA);
+  console.log(todosApplications, "todosApplications");
+  console.log(adff, "adff");
+  // console.log(aduf, "aduf");
 
   return (
     <>

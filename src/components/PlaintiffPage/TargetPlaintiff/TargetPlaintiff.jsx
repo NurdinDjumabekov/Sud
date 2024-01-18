@@ -6,12 +6,14 @@ import Calculator from "../../Calculator/Calculator";
 import { useDispatch, useSelector } from "react-redux";
 import DataInput from "../DataInput/DataInput";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { changeCalculatorType } from "../../../store/reducers/stateSlice";
 
 const TargetPlaintiff = () => {
   const dispatch = useDispatch();
   const [btnSend, setBtnSend] = React.useState(true);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selCurrency } = useSelector((state) => state.selectsSlice);
+  const { calculatorType } = useSelector((state) => state.stateSlice);
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -135,20 +137,20 @@ const TargetPlaintiff = () => {
           <div className="choiceBtnsTarget">
             <div className="choiceBtnsTarget__inner">
               <span
-                className={btnSend ? "activeBtnsPlaintiff" : ""}
-                onClick={() => setBtnSend(true)}
+                className={calculatorType ? "" : "activeBtnsPlaintiff"}
+                onClick={() => dispatch(changeCalculatorType(false))}
               >
                 Реквизины
               </span>
               <span
-                className={btnSend ? "" : "activeBtnsPlaintiff"}
-                onClick={() => setBtnSend(false)}
+                className={calculatorType ? "activeBtnsPlaintiff" : ""}
+                onClick={() => dispatch(changeCalculatorType(true))}
               >
                 Калькулятор
               </span>
             </div>
           </div>
-          {btnSend ? <Requisites /> : <Calculator />}
+          {calculatorType ? <Calculator /> : <Requisites />}
         </form>
       </div>
     </div>

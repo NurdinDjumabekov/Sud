@@ -53,7 +53,7 @@ const UrFace = ({ typerole }) => {
       }
     }
   };
-  console.log(aduf, "aduf");
+  // console.log(aduf, "aduf");
 
   const alertFN = (text) => {
     dispatch(

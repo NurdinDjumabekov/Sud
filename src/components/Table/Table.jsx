@@ -5,10 +5,9 @@ import pdfFileImg from "../../asstes/images/pdfFile.png";
 import pdfFile from "./../../asstes/pdf/sud_pdf.pdf";
 import Modals from "../Modals/Modals";
 import { useDispatch, useSelector } from "react-redux";
-import { changeStatusCreateIsks } from "../../store/reducers/stateSlice";
 import { useNavigate } from "react-router-dom";
-import { changeCreateIdIsk } from "../../store/reducers/sendDocsSlice";
-import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
+import { editIsks } from "../../store/reducers/applicationsSlice";
+import { deleteIsks } from "../../store/reducers/sendDocsSlice";
 
 export const Table = () => {
   const dispatch = useDispatch();
@@ -16,10 +15,15 @@ export const Table = () => {
   const [lookPdf, setLookPdf] = useState(false);
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
 
   const openPdfInNewTab = () => {
     setLookPdf(true);
     // window.open(pdfFile);
+  };
+
+  const editDocs = (id) => {
+    dispatch(editIsks({ id, tokenA, navigate }));
   };
 
   const [btnList, setBtnList] = React.useState([
@@ -61,6 +65,7 @@ export const Table = () => {
   };
 
   console.log(listTodos, "listTodos");
+  // console.log(todosApplications, "todosApplications");
 
   return (
     <>
@@ -173,17 +178,17 @@ export const Table = () => {
                       {row.isk_status_name ? row.isk_status_name : "Ожидание"}
                     </span>
                     <div className="statusIsks">
-                      <button
-                        onClick={() => {
-                          dispatch(changeStatusCreateIsks(true));
-                          navigate("/plaintiffCreate");
-                          dispatch(changeCreateIdIsk(row?.codeid));
-                          dispatch(changeTodosApplications({...todosApplications,codeid:row?.codeid}))
-                        }}
-                      >
-                        Подать иск
+                      <button>Подать иск</button>
+                      <button onClick={() => editDocs(row?.codeid)}>
+                        Редактировать иск
                       </button>
-                      <button>Редактировать иск</button>
+                      <button
+                        onClick={() =>
+                          dispatch(deleteIsks({ codeid: row?.codeid, tokenA }))
+                        }
+                      >
+                        Удалить иск
+                      </button>
                     </div>
                   </td>
                   <td className="table_isk_td">

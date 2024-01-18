@@ -5,7 +5,6 @@ export const transformCreateData = (info, role, faceData) => {
       plaintiff: [
         {
           ...faceData,
-          action_type: 1,
           typeFace: info?.typeFace,
         },
       ],
@@ -19,7 +18,6 @@ export const transformCreateData = (info, role, faceData) => {
       defendant: [
         {
           ...faceData,
-          action_type: 1,
           typeFace: info?.typeFace,
         },
       ],
@@ -33,7 +31,6 @@ export const transformCreateData = (info, role, faceData) => {
       plaintiffResper: [
         {
           ...faceData,
-          action_type: 1,
           typeFace: info?.typeFace,
         },
       ],
@@ -47,7 +44,6 @@ export const transformCreateData = (info, role, faceData) => {
       defendantResper: [
         {
           ...faceData,
-          action_type: 1,
           typeFace: info?.typeFace,
         },
       ],

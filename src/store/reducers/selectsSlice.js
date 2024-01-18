@@ -66,7 +66,7 @@ export const toTakeRegions = createAsyncThunk(
     try {
       const response = await axios({
         method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/region?code_country=1`,
+        url: `http://mttp-renaissance.333.kg/api/get/region?code_country=34`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -177,28 +177,6 @@ export const toTakeTypeValuta = createAsyncThunk(
       const response = await axios({
         method: "GET",
         url: `http://mttp-renaissance.333.kg/api/get/currency`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (response.status >= 200 && response.status < 300) {
-        return response?.data?.data;
-      } else {
-        throw Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-/// toTakeTypeTypeDocs
-export const toTakeTypeTypeDocs = createAsyncThunk(
-  "toTakeTypeTypeDocs",
-  async function (token, { dispatch, rejectWithValue }) {
-    try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/document_type?razdel=1`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -338,18 +316,6 @@ const selectsSlice = createSlice({
       state.preloaderSel = false;
     });
     builder.addCase(toTakeTypeValuta.pending, (state, action) => {
-      state.preloaderSel = true;
-    });
-    ///// selTypeTypeDocs
-    builder.addCase(toTakeTypeTypeDocs.fulfilled, (state, action) => {
-      state.preloaderSel = false;
-      state.selTypeTypeDocs = action.payload;
-    });
-    builder.addCase(toTakeTypeTypeDocs.rejected, (state, action) => {
-      state.error = action.payload;
-      state.preloaderSel = false;
-    });
-    builder.addCase(toTakeTypeTypeDocs.pending, (state, action) => {
       state.preloaderSel = true;
     });
     ///// toTakeCurrency

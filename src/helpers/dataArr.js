@@ -63,3 +63,8 @@ export const typeValuta = [
   { codeid: 4, name: "Тенге" },
   { codeid: 5, name: "Тенге" },
 ];
+
+export const typeCountSum = [
+  { codeid: 1, name: "спор материального характера" },
+  { codeid: 2, name: "спор неимущественного характера" },
+];
