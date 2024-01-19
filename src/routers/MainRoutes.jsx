@@ -9,19 +9,28 @@ import CalendarTodoPage from "../pages/CalendarTodoPage/CalendarTodoPage";
 import CalendarMeetings from "../pages/CalendarMeetings/CalendarMeetings";
 import ArchivePage from "../pages/ArchivePage/ArchivePage";
 import { Preloader } from "../components/Preloader/Preloader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Alerts from "../components/Alerts/Alerts";
+import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
 
 function MainRoutes() {
+  const dispatch = useDispatch();
   const { preloader } = useSelector((state) => state.sendDocsSlice);
   const { preloaderSel } = useSelector((state) => state.selectsSlice);
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { todosApplications, applicationList } = useSelector(
+    (state) => state.applicationsSlice
+  );
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { adff, aduf } = useSelector((state) => state.inputSlice);
   // console.log(tokenA);
-  console.log(todosApplications, "todosApplications");
-  console.log(adff, "adff");
+  // console.log(todosApplications, "todosApplications");
+  // console.log(adff, "adff");
   // console.log(aduf, "aduf");
+  console.log(applicationList, "applicationList");
+
+  React.useEffect(() => {
+    dispatch(toTakeTypeTypeDocs(tokenA));
+  }, []);
 
   return (
     <>

@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { changeADFF, changeADUF, changeDocsIsks } from "./inputSlice";
-import { changeTodosApplications } from "./applicationsSlice";
+import {
+  changeTodosApplications,
+  toTakeTypeTypeDocs,
+} from "./applicationsSlice";
 import { changeActionType } from "../../helpers/changeActionType";
 import { transformCreateData } from "../../helpers/transformCreateData";
 
@@ -84,12 +87,14 @@ export const createIdIsk = createAsyncThunk(
 export const sendEveryIsks = createAsyncThunk(
   "sendEveryIsks",
   async function (info, { dispatch, rejectWithValue }) {
+    const newData = { ...info?.todosApplications };
+    delete newData["files"];
     try {
       const response = await axios({
         method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/crud`,
         data: {
-          ...info?.todosApplications,
+          ...newData,
           action_type: 2, /// для редактировования созданного иска
         },
         headers: {
@@ -97,7 +102,8 @@ export const sendEveryIsks = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        console.log(response, "create");
+        dispatch(toTakeTypeTypeDocs(info.tokenA)); /// для очистки (сброса) типа файлов
+        // console.log(response, "create");
         // return response?.data;
       } else {
         throw Error(`Error: ${response.status}`);
@@ -149,7 +155,7 @@ export const createEveryIsk = createAsyncThunk(
   }
 );
 
-/// deletePlaintiff // удаление исков
+/// deleteIsks // удаление исков
 export const deleteIsks = createAsyncThunk(
   "deleteIsks",
   async function (info, { dispatch, rejectWithValue }) {
@@ -166,12 +172,7 @@ export const deleteIsks = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        // console.log(info?.todosApplications);
-        // return {
-        //   todosApplications: info?.todosApplications,
-        //   codeid: +info?.objData?.codeid,
-        //   role: info?.role,
-        // };
+        return +info?.codeid;
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -241,6 +242,20 @@ const sendDocsSlice = createSlice({
       state.preloader = false;
     });
     builder.addCase(createEveryIsk.pending, (state, action) => {
+      state.preloader = true;
+    });
+    ////// deleteIsks
+    builder.addCase(deleteIsks.fulfilled, (state, action) => {
+      state.preloader = false;
+      state.listTodos = state.listTodos?.filter(
+        (isk) => +isk.codeid !== +action.payload
+      );
+    });
+    builder.addCase(deleteIsks.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloader = false;
+    });
+    builder.addCase(deleteIsks.pending, (state, action) => {
       state.preloader = true;
     });
   },

@@ -191,14 +191,13 @@ const PlaintiffPage = () => {
     dispatch(toTakeTypeCompany(tokenA));
     dispatch(toTakeTypePosition(tokenA));
     dispatch(toTakeTypeValuta(tokenA));
-    dispatch(toTakeTypeTypeDocs(tokenA));
     dispatch(toTakeCurrency(tokenA));
     return () => {
       dispatch(clearTodosApplications());
     };
   }, []);
 
-  // console.log(todosApplications, "todosApplications");
+  console.log(todosApplications, "todosApplications");
   // console.log(createIdIsk, "createIdIsk");
   // console.log(docsIsks, "docsIsks");
 

@@ -27,6 +27,7 @@ const LinksLaw = () => {
           <div>
             <label htmlFor="name">Ссылка на законы</label>
             <textarea
+              style={{ height: "950px" }}
               name="law_links"
               id="name"
               onChange={changeInput}

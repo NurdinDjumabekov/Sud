@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { transformCreateData } from "../../helpers/transformCreateData";
 import { sortDeletePlaintiff } from "../../helpers/sortDeletePlaintiff";
+import { transformArrDocs } from "../../helpers/transformArrDocs";
 
 const initialState = {
   todosApplications: {
@@ -47,7 +48,7 @@ const initialState = {
 export const editIsks = createAsyncThunk(
   "editIsks",
   async function (info, { dispatch, rejectWithValue }) {
-    const { id, tokenA, navigate } = info;
+    const { id, tokenA, navigate, applicationList } = info;
     try {
       const response = await axios({
         method: "GET",
@@ -57,7 +58,7 @@ export const editIsks = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        return { data: response?.data, navigate };
+        return { data: response?.data, navigate, applicationList };
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -80,7 +81,6 @@ export const toTakeTypeTypeDocs = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        // console.log(response?.data?.data);
         return response?.data?.data;
       } else {
         throw Error(`Error: ${response.status}`);
@@ -102,15 +102,15 @@ export const sendDocsIsks = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${info?.tokenA}`,
         },
-        data: {
-          ...info?.fileData,
-        },
+        data: info?.fileData,
       });
       if (response.status >= 200 && response.status < 300) {
-        // console.log(response?.data?.codeid_file, "response");
         return {
           fileData: info?.fileData,
-          codeid_file: response?.data?.codeid_file,
+          codeid_file: +response?.data?.code_file,
+          file_path: response?.data?.file_path,
+          code_file: +info.code_file,
+          name: info?.name,
         };
       } else {
         throw Error(`Error: ${response.status}`);
@@ -210,15 +210,16 @@ const applicationsSlice = createSlice({
     builder.addCase(sendDocsIsks.fulfilled, (state, action) => {
       state.preloaderDocs = false;
       state.applicationList = state.applicationList?.map((i) => {
-        if (+i?.codeid === +action?.payload?.fileData?.file?.code_file) {
+        if (+i?.codeid === +action?.payload?.code_file) {
           return {
             ...i,
             arrDocs: [
               ...i?.arrDocs,
               {
-                code_file: +action?.payload?.fileData?.file?.code_file,
-                name: action?.payload?.fileData?.file?.name,
+                code_file: +action?.payload?.code_file,
+                name: action?.payload?.name,
                 codeid_file: action?.payload?.codeid_file,
+                file_path: action?.payload?.file_path,
               },
             ],
           };
@@ -258,6 +259,10 @@ const applicationsSlice = createSlice({
     builder.addCase(editIsks.fulfilled, (state, action) => {
       state.preloaderDocs = false;
       state.todosApplications = action.payload?.data;
+      state.applicationList = transformArrDocs({
+        arrIsk: action?.payload?.applicationList,
+        reqData: action.payload?.data?.files,
+      });
       action.payload?.navigate("/plaintiffCreate");
     });
     builder.addCase(editIsks.rejected, (state, action) => {

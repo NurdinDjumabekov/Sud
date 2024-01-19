@@ -28,6 +28,7 @@ const FinancialResult = () => {
           <div>
             <label htmlFor="name">Финансовый расчет</label>
             <textarea
+              style={{ height: "950px" }}
               name="finance_raschet"
               id="name"
               onChange={changeInput}
