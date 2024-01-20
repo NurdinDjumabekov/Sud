@@ -27,7 +27,7 @@ const ClaimRequaire = () => {
           <div>
             <label htmlFor="name">Исковые требования</label>
             <textarea
-              style={{ height: "950px" }}
+              style={{ height: "900px" }}
               name="claim"
               id="name"
               onChange={changeInput}

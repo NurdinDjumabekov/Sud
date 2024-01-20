@@ -84,6 +84,7 @@ export const createIdIsk = createAsyncThunk(
   }
 );
 
+///sendEveryIsks - создание и редактирование иска
 export const sendEveryIsks = createAsyncThunk(
   "sendEveryIsks",
   async function (info, { dispatch, rejectWithValue }) {
@@ -114,13 +115,7 @@ export const sendEveryIsks = createAsyncThunk(
   }
 );
 
-/// plaintiff
-/// defendant
-/// plaintiffResper
-/// defendantResper
-/// code_fiz_face: 1,
-
-/// create and edit plaintiff
+/// createEveryIsk - create and edit plaintiff
 export const createEveryIsk = createAsyncThunk(
   "createEveryIsk",
   async function (info, { dispatch, rejectWithValue }) {
@@ -155,7 +150,7 @@ export const createEveryIsk = createAsyncThunk(
   }
 );
 
-/// deleteIsks // удаление исков
+/// deleteIsks - удаление исков
 export const deleteIsks = createAsyncThunk(
   "deleteIsks",
   async function (info, { dispatch, rejectWithValue }) {
@@ -173,6 +168,33 @@ export const deleteIsks = createAsyncThunk(
       });
       if (response.status >= 200 && response.status < 300) {
         return +info?.codeid;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// changeStatusIsks - изменения статуса иска у истца
+export const changeStatusIsks = createAsyncThunk(
+  "deleteIsks",
+  async function (info, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
+        data: {
+          action_type: 4,
+          codeid: +info?.idStatus,
+        },
+        headers: {
+          Authorization: `Bearer ${info?.tokenA}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        dispatch(toTakeIsksList(info?.tokenA));
       } else {
         throw Error(`Error: ${response.status}`);
       }

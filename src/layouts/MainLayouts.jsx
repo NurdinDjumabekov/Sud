@@ -30,6 +30,7 @@ import arrowWhite from "../asstes/icons/IconPageWhite/arrow.svg";
 
 import logo from "../asstes/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
+import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../store/reducers/sendDocsSlice";
 
 function MainLayouts() {
@@ -37,6 +38,7 @@ function MainLayouts() {
   const location = useLocation();
   const dispatch = useDispatch();
   const [lookInnerPages, setLookInnerPages] = useState(false);
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
 
   const [pages, setPages] = useState([
     {
@@ -111,6 +113,11 @@ function MainLayouts() {
       setLookInnerPages(false);
     }
   }, [location.pathname]);
+
+  React.useEffect(() => {
+    dispatch(toTakeIsksList(tokenA));
+    dispatch(toTakeTypeTypeDocs(tokenA));
+  }, []);
 
   return (
     <div className="plaintiffBlock">

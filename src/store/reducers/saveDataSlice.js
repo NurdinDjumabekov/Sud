@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   tokenA: "",
+  typeUser: 1, /// типы пользователей
 };
 
 const saveDataSlice = createSlice({

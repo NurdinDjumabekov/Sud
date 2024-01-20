@@ -27,7 +27,7 @@ const MotivationClaim = () => {
           <div>
             <label htmlFor="name">Мотивационная часть</label>
             <textarea
-              style={{ height: "950px" }}
+              style={{ height: "900px" }}
               name="motivation"
               id="name"
               onChange={changeInput}

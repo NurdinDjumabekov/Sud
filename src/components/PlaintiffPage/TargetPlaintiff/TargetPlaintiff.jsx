@@ -17,10 +17,12 @@ const TargetPlaintiff = () => {
 
   const changeInput = (e) => {
     e.preventDefault();
+    const value = e.target.value;
+    const filteredValue = value.replace(/[^0-9]/g, "");
     dispatch(
       changeTodosApplications({
         ...todosApplications,
-        [e.target.name]: e.target.value,
+        [e.target.name]: filteredValue,
       })
     );
   };

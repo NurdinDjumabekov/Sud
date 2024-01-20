@@ -8,21 +8,46 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { editIsks } from "../../store/reducers/applicationsSlice";
 import { deleteIsks } from "../../store/reducers/sendDocsSlice";
+import {
+  changeIdStatus,
+  changeListPlaint,
+  changeLookChangeStatus,
+  changeLookDataAllPlaintiff,
+} from "../../store/reducers/stateSlice";
+import { changeAlertText } from "../../store/reducers/typesSlice";
 
 export const Table = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [lookPdf, setLookPdf] = useState(false);
+  // const [lookPdf, setLookPdf] = useState(false);
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
-  const { todosApplications, applicationList } = useSelector(
-    (state) => state.applicationsSlice
-  );
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { applicationList } = useSelector((state) => state.applicationsSlice);
+
+  const lookDataPlaintiff = (arr, type) => {
+    if (arr?.length === 0) {
+      dispatch(
+        changeAlertText({
+          text: `Данные ${type === 1 ? "истца" : "ответчика"} отсутствуют`,
+          backColor: "#f9fafd",
+          state: true,
+        })
+      );
+    } else {
+      dispatch(changeLookDataAllPlaintiff(true));
+      dispatch(changeListPlaint(arr));
+    }
+  };
 
   // const openPdfInNewTab = () => {
   //   setLookPdf(true);
   //   // window.open(pdfFile);
   // };
+
+  const changeStatus = (id) => {
+    dispatch(changeLookChangeStatus(true)); /// для вызова модалки изменения статуса иска
+    dispatch(changeIdStatus(id)); /// для отправки id иска
+  };
 
   const editIsksFn = (id) => {
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
@@ -70,7 +95,7 @@ export const Table = () => {
     setBtnList(newList);
   };
 
-  // console.log(listTodos, "listTodos");
+  console.log(listTodos, "listTodos");
   // console.log(todosApplications, "todosApplications");
 
   return (
@@ -105,7 +130,7 @@ export const Table = () => {
               </tr>
             </thead>
             <tbody className="tbody_isk">
-              {listTodos.map((row, index) => (
+              {listTodos?.map((row, index) => (
                 <tr
                   key={index}
                   style={
@@ -116,58 +141,65 @@ export const Table = () => {
                 >
                   <td className="table_isk_td">
                     <div>
-                      <span className="span_teble">№ {row.codeid}</span>
+                      <span className="span_teble">№ {row?.codeid}</span>
                     </div>
                   </td>
                   <td className="table_isk_td">
                     <span>
-                      {row?.plaintiff?.length === 0
-                        ? "ФИО истца отсутствует"
-                        : row?.plaintiff?.[0]?.name}
+                      {row?.plaintiff?.length === 0 ? (
+                        "ФИО истца отсутствует"
+                      ) : row?.plaintiff?.length === 1 ? (
+                        row?.plaintiff?.[0]?.name
+                      ) : (
+                        <>
+                          {row?.plaintiff?.[0]?.name} и еще{" "}
+                          {+row?.plaintiff?.length - 1}{" "}
+                          {+row?.plaintiff?.length - 1 === 1
+                            ? "истец"
+                            : "истца"}
+                        </>
+                      )}
                     </span>
+                    <button
+                      className="btnPlaintiff"
+                      onClick={() => lookDataPlaintiff(row?.plaintiff, 1)}
+                    >
+                      Посмотреть список истцов
+                    </button>
                   </td>
-                  {/* <td
-                    className="table_isk_td"
-                    style={
-                      row?.plaintiff?.length === 1
-                        ? {}
-                        : {
-                            display: "flex",
-                            flexDirection: "column",
-                            overflow: "scroll",
-                            maxHeight: "250px",
-                          }
-                    }
-                  >
-                    {row?.plaintiff?.length === 1 ? (
-                      <span>{row.plaintiff?.[0]?.name}</span>
-                    ) : (
-                      <>
-                        {row?.plaintiff?.map((i) => (
-                          <>
-                            <div className="innerTable">
-                              <td className="table_isk_td__inner">
-                                <span>{i.name}</span>
-                              </td>
-                            </div>
-                          </>
-                        ))}
-                      </>
-                    )}
-                  </td> */}
                   <td className="table_isk_td">
                     <span>
-                      {row?.defendant?.length === 0
-                        ? "ФИО ответчика отсутствует"
-                        : row?.defendant?.[0]?.name}
+                      {row?.defendant?.length === 0 ? (
+                        "ФИО ответчика отсутствует"
+                      ) : row?.defendant?.length === 1 ? (
+                        row.defendant?.[0]?.name
+                      ) : (
+                        <>
+                          {row?.defendant?.[0]?.name} и еще{" "}
+                          {+row?.defendant?.length - 1}{" "}
+                          {+row?.defendant?.length - 1 === 1
+                            ? "ответчик"
+                            : "ответчика"}
+                        </>
+                      )}
                     </span>
+                    <button
+                      className="btnPlaintiff"
+                      onClick={() => lookDataPlaintiff(row?.defendant, 2)}
+                    >
+                      Посмотреть список ответчиков
+                    </button>
                   </td>
                   {/* ///////////////////////////////////// */}
                   <td className="table_isk_td">
-                    <span>{row.arbitr_fee}</span>
+                    <span>
+                      {+row?.arbitr_fee === 0 ? "отсутствует" : row?.arbitr_fee}
+                    </span>
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.reglament ? row.reglament : "не выбран"}</span>
+                    <span>
+                      {+row?.reglament === 0 ? "отсутствует" : row?.reglament}
+                    </span>
                   </td>
                   <td className="table_isk_td">
                     {row?.arbitrs?.length === 0 ? (
@@ -181,25 +213,31 @@ export const Table = () => {
                     <span>Nurdin</span>
                   </td>
                   <td className="table_isk_td">
-                    <span>
-                      {row.isk_status_name ? row.isk_status_name : "Ожидание"}
-                    </span>
+                    <span>{+row?.status === 1 ? "Активен" : "Не активен"}</span>
                   </td>
                   <td className="table_isk_td">
-                    <div className="statusIsks">
-                      <button>Подать иск</button>
-                      <button onClick={() => editIsksFn(row?.codeid)}>
-                        Редактировать иск
-                      </button>
-                      <button onClick={() => deleteIsksFn(row?.codeid)}>
-                        Удалить иск
-                      </button>
-                    </div>
+                    {+row?.status === 0 ? (
+                      <div className="statusIsks">
+                        <button onClick={() => changeStatus(row?.codeid)}>
+                          Подать иск
+                        </button>
+                        <button onClick={() => editIsksFn(row?.codeid)}>
+                          Редактировать иск
+                        </button>
+                        <button onClick={() => deleteIsksFn(row?.codeid)}>
+                          Удалить иск
+                        </button>
+                      </div>
+                    ) : (
+                      <span style={{ padding: "0px 0px 0px 10px" }}>
+                        Ожидание ...
+                      </span>
+                    )}
                   </td>
                   <td className="table_isk_td">
                     <span className="documentBlock">
-                      {row.files?.length === 0 ? (
-                        <p>Документы оттутствуют</p>
+                      {row?.files?.length === 0 ? (
+                        <span>Документы оттутствуют</span>
                       ) : (
                         <div className="docsBlock">
                           {row?.files?.map((i, ind) => (
@@ -210,7 +248,7 @@ export const Table = () => {
                               target="_blank"
                             >
                               <img src={imgPdf} alt="pdf" />
-                              <p>{i?.document_name}</p>
+                              <span>{i?.document_name}</span>
                             </a>
                           ))}
                         </div>

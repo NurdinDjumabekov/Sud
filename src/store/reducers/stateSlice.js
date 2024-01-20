@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  ///// только для обыный пользователей
   lookPdf: false,
   lookAddPlaintiff: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
   //// targetPlint
@@ -14,6 +15,11 @@ const initialState = {
     num3: 0,
     num4: 0,
   },
+  lookDataAllPlaintiff: false, /// для просмотра списка истцов и представителей
+  listPlaint: [], /// для просмотра списка истцов и представителей
+
+  lookChangeStatus: false, /// для просмотра модалки изменения статуса
+  idStatus: 0, /// для просмотра модалки изменения статуса
 };
 
 const stateSlice = createSlice({
@@ -41,6 +47,18 @@ const stateSlice = createSlice({
     changeTypePay: (state, action) => {
       state.typePay = action.payload;
     },
+    changeLookDataAllPlaintiff: (state, action) => {
+      state.lookDataAllPlaintiff = action.payload;
+    },
+    changeListPlaint: (state, action) => {
+      state.listPlaint = action.payload;
+    },
+    changeLookChangeStatus: (state, action) => {
+      state.lookChangeStatus = action.payload;
+    },
+    changeIdStatus: (state, action) => {
+      state.idStatus = action.payload;
+    },
   },
 });
 export const {
@@ -51,6 +69,10 @@ export const {
   changeResult,
   changeCalculatorType,
   changeTypePay,
+  changeLookDataAllPlaintiff,
+  changeListPlaint,
+  changeLookChangeStatus,
+  changeIdStatus,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

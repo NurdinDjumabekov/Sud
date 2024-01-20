@@ -1,10 +1,7 @@
-$paddingTableInner: 2px 18px;
+$paddingTableInner: 2px 14px;
 
-// #344050
-// #f9fafd
 .mainTables {
   height: 93vh;
-  // background: red;
   padding: 20px;
   width: 100%;
   border-radius: 10px;
@@ -14,14 +11,12 @@ $paddingTableInner: 2px 18px;
   .choice__plaintiff {
     display: inline-flex;
     align-items: center;
-    // background: red;
-    height: 40px;
+    // height: 43px;
     margin: 0 0 20px 0;
     background: #f9fafd;
     border-radius: 5px;
     border: 1px solid #edf2f9;
     li {
-      // background: red;
       button {
         color:#4d5969;
         font-size: 16px;
@@ -29,7 +24,6 @@ $paddingTableInner: 2px 18px;
         font-family: 'Montserrat', sans-serif;
         background: #f9fafd;
         margin: 0 15px;
-        // background: red;
         height: 40px;
         transition: 0.2s;
       }
@@ -46,17 +40,10 @@ $paddingTableInner: 2px 18px;
         background: #fff;
       }
     }
-    // &::-webkit-scrollbar {
-    //   width: 0px;
-    // }
   }
-
 
   .main_tabla_isk {
     position: relative;
-    // height: 99vh;
-    // height: 500px;
-    // width: 95%;
     overflow-y: scroll;
     border: 1px solid rgb( 237, 242, 249);
     padding-bottom: 0 !important;
@@ -106,23 +93,17 @@ $paddingTableInner: 2px 18px;
       top: -1px;
       z-index: 1;
       border: 1px solid rgb( 237, 242, 249);
-    
-      // > tr {
-      //   border-bottom: 1px solid rgb(221, 221, 221);
-      // }
     }
 
     .table_isk tr {
       height: 70px;
-      cursor: pointer;
-      // background: red;
     }
 
     .table_isk td {
       font-size: 12px;
       font-weight: 500;
       text-align: center;
-      cursor: pointer;
+      // cursor: pointer;
       border: 1px solid rgb( 237, 242, 249);
       padding: 8px;
       position: relative;
@@ -130,7 +111,6 @@ $paddingTableInner: 2px 18px;
         display: flex;
         flex-direction: column;
         max-height: 350px;
-        // background: red;
         .table_isk_td__inner {
           margin: 0 0 5px 0;
         }
@@ -143,17 +123,17 @@ $paddingTableInner: 2px 18px;
       //   flex-direction: column;
       }
       .statusIsks {
-        // background: red;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 3px;
         > button {
           color:#4d5969;
           font-size: 14px;
           font-weight: 600;
           font-family: 'Montserrat', sans-serif;
           transition: 0.2s;
-          padding: 8px 10px;
+          padding: 8px 2px;
           height: auto !important;
           margin: 0 !important;  
           border-radius: 3px;
@@ -169,20 +149,15 @@ $paddingTableInner: 2px 18px;
       font-size: 13px;
       font-weight: 500;
       text-align: center;
-      // border: 1px solid #4650dd81;
       padding: 8px;
     }
 
-    // .span_teble {
-    //   color: #4650dd;
-    // }
 
     .table_isk_td:nth-child(1) div {
       white-space: wrap !important;
     }
     .table_isk_td:nth-child(1) div > span {
       display: block;
-      // background: red;
       text-align: left !important;
       padding: 2px 10px;
     }
@@ -190,45 +165,72 @@ $paddingTableInner: 2px 18px;
     .table_isk_td:nth-child(2) span {
       font-size: 12px;
       padding: $paddingTableInner;
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
       text-align: left !important;
+    }
+    .table_isk_td{
+      .btnPlaintiff {
+        display: none ;
+      }
+    }
+    .table_isk_td:nth-child(2):hover,
+    .table_isk_td:nth-child(3):hover {
+      background: rgba(216, 219, 223, 0.233);
+      background: #fff;
+      cursor: pointer;
+
+      span {
+        display: none;
+      }
+      .btnPlaintiff {
+        transition: 1.5s ease; 
+        display: block;
+        color: #a7abaf;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 auto;
+        text-align: center !important;
+        font-family: "Montserrat", sans-serif;
+        background: #fff;
+        transition: 1s;
+        animation-name: example;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+        height: 50px;
+        padding: 0 20px;
+      }
+      @keyframes example {
+        from {
+          opacity: 0;
+          transform: rotateX(0deg);
+          background: #e4dfdf;
+        }
+        to {
+          opacity: 1;
+          transform: rotateX(360deg);
+
+        }
+      }
     }
 
     .table_isk_td:nth-child(3) span {
       font-size: 12px;
       padding: $paddingTableInner;
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
     }
 
     .table_isk_td:nth-child(6) span {
       font-size: 12px;
       padding: $paddingTableInner;
-
-      // background: red;
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
     }
 
     .table_isk_td:nth-child(7) span {
       padding: $paddingTableInner;
       border-radius: 12px;
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
     }
 
     .table_isk_td:nth-child(8) span {
       padding: $paddingTableInner;
       border-radius: 12px;
-      // flex-direction: column;
-      // align-items: center;
-
-
     }
 
     .table_isk_td:nth-child(9) span {
@@ -238,9 +240,9 @@ $paddingTableInner: 2px 18px;
     }
 
     .table_isk th {
-      font-weight: 600;
+      font-weight: 700;
       color: rgba(0, 0, 0, 0.76);
-      font-size: 14px;
+      font-size: 15px;
       background: #c4d9f8;
       background: rgb( 237, 242, 249);
       color: #fff;
@@ -254,15 +256,9 @@ $paddingTableInner: 2px 18px;
       white-space: nowrap;
     }
 
-    // .tbody_isk tr:nth-child(even) {
-    //   background-color: #ededed;
-    // }
-
     .table_isk_td:nth-child(1),
     .table_isk_th:nth-child(1) {
       width: 90px;
-      // background: red;
-      // text-align: center;
     }
 
     .table_isk_td:nth-child(2),
@@ -272,7 +268,7 @@ $paddingTableInner: 2px 18px;
 
     .table_isk_td:nth-child(3),
     .table_isk_th:nth-child(3) {
-      width: 210px;
+      width: 220px;
     }
 
     .table_isk_td:nth-child(4),
@@ -344,23 +340,21 @@ $paddingTableInner: 2px 18px;
         text-overflow: ellipsis;
         width: 100%;
         text-align: left;
-        font-weight: 500;
+        font-weight: 600;
         font-family: 'Montserrat', sans-serif;
-        font-size: 14px !important;
-        // background: red;
+        font-size: 16px !important;
       }
       .docsBlock {
-        // background: red;
         display: flex;
         flex-direction: column;
         gap: 10px;
-       &__inner {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 5px;
-       }
+        &__inner {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
       }
     }
 
@@ -379,15 +373,5 @@ $paddingTableInner: 2px 18px;
       background: rgb(234, 234, 234);
     }
 
-    .modal_isk_one {
-      position: absolute;
-      top: 0;
-      left: -4.5rem;
-      background-color: white;
-      z-index: 100;
-      width: calc(100% + 4.5rem);
-      height: 100%;
-      padding: 20px;
-    }
   }
 }

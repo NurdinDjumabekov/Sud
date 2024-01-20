@@ -24,10 +24,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
     // width: 400px;
-    // background-color: #ff0;
+    background-color: rgb(237, 242, 249);
+    background: #fff;
+
     opacity: 1;
     transition: background-color 0.5s, opacity 0.5s;
     border-radius: 8px;
+    padding: 22px;
 
     .krest {
       width: 40px;

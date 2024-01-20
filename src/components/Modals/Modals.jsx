@@ -29,6 +29,7 @@ const Modals = (props) => {
             {props.children}
             <button className="krest" onClick={closeModal}>
               <img src={krest} alt="x" />
+              
             </button>
           </div>
         </div>

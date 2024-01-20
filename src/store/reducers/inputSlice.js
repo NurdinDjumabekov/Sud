@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  input: "Nurdin Djumabekov",
   typeFace: 1,
   //// addPlaintiffFizFace
   // adff: {
@@ -79,23 +78,24 @@ const initialState = {
   },
 
   aduf: {
+    action_type: 1,
     code_isk: 0,
     codeid: 0,
-    name: "",
-    numPhone: "",
-    inn: "",
-    okpo: "",
-    email: "",
-    email2: "",
-    typeOrganization: 0, /// select
-    dataReg: "", // дата регистрации
-    typeCompany: 0, /// select
-    country_ur: 0, /// select
+    name: "asdas",
+    numPhone: "sadsad",
+    inn: "231231",
+    okpo: "asdasdsa",
+    email: "sdasd@adasd",
+    email2: "asdasds@dassadas",
+    typeOrganization: 1, /// select
+    dataReg: "03/01/2024", // дата регистрации
+    typeCompany: 1, /// select
+    country_ur: 1, /// select
 
-    userStatus: 0, //// должность в компании /// select
-    startData: "",
-    endData: "",
-    fioBoss: "",
+    userStatus: 1, //// должность в компании /// select
+    startData: "03/01/2024",
+    endData: "03/01/2024",
+    fioBoss: "asdasdsa",
 
     country: 0, /// select
     district: 0, //// район   /// select
