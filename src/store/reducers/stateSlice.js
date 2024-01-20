@@ -19,7 +19,7 @@ const initialState = {
   listPlaint: [], /// для просмотра списка истцов и представителей
 
   lookChangeStatus: false, /// для просмотра модалки изменения статуса
-  idStatus: 0, /// для просмотра модалки изменения статуса
+  idStatus: 0, /// для просмотра модалки изменения статуса(id)
 };
 
 const stateSlice = createSlice({

@@ -1,39 +1,29 @@
 import React, { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import LogOut from "../components/LogOut/LogOut";
-import "./MainLayouts.scss";
+import LogOut from "../../components/LogOut/LogOut";
+import "./LayoutsRS.scss";
 ////// imgsBlack
-import myIski from "../asstes/icons/IconPage/me_iski.svg";
-import notif from "../asstes/icons/IconPage/notification.svg";
-import create from "../asstes/icons/IconPage/create.svg";
-import meetingsPlaintiff from "../asstes/icons/IconPage/calendar.svg";
-import calTodoPlaintiff from "../asstes/icons/IconPage/calendar2.svg";
-import archive from "../asstes/icons/IconPage/archive.svg";
-import arrow from "../asstes/icons/IconPage/arrow.svg";
-////
-// import create2 from "../asstes/icons/IconPage/create2.svg";
-// import myIski from "../asstes/icons/IconPage/me_iski.svg";
-// import notif from "../asstes/icons/IconPage/notification.svg";
-// import meetingsPlaintiff from "../asstes/icons/IconPage/calendar.svg";
-// import calTodoPlaintiff from "../asstes/icons/IconPage/calendar2.svg";
-// import archive from "../asstes/icons/IconPage/archive.svg";
-// import arrow from "../asstes/icons/IconPage/arrow.svg";
-// delete
+import myIski from "../../asstes/icons/IconPage/me_iski.svg";
+import notif from "../../asstes/icons/IconPage/notification.svg";
+import create from "../../asstes/icons/IconPage/create.svg";
+import meetingsPlaintiff from "../../asstes/icons/IconPage/calendar.svg";
+import calTodoPlaintiff from "../../asstes/icons/IconPage/calendar2.svg";
+import archive from "../../asstes/icons/IconPage/archive.svg";
+
 ////// imgsWhite
-import myIskiWhite from "../asstes/icons/IconPageWhite/me_iski.svg";
-import notifWhite from "../asstes/icons/IconPageWhite/notification.svg";
-import createWhite from "../asstes/icons/IconPageWhite/create.svg";
-import meetingsPlaintiffWhite from "../asstes/icons/IconPageWhite/calendar.svg";
-import calTodoPlaintiffWhite from "../asstes/icons/IconPageWhite/calendar2.svg";
-import archiveWhite from "../asstes/icons/IconPageWhite/archive.svg";
-import arrowWhite from "../asstes/icons/IconPageWhite/arrow.svg";
+import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
+import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
+import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
+import meetingsPlaintiffWhite from "../../asstes/icons/IconPageWhite/calendar.svg";
+import calTodoPlaintiffWhite from "../../asstes/icons/IconPageWhite/calendar2.svg";
+import archiveWhite from "../../asstes/icons/IconPageWhite/archive.svg";
 
-import logo from "../asstes/images/logo.png";
+import logo from "../../asstes/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
-import { toTakeIsksList } from "../store/reducers/sendDocsSlice";
+import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
+import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
 
-function MainLayouts() {
+function LayoutsRS() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -163,11 +153,10 @@ function MainLayouts() {
             : {}
         }
       >
-        {/* <Outlet /> */}
-        <button></button>
+        <Outlet />
       </div>
     </div>
   );
 }
 
-export default MainLayouts;
+export default LayoutsRS;

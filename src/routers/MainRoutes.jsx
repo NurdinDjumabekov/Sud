@@ -12,6 +12,7 @@ import { Preloader } from "../components/Preloader/Preloader";
 import { useDispatch, useSelector } from "react-redux";
 import Alerts from "../components/Alerts/Alerts";
 import MoreInfo from "../components/MoreInfo/MoreInfo";
+import LayoutsRS from "../layouts/LayoutsRS/LayoutsRS";
 
 function MainRoutes() {
   const dispatch = useDispatch();
@@ -29,9 +30,14 @@ function MainRoutes() {
   // console.log(adff, "adff");
   // console.log(aduf, "aduf");
   // console.log(applicationList, "applicationList");
-  console.log(listTodos, "listTodos");
+  // console.log(listTodos, "listTodos");
 
   let userRoutes;
+
+  // 1  Секретарь
+  // 2  Ответственный секретарь
+  // 3  Председатель
+  // 4  Истец
 
   if (userType === 1) {
     userRoutes = (
@@ -46,16 +52,26 @@ function MainRoutes() {
     );
   } else if (userType === 2) {
     userRoutes = (
+      <Route element={<LayoutsRS />}>
+        <Route path="/mainPlaintiff" element={<MainPage />} />
+        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
+        <Route path="/notifPlaintiff" element={<NotificationPage />} />
+        <Route path="/calTodoPlaintiff" element={<CalendarTodoPage />} />
+        <Route path="/meetingsPlaintiff" element={<CalendarMeetings />} />
+        <Route path="/archive" element={<ArchivePage />} />
+      </Route>
+    );
+  } else if (userType === 3) {
+    userRoutes = <Route element={<MainLayouts />}></Route>;
+  } else if (userType === 4) {
+    userRoutes = (
       <Route element={<MainLayouts />}>
-        <Route path="/mainPlaintiff1" element={<MainPage />} />
-        <Route path="/plaintiffCreate213123" element={<PlaintiffPage />} />
-        <Route path="/notifPlaintiff213123" element={<NotificationPage />} />
-        <Route path="/calTodoPlaintiff21312" element={<CalendarTodoPage />} />
-        <Route
-          path="/meetingsPlaintiff21312312"
-          element={<CalendarMeetings />}
-        />
-        <Route path="/archive12312312" element={<ArchivePage />} />
+        <Route path="/mainPlaintiff" element={<MainPage />} />
+        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
+        <Route path="/notifPlaintiff" element={<NotificationPage />} />
+        <Route path="/calTodoPlaintiff" element={<CalendarTodoPage />} />
+        <Route path="/meetingsPlaintiff" element={<CalendarMeetings />} />
+        <Route path="/archive" element={<ArchivePage />} />
       </Route>
     );
   }
