@@ -2,11 +2,12 @@ $paddingTableInner: 2px 14px;
 
 .mainTables {
   height: 93vh;
-  padding: 20px;
+  padding: 20px 15px;
   width: 100%;
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+  box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1),
+    0 3px 6px 0 rgba(0, 0, 0, 0.07);
 
   .choice__plaintiff {
     display: inline-flex;
@@ -18,7 +19,7 @@ $paddingTableInner: 2px 14px;
     border: 1px solid #edf2f9;
     li {
       button {
-        color:#4d5969;
+        color: #4d5969;
         font-size: 16px;
         font-weight: 600;
         font-family: 'Montserrat', sans-serif;
@@ -29,9 +30,11 @@ $paddingTableInner: 2px 14px;
       }
       .activeBtnsPlaintiff {
         color: #4d5969;
-        box-shadow:  0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);;
+        box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
+          0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07),
+          0 1px 2px 0 rgba(0, 0, 0, 0.08);
         border-radius: 5px;
-        margin: 0 !important;  
+        margin: 0 !important;
         height: 37px;
         padding: 0 15px;
         font-size: 16px;
@@ -45,9 +48,10 @@ $paddingTableInner: 2px 14px;
   .main_tabla_isk {
     position: relative;
     overflow-y: scroll;
-    border: 1px solid rgb( 237, 242, 249);
+    border: 1px solid rgb(237, 242, 249);
     padding-bottom: 0 !important;
     height: 93%;
+
     table {
       // table-layout: fixed;
       border-collapse: collapse;
@@ -80,7 +84,6 @@ $paddingTableInner: 2px 14px;
       display: table;
     }
 
-  
     &::-webkit-scrollbar {
       width: 0px;
     }
@@ -89,10 +92,10 @@ $paddingTableInner: 2px 14px;
 
     .table_isk thead {
       height: 70px;
-      // position: sticky;
+      position: sticky;
       top: -1px;
       z-index: 1;
-      border: 1px solid rgb( 237, 242, 249);
+      border: 1px solid rgb(237, 242, 249);
     }
 
     .table_isk tr {
@@ -104,7 +107,7 @@ $paddingTableInner: 2px 14px;
       font-weight: 500;
       text-align: center;
       // cursor: pointer;
-      border: 1px solid rgb( 237, 242, 249);
+      border: 1px solid rgb(237, 242, 249);
       padding: 8px;
       position: relative;
       .innerTable {
@@ -114,13 +117,13 @@ $paddingTableInner: 2px 14px;
         .table_isk_td__inner {
           margin: 0 0 5px 0;
         }
-      //   position: absolute;
-      //   left: 0;
-      //   top: 0;
-      //   min-height: 450px !important;
-      //   width: 150px;
-      //   display: flex;
-      //   flex-direction: column;
+        //   position: absolute;
+        //   left: 0;
+        //   top: 0;
+        //   min-height: 450px !important;
+        //   width: 150px;
+        //   display: flex;
+        //   flex-direction: column;
       }
       .statusIsks {
         display: flex;
@@ -128,14 +131,14 @@ $paddingTableInner: 2px 14px;
         justify-content: space-between;
         gap: 3px;
         > button {
-          color:#4d5969;
-          font-size: 14px;
+          color: #4d5969;
+          font-size: 12px;
           font-weight: 600;
           font-family: 'Montserrat', sans-serif;
           transition: 0.2s;
-          padding: 8px 2px;
+          padding: 8px 8px;
           height: auto !important;
-          margin: 0 !important;  
+          margin: 0 !important;
           border-radius: 3px;
           background: rgb(237, 242, 249);
         }
@@ -152,7 +155,6 @@ $paddingTableInner: 2px 14px;
       padding: 8px;
     }
 
-
     .table_isk_td:nth-child(1) div {
       white-space: wrap !important;
     }
@@ -167,9 +169,9 @@ $paddingTableInner: 2px 14px;
       padding: $paddingTableInner;
       text-align: left !important;
     }
-    .table_isk_td{
+    .table_isk_td {
       .btnPlaintiff {
-        display: none ;
+        display: none;
       }
     }
     .table_isk_td:nth-child(2):hover,
@@ -182,7 +184,7 @@ $paddingTableInner: 2px 14px;
         display: none;
       }
       .btnPlaintiff {
-        transition: 1.5s ease; 
+        transition: 1.5s ease;
         display: block;
         color: #a7abaf;
         border-radius: 5px;
@@ -190,7 +192,7 @@ $paddingTableInner: 2px 14px;
         font-weight: 700;
         margin: 0 auto;
         text-align: center !important;
-        font-family: "Montserrat", sans-serif;
+        font-family: 'Montserrat', sans-serif;
         background: #fff;
         transition: 1s;
         animation-name: example;
@@ -208,7 +210,6 @@ $paddingTableInner: 2px 14px;
         to {
           opacity: 1;
           transform: rotateX(360deg);
-
         }
       }
     }
@@ -244,7 +245,7 @@ $paddingTableInner: 2px 14px;
       color: rgba(0, 0, 0, 0.76);
       font-size: 15px;
       background: #c4d9f8;
-      background: rgb( 237, 242, 249);
+      background: rgb(237, 242, 249);
       color: #fff;
       text-align: left;
       padding: 0 25px;
@@ -295,7 +296,8 @@ $paddingTableInner: 2px 14px;
 
     .table_isk_td:nth-child(8),
     .table_isk_th:nth-child(8) {
-      width: 180px;
+      width: 120px;
+      // background: red;
     }
     .table_isk_td:nth-child(9),
     .table_isk_th:nth-child(9) {
@@ -321,7 +323,7 @@ $paddingTableInner: 2px 14px;
           height: 20px !important;
         }
         p {
-          color:#4d5969;
+          color: #4d5969;
           font-size: 14px;
           font-weight: 500;
           font-family: 'Montserrat', sans-serif;
@@ -340,20 +342,20 @@ $paddingTableInner: 2px 14px;
         text-overflow: ellipsis;
         width: 100%;
         text-align: left;
-        font-weight: 600;
+        font-weight: 500;
         font-family: 'Montserrat', sans-serif;
-        font-size: 16px !important;
+        font-size: 15px !important;
       }
       .docsBlock {
         display: flex;
         flex-direction: column;
         gap: 10px;
         &__inner {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 5px;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 5px;
         }
       }
     }
@@ -372,6 +374,5 @@ $paddingTableInner: 2px 14px;
     ::-webkit-scrollbar-thumb {
       background: rgb(234, 234, 234);
     }
-
   }
 }

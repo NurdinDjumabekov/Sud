@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import './Table.scss';
-import imgPdf from '../../asstes/icons/pdf.svg';
+import './MainPagePred.scss';
+import imgPdf from '../../../asstes/icons/pdf.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { editIsks } from '../../store/reducers/applicationsSlice';
-import { deleteIsks } from '../../store/reducers/sendDocsSlice';
 import {
-  changeIdStatus,
   changeListPlaint,
-  changeLookChangeStatus,
   changeLookDataAllPlaintiff,
-} from '../../store/reducers/stateSlice';
-import { changeAlertText } from '../../store/reducers/typesSlice';
+} from '../../../store/reducers/stateSlice';
+import { changeAlertText } from '../../../store/reducers/typesSlice';
+import ConfirmStatus from '../../ConfirmStatus/ConfirmStatus';
 
-export const Table = () => {
+export const MainPagePred = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
+  const [sendStatusIsk, setSendStatusIsk] = useState(false);
+  const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
 
   const lookDataPlaintiff = (arr, type) => {
     if (arr?.length === 0) {
@@ -35,23 +34,15 @@ export const Table = () => {
     }
   };
 
-  const changeStatus = (id) => {
-    dispatch(changeLookChangeStatus(true)); /// для вызова модалки изменения статуса иска
-    dispatch(changeIdStatus(id)); /// для отправки id иска
-  };
-
-  const editIsksFn = (id) => {
-    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
-  };
-
-  const deleteIsksFn = (codeid) => {
-    dispatch(deleteIsks({ codeid, tokenA }));
+  const changeStatusIsks = (id, status) => {
+    setSendStatusIsk(true);
+    setIsType({ type: status, id: id });
   };
 
   const [btnList, setBtnList] = React.useState([
     {
       id: 1,
-      name: 'Мои иски',
+      name: 'Все иски',
       bool: true,
     },
     {
@@ -90,7 +81,7 @@ export const Table = () => {
   // console.log(todosApplications, "todosApplications");
 
   const statusMessages = {
-    1: 'Ожидание ...',
+    // 1: 'Отправлено председателю',
     2: 'Иск отклонён ответственным секретарём',
     3: 'Иск принят председателем',
     4: 'Иск отклонён председателем',
@@ -214,16 +205,17 @@ export const Table = () => {
                     <span>{+row?.status === 1 ? 'Активен' : 'Не активен'}</span>
                   </td>
                   <td className="table_isk_td">
-                    {+row?.status === 0 ? (
+                    {+row?.isk_status === 0 || +row?.isk_status === 1 ? (
                       <div className="statusIsks">
-                        <button onClick={() => changeStatus(row?.codeid)}>
-                          Подать иск
+                        <button
+                          onClick={() => changeStatusIsks(row?.codeid, 3)}
+                        >
+                          Принять иск
                         </button>
-                        <button onClick={() => editIsksFn(row?.codeid)}>
-                          Редактировать иск
-                        </button>
-                        <button onClick={() => deleteIsksFn(row?.codeid)}>
-                          Удалить иск
+                        <button
+                          onClick={() => changeStatusIsks(row?.codeid, 4)}
+                        >
+                          Отклонить иск
                         </button>
                       </div>
                     ) : (
@@ -268,6 +260,11 @@ export const Table = () => {
           </table>
         </div>
       </div>
+      <ConfirmStatus
+        setSendStatusIsk={setSendStatusIsk}
+        sendStatusIsk={sendStatusIsk}
+        istype={istype}
+      />
     </>
   );
 };

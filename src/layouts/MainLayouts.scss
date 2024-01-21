@@ -1,12 +1,11 @@
 $widthMenu: 320px;
 $widthAllContent: 100%;
 
-
 .plaintiffBlock {
   display: flex;
   gap: 5px;
   width: 100%;
-  max-width: 2800px;
+  max-width: 2250px;
   margin: 0 auto;
   background: #f9fafd;
   padding: 0 10px;
@@ -101,7 +100,6 @@ $widthAllContent: 100%;
               align-items: center;
               font-weight: 500;
               transform: rotate(4deg);
-              
             }
           }
           &:hover {
@@ -153,15 +151,13 @@ $widthAllContent: 100%;
     }
   }
   &__content {
-    width: $widthAllContent;
+    width: 86%;
     display: flex;
     align-items: center;
     // background: red;
     height: 98vh;
   }
 }
-
-
 
 @keyframes innerPages {
   from {

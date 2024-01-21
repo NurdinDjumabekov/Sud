@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   ///// только для обыный пользователей
@@ -8,7 +8,7 @@ const initialState = {
   calculatorType: false,
   calculatorState: false,
   typePay: 1, //// => typeCountSum
-  sumIsk: "",
+  sumIsk: '',
   resultSumIsk: {
     num1: 0,
     num2: 0,
@@ -18,12 +18,12 @@ const initialState = {
   lookDataAllPlaintiff: false, /// для просмотра списка истцов и представителей
   listPlaint: [], /// для просмотра списка истцов и представителей
 
-  lookChangeStatus: false, /// для просмотра модалки изменения статуса
+  lookChangeStatus: false, /// для просмотра модалки изменения статуса у истца
   idStatus: 0, /// для просмотра модалки изменения статуса(id)
 };
 
 const stateSlice = createSlice({
-  name: "stateSlice",
+  name: 'stateSlice',
   initialState,
   reducers: {
     changeLookPDF: (state, action) => {

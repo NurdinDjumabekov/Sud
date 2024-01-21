@@ -14,7 +14,7 @@ import { createSlice } from '@reduxjs/toolkit';
 //     }
 //   }
 // );
-
+//// delete
 const initialState = {
   preloader: false,
 };

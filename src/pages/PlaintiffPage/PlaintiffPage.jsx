@@ -1,40 +1,40 @@
-import React, { useState } from "react";
-import "./PlaintiffPage.scss";
-import InputsPlaintiff from "../../components/PlaintiffPage/InputsPlaintiff/InputsPlaintiff";
-import { useNavigate } from "react-router-dom";
-import krestik from "../../asstes/icons/krestik.svg";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react';
+import './PlaintiffPage.scss';
+import InputsPlaintiff from '../../components/PlaintiffPage/InputsPlaintiff/InputsPlaintiff';
+import { useNavigate } from 'react-router-dom';
+import krestik from '../../asstes/icons/krestik.svg';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   changeLookAddPlaintiff,
   changeLookPDF,
-} from "../../store/reducers/stateSlice";
-import FillingPlaintiff from "../../components/PlaintiffPage/FillingPlaintiff/FillingPlaintiff";
-import TargetPlaintiff from "../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff";
-import DescriptionClaim from "../../components/PlaintiffPage/DescriptionClaim/DescriptionClaim";
-import MotivationClaim from "../../components/PlaintiffPage/MotivationClaim/MotivationClaim";
-import Justification from "../../components/PlaintiffPage/Justification/Justification";
-import FinancialResult from "../../components/PlaintiffPage/FinancialResult/FinancialResult";
-import GeneralInfo from "../../components/PlaintiffPage/GeneralInfo/GeneralInfo";
-import LinksLaw from "../../components/PlaintiffPage/LinksLaw/LinksLaw";
-import ClaimRequaire from "../../components/PlaintiffPage/ClaimRequaire/ClaimRequaire";
-import ApplicationFiles from "../../components/PlaintiffPage/ApplicationFiles/ApplicationFiles";
+} from '../../store/reducers/stateSlice';
+import FillingPlaintiff from '../../components/PlaintiffPage/FillingPlaintiff/FillingPlaintiff';
+import TargetPlaintiff from '../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff';
+import DescriptionClaim from '../../components/PlaintiffPage/DescriptionClaim/DescriptionClaim';
+import MotivationClaim from '../../components/PlaintiffPage/MotivationClaim/MotivationClaim';
+import Justification from '../../components/PlaintiffPage/Justification/Justification';
+import FinancialResult from '../../components/PlaintiffPage/FinancialResult/FinancialResult';
+import GeneralInfo from '../../components/PlaintiffPage/GeneralInfo/GeneralInfo';
+import LinksLaw from '../../components/PlaintiffPage/LinksLaw/LinksLaw';
+import ClaimRequaire from '../../components/PlaintiffPage/ClaimRequaire/ClaimRequaire';
+import ApplicationFiles from '../../components/PlaintiffPage/ApplicationFiles/ApplicationFiles';
 //// imgs
-import imsIcon from "../../asstes/icons/IconPage/archive.svg";
-import plaintiffs from "../../asstes/icons/plaintiff/plaintiff.svg";
-import many from "../../asstes/icons/plaintiff/many.svg";
-import description from "../../asstes/icons/plaintiff/description.svg";
+import imsIcon from '../../asstes/icons/IconPage/archive.svg';
+import plaintiffs from '../../asstes/icons/plaintiff/plaintiff.svg';
+import many from '../../asstes/icons/plaintiff/many.svg';
+import description from '../../asstes/icons/plaintiff/description.svg';
 //// delete
-import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff";
-import { checkDataIsks } from "../../helpers/checkDataIsks";
+import DataArrPlaintiff from '../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff';
+import { checkDataIsks } from '../../helpers/checkDataIsks';
 import {
   clearTodosApplications,
   toTakeTypeTypeDocs,
-} from "../../store/reducers/applicationsSlice";
+} from '../../store/reducers/applicationsSlice';
 import {
   addListTodos,
   createIdIsk,
   sendEveryIsks,
-} from "../../store/reducers/sendDocsSlice";
+} from '../../store/reducers/sendDocsSlice';
 import {
   toTakeCountries,
   toTakeCurrency,
@@ -45,8 +45,8 @@ import {
   toTakeTypeOrganiz,
   toTakeTypePosition,
   toTakeTypeValuta,
-} from "../../store/reducers/selectsSlice";
-import { changeAlertText } from "../../store/reducers/typesSlice";
+} from '../../store/reducers/selectsSlice';
+import { changeAlertText } from '../../store/reducers/typesSlice';
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -61,71 +61,71 @@ const PlaintiffPage = () => {
   const [btnList, setBtnList] = useState([
     {
       id: 1,
-      name: "Истец",
+      name: 'Истец',
       bool: true,
       components: (
-        <DataArrPlaintiff arr={todosApplications} typerole={"истца"} />
+        <DataArrPlaintiff arr={todosApplications} typerole={'истца'} />
       ),
     },
     {
       id: 2,
-      name: "Ответчик",
+      name: 'Ответчик',
       bool: false,
       components: (
-        <DataArrPlaintiff arr={todosApplications} typerole={"ответчика"} />
+        <DataArrPlaintiff arr={todosApplications} typerole={'ответчика'} />
       ),
     },
     {
       id: 3,
-      name: "Цена иска",
+      name: 'Цена иска',
       bool: false,
       components: <TargetPlaintiff />,
     },
     {
       id: 4,
-      name: "Описание",
+      name: 'Описание',
       bool: false,
       components: <DescriptionClaim />,
     },
     {
       id: 5,
-      name: "Мотивационная часть",
+      name: 'Мотивационная часть',
       bool: false,
       components: <MotivationClaim />,
     },
     {
       id: 6,
-      name: "Обоснование",
+      name: 'Обоснование',
       bool: false,
       components: <Justification />,
     },
     {
       id: 7,
-      name: "Финансовый расчет",
+      name: 'Финансовый расчет',
       bool: false,
       components: <FinancialResult />,
     },
     {
       id: 8,
-      name: "Общая информация",
+      name: 'Общая информация',
       bool: false,
       components: <GeneralInfo />,
     },
     {
       id: 9,
-      name: "Ссылка на законы",
+      name: 'Ссылка на законы',
       bool: false,
       components: <LinksLaw />,
     },
     {
       id: 10,
-      name: "Исковые требования",
+      name: 'Исковые требования',
       bool: false,
       components: <ClaimRequaire />,
     },
     {
       id: 11,
-      name: "Документы",
+      name: 'Документы',
       bool: false,
       components: <ApplicationFiles />,
     },
@@ -151,24 +151,14 @@ const PlaintiffPage = () => {
 
   const saveData = () => {
     if (checkDataIsks(todosApplications)) {
-      dispatch(sendEveryIsks({ todosApplications, tokenA }));
-      navigate("/mainPlaintiff");
-      // alert("Ваши данные успешно сохранены");
-      dispatch(
-        changeAlertText({
-          text: "Ваши данные успешно сохранены!",
-          backColor: "#f9fafd",
-          state: true,
-        })
-      );
-      // dispatch(addListTodos(todosApplications));
+      dispatch(sendEveryIsks({ todosApplications, tokenA, navigate }));
       dispatch(clearTodosApplications());
     } else {
       // alert("Нету заполненных полей!");
       dispatch(
         changeAlertText({
-          text: "Нету заполненных полей!",
-          backColor: "#f9fafd",
+          text: 'Нету заполненных полей!',
+          backColor: '#f9fafd',
           state: true,
         })
       );
@@ -197,16 +187,23 @@ const PlaintiffPage = () => {
     };
   }, []);
 
-  console.log(todosApplications, "todosApplications");
+  console.log(todosApplications, 'todosApplications');
   // console.log(createIdIsk, "createIdIsk");
   // console.log(docsIsks, "docsIsks");
 
   return (
     <div className="plaintiff">
-      <div className="sadasdasdas">
-        <button className="activeBtnsPlaintiff" onClick={saveData}>
+      <div className="navBlock">
+        <button
+          className="activeBtnsPlaintiff"
+          style={{ width: '380px' }}
+          onClick={saveData}
+        >
           Сохранить весь документ
         </button>
+        {/* <button className="activeBtnsPlaintiff" style={{ width: '300px' }}>
+          Отменить и выйти
+        </button> */}
         <ul className="btnsType plaintiffTypes">
           {btnList?.map((btn) => (
             <button
@@ -215,7 +212,7 @@ const PlaintiffPage = () => {
                 clickBtn(btn.id);
                 dispatch(changeLookAddPlaintiff(0));
               }}
-              className={btn?.bool ? "activeBtnsPlaintiff" : ""}
+              className={btn?.bool ? 'activeBtnsPlaintiff' : ''}
             >
               {btn.name}
             </button>

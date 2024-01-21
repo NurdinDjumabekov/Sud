@@ -1,18 +1,45 @@
-import React from "react";
-import logoSud from "../../asstes/images/sud-login.png";
+import React, { useState } from 'react';
+import logoSud from '../../asstes/images/sud-login.png';
 
-import "./SingIn.scss";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { authLogin } from "../../store/reducers/authSlice";
+import './SingIn.scss';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authLogin } from '../../store/reducers/authSlice';
 
 export default function SignIn() {
+  const { typeUser } = useSelector((state) => state.saveDataSlice);
+
+  const [login, setLogin] = useState({
+    email: '',
+    password: '',
+  });
+  const dataLoginPlaintiff = {
+    email: 'polina.mumber@gmail.com',
+    password: '123123321',
+  };
+
+  const dataLoginResp = {
+    email: 'sec@gmail.com',
+    password: '123456',
+  };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const sendLogIn = () => {
-    navigate("/mainPlaintiff");
-    dispatch(authLogin());
+
+  const sendLogIn = (e) => {
+    e.preventDefault();
+    dispatch(authLogin({ dataLogin: login, navigate }));
   };
+
+  const changeInput = (e) => {
+    e.preventDefault();
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
+
+  React.useEffect(() => {
+    localStorage.clear();
+  }, []);
+  // console.log(login, 'login');
 
   return (
     <div className="login_block">
@@ -27,10 +54,20 @@ export default function SignIn() {
                   id="inputLogin"
                   required
                   placeholder="Ваша почта"
+                  name="email"
+                  onChange={changeInput}
+                  value={login.email}
                 />
               </div>
               <div className="inputbox">
-                <input type="password" required placeholder="Ваш пароль" />
+                <input
+                  type="password"
+                  required
+                  placeholder="Ваш пароль"
+                  name="password"
+                  onChange={changeInput}
+                  value={login.password}
+                />
               </div>
               <button className="login_enter" type="submit">
                 Войти
