@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import './MainPageRS.scss';
-import imgPdf from '../../../asstes/icons/pdf.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import "./MainPageRS.scss";
+import imgPdf from "../../../asstes/icons/pdf.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   changeListPlaint,
   changeLookDataAllPlaintiff,
-} from '../../../store/reducers/stateSlice';
-import { changeAlertText } from '../../../store/reducers/typesSlice';
-import ConfirmStatus from '../../ConfirmStatus/ConfirmStatus';
+} from "../../../store/reducers/stateSlice";
+import { changeAlertText } from "../../../store/reducers/typesSlice";
+import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 
 export const MainPageRS = () => {
   const dispatch = useDispatch();
@@ -23,8 +23,8 @@ export const MainPageRS = () => {
     if (arr?.length === 0) {
       dispatch(
         changeAlertText({
-          text: `Данные ${type === 1 ? 'истца' : 'ответчика'} отсутствуют`,
-          backColor: '#f9fafd',
+          text: `Данные ${type === 1 ? "истца" : "ответчика"} отсутствуют`,
+          backColor: "#f9fafd",
           state: true,
         })
       );
@@ -42,27 +42,27 @@ export const MainPageRS = () => {
   const [btnList, setBtnList] = React.useState([
     {
       id: 1,
-      name: 'Все иски',
+      name: "Все иски",
       bool: true,
     },
     {
       id: 2,
-      name: 'Принятые отвественным секретарём',
+      name: "Принятые отвественным секретарём",
       bool: false,
     },
     {
       id: 3,
-      name: 'Отклонённые отвественным секретарём',
+      name: "Отклонённые отвественным секретарём",
       bool: false,
     },
     {
       id: 4,
-      name: 'Принятые председателем',
+      name: "Принятые председателем",
       bool: false,
     },
     {
       id: 5,
-      name: 'Отклонённые председателем',
+      name: "Отклонённые председателем",
       bool: false,
     },
   ]);
@@ -77,14 +77,14 @@ export const MainPageRS = () => {
     setBtnList(newList);
   };
 
-  console.log(listTodos, 'listTodos');
+  console.log(listTodos, "listTodos");
   // console.log(todosApplications, "todosApplications");
 
   const statusMessages = {
-    1: 'Отправлено председателю',
-    2: 'Иск отклонён ответственным секретарём',
-    3: 'Иск принят председателем',
-    4: 'Иск отклонён председателем',
+    1: "Отправлено председателю",
+    2: "Иск отклонён ответственным секретарём",
+    3: "Иск принят председателем",
+    4: "Иск отклонён председателем",
   };
 
   return (
@@ -94,7 +94,7 @@ export const MainPageRS = () => {
           {btnList?.map((btn) => (
             <li key={btn.id}>
               <button
-                className={btn?.bool ? 'activeBtnsPlaintiff' : ''}
+                className={btn?.bool ? "activeBtnsPlaintiff" : ""}
                 onClick={() => clickBtn(btn.id)}
               >
                 {btn.name}
@@ -124,8 +124,8 @@ export const MainPageRS = () => {
                   key={index}
                   style={
                     +index % 2 === 0
-                      ? { background: '#fff' }
-                      : { background: '#f9fafd' }
+                      ? { background: "#fff" }
+                      : { background: "#f9fafd" }
                   }
                 >
                   <td className="table_isk_td">
@@ -136,16 +136,16 @@ export const MainPageRS = () => {
                   <td className="table_isk_td">
                     <span>
                       {row?.plaintiff?.length === 0 ? (
-                        'ФИО истца отсутствует'
+                        "ФИО истца отсутствует"
                       ) : row?.plaintiff?.length === 1 ? (
                         row?.plaintiff?.[0]?.name
                       ) : (
                         <>
-                          {row?.plaintiff?.[0]?.name} и еще{' '}
-                          {+row?.plaintiff?.length - 1}{' '}
+                          {row?.plaintiff?.[0]?.name} и еще{" "}
+                          {+row?.plaintiff?.length - 1}{" "}
                           {+row?.plaintiff?.length - 1 === 1
-                            ? 'истец'
-                            : 'истца'}
+                            ? "истец"
+                            : "истца"}
                         </>
                       )}
                     </span>
@@ -159,16 +159,16 @@ export const MainPageRS = () => {
                   <td className="table_isk_td">
                     <span>
                       {row?.defendant?.length === 0 ? (
-                        'ФИО ответчика отсутствует'
+                        "ФИО ответчика отсутствует"
                       ) : row?.defendant?.length === 1 ? (
                         row.defendant?.[0]?.name
                       ) : (
                         <>
-                          {row?.defendant?.[0]?.name} и еще{' '}
-                          {+row?.defendant?.length - 1}{' '}
+                          {row?.defendant?.[0]?.name} и еще{" "}
+                          {+row?.defendant?.length - 1}{" "}
                           {+row?.defendant?.length - 1 === 1
-                            ? 'ответчик'
-                            : 'ответчика'}
+                            ? "ответчик"
+                            : "ответчика"}
                         </>
                       )}
                     </span>
@@ -182,12 +182,12 @@ export const MainPageRS = () => {
                   {/* ///////////////////////////////////// */}
                   <td className="table_isk_td">
                     <span>
-                      {+row?.arbitr_fee === 0 ? 'отсутствует' : row?.arbitr_fee}
+                      {+row?.arbitr_fee === 0 ? "отсутствует" : row?.arbitr_fee}
                     </span>
                   </td>
                   <td className="table_isk_td">
                     <span>
-                      {+row?.reglament === 0 ? 'отсутствует' : row?.reglament}
+                      {+row?.reglament === 0 ? "отсутствует" : row?.reglament}
                     </span>
                   </td>
                   <td className="table_isk_td">
@@ -202,7 +202,7 @@ export const MainPageRS = () => {
                     <span>Nurdin</span>
                   </td>
                   <td className="table_isk_td">
-                    <span>{+row?.status === 1 ? 'Активен' : 'Не активен'}</span>
+                    <span>{+row?.status === 1 ? "Активен" : "Не активен"}</span>
                   </td>
                   <td className="table_isk_td">
                     {+row?.isk_status === 0 ? (
@@ -221,12 +221,12 @@ export const MainPageRS = () => {
                     ) : (
                       <>
                         {statusMessages[row?.isk_status] && (
-                          <span style={{ padding: '0px 0px 0px 10px' }}>
+                          <span style={{ padding: "0px 0px 0px 10px" }}>
                             {statusMessages[row?.isk_status]}
                           </span>
                         )}
                         {!statusMessages[row?.isk_status] && (
-                          <span style={{ padding: '0px 0px 0px 10px' }}>
+                          <span style={{ padding: "0px 0px 0px 10px" }}>
                             Ожидание ...
                           </span>
                         )}

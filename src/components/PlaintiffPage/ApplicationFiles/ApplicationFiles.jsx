@@ -30,13 +30,12 @@ const ApplicationFiles = () => {
 
     // Отправка каждого файла на сервер отдельно
     newFiles.forEach((file) => {
-      console.log(file, "file");
+      // console.log(file, "file");
       if (file) {
         const fileData = new FormData();
         fileData.append("code_isk", +todosApplications?.codeid);
         fileData.append("code_file", +id);
         fileData.append("file", file);
-
         dispatch(
           sendDocsIsks({ fileData, tokenA, code_file: +id, name: file?.name })
         );

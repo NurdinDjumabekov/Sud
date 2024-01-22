@@ -55,15 +55,19 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
       })
     );
   };
-  
+
   const deleteIsks = (objData, type) => {
-    if (type === "plaint" && typerole === "истца") { /// истец
+    if (type === "plaint" && typerole === "истца") {
+      /// истец
       sortSend(objData, 1);
-    } else if (type === "plaint" && typerole === "ответчика") { //// ответчик
+    } else if (type === "plaint" && typerole === "ответчика") {
+      //// ответчик
       sortSend(objData, 2);
-    } else if (type === "represen" && typerole === "истца") { /// представитель истеца
+    } else if (type === "represen" && typerole === "истца") {
+      /// представитель истеца
       sortSend(objData, 3);
-    } else if (type === "represen" && typerole === "ответчика") { ///// представитель ответчика
+    } else if (type === "represen" && typerole === "ответчика") {
+      ///// представитель ответчика
       sortSend(objData, 4);
     }
   };

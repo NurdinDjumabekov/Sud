@@ -7,17 +7,19 @@
     overflow-y: scroll;
     height: 80vh;
     > div {
-        width: 48%;
+        width: 45%;
         .everyCard {
             border-bottom: 2px solid #4d5969a8;
             padding: 8px 5px 12px 0;
-            margin: 10px 0 20px 0;
+            margin: 10px 0 20px 0px;
             display: flex;
             justify-content: start;
             gap: 20px;
             border-bottom-style: dotted;
             align-items: center;
             cursor: pointer;
+            // box-shadow: 0px 0px 4px 0px rgba(34, 60, 80, 0.5);
+
             // background: red;
             // &__date {
             //     border-radius: 5px;

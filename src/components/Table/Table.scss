@@ -217,11 +217,14 @@ $paddingTableInner: 2px 14px;
     .table_isk_td:nth-child(3) span {
       font-size: 12px;
       padding: $paddingTableInner;
+      
     }
 
     .table_isk_td:nth-child(6) span {
       font-size: 12px;
       padding: $paddingTableInner;
+      // background: red;
+      // padding: 8px 2px;
     }
 
     .table_isk_td:nth-child(7) span {
@@ -274,7 +277,7 @@ $paddingTableInner: 2px 14px;
 
     .table_isk_td:nth-child(4),
     .table_isk_th:nth-child(4) {
-      width: 150px;
+      width: 170px;
       padding: $paddingTableInner;
     }
 
@@ -296,7 +299,7 @@ $paddingTableInner: 2px 14px;
 
     .table_isk_td:nth-child(8),
     .table_isk_th:nth-child(8) {
-      width: 120px;
+      width: 145px;
       // background: red;
     }
     .table_isk_td:nth-child(9),
@@ -309,7 +312,7 @@ $paddingTableInner: 2px 14px;
       // max-width: 200px;
       width: 200px;
       border-right: 1px solid rgb(234, 234, 234);
-      padding: $paddingTableInner;
+      padding: 2px 8px;
 
       span {
         margin: 5px 0 5px 0;
@@ -354,8 +357,12 @@ $paddingTableInner: 2px 14px;
           width: 100%;
           display: flex;
           align-items: center;
-          flex-wrap: wrap;
+          // flex-wrap: wrap;
           gap: 5px;
+          > span {
+            // background: red;
+            font-size: 12px !important;
+          }
         }
       }
     }

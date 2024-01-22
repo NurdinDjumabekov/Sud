@@ -44,7 +44,7 @@ const initialState = {
   preloaderDocs: false,
 };
 
-/// editIsks /// для получения всех загружаемых данных
+/// editIsks ///
 export const editIsks = createAsyncThunk(
   "editIsks",
   async function (info, { dispatch, rejectWithValue }) {
@@ -181,6 +181,61 @@ export const deleteEveryIsk = createAsyncThunk(
     }
   }
 );
+
+/// sendDocsReject // отправка файла принятия или отказа иска
+export const sendDocsReject = createAsyncThunk(
+  "sendDocsReject",
+  async function (info, { dispatch, rejectWithValue }) {
+    console.log(info, "sendDocsReject");
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/isks/crud/files`,
+        headers: {
+          Authorization: `Bearer ${info?.tokenA}`,
+        },
+        data: info?.formData,
+      });
+      if (response.status >= 200 && response.status < 300) {
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// /// sendDocsReject // отправка файла принятия или отказа иска
+// export const idSendDocsReject = createAsyncThunk(
+//   "idSendDocsReject",
+//   async function (info, { dispatch, rejectWithValue }) {
+//     try {
+//       const response = await axios({
+//         method: "POST",
+//         url: `http://mttp-renaissance.333.kg/api/isks/crud/files`,
+//         headers: {
+//           Authorization: `Bearer ${info?.tokenA}`,
+//           "Content-Type": "multipart/form-data",
+//         },
+//         data: info?.fileData,
+//       });
+//       if (response.status >= 200 && response.status < 300) {
+//         return {
+//           fileData: info?.fileData,
+//           codeid_file: +response?.data?.code_file,
+//           file_path: response?.data?.file_path,
+//           code_file: +info.code_file,
+//           name: info?.name,
+//         };
+//       } else {
+//         throw Error(`Error: ${response.status}`);
+//       }
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
 
 const applicationsSlice = createSlice({
   name: "applicationsSlice",

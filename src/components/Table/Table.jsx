@@ -207,8 +207,8 @@ export const Table = () => {
                     )}
                   </td>
                   <td className="table_isk_td">
-                    {/* <span>{row.secretary}</span> */}
-                    <span>Nurdin</span>
+                    <span>{row.secretary?row.secretary:"Отсутствует"}</span>
+                    {/* <span>Nurdin</span> */}
                   </td>
                   <td className="table_isk_td">
                     <span>{+row?.status === 1 ? 'Активен' : 'Не активен'}</span>

@@ -19,7 +19,28 @@ $widthAllContent: 100%;
     width: $widthMenu;
     max-width: $widthMenu;
     height: 100vh;
-    // background: red;
+    // .nameUser {
+    //   padding: 0px 5px 20px 0px ;
+    //   // background: red;
+    //   img {
+    //     width: 25px;
+    //     height: 25px;
+    //   }
+    //   p {
+    //     color: #5e6e82;
+    //     text-align: left;
+    //     line-height: 20px;
+    //     width: 100%;
+    //     position: relative;
+    //     font-weight: 600;
+    //     font-family: 'Montserrat', sans-serif;
+    //     font-size: 18px;
+    //     // overflow: hidden;
+    //     // white-space: nowrap;
+    //     // text-overflow: ellipsis;
+    //     width: 225px;
+    //   }
+    // }
     p {
       display: inline;
       color: #000;
@@ -33,9 +54,8 @@ $widthAllContent: 100%;
     }
     .logo {
       width: 100%;
-      // border-bottom: 1px solid #4650dd;
       padding: 40px 0 5px 0;
-      margin: 0 0 80px 0;
+      margin: 0 0 70px 0;
       width: 90%;
       height: 150px;
       > img {

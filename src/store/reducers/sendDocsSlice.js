@@ -1,13 +1,14 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { changeADFF, changeADUF, changeDocsIsks } from './inputSlice';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { changeADFF, changeADUF, changeDocsIsks } from "./inputSlice";
 import {
   changeTodosApplications,
+  sendDocsReject,
   toTakeTypeTypeDocs,
-} from './applicationsSlice';
-import { changeActionType } from '../../helpers/changeActionType';
-import { transformCreateData } from '../../helpers/transformCreateData';
-import { changeAlertText } from './typesSlice';
+} from "./applicationsSlice";
+import { changeActionType } from "../../helpers/changeActionType";
+import { transformCreateData } from "../../helpers/transformCreateData";
+import { changeAlertText } from "./typesSlice";
 
 const initialState = {
   preloader: false,
@@ -15,11 +16,11 @@ const initialState = {
 };
 
 export const toTakeIsksList = createAsyncThunk(
-  'toTakeIsksList',
+  "toTakeIsksList",
   async function (token, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
-        method: 'GET',
+        method: "GET",
         url: `http://mttp-renaissance.333.kg/api/isks/get`,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -38,11 +39,11 @@ export const toTakeIsksList = createAsyncThunk(
 
 //// для получения id иска
 export const createIdIsk = createAsyncThunk(
-  'createIsk',
+  "createIsk",
   async function (info, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
-        method: 'POST',
+        method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/crud`,
         data: {
           action_type: 1, /// для создания иска
@@ -87,13 +88,13 @@ export const createIdIsk = createAsyncThunk(
 
 ///sendEveryIsks - создание и редактирование иска у истца
 export const sendEveryIsks = createAsyncThunk(
-  'sendEveryIsks',
+  "sendEveryIsks",
   async function (info, { dispatch, rejectWithValue }) {
     const newData = { ...info?.todosApplications };
-    delete newData['files'];
+    delete newData["files"];
     try {
       const response = await axios({
-        method: 'POST',
+        method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/crud`,
         data: {
           ...newData,
@@ -106,8 +107,8 @@ export const sendEveryIsks = createAsyncThunk(
       if (response.status >= 200 && response.status < 300) {
         dispatch(
           changeAlertText({
-            text: 'Ваши данные успешно сохранены!',
-            backColor: '#f9fafd',
+            text: "Ваши данные успешно сохранены!",
+            backColor: "#f9fafd",
             state: true,
           })
         );
@@ -127,13 +128,13 @@ export const sendEveryIsks = createAsyncThunk(
 
 /// createEveryIsk - create and edit plaintiff
 export const createEveryIsk = createAsyncThunk(
-  'createEveryIsk',
+  "createEveryIsk",
   async function (info, { dispatch, rejectWithValue }) {
     const faceData = info?.typeFace === 1 ? info?.adff : info?.aduf;
     const obj = transformCreateData(info, info?.role, faceData);
     try {
       const response = await axios({
-        method: 'POST',
+        method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/crud`,
         data: {
           action_type: 2,
@@ -162,11 +163,11 @@ export const createEveryIsk = createAsyncThunk(
 
 /// deleteIsks - удаление исков
 export const deleteIsks = createAsyncThunk(
-  'deleteIsks',
+  "deleteIsks",
   async function (info, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
-        method: 'POST',
+        method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/crud`,
         data: {
           action_type: 3,
@@ -189,11 +190,11 @@ export const deleteIsks = createAsyncThunk(
 
 /// changeStatusIsks - изменения статуса иска у истца(истец подаёт иск)
 export const changeStatusIsks = createAsyncThunk(
-  'changeStatusIsks',
+  "changeStatusIsks",
   async function (info, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
-        method: 'POST',
+        method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/crud`,
         data: {
           action_type: 4,
@@ -217,12 +218,12 @@ export const changeStatusIsks = createAsyncThunk(
 /// changeStatusIsks - изменения статуса иска организацией(принят председателем,
 /// отклонён ответ.секретарём ....)
 export const changeStatusOrg = createAsyncThunk(
-  'changeStatusOrg',
+  "changeStatusOrg",
   async function (info, { dispatch, rejectWithValue }) {
-    console.log(info);
+    console.log(info, "info");
     try {
       const response = await axios({
-        method: 'POST',
+        method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/set_isk_status`,
         data: {
           code_isk: +info?.id,
@@ -234,6 +235,9 @@ export const changeStatusOrg = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
+        dispatch(
+          sendDocsReject({ tokenA: info?.tokenA, formData: info?.formData })
+        );
         setTimeout(() => {
           dispatch(toTakeIsksList(info?.tokenA));
         }, 1000);
@@ -247,7 +251,7 @@ export const changeStatusOrg = createAsyncThunk(
 );
 
 const sendDocsSlice = createSlice({
-  name: 'sendDocsSlice',
+  name: "sendDocsSlice",
   initialState,
   reducers: {
     changePreloader: (state, action) => {
@@ -262,7 +266,7 @@ const sendDocsSlice = createSlice({
         ...state.listTodos,
         {
           ...action.payload,
-          codeid: '5',
+          codeid: "5",
           isk_status: null,
           isk_status_name: null,
           arbitrs: [],
@@ -299,7 +303,7 @@ const sendDocsSlice = createSlice({
     ////// sendEveryIsks
     builder.addCase(sendEveryIsks.fulfilled, (state, action) => {
       state.preloader = false;
-      action?.payload?.navigate('/mainPlaintiff');
+      action?.payload?.navigate("/mainPlaintiff");
     });
     builder.addCase(sendEveryIsks.rejected, (state, action) => {
       state.error = action.payload;

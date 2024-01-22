@@ -1,28 +1,16 @@
-import React, { useState } from 'react';
-import logoSud from '../../asstes/images/sud-login.png';
+import React, { useState } from "react";
+import logoSud from "../../asstes/images/sud-login.png";
 
-import './SingIn.scss';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { authLogin } from '../../store/reducers/authSlice';
+import "./SingIn.scss";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authLogin } from "../../store/reducers/authSlice";
 
 export default function SignIn() {
-  const { typeUser } = useSelector((state) => state.saveDataSlice);
-
   const [login, setLogin] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const dataLoginPlaintiff = {
-    email: 'polina.mumber@gmail.com',
-    password: '123123321',
-  };
-
-  const dataLoginResp = {
-    email: 'sec@gmail.com',
-    password: '123456',
-  };
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

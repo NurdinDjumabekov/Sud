@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
-import Modals from '../Modals/Modals';
-import './ConfirmStatus.scss';
-import imgWarning from '../../asstes/images/warning.png';
-import { changeStatusOrg } from '../../store/reducers/sendDocsSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import ExampleBlock from '../ExampleBlock/ExampleBlock';
+import React, { useRef, useState } from "react";
+import Modals from "../Modals/Modals";
+import "./ConfirmStatus.scss";
+import imgWarning from "../../asstes/images/warning.png";
+import { changeStatusOrg } from "../../store/reducers/sendDocsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import ExampleBlock from "../ExampleBlock/ExampleBlock";
+import PdfFileReject from "../ResponsibleSecr/PdfFileReject/PdfFileReject";
+import jsPDF from "jspdf";
+import { sendDocsReject } from "../../store/reducers/applicationsSlice";
 
 const ConfirmStatus = ({ setSendStatusIsk, sendStatusIsk, istype }) => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
+  const [sendDocs, setSendDocs] = useState(false);
   const dispatch = useDispatch();
+  const editorRef = useRef(null);
 
   const handleConfirm = (type) => {
     dispatch(
       changeStatusOrg({
         id: istype.id,
         tokenA,
-        description: type === 1 || type === 3 ? '' : input,
+        description: type === 1 || type === 3 ? "" : input,
         isk_status: +type,
       })
     );
@@ -49,8 +54,8 @@ const ConfirmStatus = ({ setSendStatusIsk, sendStatusIsk, istype }) => {
           <div className="plaintiFilling__container moreStyle">
             <div className="descriptionClaim">
               <ExampleBlock
-                text={'Пример названия и описания иска должен быть таким-то'}
-                typeText={'Пример названия и описания иска'}
+                text={"Пример отказа иска должен быть таким-то"}
+                typeText={"Пример отказа иска"}
               />
               <form>
                 <div>
@@ -67,14 +72,29 @@ const ConfirmStatus = ({ setSendStatusIsk, sendStatusIsk, istype }) => {
                     <div className="btnsSendIsks">
                       <button
                         onClick={() => {
-                          dispatch(
-                            changeStatusOrg({
-                              id: istype.id,
-                              tokenA,
-                              description: input,
-                              isk_status: istype.type,
-                            })
-                          );
+                          if (editorRef.current && editorRef.current.editor) {
+                            const content = editorRef.current.editor.getContent();
+                            const pdf = new jsPDF();
+                            pdf.html(content, {
+                              callback: function (pdf) {
+                                const pdfData = pdf.output();
+                                const formData = new FormData();
+                                const pdfBlob = new Blob([pdfData], { type: "application/pdf" });
+                                formData.append("file", pdfBlob, "document.pdf");
+                                formData.append("code_file", 14); //////// отказ иска отвественным секретарём
+                                formData.append("code_isk", +istype.id);
+                                dispatch(
+                                  changeStatusOrg({
+                                    id: istype.id,
+                                    tokenA,
+                                    description: input,
+                                    isk_status: istype.type,
+                                    formData
+                                  })
+                                  );
+                              },
+                            });
+                          }
                           setSendStatusIsk(false);
                         }}
                       >
@@ -88,6 +108,11 @@ const ConfirmStatus = ({ setSendStatusIsk, sendStatusIsk, istype }) => {
                 </div>
               </form>
             </div>
+            <PdfFileReject
+              input={input}
+              istype={istype}
+              editorRef={editorRef}
+            />
           </div>
         )}
       </Modals>
