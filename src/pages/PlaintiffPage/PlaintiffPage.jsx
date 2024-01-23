@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import "./PlaintiffPage.scss";
 import InputsPlaintiff from "../../components/PlaintiffPage/InputsPlaintiff/InputsPlaintiff";
 import { useNavigate } from "react-router-dom";
-import krestik from "../../asstes/icons/krestik.svg";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeLookAddPlaintiff,
-  changeLookPDF,
+  clearMainBtnList,
 } from "../../store/reducers/stateSlice";
-import FillingPlaintiff from "../../components/PlaintiffPage/FillingPlaintiff/FillingPlaintiff";
 import TargetPlaintiff from "../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff";
 import DescriptionClaim from "../../components/PlaintiffPage/DescriptionClaim/DescriptionClaim";
 import MotivationClaim from "../../components/PlaintiffPage/MotivationClaim/MotivationClaim";
@@ -18,23 +16,11 @@ import GeneralInfo from "../../components/PlaintiffPage/GeneralInfo/GeneralInfo"
 import LinksLaw from "../../components/PlaintiffPage/LinksLaw/LinksLaw";
 import ClaimRequaire from "../../components/PlaintiffPage/ClaimRequaire/ClaimRequaire";
 import ApplicationFiles from "../../components/PlaintiffPage/ApplicationFiles/ApplicationFiles";
-//// imgs
-import imsIcon from "../../asstes/icons/IconPage/archive.svg";
-import plaintiffs from "../../asstes/icons/plaintiff/plaintiff.svg";
-import many from "../../asstes/icons/plaintiff/many.svg";
-import description from "../../asstes/icons/plaintiff/description.svg";
 //// delete
 import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff";
 import { checkDataIsks } from "../../helpers/checkDataIsks";
-import {
-  clearTodosApplications,
-  toTakeTypeTypeDocs,
-} from "../../store/reducers/applicationsSlice";
-import {
-  addListTodos,
-  createIdIsk,
-  sendEveryIsks,
-} from "../../store/reducers/sendDocsSlice";
+import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
+import { createIdIsk, sendEveryIsks } from "../../store/reducers/sendDocsSlice";
 import {
   toTakeCountries,
   toTakeCurrency,
@@ -47,6 +33,7 @@ import {
   toTakeTypeValuta,
 } from "../../store/reducers/selectsSlice";
 import { changeAlertText } from "../../store/reducers/typesSlice";
+//// slider
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -160,8 +147,8 @@ const PlaintiffPage = () => {
     if (checkDataIsks(todosApplications)) {
       dispatch(sendEveryIsks({ todosApplications, tokenA, navigate }));
       dispatch(clearTodosApplications());
+      dispatch(clearMainBtnList()); /// очистка состояние типа исков
     } else {
-      // alert("Нету заполненных полей!");
       dispatch(
         changeAlertText({
           text: "Нету заполненных полей!",
@@ -194,7 +181,7 @@ const PlaintiffPage = () => {
     };
   }, []);
 
-  console.log(todosApplications, "todosApplications");
+  // console.log(todosApplications, "todosApplications");
   // console.log(createIdIsk, "createIdIsk");
   // console.log(docsIsks, "docsIsks");
 
@@ -211,19 +198,18 @@ const PlaintiffPage = () => {
   return (
     <div className="plaintiff">
       <div className="navBlock">
-        <button
+        {/* <button
           className="activeBtnsPlaintiff"
-          style={{ width: "380px" }}
+          style={{ width: "180px" }}
           onClick={saveData}
         >
-          Сохранить весь документ
-        </button>
+          Сохранить
+        </button> */}
         {/* <button className="activeBtnsPlaintiff" style={{ width: '300px' }}>
           Отменить и выйти
         </button> */}
-
         <ul className="btnsType plaintiffTypes">
-          {/* {btnList?.map((btn) => (
+          {btnList?.map((btn) => (
             <button
               key={btn.id}
               onClick={() => {
@@ -234,8 +220,8 @@ const PlaintiffPage = () => {
             >
               {btn.name}
             </button>
-          ))} */}
-          <div className="slider">
+          ))}
+          {/* <div className="slider">
             <Slider {...settings}>
               {btnList?.map((btn) => (
                 <button
@@ -250,19 +236,9 @@ const PlaintiffPage = () => {
                 </button>
               ))}
             </Slider>
-          </div>
+          </div> */}
         </ul>
       </div>
-      {/* <div className="plaintiff__type">
-        <div>
-          <button
-            onClick={() => dispatch(changeLookPDF(true))}
-            className="btnResult"
-          >
-            Посмотреть результат
-          </button>
-        </div>
-      </div> */}
       {/* /// для адаптивки */}
       <InputsPlaintiff btnList={btnList} indexComp={indexComp} />
     </div>
@@ -270,11 +246,3 @@ const PlaintiffPage = () => {
 };
 
 export default PlaintiffPage;
-{
-  /* <button onClick={() => navigate(-1)} className="prevBtn">
-        <img src={krestik} alt="x" />
-      </button> */
-}
-{
-  /* /// delete */
-}

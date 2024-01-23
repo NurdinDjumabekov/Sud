@@ -52,7 +52,7 @@ const DataArrPlaintiff = ({ arr, typerole }) => {
   };
 
   return (
-    <div>
+    <>
       {lookAddPlaintiff == 0 && (
         <div className="mainTables dataPlaintiff">
           <ul className="btnsType add">
@@ -66,7 +66,7 @@ const DataArrPlaintiff = ({ arr, typerole }) => {
       )}
       {lookAddPlaintiff === 1 && <FillingPlaintiff typerole={typerole} />}
       {lookAddPlaintiff === 2 && <FillingPlaintiff typerole={typerole} />}
-    </div>
+    </>
   );
 };
 

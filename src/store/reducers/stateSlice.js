@@ -1,14 +1,40 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  mainBtnList: [
+    {
+      id: 0,
+      name: "Мои иски",
+      bool: true,
+    },
+    {
+      id: 1,
+      name: "Принятые отвественным секретарём",
+      bool: false,
+    },
+    {
+      id: 2,
+      name: "Отклонённые отвественным секретарём",
+      bool: false,
+    },
+    {
+      id: 3,
+      name: "Принятые председателем",
+      bool: false,
+    },
+    {
+      id: 4,
+      name: "Отклонённые председателем",
+      bool: false,
+    },
+  ],
   ///// только для обыный пользователей
-  lookPdf: false,
   lookAddPlaintiff: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
   //// targetPlint
   calculatorType: false,
   calculatorState: false,
   typePay: 1, //// => typeCountSum
-  sumIsk: '',
+  sumIsk: "",
   resultSumIsk: {
     num1: 0,
     num2: 0,
@@ -23,12 +49,42 @@ const initialState = {
 };
 
 const stateSlice = createSlice({
-  name: 'stateSlice',
+  name: "stateSlice",
   initialState,
   reducers: {
-    changeLookPDF: (state, action) => {
-      state.lookPdf = action.payload;
+    changeMainBtnList: (state, action) => {
+      state.mainBtnList = action.payload;
     },
+    clearMainBtnList: (state, action) => {
+      state.mainBtnList = [
+        {
+          id: 0,
+          name: "Мои иски",
+          bool: true,
+        },
+        {
+          id: 1,
+          name: "Принятые отвественным секретарём",
+          bool: false,
+        },
+        {
+          id: 2,
+          name: "Отклонённые отвественным секретарём",
+          bool: false,
+        },
+        {
+          id: 3,
+          name: "Принятые председателем",
+          bool: false,
+        },
+        {
+          id: 4,
+          name: "Отклонённые председателем",
+          bool: false,
+        },
+      ];
+    },
+
     changeLookAddPlaintiff: (state, action) => {
       state.lookAddPlaintiff = action.payload;
     },
@@ -62,7 +118,8 @@ const stateSlice = createSlice({
   },
 });
 export const {
-  changeLookPDF,
+  changeMainBtnList,
+  clearMainBtnList,
   changeLookAddPlaintiff,
   changeCalculatorState,
   changeSumIsk,

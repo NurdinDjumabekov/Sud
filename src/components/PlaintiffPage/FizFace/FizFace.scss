@@ -3,6 +3,11 @@
   animation: fadeIn 1s ease forwards;
   padding: 0px 0px 20px 0px;
   border-radius: 8px !important;
+  width: 100%;
+  .addPlaintiffFiz {
+    // background: red;
+    width: 100%;
+  }
 
   h3 {
     padding: 25px 0 25px 20px;
@@ -92,25 +97,22 @@
         width: 100%;
       }
     }
+    .sixInputs {
+      width: 100%;
+      align-items: center;
+      gap: 15px;
+    }
     .threeInputs {
       padding: 0 0 30px 0;
+      display: flex;
       justify-content: space-between;
       gap: 15px;
       align-items: end;
+      width: 100%;
 
-      > div:nth-child(1) {
-        > label {
-          // width: 100%;
-        }
-        > div {
-          // margin: 0 auto;
-        }
-      }
     }
-
-    .twoo {
-      justify-content: start;
-      gap: 78px;
+    .moreStyles {
+      gap: 8px;
     }
     .disableInput {
       background: #f9fafd !important;
@@ -119,7 +121,6 @@
   }
 }
 .btnsSave {
-  // background: red;
   justify-content: center !important;
   gap: 50px;
   .saveBtn {
@@ -139,6 +140,7 @@
   }
   span {
     cursor: pointer;
+    text-align: center;
   }
 }
 

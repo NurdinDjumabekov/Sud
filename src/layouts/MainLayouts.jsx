@@ -11,15 +11,6 @@ import calTodoPlaintiff from "../asstes/icons/IconPage/calendar2.svg";
 import archive from "../asstes/icons/IconPage/archive.svg";
 import arrow from "../asstes/icons/IconPage/arrow.svg";
 ////
-// import create2 from "../asstes/icons/IconPage/create2.svg";
-// import myIski from "../asstes/icons/IconPage/me_iski.svg";
-// import notif from "../asstes/icons/IconPage/notification.svg";
-// import meetingsPlaintiff from "../asstes/icons/IconPage/calendar.svg";
-// import calTodoPlaintiff from "../asstes/icons/IconPage/calendar2.svg";
-// import archive from "../asstes/icons/IconPage/archive.svg";
-// import arrow from "../asstes/icons/IconPage/arrow.svg";
-// delete
-////// imgsWhite
 import myIskiWhite from "../asstes/icons/IconPageWhite/me_iski.svg";
 import notifWhite from "../asstes/icons/IconPageWhite/notification.svg";
 import createWhite from "../asstes/icons/IconPageWhite/create.svg";
@@ -66,30 +57,30 @@ function MainLayouts() {
       iconWhite: notifWhite,
       count: true,
     },
-    {
-      id: 4,
-      name: "Календарь дел",
-      path: "/calTodoPlaintiff",
-      bool: false,
-      icon: meetingsPlaintiff,
-      iconWhite: meetingsPlaintiffWhite,
-    },
-    {
-      id: 5,
-      name: "Календарь заседаний",
-      path: "/meetingsPlaintiff",
-      bool: false,
-      icon: calTodoPlaintiff,
-      iconWhite: calTodoPlaintiffWhite,
-    },
-    {
-      id: 6,
-      name: "Архив дел",
-      path: "/archive",
-      bool: false,
-      icon: archive,
-      iconWhite: archiveWhite,
-    },
+    // {
+    //   id: 4,
+    //   name: "Календарь дел",
+    //   path: "/calTodoPlaintiff",
+    //   bool: false,
+    //   icon: meetingsPlaintiff,
+    //   iconWhite: meetingsPlaintiffWhite,
+    // },
+    // {
+    //   id: 5,
+    //   name: "Календарь заседаний",
+    //   path: "/meetingsPlaintiff",
+    //   bool: false,
+    //   icon: calTodoPlaintiff,
+    //   iconWhite: calTodoPlaintiffWhite,
+    // },
+    // {
+    //   id: 6,
+    //   name: "Архив дел",
+    //   path: "/archive",
+    //   bool: false,
+    //   icon: archive,
+    //   iconWhite: archiveWhite,
+    // },
   ]);
 
   React.useEffect(() => {
@@ -115,7 +106,7 @@ function MainLayouts() {
   }, [location.pathname]);
 
   React.useEffect(() => {
-    dispatch(toTakeIsksList(tokenA));
+    dispatch(toTakeIsksList({ tokenA, id: 0 }));
     dispatch(toTakeTypeTypeDocs(tokenA));
   }, []);
 

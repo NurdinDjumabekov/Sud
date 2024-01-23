@@ -11,6 +11,7 @@ import imgFizFace from "../../../asstes/icons/plaintiff/fiz_face.svg";
 import imgUrFace from "../../../asstes/icons/plaintiff/ur_face.svg";
 import editImg from "../../../asstes/icons/editBtn.svg";
 import deleteImg from "../../../asstes/icons/deleteBtn.svg";
+/// delete
 import { deleteEveryIsk } from "../../../store/reducers/applicationsSlice";
 
 const DocsListInner = ({ arr, arr2, typerole }) => {
@@ -83,44 +84,36 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
           <div>
             {arr?.map((i) => (
               <div key={i.codeid} className="everyCard">
-                <div className="everyCard__imgs">
-                  {/* <div className="everyCard__date">
-                    <h5>Февраль</h5>
-                    <p>25</p>
-                  </div> */}
-                  {i?.typeFace === 1 ? (
-                    <img src={imgFizFace} alt="faceImg" />
-                  ) : (
-                    <img src={imgUrFace} alt="faceImg" />
-                  )}
-                </div>
-                <div className="everyCard__data">
-                  <h5>ФИО: {i.name ? i.name : "не указано"}</h5>
-                  {i.typeFace === "" ? (
-                    " не указано"
-                  ) : (
-                    <p>
-                      Лицо:
-                      {i?.typeFace === 1 ? " физическое" : " юридическое"}
-                    </p>
-                  )}
-                  <p>
-                    Адрес
-                    {i.country && i.city ? (
-                      <>
-                        : {i.country},{i.city}
-                      </>
+                <div className="everyCard__mainData">
+                  <div className="everyCard__data">
+                    <h5>{i.name ? i.name : "не указано"}</h5>
+                    {i.typeFace === "" ? (
+                      " не указано"
                     ) : (
-                      ": не указан"
+                      <p>
+                        {i?.typeFace === 1
+                          ? " Физическое лицо"
+                          : " Юридическое лицо"}
+                      </p>
                     )}
-                  </p>
+                    <p>
+                      {i.country && i.city ? (
+                        <>
+                          {i.country},{i.city}
+                          {/* Кыргызстан, Бишкек */}
+                        </>
+                      ) : (
+                        ": не указан"
+                      )}
+                    </p>
+                  </div>
                 </div>
                 <div className="everyCard__btns">
                   <button onClick={() => changeAddPlaintiff(i, "plaint")}>
-                    <img src={editImg} alt="edit" />
+                    Редактировать
                   </button>
                   <button onClick={() => deleteIsks(i, "plaint")}>
-                    <img src={deleteImg} alt="delete" />
+                    Удалить
                   </button>
                 </div>
               </div>
@@ -129,44 +122,36 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
           <div>
             {arr2?.map((i) => (
               <div key={i.codeid} className="everyCard">
-                <div className="everyCard__imgs">
-                  {/* <div className="everyCard__date">
-                    <h5>Февраль</h5>
-                    <p>25</p>
-                  </div> */}
-                  {i?.typeFace === 1 ? (
-                    <img src={imgFizFace} alt="faceImg" />
-                  ) : (
-                    <img src={imgUrFace} alt="faceImg" />
-                  )}
-                </div>
-                <div className="everyCard__data">
-                  <h5>ФИО: {i.name ? i.name : "не указано"}</h5>
-                  {i.typeFace === "" ? (
-                    " не указано"
-                  ) : (
-                    <p>
-                      Лицо:
-                      {i?.typeFace === 1 ? " физическое" : " юридическое"}
-                    </p>
-                  )}
-                  <p>
-                    Адрес:
-                    {i.country && i.city ? (
-                      <>
-                        {i.country},{i.city}
-                      </>
+                <div className="everyCard__mainData">
+                  <div className="everyCard__data">
+                    <h5>{i.name ? i.name : "не указано"}</h5>
+                    {i.typeFace === "" ? (
+                      " не указано"
                     ) : (
-                      " не указан"
+                      <p>
+                        {i?.typeFace === 1
+                          ? " Физическое лицо"
+                          : " Юридическое лицо"}
+                      </p>
                     )}
-                  </p>
+                    <p>
+                      {i.country && i.city ? (
+                        <>
+                          {i.country},{i.city}
+                          {/* Кыргызстан, Бишкек */}
+                        </>
+                      ) : (
+                        ": не указан"
+                      )}
+                    </p>
+                  </div>
                 </div>
                 <div className="everyCard__btns">
-                  <button onClick={() => changeAddPlaintiff(i, "represen")}>
-                    <img src={editImg} alt="" />
+                  <button onClick={() => changeAddPlaintiff(i, "plaint")}>
+                    Редактировать
                   </button>
-                  <button onClick={() => deleteIsks(i, "represen")}>
-                    <img src={deleteImg} alt="" />
+                  <button onClick={() => deleteIsks(i, "plaint")}>
+                    Удалить
                   </button>
                 </div>
               </div>

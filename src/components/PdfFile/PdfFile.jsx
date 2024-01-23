@@ -21,11 +21,11 @@ const PdfFile = ({ modal, typerole }) => {
   // console.log(todosApplications, "todosApplications");
 
   const transformData = (arr, type) => {
-    let allText = `<div style="font-weight: 500; font-size: 20px;">`;
+    let allText = `<div style="font-weight: 500; font-size: 16px;">`;
     for (const text of arr) {
-      const titleText = `<div style="display:inline-block;margin: 35px 0px 0px 0px;"><h3 style="display:inline;margin: 0px 5px 0px 0px;">${mainText(
+      const titleText = `<div style="display:inline-block;margin: 15px 5px 0px 0px;">${mainText(
         type
-      )} </h3>    ${text.name}</div>`;
+      )}${text.name}</div>`;
       const phoneText = `<div style="display:flex; align-items:center"><span>Телефон: </span> ${text.numPhone}</div>`;
       const adresText = `<div style="display:flex; align-items:center"><span>Адрес: </span> ${text.country}, ${text.region}, ${text.district}, ${text.city}, ${text.street}, ${text.numObj}</div>`;
       const email = `<div style="display:flex; align-items:center"><span>Почта: </span> ${text.email}</div>`;
@@ -38,13 +38,13 @@ const PdfFile = ({ modal, typerole }) => {
 
   const mainText = (type) => {
     if (type === 1) {
-      return "Истец: ";
+      return "<h3 style='display:inline; margin: 0px 5px 5px 0px; font-size: 16px;'>Истец: </h3>";
     } else if (type === 2) {
-      return "<h3 style='display:flex; margin: 0px 0px 5px 0px'>Представитель по доверенности: </h3>";
+      return "<h3 style='display:flex; margin: 0px 0px 5px 0px; font-size: 16px;'>Представитель по доверенности: </h3>";
     } else if (type === 3) {
-      return "Ответчик: ";
+      return "<h3 style='display:inline; margin: 0px 5px 5px 0px; font-size: 16px;'>Ответчик: </h3>";
     } else if (type === 4) {
-      return "<h3 style='display:flex; margin: 0px 0px 5px 0px'>Представитель ответчика: </h3>";
+      return "<h3 style='display:flex; margin: 0px 0px 5px 0px; font-size: 16px;'>Представитель ответчика: </h3>";
     }
   };
 
@@ -53,15 +53,15 @@ const PdfFile = ({ modal, typerole }) => {
       <div>
         <div style="display:flex; justify-content:right; margin: 40px 0px 20px 0px; font-size:16px !important">
           <div style="
-              width: 350px;
+              width: 280px;
               padding: 0px 10px 0px 0px;
               line-height: 25px;
               font-weight: 600;
               font-family: 'Times New Roman', sans-serif;
               ">
-            <p style="margin: 0px; font-size: 20px;">Международный Третейский суд</p>
-            <p style="margin: 0px; font-size: 20px;">при Торгово-Промышленной палате</p>
-            <p style="margin: 0px; font-size: 20px;">Кыргызской Республики</p>
+            <p style="margin: 0px; font-size: 16px;">Международный Третейский суд</p>
+            <p style="margin: 0px; font-size: 16px;">при Торгово-Промышленной палате</p>
+            <p style="margin: 0px; font-size: 16px;">Кыргызской Республики</p>
             <div style="margin: 0px">${transformData(
               todosApplications?.plaintiff,
               1
@@ -78,7 +78,7 @@ const PdfFile = ({ modal, typerole }) => {
               todosApplications?.defendantResper,
               4
             )}</div>
-             <p style=" font-size: 20px;">${
+             <p style=" font-size: 16px;">${
                todosApplications?.summ === "0" ||
                todosApplications?.summ === "" ||
                todosApplications?.summ === 0
@@ -105,39 +105,39 @@ const PdfFile = ({ modal, typerole }) => {
         ${
           todosApplications?.name === ""
             ? ""
-            : `<h4 style="text-align:center; font-size: 25px;">
+            : `<h4 style="text-align:center; font-size: 20px;">
               ${todosApplications?.name}
             </h4>`
         }
         ${
           todosApplications?.description === ""
             ? ""
-            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.description}</p>`
+            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.description}</p>`
         }
         ${
           todosApplications?.motivation === ""
             ? ""
-            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.motivation}</p>`
+            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.motivation}</p>`
         }
         ${
           todosApplications?.obosnovanie === ""
             ? ""
-            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.obosnovanie}</p>`
+            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.obosnovanie}</p>`
         }
         ${
           todosApplications?.finance_raschet === ""
             ? ""
-            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.finance_raschet}</p>`
+            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.finance_raschet}</p>`
         }
         ${
           todosApplications?.law_links === ""
             ? ""
-            : `<p style=" font-size: 20px; text-indent: 40px; margin: 5px 0px">${todosApplications?.law_links}</p>`
+            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.law_links}</p>`
         }
         ${
           todosApplications?.claim === ""
             ? ""
-            : `<p style=" font-size: 20px; text-indent: 40px;">${todosApplications?.claim}</p>`
+            : `<p style=" font-size: 18px; text-indent: 40px;">${todosApplications?.claim}</p>`
         }
     </div>
   `;

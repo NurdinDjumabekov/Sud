@@ -5,10 +5,11 @@ $widthAllContent: 100%;
   display: flex;
   gap: 5px;
   width: 100%;
-  max-width: 2250px;
+  // max-width: 2250px;
+  max-width: 100%;
   margin: 0 auto;
   background: #f9fafd;
-  padding: 0 10px;
+  padding: 0 30px;
 
   &__inner {
     display: flex;
@@ -171,7 +172,7 @@ $widthAllContent: 100%;
     }
   }
   &__content {
-    width: 86%;
+    width: 100%;
     display: flex;
     align-items: center;
     // background: red;

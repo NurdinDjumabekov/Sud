@@ -134,8 +134,6 @@ const UrFace = ({ typerole }) => {
               value={aduf.numPhone}
             />
           </div>
-        </div>
-        <div className="twoInputs">
           <div>
             <p>Ваш ИНН</p>
             <input
@@ -159,7 +157,7 @@ const UrFace = ({ typerole }) => {
             />
           </div>
         </div>
-        <div className="twoInputs">
+        <div className="threeInputs two_more">
           <div>
             <p>Электронная почта</p>
             <input
@@ -171,7 +169,7 @@ const UrFace = ({ typerole }) => {
               value={aduf.email}
             />
           </div>
-          <div>
+          <div style={{ width: "300px" }}>
             <p>Второй адрес электронной почты</p>
             <input
               required
@@ -182,14 +180,17 @@ const UrFace = ({ typerole }) => {
               value={aduf.email2}
             />
           </div>
-        </div>
-        <div className="threeInputs">
-          <Selects
-            arr={selTypeOrganiz}
-            initText={"Вид организационно-правовой нормы"}
-            keys={{ typeKey: aduf.typeOrganization, type: "typeOrganization" }}
-            type="aduf"
-          />
+          <div style={{ width: "300px" }}>
+            <Selects
+              arr={selTypeOrganiz}
+              initText={"Вид организационно-правовой нормы"}
+              keys={{
+                typeKey: aduf.typeOrganization,
+                type: "typeOrganization",
+              }}
+              type="aduf"
+            />
+          </div>
           <DataInput
             props={{
               title: "Дата первичной регистрации",
@@ -207,15 +208,7 @@ const UrFace = ({ typerole }) => {
             type="aduf"
           />
         </div>
-        <div className="threeInputs">
-          <Selects
-            arr={selCountries}
-            initText={"Страна"}
-            keys={{ typeKey: aduf.country_ur, type: "country_ur" }}
-            type="aduf"
-          />
-        </div>
-        <div className="btnsTypeMain">
+        {/* <div className="btnsTypeMain">
           <div className="btnsType">
             <span
               className={aduf?.type === 1 ? "activeBtnsPlaintiff" : ""}
@@ -231,161 +224,159 @@ const UrFace = ({ typerole }) => {
             </span>
           </div>
         </div>
-        {aduf?.type === 1 ? (
-          <>
-            <div className="threeInputs">
-              <Selects
-                arr={selTypePosition}
-                initText={"Должность в компании"}
-                keys={{ typeKey: aduf.userStatus, type: "userStatus" }}
-                type="aduf"
-              />
-              <DataInput
-                props={{
-                  title: "Дата назначения *",
-                  nameInput: "startData",
-                  placeholder: "",
-                  keyData: aduf.startData,
-                  typeChange: "aduf",
-                }}
-              />
-              <DataInput
-                props={{
-                  title: "Дата истечения *",
-                  nameInput: "endData",
-                  placeholder: "",
-                  keyData: aduf.endData,
-                  typeChange: "aduf",
-                }}
-              />
-            </div>
-            <div className="twoInputs">
-              <div>
-                <p>ФИО руководителя</p>
-                <input
-                  required
-                  type="text"
-                  placeholder="ФИО руководителя"
-                  name="fioBoss"
-                  onChange={changeInput}
-                  value={aduf.fioBoss}
-                />
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="threeInputs">
-              <Selects
-                arr={selCountries}
-                initText={"Страна *"}
-                keys={{ typeKey: aduf.country, type: "country" }}
-                type="aduf"
-              />
-              <Selects
-                arr={selRegions}
-                initText={"Область *"}
-                keys={{ typeKey: aduf.region, type: "region" }}
-                type="aduf"
-              />
-              <Selects
-                arr={selDistrict}
-                initText={"Район *"}
-                keys={{ typeKey: aduf.district, type: "district" }}
-                type="aduf"
-              />
-            </div>
-            <div className="threeInputs">
-              <div>
-                <p>Город</p>
-                <input
-                  required
-                  type="text"
-                  placeholder="Ваш город проживания"
-                  name="city"
-                  onChange={changeInput}
-                  value={aduf.city}
-                />
-              </div>
-              <Selects
-                arr={selTypeAddress}
-                initText={"Адресный элемент *"}
-                keys={{ typeKey: aduf.adddreselement, type: "adddreselement" }}
-                type="aduf"
-              />
-              <div>
-                <p>Улица</p>
-                <input
-                  required
-                  type="text"
-                  placeholder="Улица"
-                  name="street"
-                  onChange={changeInput}
-                  value={aduf.street}
-                />
-              </div>
-            </div>
-            <div className="threeInputs">
-              <div>
-                <p>Номер объекта</p>
-                <input
-                  required
-                  type="text"
-                  placeholder="Номер объекта"
-                  name="numObj"
-                  onChange={changeInput}
-                  value={aduf.numObj}
-                />
-              </div>
-              <div>
-                <p>Буквенный индекс</p>
-                <input
-                  required
-                  type="text"
-                  placeholder="Буквенный индекс"
-                  name="index"
-                  onChange={changeInput}
-                  value={aduf.index}
-                />
-              </div>
-              <div>
-                <p>Квартира</p>
-                <input
-                  required
-                  type="text"
-                  placeholder="Квартира"
-                  name="apartament"
-                  onChange={changeInput}
-                  value={aduf.apartament}
-                />
-              </div>
-            </div>
-            <div className="threeInputs">
-              <div>
-                <p>Почтовый индекс</p>
-                <input
-                  required
-                  type="text"
-                  placeholder="Почтовый индекс"
-                  name="emailIndex"
-                  onChange={changeInput}
-                  value={aduf.emailIndex}
-                />
-              </div>
-              <div>
-                <p>Описание</p>
-                <input
-                  required
-                  type="text"
-                  placeholder="Описание"
-                  name="description"
-                  onChange={changeInput}
-                  value={aduf.description}
-                />
-              </div>
-            </div>
-          </>
-        )}
+        /////////// */}
+        <div className="threeInputs">
+          <Selects
+            arr={selCountries}
+            initText={"Страна"}
+            keys={{ typeKey: aduf.country_ur, type: "country_ur" }}
+            type="aduf"
+          />
+          <Selects
+            arr={selTypePosition}
+            initText={"Должность в компании"}
+            keys={{ typeKey: aduf.userStatus, type: "userStatus" }}
+            type="aduf"
+          />
+          <DataInput
+            props={{
+              title: "Дата назначения *",
+              nameInput: "startData",
+              placeholder: "",
+              keyData: aduf.startData,
+              typeChange: "aduf",
+            }}
+          />
+          <DataInput
+            props={{
+              title: "Дата истечения *",
+              nameInput: "endData",
+              placeholder: "",
+              keyData: aduf.endData,
+              typeChange: "aduf",
+            }}
+          />
+          <div>
+            <p>ФИО руководителя</p>
+            <input
+              required
+              type="text"
+              placeholder="ФИО руководителя"
+              name="fioBoss"
+              onChange={changeInput}
+              value={aduf.fioBoss}
+            />
+          </div>
+        </div>
+        <div className="threeInputs">
+          <Selects
+            arr={selCountries}
+            initText={"Страна *"}
+            keys={{ typeKey: aduf.country, type: "country" }}
+            type="aduf"
+          />
+          <Selects
+            arr={selRegions}
+            initText={"Область *"}
+            keys={{ typeKey: aduf.region, type: "region" }}
+            type="aduf"
+          />
+          <Selects
+            arr={selDistrict}
+            initText={"Район *"}
+            keys={{ typeKey: aduf.district, type: "district" }}
+            type="aduf"
+          />
+          <div>
+            <p>Город</p>
+            <input
+              required
+              type="text"
+              placeholder="Ваш город проживания"
+              name="city"
+              onChange={changeInput}
+              value={aduf.city}
+            />
+          </div>
+          <Selects
+            arr={selTypeAddress}
+            initText={"Адресный элемент *"}
+            keys={{ typeKey: aduf.adddreselement, type: "adddreselement" }}
+            type="aduf"
+          />
+        </div>
+
+        <div className="threeInputs">
+          <div>
+            <p>Улица</p>
+            <input
+              required
+              type="text"
+              placeholder="Улица"
+              name="street"
+              onChange={changeInput}
+              value={aduf.street}
+            />
+          </div>
+          <div>
+            <p>Номер объекта</p>
+            <input
+              required
+              type="text"
+              placeholder="Номер объекта"
+              name="numObj"
+              onChange={changeInput}
+              value={aduf.numObj}
+            />
+          </div>
+          <div>
+            <p>Буквенный индекс</p>
+            <input
+              required
+              type="text"
+              placeholder="Буквенный индекс"
+              name="index"
+              onChange={changeInput}
+              value={aduf.index}
+            />
+          </div>
+          <div>
+            <p>Квартира</p>
+            <input
+              required
+              type="text"
+              placeholder="Квартира"
+              name="apartament"
+              onChange={changeInput}
+              value={aduf.apartament}
+            />
+          </div>
+          <div>
+            <p>Почтовый индекс</p>
+            <input
+              required
+              type="text"
+              placeholder="Почтовый индекс"
+              name="emailIndex"
+              onChange={changeInput}
+              value={aduf.emailIndex}
+            />
+          </div>
+        </div>
+        <div className="threeInputs">
+          <div>
+            <p>Описание</p>
+            <input
+              required
+              type="text"
+              placeholder="Описание"
+              name="description"
+              onChange={changeInput}
+              value={aduf.description}
+            />
+          </div>
+        </div>
+        {aduf?.type === 1 ? <></> : <></>}
         <div className="btnsSave">
           <button className="saveBtn" type="submit">
             Сохранить данные {typerole}

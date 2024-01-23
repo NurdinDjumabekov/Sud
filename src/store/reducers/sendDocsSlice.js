@@ -17,13 +17,14 @@ const initialState = {
 
 export const toTakeIsksList = createAsyncThunk(
   "toTakeIsksList",
-  async function (token, { dispatch, rejectWithValue }) {
+  async function (info, { dispatch, rejectWithValue }) {
+    const { tokenA, id } = info;
     try {
       const response = await axios({
         method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/isks/get`,
+        url: `http://mttp-renaissance.333.kg/api/isks/get?status=${id}`,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${tokenA}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
