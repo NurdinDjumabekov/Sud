@@ -1,6 +1,6 @@
 .plaintiffData {
-  display: flex;
-  gap: 10px;
+  // display: flex;
+  // gap: 10px;
   margin: 5px 0 0 0;
   &__every {
     width: 100%;
@@ -10,6 +10,7 @@
     justify-content: space-between;
     gap: 18px;
     width: 100%;
+    // background: red;
   }
   &__list {
     display: flex;
@@ -69,5 +70,36 @@
         justify-content: start;
       }
     }
+  }
+}
+.actionBtn {
+  // background: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0 10px 0;
+  button {
+    transition: 0.2s;
+    padding: 10px 15px;
+    display: inline;
+    margin: 0px 2px;
+    white-space: nowrap;
+    box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
+      0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07),
+      0 1px 2px 0 rgba(0, 0, 0, 0.08);
+    height: 37px;
+    line-height: 15px;
+    width: 180px;
+    background: green;
+    color: #fff;
+    border-radius: 6px;
+    border: 1px solid rgba(153, 148, 148, 0.5411764706);
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+  }
+  button:nth-child(2) {
+    background: red;
   }
 }

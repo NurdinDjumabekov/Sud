@@ -1,25 +1,18 @@
 .dataPlaintiff {
-  height: 90vh !important;
+  height: 87vh !important;
   width: 50% !important;
-  // width: 970px !important;
-  // margin: 5px 5px 0px !important;
   .main_tabla_isk {
     .table_isk_td:nth-child(1),
     .table_isk_th:nth-child(1) {
       width: 50% !important;
-      // background: green !important;
-      // text-align: center;
     }
     .table_isk_td:nth-child(2),
     .table_isk_th:nth-child(2) {
       width: 50% !important;
-      // background: green !important;
-      // text-align: center;
     }
   }
 }
 .emptyData {
-//   background: red;
   height: 87vh;
   width: 100%;
   display: flex;
@@ -37,7 +30,6 @@
     font-size: 18px !important;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
-    // background: transparent !important;
     background: rgba(237, 242, 249, 0.404) !important;
     border-radius: 5px;
 
