@@ -106,7 +106,7 @@ function MainLayouts() {
   }, [location.pathname]);
 
   React.useEffect(() => {
-    dispatch(toTakeIsksList({ tokenA, id: 0 }));
+    dispatch(toTakeIsksList({ tokenA, id: "0" }));
     dispatch(toTakeTypeTypeDocs(tokenA));
   }, []);
 

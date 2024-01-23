@@ -334,7 +334,7 @@ const FizFace = ({ typerole }) => {
                 readOnly={adff.unknownInn === 1 ? true : false}
               />
             </div>
-            {lookAddPlaintiff === 2 ? (
+            {/* {lookAddPlaintiff === 2 ? (
               <Selects
                 arr={
                   typerole === "истца"
@@ -347,7 +347,7 @@ const FizFace = ({ typerole }) => {
               />
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </div>
         <h4>

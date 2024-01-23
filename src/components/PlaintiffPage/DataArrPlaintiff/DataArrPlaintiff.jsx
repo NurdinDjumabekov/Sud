@@ -1,14 +1,14 @@
-import React from "react";
-import "./DataArrPlaintiff.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
-import FillingPlaintiff from "../FillingPlaintiff/FillingPlaintiff";
-import DocsList from "../DocsList/DocsList";
+import React from 'react';
+import './DataArrPlaintiff.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeLookAddPlaintiff } from '../../../store/reducers/stateSlice';
+import FillingPlaintiff from '../FillingPlaintiff/FillingPlaintiff';
+import DocsList from '../DocsList/DocsList';
 import {
   changeADFF,
   changeADUF,
   changeTypeFace,
-} from "../../../store/reducers/inputSlice";
+} from '../../../store/reducers/inputSlice';
 
 const DataArrPlaintiff = ({ arr, typerole }) => {
   const dispatch = useDispatch();
@@ -30,24 +30,16 @@ const DataArrPlaintiff = ({ arr, typerole }) => {
   };
 
   const clickRepresen = () => {
-    if (typerole === "истца") {
+    if (typerole === 'истца') {
       approvId();
       /// нажатие на представителя истца
-      if (todosApplications?.plaintiff?.length === 0) {
-        alert("Сначало заполните данные истца");
-      } else {
-        dispatch(changeLookAddPlaintiff(2));
-        dispatch(changeTypeFace(1));
-      }
-    } else if (typerole === "ответчика") {
+      dispatch(changeLookAddPlaintiff(2));
+      dispatch(changeTypeFace(1));
+    } else if (typerole === 'ответчика') {
       approvId();
       /// нажатие на представителя ответчика
-      if (todosApplications?.defendant?.length === 0) {
-        alert("Сначало заполните данные ответчика");
-      } else {
-        dispatch(changeLookAddPlaintiff(2));
-        dispatch(changeTypeFace(1));
-      }
+      dispatch(changeLookAddPlaintiff(2));
+      dispatch(changeTypeFace(1));
     }
   };
 

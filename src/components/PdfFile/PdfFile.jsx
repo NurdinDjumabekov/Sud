@@ -1,14 +1,15 @@
-import React, { useRef } from "react";
-import "./PdfFile.scss";
-import pdf from "../../asstes/pdf/sud_pdf.pdf";
-import { Editor } from "@tinymce/tinymce-react";
-import { useDispatch, useSelector } from "react-redux";
-import { searchIdCurrency } from "../../helpers/searchIdCurrency";
+import React, { useRef, useState } from 'react';
+import './PdfFile.scss';
+import pdf from '../../asstes/pdf/sud_pdf.pdf';
+import { Editor } from '@tinymce/tinymce-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchIdCurrency } from '../../helpers/searchIdCurrency';
 
 const PdfFile = ({ modal, typerole }) => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
   const { selCurrency } = useSelector((state) => state.selectsSlice);
+  const [date, setDate] = useState('');
 
   const handleEditorChange = (content, editor) => {
     // console.log('Content was updated:', content);
@@ -32,10 +33,9 @@ const PdfFile = ({ modal, typerole }) => {
       const inn = `<div style="display:flex; align-items:center"><span>Инн: </span> ${text.inn}</div>`;
       allText += titleText + phoneText + adresText + email + inn;
     }
-    allText += "</div>";
+    allText += '</div>';
     return allText;
   };
-
   const mainText = (type) => {
     if (type === 1) {
       return "<h3 style='display:inline; margin: 0px 5px 5px 0px; font-size: 16px;'>Истец: </h3>";
@@ -47,11 +47,24 @@ const PdfFile = ({ modal, typerole }) => {
       return "<h3 style='display:flex; margin: 0px 0px 5px 0px; font-size: 16px;'>Представитель ответчика: </h3>";
     }
   };
+  React.useEffect(() => {
+    const currentDateObject = new Date();
+    const day = currentDateObject.getDate();
+    const month = currentDateObject.getMonth() + 1; // Месяцы начинаются с 0
+    const year = currentDateObject.getFullYear();
+
+    const formattedDate = `${day < 10 ? '0' : ''}${day}.${
+      month < 10 ? '0' : ''
+    }${month}.${year}г.`;
+
+    setDate(formattedDate);
+  }, []);
 
   const initialContent = `
     <div>
       <div>
-        <div style="display:flex; justify-content:right; margin: 40px 0px 20px 0px; font-size:16px !important">
+        <div style="display:flex; justify-content: space-between; margin: 40px 0px 20px 0px; font-size:16px !important">
+          <p style="margin: 0px 0px 0px 10px; font-size: 16px;">от ${date}</p>
           <div style="
               width: 280px;
               padding: 0px 10px 0px 0px;
@@ -79,14 +92,14 @@ const PdfFile = ({ modal, typerole }) => {
               4
             )}</div>
              <p style=" font-size: 16px;">${
-               todosApplications?.summ === "0" ||
-               todosApplications?.summ === "" ||
+               todosApplications?.summ === '0' ||
+               todosApplications?.summ === '' ||
                todosApplications?.summ === 0
-                 ? ""
+                 ? ''
                  : `Цена иска: ${
-                     todosApplications?.summ === ""
-                       ? ""
-                       : `${todosApplications?.summ}${" "}${
+                     todosApplications?.summ === ''
+                       ? ''
+                       : `${todosApplications?.summ}${' '}${
                            searchIdCurrency(
                              selCurrency,
                              +todosApplications?.summ_curr
@@ -95,7 +108,7 @@ const PdfFile = ({ modal, typerole }) => {
                                  selCurrency,
                                  +todosApplications?.summ_curr
                                )
-                             : ""
+                             : ''
                          }`
                    }`
              }
@@ -103,42 +116,45 @@ const PdfFile = ({ modal, typerole }) => {
           </div>
         </div>
         ${
-          todosApplications?.name === ""
-            ? ""
+          todosApplications?.name === ''
+            ? ''
             : `<h4 style="text-align:center; font-size: 20px;">
               ${todosApplications?.name}
             </h4>`
         }
         ${
-          todosApplications?.description === ""
-            ? ""
+          todosApplications?.description === ''
+            ? ''
             : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.description}</p>`
         }
         ${
-          todosApplications?.motivation === ""
-            ? ""
+          todosApplications?.motivation === ''
+            ? ''
             : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.motivation}</p>`
         }
         ${
-          todosApplications?.obosnovanie === ""
-            ? ""
+          todosApplications?.obosnovanie === ''
+            ? ''
             : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.obosnovanie}</p>`
         }
         ${
-          todosApplications?.finance_raschet === ""
-            ? ""
+          todosApplications?.finance_raschet === ''
+            ? ''
             : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.finance_raschet}</p>`
         }
         ${
-          todosApplications?.law_links === ""
-            ? ""
+          todosApplications?.law_links === ''
+            ? ''
             : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.law_links}</p>`
         }
         ${
-          todosApplications?.claim === ""
-            ? ""
+          todosApplications?.claim === ''
+            ? ''
             : `<p style=" font-size: 18px; text-indent: 40px;">${todosApplications?.claim}</p>`
         }
+        <p style="text-align:center; font-size: 20px;">
+              Приложения в копиях
+            </p>
     </div>
   `;
 
@@ -150,12 +166,12 @@ const PdfFile = ({ modal, typerole }) => {
         init={{
           // height: modal ? 660 : 800,
           // width: modal ? 800 : '100%',
-          height: "100%",
-          width: "100%",
+          height: '100%',
+          width: '100%',
           menubar: {
             file: {
-              title: "File",
-              items: "newdocument restoredraft | preview | print ",
+              title: 'File',
+              items: 'newdocument restoredraft | preview | print ',
             },
           },
           content_style: "body { font-family: 'Times New Roman', sans-serif; }",

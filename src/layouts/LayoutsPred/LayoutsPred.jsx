@@ -105,7 +105,7 @@ function LayoutsPred() {
   }, [location.pathname]);
 
   React.useEffect(() => {
-    dispatch(toTakeIsksList(tokenA));
+    dispatch(toTakeIsksList({tokenA, id:0}));
     dispatch(toTakeTypeTypeDocs(tokenA));
   }, []);
 

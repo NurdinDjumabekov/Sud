@@ -115,7 +115,7 @@ export const sendEveryIsks = createAsyncThunk(
         );
         dispatch(toTakeTypeTypeDocs(info.tokenA)); /// для очистки (сброса) типа файлов
         setTimeout(() => {
-          dispatch(toTakeIsksList(info?.tokenA));
+          dispatch(toTakeIsksList({ tokenA:info?.tokenA, id:0}));
         }, 1000);
         return { navigate: info.navigate };
       } else {
@@ -206,7 +206,8 @@ export const changeStatusIsks = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList(info?.tokenA));
+          dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
+
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -240,7 +241,7 @@ export const changeStatusOrg = createAsyncThunk(
           sendDocsReject({ tokenA: info?.tokenA, formData: info?.formData })
         );
         setTimeout(() => {
-          dispatch(toTakeIsksList(info?.tokenA));
+          dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
         }, 1000);
       } else {
         throw Error(`Error: ${response.status}`);
