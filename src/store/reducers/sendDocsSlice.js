@@ -108,7 +108,7 @@ export const sendEveryIsks = createAsyncThunk(
       if (response.status >= 200 && response.status < 300) {
         dispatch(
           changeAlertText({
-            text: "Ваши данные успешно сохранены!",
+            text: "Черновик сохранены!",
             backColor: "#f9fafd",
             state: true,
           })
