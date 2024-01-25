@@ -47,15 +47,7 @@ const FizFace = ({ typerole }) => {
                 if (adff?.adddreselement === 0) {
                   alertFN("Выберите адресный элемент");
                 } else {
-                  if (lookAddPlaintiff === 2) {
-                    if (adff?.code_fiz_face === 0) {
-                      alertFN(`Выберите ${typerole}`);
-                    } else {
-                      checkData();
-                    }
-                  } else {
-                    checkData();
-                  }
+                  checkData();
                 }
               }
             }
@@ -105,8 +97,6 @@ const FizFace = ({ typerole }) => {
     e.preventDefault();
     dispatch(changeADFF({ ...adff, [e.target.name]: e.target.value }));
   };
-
-  // console.log(adff, "adff");
 
   return (
     <div className="addPlaintiffFiz">
@@ -245,7 +235,9 @@ const FizFace = ({ typerole }) => {
                   <input
                     placeholder="не обязательное поле"
                     readOnly
-                    className={adff.unknownDataPassport === 1 ? "disableInput" : ""}
+                    className={
+                      adff.unknownDataPassport === 1 ? "disableInput" : ""
+                    }
                   />
                 </div>
                 <div>
@@ -253,7 +245,9 @@ const FizFace = ({ typerole }) => {
                   <input
                     placeholder="не обязательное поле"
                     readOnly
-                    className={adff.unknownDataPassport === 1 ? "disableInput" : ""}
+                    className={
+                      adff.unknownDataPassport === 1 ? "disableInput" : ""
+                    }
                   />
                 </div>
               </>
@@ -438,7 +432,9 @@ const FizFace = ({ typerole }) => {
               />
             </div>
             <div>
-              <p>Квартира <b className="required">*</b></p>
+              <p>
+                Квартира <b className="required">*</b>
+              </p>
               <input
                 type="text"
                 placeholder="Квартира"
@@ -480,9 +476,9 @@ const FizFace = ({ typerole }) => {
         </div>
         <div className="btnsSave">
           <button className="saveBtn" type="submit">
-            Сохранить
+            Добавить
           </button>
-          <span
+          {/* <span
             style={{ width: "150px" }}
             className="saveBtn"
             onClick={() => {
@@ -492,7 +488,7 @@ const FizFace = ({ typerole }) => {
             }}
           >
             Отмена
-          </span>
+          </span> */}
         </div>
       </form>
     </div>

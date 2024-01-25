@@ -20,31 +20,40 @@ $widthAllContent: 100%;
     width: $widthMenu;
     max-width: $widthMenu;
     height: 100vh;
-    // .nameUser {
-    //   padding: 0px 5px 20px 0px ;
-    //   // background: red;
-    //   img {
-    //     width: 25px;
-    //     height: 25px;
-    //   }
-    //   p {
-    //     color: #5e6e82;
-    //     text-align: left;
-    //     line-height: 20px;
-    //     width: 100%;
-    //     position: relative;
-    //     font-weight: 600;
-    //     font-family: 'Montserrat', sans-serif;
-    //     font-size: 18px;
-    //     // overflow: hidden;
-    //     // white-space: nowrap;
-    //     // text-overflow: ellipsis;
-    //     width: 225px;
-    //   }
-    // }
+
+    .moreInfoMenu {
+      color: #5e6e82;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      text-align: left;
+      width: 100%;
+      padding: 0 0 0 21px;
+      text-transform: uppercase;
+      // border-bottom: 1px solid black;
+    }
+
+    .mainUser {
+      margin: 0 0 40px 0;
+      > button {
+        display: flex;
+        gap: 12px;
+        justify-content: start !important;
+        padding: 10px 20px 25px 20px;
+        > span {
+          font-size: 20px;
+          font-weight: 600;
+          color: #5e6e82;
+          text-align: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+   
     p {
       display: inline;
-      color: #000;
       text-align: center;
       font-style: normal;
       line-height: 30px;
@@ -66,6 +75,7 @@ $widthAllContent: 100%;
     }
     p {
       color: #4650dd;
+      
     }
     > div {
       background: transparent;
@@ -175,7 +185,6 @@ $widthAllContent: 100%;
     width: 100%;
     display: flex;
     align-items: center;
-    // background: red;
     height: 98vh;
   }
 }

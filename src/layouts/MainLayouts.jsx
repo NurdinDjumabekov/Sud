@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import LogOut from "../components/LogOut/LogOut";
 import "./MainLayouts.scss";
+import { jwtDecode } from "jwt-decode";
+
 ////// imgsBlack
 import myIski from "../asstes/icons/IconPage/me_iski.svg";
 import notif from "../asstes/icons/IconPage/notification.svg";
 import create from "../asstes/icons/IconPage/create.svg";
+import faceImg from "../asstes/icons/plaintiff/fiz_face.svg";
 import meetingsPlaintiff from "../asstes/icons/IconPage/calendar.svg";
 import calTodoPlaintiff from "../asstes/icons/IconPage/calendar2.svg";
 import archive from "../asstes/icons/IconPage/archive.svg";
@@ -23,6 +26,7 @@ import logo from "../asstes/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../store/reducers/sendDocsSlice";
+import { shortenToTwoWords } from "../helpers/shortenToTwoWords";
 
 function MainLayouts() {
   const navigate = useNavigate();
@@ -109,6 +113,10 @@ function MainLayouts() {
     dispatch(toTakeIsksList({ tokenA, id: "0" }));
     dispatch(toTakeTypeTypeDocs(tokenA));
   }, []);
+  const decodedToken = jwtDecode(tokenA);
+  // console.log(decodedToken?.fio, "decodedToken");
+  // console.log(decodedToken?.name, "decodedToken");
+  // console.log(decodedToken, "decodedToken");
 
   return (
     <div className="plaintiffBlock">
@@ -116,6 +124,20 @@ function MainLayouts() {
         <div className="logo">
           <img src={logo} alt="logo" />
         </div>
+        {/* <p className="moreInfoMenu">Ответсвенный секретарь</p> */}
+        <p className="moreInfoMenu">{decodedToken?.name}</p>
+        <div className="mainUser">
+          <button>
+            <img
+              src={faceImg}
+              alt="иконка"
+              className="imgIcon"
+              style={{ width: "23px", height: "23px" }}
+            />
+            <span>{shortenToTwoWords(decodedToken?.fio)}</span>
+          </button>
+        </div>
+        <p className="moreInfoMenu">Меню</p>
         {pages?.map((page) => (
           <div key={page.id}>
             <button

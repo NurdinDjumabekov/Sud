@@ -2,31 +2,44 @@
   width: 50%;
   align-items: center;
   height: 87vh;
+  .tox .tox-statusbar__path {
+    display: none !important;
+  }
+  .tox .tox-statusbar__text-container{
+    display: none !important;
+  }
+  .tox .tox-menubar{
+    width: auto !important;
+  }
   > div:nth-child(2) {
     > div:nth-child(1) {
       > div:nth-child(1) {
         > div:nth-child(1) {
           button:nth-child(1) {
-            width: 180px !important;
+            width: 1px !important;
             // background: red !important;
             cursor: pointer;
           }
           button:nth-child(1):after {
-            content: 'Скачать документ';
+            content: '';
             position: absolute;
             padding: 8px 18px;
-            top: 5px;
+            height: 18px;
+            top: 7px;
             left: 5px;
-            border-radius: 8px;
-            width: 200px;
+            // border-radius: 8px;
             color: #4d5969;
-            box-shadow:  0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);;
+            // box-shadow:  0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);;
             // height: 37px;
             font-size: 16px;
             font-weight: 600;
             font-family: 'Montserrat', sans-serif;
-            background: #fff;
+            // background: #fff;
             text-align: center;
+            background-image: url("../../asstes/images/pdfFile.png");
+            margin: 0 0 0 5px;
+            background-repeat: no-repeat;
+            
           }
           button:not(:first-child) {
             display: none;

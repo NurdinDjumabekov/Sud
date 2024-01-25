@@ -3,11 +3,12 @@ import "./GeneralInfo.scss";
 import Selects from "../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
-import { selectUserStatus } from "../../../helpers/dataArr";
+// import { selectUserStatus } from "../../../helpers/dataArr";
 
 const GeneralInfo = () => {
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { selCurrency } = useSelector((state) => state.selectsSlice);
+  const { selHarSpora, selPrimPravo, selReglament, selLangArbitr } =
+    useSelector((state) => state.selectsSlice);
   const dispatch = useDispatch();
 
   // console.log(todosApplications, "todosApplications");
@@ -17,7 +18,7 @@ const GeneralInfo = () => {
         <form>
           <div className="blockSelects">
             <Selects
-              arr={selectUserStatus}
+              arr={selPrimPravo}
               initText={"Применимое право"}
               keys={{
                 typeKey: todosApplications.prim_pravo,
@@ -26,7 +27,7 @@ const GeneralInfo = () => {
               type="todos"
             />
             <Selects
-              arr={selectUserStatus}
+              arr={selReglament}
               initText={"Регламент"}
               keys={{
                 typeKey: todosApplications.reglament,
@@ -37,7 +38,7 @@ const GeneralInfo = () => {
           </div>
           <div className="blockSelects">
             <Selects
-              arr={selectUserStatus}
+              arr={selHarSpora}
               initText={"Характер спора"}
               keys={{
                 typeKey: todosApplications.haracter_spor,
@@ -45,9 +46,8 @@ const GeneralInfo = () => {
               }}
               type="todos"
             />
-
             <Selects
-              arr={selCurrency}
+              arr={selLangArbitr}
               initText={"Язык арбитража"}
               keys={{
                 typeKey: todosApplications.arbitr_lang,
@@ -81,7 +81,6 @@ const GeneralInfo = () => {
 };
 
 export default GeneralInfo;
-
 
 // ///////////////////////////////////////////////////////////
 // $(document).on("click", "#count_sbor", function (e) {

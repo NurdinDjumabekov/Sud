@@ -47,7 +47,7 @@ const TargetPlaintiff = () => {
             </div>
             <Selects
               arr={selCurrency}
-              initText={"Фунт"}
+              initText={"Валюта иска"}
               keys={{ typeKey: todosApplications.summ_curr, type: "summ_curr" }}
               type="todos"
             />
@@ -66,7 +66,7 @@ const TargetPlaintiff = () => {
             </div>
             <Selects
               arr={selCurrency}
-              initText={"Валюта арбитра"}
+              initText={"Валюта арбитражного сбора"}
               keys={{
                 typeKey: todosApplications.arbitr_curr,
                 type: "arbitr_curr",
@@ -88,7 +88,7 @@ const TargetPlaintiff = () => {
             </div>
             <Selects
               arr={selCurrency}
-              initText={"валюта регистрационного сбора"}
+              initText={"Валюта регистрационного сбора"}
               keys={{
                 typeKey: todosApplications.registr_curr,
                 type: "registr_curr",
@@ -110,7 +110,7 @@ const TargetPlaintiff = () => {
             </div>
             <Selects
               arr={selCurrency}
-              initText={"Валюта надбавок"}
+              initText={"Валюта надбавки"}
               keys={{
                 typeKey: todosApplications.nadbavka_curr,
                 type: "nadbavka_curr",

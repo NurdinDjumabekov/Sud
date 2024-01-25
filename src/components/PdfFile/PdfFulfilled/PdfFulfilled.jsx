@@ -1,15 +1,11 @@
 import React, { useRef } from "react";
-import "./PdfFileReject.scss";
+import "./PdfFulfilled.scss";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 
-const PdfFileReject = ({ istype, input, editorRef }) => {
+const PdfFulfilled = ({ istype, editorRef }) => {
   const dispatch = useDispatch();
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-
-  const handleEditorChange = (content, editor) => {
-    // console.log('Content was updated:', content);
-  };
 
   const initialContent = `
     <div>
@@ -29,21 +25,21 @@ const PdfFileReject = ({ istype, input, editorRef }) => {
         </div>
       </div>
     </div>
-    <h4 style="text-align:center; font-size: 22px; margin: 80px 0 0 0;">ОТКАЗ</h4>
+    <h4 style="text-align:center; font-size: 22px; margin: 80px 0 0 0;">ОПРЕДЕЛЕНИЕ</h4>
     <h4 style="text-align:center; font-size: 18px; margin: 0px;">в принятии искового заявления к производству № ${istype?.id}</h4>
     <h4 style="text-align:right !important; font-size: 18px; margin: 20px 0 0 0px; padding: 0px 30px 0px 0px;">г.Бишкек</h4>
     <p style=" font-size: 18px; text-indent: 40px; margin: 20px 0px 0 0">Международный Третейский Суд при Торгово-промышленной палате Кыргызской Республики (МТС ТПП) в лице Председателя Майчиева Шамарала Юсуповича, отказывает принятии искового заявление в производство МТС ТПП</p>
     <h4 style="text-align:center; font-size: 18px; margin: 20px 0 0 0px;">По причине:</h4>
-    <p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px"> ${input}</p>
+    <p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px"> </p>
+    <p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px"> </p>
     <div style="display:flex; gap:200px; padding: 20px 0 0 0px">
       <h4 style="text-align:center; font-size: 18px; margin: 20px 0 0 0px;">Председатель Майчиев Ш.Ю.</h4>
       </div>
       `;
-  // <h4 style="text-align:center; font-size: 20px; margin: 20px 0 0 0px;"> Майчиев Ш.Ю.</h4>
 
   return (
     <>
-      <div className="pdfFile">
+      <div className="pdfFileReject">
         <Editor
           apiKey="frhhgiuyhy64k6q9ojm6xdiqqvkg6ee4yka7yracc74t2i5a"
           initialValue={initialContent}
@@ -53,14 +49,13 @@ const PdfFileReject = ({ istype, input, editorRef }) => {
             menubar: {
               file: {
                 title: "File",
-                items: "newdocument restoredraft | preview | print ",
+                items: "preview | print | save",
               },
             },
             content_style:
               "body { font-family: 'Times New Roman', sans-serif; }",
             toolbar: false,
           }}
-          onEditorChange={handleEditorChange}
           ref={editorRef}
         />
       </div>
@@ -68,4 +63,4 @@ const PdfFileReject = ({ istype, input, editorRef }) => {
   );
 };
 
-export default PdfFileReject;
+export default PdfFulfilled;

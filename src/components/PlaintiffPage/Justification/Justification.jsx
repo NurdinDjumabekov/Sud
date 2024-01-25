@@ -27,7 +27,7 @@ const Justification = () => {
           <div>
             <label htmlFor="name">Обоснование</label>
             <textarea
-              style={{ height: "900px" }}
+              style={{ height: "70vh" }}
               name="obosnovanie"
               id="name"
               onChange={changeInput}

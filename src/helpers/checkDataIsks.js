@@ -1,8 +1,8 @@
 export const checkDataIsks = (obj) => {
   if (
-    obj.plaintiff?.length === 0 &&
+    // obj.plaintiff?.length !== 0 &&
     obj.plaintiffResper?.length === 0 &&
-    obj.defendant?.length === 0 &&
+    // obj.defendant?.length === 0 &&
     obj.defendantResper?.length === 0 &&
     obj.name === "" &&
     obj.description === "" &&

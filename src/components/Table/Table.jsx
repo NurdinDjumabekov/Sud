@@ -16,6 +16,11 @@ import {
   changeMainBtnList,
 } from "../../store/reducers/stateSlice";
 import { changeAlertText } from "../../store/reducers/typesSlice";
+import { searchNameSelect } from "../../helpers/searchNameSelect";
+
+import imgFizFace from "../../asstes/icons/plaintiff/fiz_face.svg";
+import imgUrFace from "../../asstes/icons/plaintiff/ur_face.svg";
+import UrFace from "../PlaintiffPage/UrFace/UrFace";
 
 export const Table = () => {
   const dispatch = useDispatch();
@@ -24,6 +29,9 @@ export const Table = () => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
+  const { selCurrency, selReglament } = useSelector(
+    (state) => state.selectsSlice
+  );
 
   const lookDataPlaintiff = (arr, type) => {
     if (arr?.length === 0) {
@@ -66,7 +74,7 @@ export const Table = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  // console.log(listTodos, "listTodos");
+  console.log(listTodos, "listTodos");
   // console.log(todosApplications, "todosApplications");
 
   const statusMessages = {
@@ -80,13 +88,14 @@ export const Table = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {mainBtnList?.slice(0,1)?.map((btn) => (
+          {mainBtnList?.slice(0, 1)?.map((btn) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
                 onClick={() => clickBtn(btn.id)}
               >
                 {btn.name}
+                <span className="countInfo">{listTodos?.[0]?.draft_count}</span>
               </button>
             </li>
           ))}
@@ -119,79 +128,88 @@ export const Table = () => {
                 >
                   <td className="table_isk_td">
                     <div>
-                      <span className="span_teble">№ {row?.codeid}</span>
+                      <span className="span_teble">
+                        {row?.isk_number ? `№ ${row?.isk_number}` : ""}
+                      </span>
+                      {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
+                      <span
+                        style={row?.isk_number ? { margin: "8px 0 0 0" } : {}}
+                      >
+                        {row?.isk_date}
+                      </span>
                     </div>
                   </td>
                   <td className="table_isk_td">
-                    <span>
-                      {row?.plaintiff?.length === 0 ? (
-                        "ФИО истца отсутствует"
-                      ) : row?.plaintiff?.length === 1 ? (
-                        row?.plaintiff?.[0]?.name
+                    <>
+                      {row?.plaintiff?.length === 0 ? ( ////  "ФИО Истца отсутствует"
+                        <p></p>
                       ) : (
                         <>
-                          {row?.plaintiff?.[0]?.name} и еще{" "}
-                          {+row?.plaintiff?.length - 1}{" "}
-                          {+row?.plaintiff?.length - 1 === 1
-                            ? "истец"
-                            : "истца"}
+                          {row.plaintiff.map((i, index) => (
+                            <span key={index}>
+                              {i.name}
+                              {index !== row.plaintiff.length - 1 && ","}
+                            </span>
+                          ))}
                         </>
                       )}
-                    </span>
-                    <button
-                      className="btnPlaintiff"
-                      onClick={() => lookDataPlaintiff(row?.plaintiff, 1)}
-                    >
-                      Посмотреть список истцов
-                    </button>
+                    </>
                   </td>
                   <td className="table_isk_td">
-                    <span>
-                      {row?.defendant?.length === 0 ? (
-                        "ФИО ответчика отсутствует"
-                      ) : row?.defendant?.length === 1 ? (
-                        row.defendant?.[0]?.name
+                    <>
+                      {row?.defendant?.length === 0 ? ( ////  "ФИО ответчика отсутствует"
+                        ""
                       ) : (
                         <>
-                          {row?.defendant?.[0]?.name} и еще{" "}
-                          {+row?.defendant?.length - 1}{" "}
-                          {+row?.defendant?.length - 1 === 1
-                            ? "ответчик"
-                            : "ответчика"}
+                          {row.defendant.map((i, index) => (
+                            <span key={index}>
+                              {i.name}
+                              {index !== row.defendant.length - 1 && ","}
+                            </span>
+                          ))}
                         </>
                       )}
-                    </span>
-                    <button
-                      className="btnPlaintiff"
-                      onClick={() => lookDataPlaintiff(row?.defendant, 2)}
-                    >
-                      Посмотреть список ответчиков
-                    </button>
+                    </>
                   </td>
                   {/* ///////////////////////////////////// */}
                   <td className="table_isk_td">
                     <span>
-                      {+row?.arbitr_fee === 0 ? "..." : row?.arbitr_fee}
+                      {+row?.arbitr_fee === 0 ? (
+                        ""
+                      ) : (
+                        <>
+                          {row?.arbitr_fee}{" "}
+                          {searchNameSelect(selCurrency, +row?.arbitr_curr)}
+                        </>
+                      )}
                     </span>
                   </td>
                   <td className="table_isk_td">
                     <span>
-                      {+row?.reglament === 0 ? "..." : row?.reglament}
+                      {+row?.reglament === 0 ? (
+                        ""
+                      ) : (
+                        <>{searchNameSelect(selReglament, +row?.reglament)}</>
+                      )}
                     </span>
                   </td>
                   <td className="table_isk_td">
                     {row?.arbitrs?.length === 0 ? (
-                      <span>...</span>
+                      <span></span>
                     ) : (
                       row?.arbitrs?.map((i) => <span>{i?.name}</span>)
                     )}
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.secretary ? row.secretary : "..."}</span>
+                    <span>{row.secretary ? row.secretary : ""}</span>
                     {/* <span>Nurdin</span> */}
                   </td>
                   <td className="table_isk_td">
-                    <span>{+row?.status === 1 ? "Активен" : "Не активен"}</span>
+                    {+row?.status === 1 ? (
+                      <span style={{ color: "#1cd81c" }}>Активен</span>
+                    ) : (
+                      <span style={{ color: "red" }}>Черновик</span>
+                    )}
                   </td>
                   <td className="table_isk_td">
                     {+row?.status === 0 ? (
@@ -224,20 +242,18 @@ export const Table = () => {
                   <td className="table_isk_td">
                     <span className="documentBlock">
                       {row?.files?.length === 0 ? (
-                        // <span>Документы оттутствуют</span>
-                        <span>...</span>
+                        <span>Документы отсутствуют</span>
                       ) : (
                         <div className="docsBlock">
                           {row?.files?.map((i, ind) => (
-                            <a
-                              key={i?.codeid}
-                              className="docsBlock__inner"
-                              href={i?.path}
-                              target="_blank"
-                            >
-                              <img src={imgPdf} alt="pdf" />
+                            <div key={i?.codeid} className="docsBlock__inner">
+                              <iframe
+                                src={i?.path}
+                                width="100%"
+                                height="500px"
+                              ></iframe>
                               <span>{i?.document_name}</span>
-                            </a>
+                            </div>
                           ))}
                         </div>
                       )}
@@ -249,6 +265,10 @@ export const Table = () => {
           </table>
         </div>
       </div>
+      <Modals
+        openModal={sendStatusIsk}
+        setOpenModal={() => setSendStatusIsk()}
+      ></Modals>
     </>
   );
 };

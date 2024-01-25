@@ -35,7 +35,7 @@ const Calculator = () => {
     }
   };
 
-  console.log(typePay, "typePay");
+  // console.log(typePay, "typePay");
   return (
     <div className="calculator">
       <div className="calculator__count">
@@ -49,12 +49,14 @@ const Calculator = () => {
             value={sumIsk}
           />
         </div>
-        <Selects
-          arr={typeCountSum}
-          initText={"Тип спора"}
-          keys={{ typeKey: typePay, type: "typePay" }}
-          type="typePay"
-        />
+        <div className="typeSpora">
+          <Selects
+            arr={typeCountSum}
+            initText={"Тип спора"}
+            keys={{ typeKey: typePay, type: "typePay" }}
+            type="typePay"
+          />
+        </div>
         <span className="btnCal" onClick={resultCal}>
           Расчитать
         </span>

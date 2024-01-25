@@ -1,8 +1,15 @@
-.pdfFile {
+.pdfFileReject {
   max-width: 100%;
   min-width: 880px;
   align-items: center;
   height: 87vh;
+  // background: red;
+  .tox .tox-statusbar__path {
+    display: none !important;
+  }
+  .tox .tox-statusbar__text-container{
+    display: none !important;
+  }
   > div:nth-child(2) {
     > div:nth-child(1) {
       > div:nth-child(1) {
@@ -12,13 +19,13 @@
             cursor: pointer;
           }
           button:nth-child(1):after {
-            content: 'Скачать документ';
+            content: 'Скачать';
             position: absolute;
             padding: 8px 18px;
             top: 5px;
             left: 5px;
             border-radius: 8px;
-            width: 200px;
+            width: 150px;
             color: #4d5969;
             box-shadow:  0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);;
             // height: 37px;
@@ -36,3 +43,5 @@
     }
   }
 }
+
+

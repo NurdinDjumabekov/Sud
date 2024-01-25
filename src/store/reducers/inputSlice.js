@@ -6,7 +6,6 @@ const initialState = {
   // adff: {
   //   action_type: 0,
   //   codeid: 0,
-  //   code_fiz_face: 0, // для ответчиков, чтобы можно было их связать с теми, кого они представляют
   //   code_isk: 0,
   //   name: "",
   //   sex: 1, // пол
@@ -44,7 +43,6 @@ const initialState = {
   adff: {
     action_type: 1,
     codeid: 0,
-    code_fiz_face: 0, // для ответчиков, чтобы можно было их связать с теми, кого они представляют
     code_isk: 0,
     name: "Nurdin Djumabekov",
     sex: 1, // пол
@@ -64,7 +62,7 @@ const initialState = {
     email: "asdsa@sadasd",
     email2: "sadsad@asdasd",
     country: 31, /// select
-    region: 9, /// область /// select
+    region: 1, /// область /// select
     district: 11, //// район /// select
     adddreselement: 1, // адресный элемент /// select
     city: "Бишкек",
@@ -135,7 +133,6 @@ const inputSlice = createSlice({
       state.adff = {
         action_type: 1,
         codeid: 0,
-        code_fiz_face: 0, // для ответчиков, чтобы можно было их связать с теми, кого они представляют
         code_isk: 0,
         name: "Nurdin Djumabekov",
         sex: 1, // пол

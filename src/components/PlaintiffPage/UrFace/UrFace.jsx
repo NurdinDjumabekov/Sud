@@ -379,7 +379,7 @@ const UrFace = ({ typerole }) => {
         {aduf?.type === 1 ? <></> : <></>}
         <div className="btnsSave">
           <button className="saveBtn" type="submit">
-            Сохранить данные {typerole}
+            Сохранить
           </button>
           <span
             className="saveBtn"
@@ -389,7 +389,7 @@ const UrFace = ({ typerole }) => {
               dispatch(clearADUF());
             }}
           >
-            Отменить и выйти
+            Отменить
           </span>
         </div>
       </form>

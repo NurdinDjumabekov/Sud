@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./DataInput.scss";
-
+import ru from 'date-fns/locale/ru';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,8 +45,10 @@ const DataInput = ({ props }) => {
         selected={selectedDate}
         onChange={(date) => transformData(date)}
         placeholderText="Выберите дату"
-        // locale="en-GB"
+        // locale={"ru"}
+        // formatWeekDay={"ru"}
         dateFormat="dd/MM/yyyy"
+        locale={ru}
       />
     </div>
   );

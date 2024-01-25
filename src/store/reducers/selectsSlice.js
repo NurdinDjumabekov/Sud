@@ -13,18 +13,49 @@ const initialState = {
   selTypeValuta: [],
   selTypeTypeDocs: [],
   selCurrency: [],
+  selHarSpora: [],
+  selPrimPravo: [],
+  selReglament: [],
+  selLangArbitr: [],
 };
 
 /// toTakeCountries
 export const toTakeCountries = createAsyncThunk(
   "toTakeCountries",
-  async function (token, { dispatch, rejectWithValue }) {
+  async function (info, { dispatch, rejectWithValue }) {
+    const { tokenA, id } = info;
     try {
       const response = await axios({
         method: "GET",
         url: `http://mttp-renaissance.333.kg/api/get/country`,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${tokenA}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// toTakeRegions
+export const toTakeRegions = createAsyncThunk(
+  "toTakeRegions",
+  async function (info, { dispatch, rejectWithValue }) {
+    const { tokenA, id } = info;
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/region?code_country${
+          id ? `=${id}` : ""
+        }`,
+        headers: {
+          Authorization: `Bearer ${tokenA}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
@@ -40,13 +71,16 @@ export const toTakeCountries = createAsyncThunk(
 /// toTakeDistrict
 export const toTakeDistrict = createAsyncThunk(
   "toTakeDistrict",
-  async function (token, { dispatch, rejectWithValue }) {
+  async function (info, { dispatch, rejectWithValue }) {
+    const { tokenA, id } = info;
     try {
       const response = await axios({
         method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/district?code_region=1`,
+        url: `http://mttp-renaissance.333.kg/api/get/district?code_region${
+          id ? `=${id}` : ""
+        }`,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${tokenA}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
@@ -59,28 +93,7 @@ export const toTakeDistrict = createAsyncThunk(
     }
   }
 );
-/// toTakeRegions
-export const toTakeRegions = createAsyncThunk(
-  "toTakeRegions",
-  async function (token, { dispatch, rejectWithValue }) {
-    try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/region?code_country=34`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (response.status >= 200 && response.status < 300) {
-        return response?.data?.data;
-      } else {
-        throw Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
+
 /// toTakeTypeAddress
 export const toTakeTypeAddress = createAsyncThunk(
   "toTakeTypeAddress",
@@ -213,6 +226,94 @@ export const toTakeCurrency = createAsyncThunk(
     }
   }
 );
+//////toTakeHaracterS
+export const toTakeHaracterS = createAsyncThunk(
+  "toTakeHaracterS",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/haracter_spora`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+////toTakePrimPravo
+export const toTakePrimPravo = createAsyncThunk(
+  "toTakePrimPravo",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/prim_pravo`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+////toTakeReglament
+export const toTakeReglament = createAsyncThunk(
+  "toTakeReglament",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/reglament`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+////toTakeLangArbit
+export const toTakeLangArbit = createAsyncThunk(
+  "toTakeLangArbit",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/arbitr_lang`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const selectsSlice = createSlice({
   name: "selectsSlice",
@@ -328,6 +429,54 @@ const selectsSlice = createSlice({
       state.preloaderSel = false;
     });
     builder.addCase(toTakeCurrency.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+    ///// toTakeHaracterS
+    builder.addCase(toTakeHaracterS.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selHarSpora = action.payload;
+    });
+    builder.addCase(toTakeHaracterS.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeHaracterS.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+    ///// toTakePrimPravo
+    builder.addCase(toTakePrimPravo.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selPrimPravo = action.payload;
+    });
+    builder.addCase(toTakePrimPravo.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakePrimPravo.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+    ///// toTakeReglament
+    builder.addCase(toTakeReglament.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selReglament = action.payload;
+    });
+    builder.addCase(toTakeReglament.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeReglament.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+    ///// toTakeLangArbit
+    builder.addCase(toTakeLangArbit.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selLangArbitr = action.payload;
+    });
+    builder.addCase(toTakeLangArbit.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeLangArbit.pending, (state, action) => {
       state.preloaderSel = true;
     });
   },

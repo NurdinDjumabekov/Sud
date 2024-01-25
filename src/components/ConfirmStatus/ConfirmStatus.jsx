@@ -4,15 +4,16 @@ import "./ConfirmStatus.scss";
 import imgWarning from "../../asstes/images/warning.png";
 import { changeStatusOrg } from "../../store/reducers/sendDocsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ExampleBlock from "../ExampleBlock/ExampleBlock";
-import PdfFileReject from "../ResponsibleSecr/PdfFileReject/PdfFileReject";
-import jsPDF from "jspdf";
-import { sendDocsReject } from "../../store/reducers/applicationsSlice";
+import PdfFileReject from "../PdfFile/PdfFileReject/PdfFileReject";
+import PdfFulfilled from "../PdfFile/PdfFulfilled/PdfFulfilled";
 
-const ConfirmStatus = ({ setSendStatusIsk, sendStatusIsk, istype }) => {
+const ConfirmStatus = ({
+  setSendStatusIsk,
+  sendStatusIsk,
+  setIsType,
+  istype,
+}) => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const [input, setInput] = useState("");
-  const [sendDocs, setSendDocs] = useState(false);
   const dispatch = useDispatch();
   const editorRef = useRef(null);
 
@@ -21,21 +22,53 @@ const ConfirmStatus = ({ setSendStatusIsk, sendStatusIsk, istype }) => {
       changeStatusOrg({
         id: istype.id,
         tokenA,
-        description: type === 1 || type === 3 ? "" : input,
+        // description: "",
         isk_status: +type,
       })
     );
     setSendStatusIsk(false);
   };
+  const rejectIsk = (e) => {
+    e.preventDefault();
+    if (editorRef.current && editorRef.current.editor) {
+      const content = editorRef.current.editor.getContent();
+      console.log(content, "content");
+      dispatch(
+        changeStatusOrg({
+          id: istype.id,
+          tokenA,
+          isk_status: istype.type,
+          content,
+          type: istype?.type === 2 ? 13 : istype?.type === 4 ? 14 : 0,
+        })
+      );
+      setSendStatusIsk(false);
+    }
+  };
+  const fulfilledIsk = (e) => {
+    e.preventDefault();
+    if (editorRef.current && editorRef.current.editor) {
+      const content = editorRef.current.editor.getContent();
+      dispatch(
+        changeStatusOrg({
+          id: istype.id,
+          tokenA,
+          isk_status: istype.type,
+          content,
+          type: 15, /// принятие иска
+        })
+      );
+      setSendStatusIsk(false);
+    }
+  };
 
   React.useEffect(() => {
-    return () => setSendStatusIsk({ type: 0, id: 0 });
+    return () => setIsType({ type: 0, id: 0 });
   }, []);
-
   return (
     <div className="blockModal">
       <Modals openModal={sendStatusIsk} setOpenModal={() => setSendStatusIsk()}>
-        {(istype.type === 1 || istype.type === 3) && (
+        {istype.type === 1 && (
           <div className="modalchangeStatus">
             <div className="imgBlock">
               <img src={imgWarning} alt="send!" />
@@ -52,67 +85,24 @@ const ConfirmStatus = ({ setSendStatusIsk, sendStatusIsk, istype }) => {
         )}
         {(istype.type === 2 || istype.type === 4) && (
           <div className="plaintiFilling__container moreStyle">
-            <div className="descriptionClaim">
-              <ExampleBlock
-                text={"Пример отказа иска должен быть таким-то"}
-                typeText={"Пример отказа иска"}
-              />
-              <form>
-                <div>
-                  <label htmlFor="name">Напишите причину отказа</label>
-                  <textarea
-                    name="name"
-                    id="name"
-                    onChange={(e) => setInput(e.target.value)}
-                    value={input}
-                  ></textarea>
-                </div>
-                <div className="modalchangeStatus">
-                  <div className="btnsSendIsks">
-                    <div className="btnsSendIsks">
-                      <button
-                        onClick={() => {
-                          if (editorRef.current && editorRef.current.editor) {
-                            const content = editorRef.current.editor.getContent();
-                            const pdf = new jsPDF();
-                            pdf.html(content, {
-                              callback: function (pdf) {
-                                const pdfData = pdf.output();
-                                const formData = new FormData();
-                                const pdfBlob = new Blob([pdfData], { type: "application/pdf" });
-                                formData.append("file", pdfBlob, "document.pdf");
-                                formData.append("code_file", 14); //////// отказ иска отвественным секретарём
-                                formData.append("code_isk", +istype.id);
-                                dispatch(
-                                  changeStatusOrg({
-                                    id: istype.id,
-                                    tokenA,
-                                    description: input,
-                                    isk_status: istype.type,
-                                    formData
-                                  })
-                                  );
-                              },
-                            });
-                          }
-                          setSendStatusIsk(false);
-                        }}
-                      >
-                        Отклонить иск
-                      </button>
-                      <button onClick={() => setSendStatusIsk(false)}>
-                        Отмена
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
+            <PdfFileReject istype={istype} editorRef={editorRef} />
+            <div className="modalchangeStatus" style={{ height: "auto" }}>
+              <div className="btnsSendIsks">
+                <button onClick={(e) => rejectIsk(e)}>Отклонить иск</button>
+                <button onClick={() => setSendStatusIsk(false)}>Отмена</button>
+              </div>
             </div>
-            <PdfFileReject
-              input={input}
-              istype={istype}
-              editorRef={editorRef}
-            />
+          </div>
+        )}
+        {istype.type === 3 && (
+          <div className="plaintiFilling__container moreStyle">
+            <PdfFulfilled istype={istype} editorRef={editorRef} />
+            <div className="modalchangeStatus" style={{ height: "auto" }}>
+              <div className="btnsSendIsks">
+                <button onClick={(e) => fulfilledIsk(e)}>Отклонить иск</button>
+                <button onClick={() => setSendStatusIsk(false)}>Отмена</button>
+              </div>
+            </div>
           </div>
         )}
       </Modals>

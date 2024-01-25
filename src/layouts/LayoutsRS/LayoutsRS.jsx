@@ -2,27 +2,24 @@ import React, { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import LogOut from "../../components/LogOut/LogOut";
 import "./LayoutsRS.scss";
+import { jwtDecode } from "jwt-decode";
+import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
+
 ////// imgsBlack
 import myIski from "../../asstes/icons/IconPage/me_iski.svg";
 import notif from "../../asstes/icons/IconPage/notification.svg";
-import create from "../../asstes/icons/IconPage/create.svg";
-import meetingsPlaintiff from "../../asstes/icons/IconPage/calendar.svg";
-import calTodoPlaintiff from "../../asstes/icons/IconPage/calendar2.svg";
 import archive from "../../asstes/icons/IconPage/archive.svg";
-import typeUser from "../../asstes/images/typeUser.png";
 
 ////// imgsWhite
 import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
 import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
-import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
-import meetingsPlaintiffWhite from "../../asstes/icons/IconPageWhite/calendar.svg";
-import calTodoPlaintiffWhite from "../../asstes/icons/IconPageWhite/calendar2.svg";
 import archiveWhite from "../../asstes/icons/IconPageWhite/archive.svg";
 
 import logo from "../../asstes/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
+import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
 
 function LayoutsRS() {
   const navigate = useNavigate();
@@ -110,20 +107,27 @@ function LayoutsRS() {
     dispatch(toTakeTypeTypeDocs(tokenA));
   }, []);
 
+  const decodedToken = jwtDecode(tokenA);
+
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">
         <div className="logo">
           <img src={logo} alt="logo" />
         </div>
-        {/* <div className="nameUser">
+        <p className="moreInfoMenu">{decodedToken?.name}</p>
+        <div className="mainUser">
           <button>
-            <div>
-              <img src={typeUser} alt="user" />
-              <p>Нурдин</p>
-            </div>
+            <img
+              src={faceImg}
+              alt="иконка"
+              className="imgIcon"
+              style={{ width: "23px", height: "23px" }}
+            />
+            <span>{shortenToTwoWords(decodedToken?.fio)}</span>
           </button>
-        </div> */}
+        </div>
+        <p className="moreInfoMenu">Меню</p>
         {pages?.map((page) => (
           <div key={page.id}>
             <button

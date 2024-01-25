@@ -20,20 +20,20 @@ const initialState = {
     law_links: "",
     claim: "",
     ///////////////////////////////
-    summ: "0",
-    summ_curr: 0, /// select
-    arbitr_fee: "0",
-    arbitr_curr: 0, /// select
-    registr_fee: "0",
-    registr_curr: 0, /// select
-    doplata_summ: "0",
-    nadbavka_curr: 0, /// select
+    summ: "",
+    summ_curr: 1, /// select (default-сом)
+    arbitr_fee: "",
+    arbitr_curr: 1, /// select (default-сом)
+    registr_fee: "",
+    registr_curr: 1, /// select (default-сом)
+    doplata_summ: "",
+    nadbavka_curr: 1, /// select (default-сом)
     arbitr_pay_end_date: "", //
     arbitr_doplata_end_date: "", //
     ///////////////////////////////
     prim_pravo: 1, /// select
-    reglament: 1, /// select
-    haracter_spor: 1, /// select
+    reglament: 0, /// select
+    haracter_spor: 0, /// select
     arbitr_lang: 1, /// select
     is_arbitr_po_dogovor: 0, //  1 - true и 0 - false
     status: 1, /// why?
@@ -206,36 +206,28 @@ export const sendDocsReject = createAsyncThunk(
   }
 );
 
-// /// sendDocsReject // отправка файла принятия или отказа иска
-// export const idSendDocsReject = createAsyncThunk(
-//   "idSendDocsReject",
-//   async function (info, { dispatch, rejectWithValue }) {
-//     try {
-//       const response = await axios({
-//         method: "POST",
-//         url: `http://mttp-renaissance.333.kg/api/isks/crud/files`,
-//         headers: {
-//           Authorization: `Bearer ${info?.tokenA}`,
-//           "Content-Type": "multipart/form-data",
-//         },
-//         data: info?.fileData,
-//       });
-//       if (response.status >= 200 && response.status < 300) {
-//         return {
-//           fileData: info?.fileData,
-//           codeid_file: +response?.data?.code_file,
-//           file_path: response?.data?.file_path,
-//           code_file: +info.code_file,
-//           name: info?.name,
-//         };
-//       } else {
-//         throw Error(`Error: ${response.status}`);
-//       }
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+// sendMainDocs // отправка файла иска(самый главный документ)
+export const sendMainDocs = createAsyncThunk(
+  "sendMainDocs",
+  async function (info, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/isks/crud/files`,
+        headers: {
+          Authorization: `Bearer ${info?.tokenA}`,
+        },
+        data: info?.fileData,
+      });
+      if (response.status >= 200 && response.status < 300) {
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const applicationsSlice = createSlice({
   name: "applicationsSlice",
@@ -429,14 +421,14 @@ const applicationsSlice = createSlice({
         finance_raschet: "",
         law_links: "",
         claim: "",
-        summ: "0",
-        summ_curr: 0, /// select
-        arbitr_fee: "0",
-        arbitr_curr: 0, /// select
-        registr_fee: "0",
-        registr_curr: 0, /// select
-        doplata_summ: "0",
-        nadbavka_curr: 0, /// select
+        summ: "",
+        summ_curr: 1, /// select
+        arbitr_fee: "",
+        arbitr_curr: 1, /// select
+        registr_fee: "",
+        registr_curr: 1, /// select
+        doplata_summ: "",
+        nadbavka_curr: 1, /// select
         arbitr_pay_end_date: "", //
         arbitr_doplata_end_date: "", //
         prim_pravo: 1,

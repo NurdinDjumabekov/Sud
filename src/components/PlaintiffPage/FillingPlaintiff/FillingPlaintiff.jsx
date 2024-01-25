@@ -9,7 +9,7 @@ const FillingPlaintiff = ({ typerole }) => {
   return (
     <div
       className="plaintiFilling__container"
-      style={lookAddPlaintiff !== 0 ? { maxWidth: "100%" } : {}}
+      style={lookAddPlaintiff !== 0 ? { width: "100%" } : {}}
     >
       <AddPlaintiff typerole={typerole} />
     </div>

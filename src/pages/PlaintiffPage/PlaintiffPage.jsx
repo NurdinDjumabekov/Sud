@@ -1,42 +1,23 @@
-import React, { useState } from 'react';
-import './PlaintiffPage.scss';
-import InputsPlaintiff from '../../components/PlaintiffPage/InputsPlaintiff/InputsPlaintiff';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  changeLookAddPlaintiff,
-  clearMainBtnList,
-} from '../../store/reducers/stateSlice';
-import TargetPlaintiff from '../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff';
-import DescriptionClaim from '../../components/PlaintiffPage/DescriptionClaim/DescriptionClaim';
-import MotivationClaim from '../../components/PlaintiffPage/MotivationClaim/MotivationClaim';
-import Justification from '../../components/PlaintiffPage/Justification/Justification';
-import FinancialResult from '../../components/PlaintiffPage/FinancialResult/FinancialResult';
-import GeneralInfo from '../../components/PlaintiffPage/GeneralInfo/GeneralInfo';
-import LinksLaw from '../../components/PlaintiffPage/LinksLaw/LinksLaw';
-import ClaimRequaire from '../../components/PlaintiffPage/ClaimRequaire/ClaimRequaire';
-import ApplicationFiles from '../../components/PlaintiffPage/ApplicationFiles/ApplicationFiles';
+import React, { useState } from "react";
+import "./PlaintiffPage.scss";
+import InputsPlaintiff from "../../components/PlaintiffPage/InputsPlaintiff/InputsPlaintiff";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { changeLookAddPlaintiff } from "../../store/reducers/stateSlice";
+import TargetPlaintiff from "../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff";
+import DescriptionClaim from "../../components/PlaintiffPage/DescriptionClaim/DescriptionClaim";
+import MotivationClaim from "../../components/PlaintiffPage/MotivationClaim/MotivationClaim";
+import Justification from "../../components/PlaintiffPage/Justification/Justification";
+import FinancialResult from "../../components/PlaintiffPage/FinancialResult/FinancialResult";
+import GeneralInfo from "../../components/PlaintiffPage/GeneralInfo/GeneralInfo";
+import LinksLaw from "../../components/PlaintiffPage/LinksLaw/LinksLaw";
+import ClaimRequaire from "../../components/PlaintiffPage/ClaimRequaire/ClaimRequaire";
+import ApplicationFiles from "../../components/PlaintiffPage/ApplicationFiles/ApplicationFiles";
 //// delete
-import DataArrPlaintiff from '../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff';
-import { checkDataIsks } from '../../helpers/checkDataIsks';
-import { clearTodosApplications } from '../../store/reducers/applicationsSlice';
-import { createIdIsk, sendEveryIsks } from '../../store/reducers/sendDocsSlice';
-import {
-  toTakeCountries,
-  toTakeCurrency,
-  toTakeDistrict,
-  toTakeRegions,
-  toTakeTypeAddress,
-  toTakeTypeCompany,
-  toTakeTypeOrganiz,
-  toTakeTypePosition,
-  toTakeTypeValuta,
-} from '../../store/reducers/selectsSlice';
-import { changeAlertText } from '../../store/reducers/typesSlice';
-
-export const NoneBtn = () => {
-  return <div style={{ display: 'none' }} />;
-};
+import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff";
+import { checkDataIsks } from "../../helpers/checkDataIsks";
+import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
+import { createIdIsk, sendEveryIsks } from "../../store/reducers/sendDocsSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -51,71 +32,71 @@ const PlaintiffPage = () => {
   const [btnList, setBtnList] = useState([
     {
       id: 1,
-      name: 'Истец',
+      name: "Истец",
       bool: true,
       components: (
-        <DataArrPlaintiff arr={todosApplications} typerole={'истца'} />
+        <DataArrPlaintiff arr={todosApplications} typerole={"истца"} />
       ),
     },
     {
       id: 2,
-      name: 'Ответчик',
+      name: "Ответчик",
       bool: false,
       components: (
-        <DataArrPlaintiff arr={todosApplications} typerole={'ответчика'} />
+        <DataArrPlaintiff arr={todosApplications} typerole={"ответчика"} />
       ),
     },
     {
       id: 3,
-      name: 'Цена иска',
+      name: "Цена иска",
       bool: false,
       components: <TargetPlaintiff />,
     },
     {
       id: 4,
-      name: 'Описание',
+      name: "Описание",
       bool: false,
       components: <DescriptionClaim />,
     },
     {
       id: 5,
-      name: 'Мотивационная часть',
+      name: "Мотивационная часть",
       bool: false,
       components: <MotivationClaim />,
     },
     {
       id: 6,
-      name: 'Обоснование',
+      name: "Обоснование",
       bool: false,
       components: <Justification />,
     },
     {
       id: 7,
-      name: 'Финансовый расчет',
+      name: "Финансовый расчет",
       bool: false,
       components: <FinancialResult />,
     },
     {
       id: 8,
-      name: 'Общая информация',
+      name: "Общая информация",
       bool: false,
       components: <GeneralInfo />,
     },
     {
       id: 9,
-      name: 'Ссылка на законы',
+      name: "Ссылка на законы",
       bool: false,
       components: <LinksLaw />,
     },
     {
       id: 10,
-      name: 'Исковые требования',
+      name: "Исковые требования",
       bool: false,
       components: <ClaimRequaire />,
     },
     {
       id: 11,
-      name: 'Документы',
+      name: "Приложения",
       bool: false,
       components: <ApplicationFiles />,
     },
@@ -139,22 +120,6 @@ const PlaintiffPage = () => {
     }
   };
 
-  // const saveData = () => {
-  //   if (checkDataIsks(todosApplications)) {
-  //     dispatch(sendEveryIsks({ todosApplications, tokenA, navigate }));
-  //     dispatch(clearTodosApplications());
-  //     dispatch(clearMainBtnList()); /// очистка состояние типа исков
-  //   } else {
-  //     dispatch(
-  //       changeAlertText({
-  //         text: 'Нету заполненных полей!',
-  //         backColor: '#f9fafd',
-  //         state: true,
-  //       })
-  //     );
-  //   }
-  // };
-
   React.useEffect(() => {
     if (todosApplications.codeid === 0) {
       // 0 = я создаю новый документ, а если не !0, то редактирую документ
@@ -162,24 +127,11 @@ const PlaintiffPage = () => {
         createIdIsk({ todosApplications, tokenA, adff, aduf, docsIsks })
       ); /// для того чтобы взть id для создания иска
     }
-    /// селекты
-    dispatch(toTakeCountries(tokenA));
-    dispatch(toTakeDistrict(tokenA));
-    dispatch(toTakeRegions(tokenA));
-    dispatch(toTakeTypeAddress(tokenA));
-    dispatch(toTakeTypeOrganiz(tokenA));
-    dispatch(toTakeTypeCompany(tokenA));
-    dispatch(toTakeTypePosition(tokenA));
-    dispatch(toTakeTypeValuta(tokenA));
-    dispatch(toTakeCurrency(tokenA));
+
     return () => {
       dispatch(clearTodosApplications());
     };
   }, []);
-
-  // console.log(todosApplications, "todosApplications");
-  // console.log(createIdIsk, "createIdIsk");
-  // console.log(docsIsks, "docsIsks");
 
   return (
     <div className="plaintiff">
@@ -192,7 +144,7 @@ const PlaintiffPage = () => {
                 clickBtn(btn.id);
                 dispatch(changeLookAddPlaintiff(0));
               }}
-              className={btn?.bool ? 'activeBtnsPlaintiff' : ''}
+              className={btn?.bool ? "activeBtnsPlaintiff" : ""}
             >
               {btn.id}. {btn.name}
             </button>

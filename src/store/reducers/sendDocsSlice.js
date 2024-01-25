@@ -108,16 +108,54 @@ export const sendEveryIsks = createAsyncThunk(
       if (response.status >= 200 && response.status < 300) {
         dispatch(
           changeAlertText({
-            text: "Черновик сохранены!",
+            text: "Черновик сохранен!",
             backColor: "#f9fafd",
             state: true,
           })
         );
         dispatch(toTakeTypeTypeDocs(info.tokenA)); /// для очистки (сброса) типа файлов
+        dispatch(
+          sendDocsEveryIsks({
+            content: info?.content,
+            id: info?.todosApplications?.codeid,
+            type: 15, ///(15 - для создания иска)
+          }) /// для создания документа иска
+        );
         setTimeout(() => {
-          dispatch(toTakeIsksList({ tokenA:info?.tokenA, id:0}));
+          dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 })); /// для обновления списка на главной странице
         }, 1000);
         return { navigate: info.navigate };
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// sendDocsEveryIsks - отправка документа в виде HTML для создания копии иска
+// 12  Определение о принятии иска
+// 13, 14  Определение об отказе иска
+// 15   Исковое заявление
+export const sendDocsEveryIsks = createAsyncThunk(
+  "sendDocsEveryIsks",
+  async function (info, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/isks/crud/genereate-pdf`,
+        data: {
+          content: info?.content,
+          code_file: info?.type,
+          code_isk: info?.id,
+        },
+        headers: {
+          Authorization: `Bearer ${info.tokenA}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        // return { navigate: info.navigate };
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -179,6 +217,7 @@ export const deleteIsks = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
+        dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
         return +info?.codeid;
       } else {
         throw Error(`Error: ${response.status}`);
@@ -206,8 +245,7 @@ export const changeStatusIsks = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-          dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-
+        dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -230,16 +268,25 @@ export const changeStatusOrg = createAsyncThunk(
         data: {
           code_isk: +info?.id,
           isk_status: +info?.isk_status, ///  1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем, 4 Отклонённые председателем
-          description: info?.description,
+          description: "", //// delete
         },
         headers: {
           Authorization: `Bearer ${info?.tokenA}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        dispatch(
-          sendDocsReject({ tokenA: info?.tokenA, formData: info?.formData })
-        );
+        if ([2, 3, 4].includes(+info?.isk_status)) {
+          // 12  Определение о принятии иска
+          // 13, 14  Определение об отказе иска
+          // 15   Исковое заявление
+          dispatch(
+            sendDocsEveryIsks({
+              content: info?.content,
+              id: +info?.id,
+              type: +info?.type,
+            }) /// для создания документа иска
+          );
+        }
         setTimeout(() => {
           dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
         }, 1000);
@@ -339,18 +386,17 @@ const sendDocsSlice = createSlice({
     builder.addCase(deleteIsks.pending, (state, action) => {
       state.preloader = true;
     });
-    //////// changeStatusOrg
-    // builder.addCase(changeStatusOrg.fulfilled, (state, action) => {
-    //   state.preloader = false;
-    //   action.payload();
-    // });
-    // builder.addCase(changeStatusOrg.rejected, (state, action) => {
-    //   state.error = action.payload;
-    //   state.preloader = false;
-    // });
-    // builder.addCase(changeStatusOrg.pending, (state, action) => {
-    //   state.preloader = true;
-    // });
+    ////// changeStatusOrg
+    builder.addCase(changeStatusOrg.fulfilled, (state, action) => {
+      state.preloader = false;
+    });
+    builder.addCase(changeStatusOrg.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloader = false;
+    });
+    builder.addCase(changeStatusOrg.pending, (state, action) => {
+      state.preloader = true;
+    });
   },
 });
 export const { changePreloader, changeListTodos, addListTodos } =

@@ -3,7 +3,6 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import MainLayouts from "../layouts/MainLayouts";
 import PlaintiffPage from "../pages/PlaintiffPage/PlaintiffPage";
 import MainPage from "../pages/mainpage/MainPage";
-import SignIn from "../pages/login/SignIn";
 import NotificationPage from "../pages/NotificationPage/NotificationPage";
 import CalendarTodoPage from "../pages/CalendarTodoPage/CalendarTodoPage";
 import CalendarMeetings from "../pages/CalendarMeetings/CalendarMeetings";
@@ -18,6 +17,22 @@ import LayoutsRS from "../layouts/LayoutsRS/LayoutsRS";
 import { MainPageRS } from "../components/ResponsibleSecr/MainPageRS/MainPageRS";
 import LayoutsPred from "../layouts/LayoutsPred/LayoutsPred";
 import { MainPagePred } from "../components/ChairmanPred/MainPagePred/MainPagePred";
+import SignIn from "../pages/login/SignIn";
+import {
+  toTakeCountries,
+  toTakeCurrency,
+  toTakeDistrict,
+  toTakeHaracterS,
+  toTakeLangArbit,
+  toTakePrimPravo,
+  toTakeRegions,
+  toTakeReglament,
+  toTakeTypeAddress,
+  toTakeTypeCompany,
+  toTakeTypeOrganiz,
+  toTakeTypePosition,
+  toTakeTypeValuta,
+} from "../store/reducers/selectsSlice";
 
 function MainRoutes() {
   const dispatch = useDispatch();
@@ -78,6 +93,21 @@ function MainRoutes() {
     if (tokenA === "" || !tokenA) {
       navigate("/");
     }
+
+    /// селекты
+    dispatch(toTakeCountries({ tokenA }));
+    dispatch(toTakeDistrict({ tokenA }));
+    dispatch(toTakeRegions({ tokenA }));
+    dispatch(toTakeTypeAddress(tokenA));
+    dispatch(toTakeTypeOrganiz(tokenA));
+    dispatch(toTakeTypeCompany(tokenA));
+    dispatch(toTakeTypePosition(tokenA));
+    dispatch(toTakeTypeValuta(tokenA));
+    dispatch(toTakeCurrency(tokenA));
+    dispatch(toTakeHaracterS(tokenA));
+    dispatch(toTakePrimPravo(tokenA));
+    dispatch(toTakeReglament(tokenA));
+    dispatch(toTakeLangArbit(tokenA));
   }, [location.pathname]);
 
   return (

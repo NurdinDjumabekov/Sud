@@ -69,8 +69,13 @@ const ApplicationFiles = () => {
                 style={{ display: "none" }}
                 multiple
               />
-              <button>Выбрать файлы</button>
-              <span>{docs?.name} *</span>
+              <button>Добавить</button>
+              <span>
+                {docs?.name}{" "}
+                <b className="required" style={{ fontSize: "22px" }}>
+                  *
+                </b>
+              </span>
             </div>
             <div className="filesBlock">
               {docs?.arrDocs.map((file) => (

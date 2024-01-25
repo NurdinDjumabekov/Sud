@@ -1,42 +1,37 @@
 import React, { useState } from "react";
 import "./MainPageRS.scss";
 import imgPdf from "../../../asstes/icons/pdf.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  changeListPlaint,
-  changeLookDataAllPlaintiff,
-} from "../../../store/reducers/stateSlice";
-import { changeAlertText } from "../../../store/reducers/typesSlice";
+import { useSelector } from "react-redux";
 import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
+import { searchNameSelect } from "../../../helpers/searchNameSelect";
 
 export const MainPageRS = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { applicationList } = useSelector((state) => state.applicationsSlice);
   const [sendStatusIsk, setSendStatusIsk] = useState(false);
   const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
+  const { selCurrency, selReglament } = useSelector(
+    (state) => state.selectsSlice
+  );
 
-  const lookDataPlaintiff = (arr, type) => {
-    if (arr?.length === 0) {
-      dispatch(
-        changeAlertText({
-          text: `Данные ${type === 1 ? "истца" : "ответчика"} отсутствуют`,
-          backColor: "#f9fafd",
-          state: true,
-        })
-      );
-    } else {
-      dispatch(changeLookDataAllPlaintiff(true));
-      dispatch(changeListPlaint(arr));
-    }
-  };
+  // const lookDataPlaintiff = (arr, type) => {
+  //   if (arr?.length === 0) {
+  //     dispatch(
+  //       changeAlertText({
+  //         text: `Данные ${type === 1 ? "истца" : "ответчика"} отсутствуют`,
+  //         backColor: "#f9fafd",
+  //         state: true,
+  //       })
+  //     );
+  //   } else {
+  //     dispatch(changeLookDataAllPlaintiff(true));
+  //     dispatch(changeListPlaint(arr));
+  //   }
+  // };
+  ///delete
 
   const changeStatusIsks = (id, status) => {
     setSendStatusIsk(true);
-    setIsType({ type: status, id: id });
+    setIsType({ type: status, id });
   };
 
   const [btnList, setBtnList] = React.useState([
@@ -82,9 +77,9 @@ export const MainPageRS = () => {
 
   const statusMessages = {
     1: "Отправлено председателю",
-    2: "Иск отклонён ответственным секретарём",
-    3: "Иск принят председателем",
-    4: "Иск отклонён председателем",
+    2: "Отклонён ответственным секретарём",
+    3: "Принят председателем",
+    4: "Отклонён председателем",
   };
 
   return (
@@ -98,6 +93,7 @@ export const MainPageRS = () => {
                 onClick={() => clickBtn(btn.id)}
               >
                 {btn.name}
+                {/* <span className="countInfo">{listTodos?.[0]?.draft_count}</span> */}
               </button>
             </li>
           ))}
@@ -114,7 +110,6 @@ export const MainPageRS = () => {
                 <th className="table_isk_th">Арбитры</th>
                 <th className="table_isk_th">Секретарь</th>
                 <th className="table_isk_th">Статус</th>
-                <th className="table_isk_th">Действие</th>
                 <th className="table_isk_th">Документы</th>
               </tr>
             </thead>
@@ -130,79 +125,80 @@ export const MainPageRS = () => {
                 >
                   <td className="table_isk_td">
                     <div>
-                      <span className="span_teble">№ {row?.codeid}</span>
+                      <span className="span_teble">
+                        {row?.isk_number ? `№ ${row?.isk_number}` : ""}
+                      </span>
+                      {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
+                      <span
+                        style={row?.isk_number ? { margin: "8px 0 0 0" } : {}}
+                      >
+                        {row?.isk_date}
+                      </span>
                     </div>
                   </td>
                   <td className="table_isk_td">
-                    <span>
-                      {row?.plaintiff?.length === 0 ? (
-                        "ФИО истца отсутствует"
-                      ) : row?.plaintiff?.length === 1 ? (
-                        row?.plaintiff?.[0]?.name
+                    <>
+                      {row?.plaintiff?.length === 0 ? ( ////  "ФИО Истца отсутствует"
+                        <p></p>
                       ) : (
                         <>
-                          {row?.plaintiff?.[0]?.name} и еще{" "}
-                          {+row?.plaintiff?.length - 1}{" "}
-                          {+row?.plaintiff?.length - 1 === 1
-                            ? "истец"
-                            : "истца"}
+                          {row.plaintiff.map((i, index) => (
+                            <span key={index}>
+                              {i.name}
+                              {index !== row.plaintiff.length - 1 && ","}
+                            </span>
+                          ))}
                         </>
                       )}
-                    </span>
-                    <button
-                      className="btnPlaintiff"
-                      onClick={() => lookDataPlaintiff(row?.plaintiff, 1)}
-                    >
-                      Посмотреть список истцов
-                    </button>
+                    </>
                   </td>
                   <td className="table_isk_td">
-                    <span>
-                      {row?.defendant?.length === 0 ? (
-                        "ФИО ответчика отсутствует"
-                      ) : row?.defendant?.length === 1 ? (
-                        row.defendant?.[0]?.name
+                    <>
+                      {row?.defendant?.length === 0 ? ( ////  "ФИО ответчика отсутствует"
+                        ""
                       ) : (
                         <>
-                          {row?.defendant?.[0]?.name} и еще{" "}
-                          {+row?.defendant?.length - 1}{" "}
-                          {+row?.defendant?.length - 1 === 1
-                            ? "ответчик"
-                            : "ответчика"}
+                          {row.defendant.map((i, index) => (
+                            <span key={index}>
+                              {i.name}
+                              {index !== row.defendant.length - 1 && ","}
+                            </span>
+                          ))}
                         </>
                       )}
-                    </span>
-                    <button
-                      className="btnPlaintiff"
-                      onClick={() => lookDataPlaintiff(row?.defendant, 2)}
-                    >
-                      Посмотреть список ответчиков
-                    </button>
+                    </>
                   </td>
                   {/* ///////////////////////////////////// */}
                   <td className="table_isk_td">
                     <span>
-                      {+row?.arbitr_fee === 0 ? "отсутствует" : row?.arbitr_fee}
+                      {+row?.arbitr_fee === 0 ? (
+                        ""
+                      ) : (
+                        <>
+                          {row?.arbitr_fee}{" "}
+                          {searchNameSelect(selCurrency, +row?.arbitr_curr)}
+                        </>
+                      )}
                     </span>
                   </td>
                   <td className="table_isk_td">
                     <span>
-                      {+row?.reglament === 0 ? "отсутствует" : row?.reglament}
+                      {+row?.reglament === 0 ? (
+                        ""
+                      ) : (
+                        <>{searchNameSelect(selReglament, +row?.reglament)}</>
+                      )}
                     </span>
                   </td>
                   <td className="table_isk_td">
                     {row?.arbitrs?.length === 0 ? (
-                      <span>Арбитр не назначен</span>
+                      <span></span>
                     ) : (
                       row?.arbitrs?.map((i) => <span>{i?.name}</span>)
                     )}
                   </td>
                   <td className="table_isk_td">
-                    {/* <span>{row.secretary}</span> */}
-                    <span>Nurdin</span>
-                  </td>
-                  <td className="table_isk_td">
-                    <span>{+row?.status === 1 ? "Активен" : "Не активен"}</span>
+                    <span>{row.secretary ? row.secretary : ""}</span>
                   </td>
                   <td className="table_isk_td">
                     {+row?.isk_status === 0 ? (
@@ -210,12 +206,12 @@ export const MainPageRS = () => {
                         <button
                           onClick={() => changeStatusIsks(row?.codeid, 1)}
                         >
-                          Принять иск
+                          Принять
                         </button>
                         <button
                           onClick={() => changeStatusIsks(row?.codeid, 2)}
                         >
-                          Отклонить иск
+                          Отклонить
                         </button>
                       </div>
                     ) : (
@@ -236,7 +232,7 @@ export const MainPageRS = () => {
                   <td className="table_isk_td">
                     <span className="documentBlock">
                       {row?.files?.length === 0 ? (
-                        <span>Документы оттутствуют</span>
+                        <span></span>
                       ) : (
                         <div className="docsBlock">
                           {row?.files?.map((i, ind) => (
@@ -263,6 +259,7 @@ export const MainPageRS = () => {
       <ConfirmStatus
         setSendStatusIsk={setSendStatusIsk}
         sendStatusIsk={sendStatusIsk}
+        setIsType={setIsType}
         istype={istype}
       />
     </>
