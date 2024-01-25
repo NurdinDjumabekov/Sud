@@ -1,0 +1,26 @@
+.lookPdfModal {
+    &__inner {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        > img {
+            width: 25px;
+            height: 25px;
+            display: block;
+        }
+    }
+    span {
+        width: 100%;
+        display: block;
+        width: 100%;
+        text-align: left;
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px !important;
+    }
+    .blockPdf {
+        height: 95vh;
+        width: 1000px;
+    }
+}

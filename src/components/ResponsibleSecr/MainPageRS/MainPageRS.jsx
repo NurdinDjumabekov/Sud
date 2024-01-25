@@ -4,6 +4,7 @@ import imgPdf from "../../../asstes/icons/pdf.svg";
 import { useSelector } from "react-redux";
 import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 import { searchNameSelect } from "../../../helpers/searchNameSelect";
+import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
 
 export const MainPageRS = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
@@ -235,16 +236,10 @@ export const MainPageRS = () => {
                         <span></span>
                       ) : (
                         <div className="docsBlock">
-                          {row?.files?.map((i, ind) => (
-                            <a
-                              key={i?.codeid}
-                              className="docsBlock__inner"
-                              href={i?.path}
-                              target="_blank"
-                            >
-                              <img src={imgPdf} alt="pdf" />
-                              <span>{i?.document_name}</span>
-                            </a>
+                          {row?.files?.map((pdf) => (
+                            <>
+                              <LookPdfModal pdf={pdf} />
+                            </>
                           ))}
                         </div>
                       )}

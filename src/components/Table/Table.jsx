@@ -21,6 +21,8 @@ import { searchNameSelect } from "../../helpers/searchNameSelect";
 import imgFizFace from "../../asstes/icons/plaintiff/fiz_face.svg";
 import imgUrFace from "../../asstes/icons/plaintiff/ur_face.svg";
 import UrFace from "../PlaintiffPage/UrFace/UrFace";
+import Modals from "../Modals/Modals";
+import LookPdfModal from "../PdfFile/LookPdfModal/LookPdfModal";
 
 export const Table = () => {
   const dispatch = useDispatch();
@@ -242,18 +244,13 @@ export const Table = () => {
                   <td className="table_isk_td">
                     <span className="documentBlock">
                       {row?.files?.length === 0 ? (
-                        <span>Документы отсутствуют</span>
+                        <span></span>
                       ) : (
                         <div className="docsBlock">
-                          {row?.files?.map((i, ind) => (
-                            <div key={i?.codeid} className="docsBlock__inner">
-                              <iframe
-                                src={i?.path}
-                                width="100%"
-                                height="500px"
-                              ></iframe>
-                              <span>{i?.document_name}</span>
-                            </div>
+                          {row?.files?.map((pdf) => (
+                            <>
+                              <LookPdfModal pdf={pdf} />
+                            </>
                           ))}
                         </div>
                       )}
@@ -265,10 +262,6 @@ export const Table = () => {
           </table>
         </div>
       </div>
-      <Modals
-        openModal={sendStatusIsk}
-        setOpenModal={() => setSendStatusIsk()}
-      ></Modals>
     </>
   );
 };
