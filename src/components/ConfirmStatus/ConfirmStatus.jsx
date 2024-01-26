@@ -20,15 +20,23 @@ const ConfirmStatus = ({
   const navigate = useNavigate();
 
   const handleConfirm = (type) => {
-    dispatch(
-      changeStatusOrg({
-        id: istype.id,
-        tokenA,
-        // description: "",
-        isk_status: +type,
-      })
-    );
-    setSendStatusIsk(false);
+    if (editorRef.current && editorRef.current.editor) {
+      const content = editorRef.current.editor.getContent();
+      dispatch(
+        changeStatusOrg({
+          id: istype.id,
+          tokenA,
+          isk_status: istype.type,
+          content,
+          // description: "",
+          type: 12,
+          isk_status: +type,
+          navigate,
+          ///// завтра
+        })
+      );
+      setSendStatusIsk(false);
+    }
   };
   const rejectIsk = (e) => {
     e.preventDefault();

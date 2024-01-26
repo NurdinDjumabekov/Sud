@@ -290,12 +290,11 @@ export const changeStatusOrg = createAsyncThunk(
             dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
             if (+info?.type === 13) {
               info?.navigate("/mainRespSec");
+            } else if (+info?.type === 12) {
+              info?.navigate("/mainRespPred");
+            } else if (+info?.type === 14) {
+              info?.navigate("/mainRespPred");
             }
-            //  else if (+info?.type === 13) {
-            //   info?.navigate("/mainRespSec");
-            // } else if (+info?.type === 13) {
-            //   info?.navigate("/mainRespSec");
-            // }
           }, 600);
         }
       } else {
