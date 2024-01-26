@@ -1,25 +1,23 @@
 import React, { useState } from "react";
+import { useRef } from "react";
 import "./InputsPlaintiff.scss";
 import PdfFile from "../../PdfFile/PdfFile";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { checkDataIsks } from "../../../helpers/checkDataIsks";
-import {
-  sendDocsEveryIsks,
-  sendEveryIsks,
-} from "../../../store/reducers/sendDocsSlice";
+import { sendEveryIsks } from "../../../store/reducers/sendDocsSlice";
 import { clearTodosApplications } from "../../../store/reducers/applicationsSlice";
-import {
-  changeLookAddPlaintiff,
-  clearMainBtnList,
-} from "../../../store/reducers/stateSlice";
+import { clearMainBtnList } from "../../../store/reducers/stateSlice";
 import { changeAlertText } from "../../../store/reducers/typesSlice";
-import { useRef } from "react";
+import { jwtDecode } from "jwt-decode";
+import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 
 const InputsPlaintiff = ({ btnList, indexComp }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const editorRef = useRef(null);
+  const [sendStatusIsk, setSendStatusIsk] = useState(false);
+  const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf, docsIsks } = useSelector((state) => state.inputSlice);
@@ -45,7 +43,6 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
             })
           );
         } else {
-          console.log(editorRef);
           if (editorRef.current && editorRef.current.editor) {
             const content = editorRef.current.editor.getContent();
             dispatch(
@@ -67,6 +64,14 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
     }
   };
 
+  const changeStatusIsks = (id, status) => {
+    setSendStatusIsk(true);
+    setIsType({ type: status, id });
+  };
+
+  const decodedToken = jwtDecode(tokenA);
+  // console.log(decodedToken?.type_user, "decodedToken");
+
   return (
     <>
       <div className="plaintiffData">
@@ -82,10 +87,34 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
           )}
         </div>
       </div>
-      <div className="actionBtn">
-        <button onClick={saveData}>Сохранить</button>
-        <button onClick={() => navigate(-1)}>Отменить</button>
-      </div>
+      {+decodedToken?.type_user === 4 ? (
+        <div className="actionBtn">
+          <button onClick={saveData}>Сохранить</button>
+          <button onClick={() => navigate(-1)}>Отменить</button>
+        </div>
+      ) : (
+        <>
+          <div className="actionBtn">
+            <button
+              onClick={() => changeStatusIsks(todosApplications?.codeid, 1)}
+            >
+              Принять иск
+            </button>
+            <button
+              onClick={() => changeStatusIsks(todosApplications?.codeid, 2)}
+            >
+              Отказать в иске
+            </button>
+          </div>
+          {/* ///// это для ответственного секретаря и председателя */}
+          <ConfirmStatus
+            setSendStatusIsk={setSendStatusIsk}
+            sendStatusIsk={sendStatusIsk}
+            setIsType={setIsType}
+            istype={istype}
+          />
+        </>
+      )}
     </>
   );
 };

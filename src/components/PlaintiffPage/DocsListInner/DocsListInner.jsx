@@ -5,6 +5,7 @@ import {
   changeADUF,
   changeTypeFace,
 } from "../../../store/reducers/inputSlice";
+import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 import imgFizFace from "../../../asstes/icons/plaintiff/fiz_face.svg";
@@ -65,7 +66,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
       //// ответчик
       sortSend(objData, 2);
     } else if (type === "represen" && typerole === "истца") {
-      /// представитель истеца
+      /// представитель истца
       sortSend(objData, 3);
     } else if (type === "represen" && typerole === "ответчика") {
       ///// представитель ответчика
@@ -73,6 +74,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
     }
   };
 
+  const decodedToken = jwtDecode(tokenA);
   return (
     <div className="listDocs">
       <div>
@@ -103,14 +105,23 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
               </div>
             </div>
             <div className="everyCard__btns">
-              <button onClick={() => changeAddPlaintiff(i, "plaint")}>
-                <p>Редактировать</p>
-                <img src={editImg} alt="edit" className="imgMini" />
-              </button>
-              <button onClick={() => deleteIsks(i, "plaint")}>
-                <p>Удалить</p>
-                <img src={deleteImg} alt="del" />
-              </button>
+              {+decodedToken?.type_user === 4 ? (
+                <>
+                  <button onClick={() => changeAddPlaintiff(i, "plaint")}>
+                    <p>Редактировать</p>
+                    <img src={editImg} alt="edit" className="imgMini" />
+                  </button>
+                  <button onClick={() => deleteIsks(i, "plaint")}>
+                    <p>Удалить</p>
+                    <img src={deleteImg} alt="del" />
+                  </button>
+                </>
+              ) : (
+                <button onClick={() => changeAddPlaintiff(i, "plaint")}>
+                  <p>Посмотреть</p>
+                  <img src={editImg} alt="edit" className="imgMini" />
+                </button>
+              )}
             </div>
           </div>
         ))}
@@ -147,14 +158,23 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
               </div>
             </div>
             <div className="everyCard__btns">
-              <button onClick={() => changeAddPlaintiff(i, "plaint")}>
-                <p>Редактировать</p>
-                <img src={editImg} alt="edit" className="imgMini" />
-              </button>
-              <button onClick={() => deleteIsks(i, "plaint")}>
-                <p>Удалить</p>
-                <img src={deleteImg} alt="del" />
-              </button>
+              {+decodedToken?.type_user === 4 ? (
+                <>
+                  <button onClick={() => changeAddPlaintiff(i, "represen")}>
+                    <p>Редактировать</p>
+                    <img src={editImg} alt="edit" className="imgMini" />
+                  </button>
+                  <button onClick={() => deleteIsks(i, "represen")}>
+                    <p>Удалить</p>
+                    <img src={deleteImg} alt="del" />
+                  </button>
+                </>
+              ) : (
+                <button onClick={() => changeAddPlaintiff(i, "represen")}>
+                  <p>Посмотреть</p>
+                  <img src={editImg} alt="edit" className="imgMini" />
+                </button>
+              )}
             </div>
           </div>
         ))}

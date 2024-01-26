@@ -118,7 +118,7 @@ export const sendEveryIsks = createAsyncThunk(
           sendDocsEveryIsks({
             content: info?.content,
             id: info?.todosApplications?.codeid,
-            type: 15, ///(15 - для создания иска)
+            type: 16, ///(16 - для создания иска)
           }) /// для создания документа иска
         );
         setTimeout(() => {
@@ -286,10 +286,18 @@ export const changeStatusOrg = createAsyncThunk(
               type: +info?.type,
             }) /// для создания документа иска
           );
+          setTimeout(() => {
+            dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
+            if (+info?.type === 13) {
+              info?.navigate("/mainRespSec");
+            }
+            //  else if (+info?.type === 13) {
+            //   info?.navigate("/mainRespSec");
+            // } else if (+info?.type === 13) {
+            //   info?.navigate("/mainRespSec");
+            // }
+          }, 600);
         }
-        setTimeout(() => {
-          dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-        }, 1000);
       } else {
         throw Error(`Error: ${response.status}`);
       }

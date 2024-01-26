@@ -95,6 +95,7 @@ export const toTakeTypeTypeDocs = createAsyncThunk(
 export const sendDocsIsks = createAsyncThunk(
   "sendDocsIsks",
   async function (info, { dispatch, rejectWithValue }) {
+    // console.log(info?.name,"info?.name");
     try {
       const response = await axios({
         method: "POST",

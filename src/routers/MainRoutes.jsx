@@ -64,6 +64,7 @@ function MainRoutes() {
     userRoutes = (
       <Route element={<LayoutsRS />}>
         <Route path="/mainRespSec" element={<MainPageRS />} />
+        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
         <Route path="/archive" element={<ArchivePage />} />
       </Route>
@@ -96,8 +97,8 @@ function MainRoutes() {
 
     /// селекты
     dispatch(toTakeCountries({ tokenA }));
-    dispatch(toTakeDistrict({ tokenA }));
     dispatch(toTakeRegions({ tokenA }));
+    dispatch(toTakeDistrict({ tokenA }));
     dispatch(toTakeTypeAddress(tokenA));
     dispatch(toTakeTypeOrganiz(tokenA));
     dispatch(toTakeTypeCompany(tokenA));

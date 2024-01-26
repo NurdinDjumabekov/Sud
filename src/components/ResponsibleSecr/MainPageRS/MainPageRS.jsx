@@ -1,39 +1,19 @@
 import React, { useState } from "react";
 import "./MainPageRS.scss";
-import imgPdf from "../../../asstes/icons/pdf.svg";
-import { useSelector } from "react-redux";
-import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
+import { useDispatch, useSelector } from "react-redux";
 import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
-
+import { editIsks } from "../../../store/reducers/applicationsSlice";
+import { useNavigate } from "react-router-dom";
 export const MainPageRS = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
-  const [sendStatusIsk, setSendStatusIsk] = useState(false);
-  const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { applicationList } = useSelector((state) => state.applicationsSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
-
-  // const lookDataPlaintiff = (arr, type) => {
-  //   if (arr?.length === 0) {
-  //     dispatch(
-  //       changeAlertText({
-  //         text: `Данные ${type === 1 ? "истца" : "ответчика"} отсутствуют`,
-  //         backColor: "#f9fafd",
-  //         state: true,
-  //       })
-  //     );
-  //   } else {
-  //     dispatch(changeLookDataAllPlaintiff(true));
-  //     dispatch(changeListPlaint(arr));
-  //   }
-  // };
-  ///delete
-
-  const changeStatusIsks = (id, status) => {
-    setSendStatusIsk(true);
-    setIsType({ type: status, id });
-  };
 
   const [btnList, setBtnList] = React.useState([
     {
@@ -76,6 +56,10 @@ export const MainPageRS = () => {
   console.log(listTodos, "listTodos");
   // console.log(todosApplications, "todosApplications");
 
+  const editIsksFn = (id) => {
+    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+  };
+
   const statusMessages = {
     1: "Отправлено председателю",
     2: "Отклонён ответственным секретарём",
@@ -104,6 +88,7 @@ export const MainPageRS = () => {
             <thead>
               <tr>
                 <th className="table_isk_th">Иск</th>
+                <th className="table_isk_th">Дата</th>
                 <th className="table_isk_th">Истец</th>
                 <th className="table_isk_th">Ответчик</th>
                 <th className="table_isk_th">Арбитражный сбор</th>
@@ -130,12 +115,10 @@ export const MainPageRS = () => {
                         {row?.isk_number ? `№ ${row?.isk_number}` : ""}
                       </span>
                       {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
-                      <span
-                        style={row?.isk_number ? { margin: "8px 0 0 0" } : {}}
-                      >
-                        {row?.isk_date}
-                      </span>
                     </div>
+                  </td>
+                  <td className="table_isk_td">
+                    <span>{row?.isk_date}</span>
                   </td>
                   <td className="table_isk_td">
                     <>
@@ -204,15 +187,8 @@ export const MainPageRS = () => {
                   <td className="table_isk_td">
                     {+row?.isk_status === 0 ? (
                       <div className="statusIsks">
-                        <button
-                          onClick={() => changeStatusIsks(row?.codeid, 1)}
-                        >
-                          Принять
-                        </button>
-                        <button
-                          onClick={() => changeStatusIsks(row?.codeid, 2)}
-                        >
-                          Отклонить
+                        <button onClick={() => editIsksFn(row?.codeid)}>
+                          Просмотреть
                         </button>
                       </div>
                     ) : (
@@ -237,9 +213,7 @@ export const MainPageRS = () => {
                       ) : (
                         <div className="docsBlock">
                           {row?.files?.map((pdf) => (
-                            <>
-                              <LookPdfModal pdf={pdf} />
-                            </>
+                            <LookPdfModal pdf={pdf} key={pdf?.codeid} />
                           ))}
                         </div>
                       )}
@@ -251,12 +225,6 @@ export const MainPageRS = () => {
           </table>
         </div>
       </div>
-      <ConfirmStatus
-        setSendStatusIsk={setSendStatusIsk}
-        sendStatusIsk={sendStatusIsk}
-        setIsType={setIsType}
-        istype={istype}
-      />
     </>
   );
 };

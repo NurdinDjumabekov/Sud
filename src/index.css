@@ -36,8 +36,8 @@ button {
   /* max-width: 1000px; */
   width: 50%;
   /* min-width: 600px; */
-  position: relative;
-  height: 87vh;
+  /* position: relative; */
+  height: 86vh;
 }
 
 .noneData {

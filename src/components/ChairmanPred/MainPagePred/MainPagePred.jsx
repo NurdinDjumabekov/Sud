@@ -93,6 +93,7 @@ export const MainPagePred = () => {
             <thead>
               <tr>
                 <th className="table_isk_th">Иск</th>
+                <th className="table_isk_th">Дата</th>
                 <th className="table_isk_th">Истец</th>
                 <th className="table_isk_th">Ответчик</th>
                 <th className="table_isk_th">Арбитражный сбор</th>
@@ -114,17 +115,12 @@ export const MainPagePred = () => {
                   }
                 >
                   <td className="table_isk_td">
-                    <div>
-                      <span className="span_teble">
-                        {row?.isk_number ? `№ ${row?.isk_number}` : ""}
-                      </span>
-                      {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
-                      <span
-                        style={row?.isk_number ? { margin: "8px 0 0 0" } : {}}
-                      >
-                        {row?.isk_date}
-                      </span>
-                    </div>
+                    <span className="span_teble">
+                      {row?.isk_number ? `№ ${row?.isk_number}` : ""}
+                    </span>
+                  </td>
+                  <td className="table_isk_td">
+                    <span>{row?.isk_date}</span>
                   </td>
                   <td className="table_isk_td">
                     <>
@@ -227,9 +223,7 @@ export const MainPagePred = () => {
                       ) : (
                         <div className="docsBlock">
                           {row?.files?.map((pdf) => (
-                            <>
-                              <LookPdfModal pdf={pdf} />
-                            </>
+                            <LookPdfModal pdf={pdf} key={pdf?.codeid} />
                           ))}
                         </div>
                       )}

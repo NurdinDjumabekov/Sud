@@ -9,6 +9,7 @@ import deleteBtn from "../../../asstes/icons/deleteBtn.svg";
 const DocsList = ({ typerole }) => {
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
+  // console.log(typerole, "typerole");
   if (typerole === "истца") {
     return (
       <DocsListInner

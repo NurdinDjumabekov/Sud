@@ -376,12 +376,12 @@ const UrFace = ({ typerole }) => {
             />
           </div>
         </div>
-        {aduf?.type === 1 ? <></> : <></>}
+        {/* {aduf?.type === 1 ? <></> : <></>} */}
         <div className="btnsSave">
           <button className="saveBtn" type="submit">
             Сохранить
           </button>
-          <span
+          {/* <span
             className="saveBtn"
             onClick={() => {
               dispatch(changeLookAddPlaintiff(0));
@@ -390,7 +390,7 @@ const UrFace = ({ typerole }) => {
             }}
           >
             Отменить
-          </span>
+          </span> */}
         </div>
       </form>
     </>

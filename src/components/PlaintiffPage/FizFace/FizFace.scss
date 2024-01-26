@@ -144,6 +144,10 @@
     cursor: pointer;
     text-align: center;
   }
+  .moreBtn {
+    background: transparent !important;
+    color: #344050;
+  }
 }
 
 @keyframes fadeIn {

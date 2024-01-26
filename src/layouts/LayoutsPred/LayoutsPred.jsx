@@ -149,7 +149,7 @@ function LayoutsPred() {
         className="plaintiffBlock__content"
         style={
           location.pathname === '/plaintiffCreate'
-            ? { alignItems: 'start', marginTop: '26px' }
+            ? { alignItems: 'start', marginTop: '20px' }
             : {}
         }
       >

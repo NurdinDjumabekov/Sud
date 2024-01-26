@@ -7,6 +7,8 @@ import {
   sendDocsIsks,
   toTakeTypeTypeDocs,
 } from "../../../store/reducers/applicationsSlice";
+import LookDocs from "../../PdfFile/LookDocs/LookDocs";
+import { jwtDecode } from "jwt-decode";
 
 const ApplicationFiles = () => {
   const dispatch = useDispatch();
@@ -36,6 +38,7 @@ const ApplicationFiles = () => {
         fileData.append("code_isk", +todosApplications?.codeid);
         fileData.append("code_file", +id);
         fileData.append("file", file);
+        fileData.append("name", file?.name);
         dispatch(
           sendDocsIsks({ fileData, tokenA, code_file: +id, name: file?.name })
         );
@@ -49,8 +52,16 @@ const ApplicationFiles = () => {
   };
 
   // console.log(selTypeTypeDocs, "selTypeTypeDocs");
-  // console.log(applicationList, "applicationList");
-  // console.log(selectedFilesArray, "selectedFilesArray");
+  console.log(applicationList, "applicationList");
+  // console.log(selectedFilesArray, "selectedFilesArray");\
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(toTakeTypeTypeDocs(tokenA));
+    };
+  }, []);
+
+  const decodedToken = jwtDecode(tokenA);
 
   return (
     <div className="plaintiFilling__container">
@@ -68,6 +79,7 @@ const ApplicationFiles = () => {
                 onChange={(e) => handleFileChange(docs?.codeid, e)}
                 style={{ display: "none" }}
                 multiple
+                disabled={+decodedToken?.type_user === 4 ? false : true}
               />
               <button>Добавить</button>
               <span>
@@ -80,8 +92,10 @@ const ApplicationFiles = () => {
             <div className="filesBlock">
               {docs?.arrDocs.map((file) => (
                 <div key={+file?.codeid_file} className="file-item">
-                  <span>{file.name}</span>
+                  {/* <span >{file.name}</span> */}
+                  <LookDocs file={file} key={file?.codeid_file} />
                   <button
+                    disabled={+decodedToken?.type_user === 4 ? false : true}
                     onClick={() => {
                       dispatch(
                         deleteDocsIsks({

@@ -9,6 +9,7 @@ import {
   toTakeDistrict,
   toTakeRegions,
 } from "../../store/reducers/selectsSlice";
+import { searchNameSelect } from "../../helpers/searchNameSelect";
 
 const Selects = (props) => {
   const { arr, initText, keys, type } = props;
@@ -40,11 +41,12 @@ const Selects = (props) => {
   }, [active]);
 
   const clickSelect = (name, id) => {
-    // if (keys?.type === "country") {
-    //   dispatch(toTakeRegions({ tokenA, id }));
-    //   dispatch(changeADFF({ ...adff, region: 0 }));
-    // }
-    setActive(false);
+    if (keys?.type === "country") {
+      dispatch(toTakeRegions({ tokenA, id }));
+    }
+    if (keys?.type === "region") {
+      dispatch(toTakeDistrict({ tokenA, id }));
+    }
     if (type === "adff") {
       dispatch(changeADFF({ ...adff, [keys.type]: id }));
     } else if (type === "aduf") {
@@ -56,18 +58,9 @@ const Selects = (props) => {
     } else if (type === "typePay") {
       dispatch(changeTypePay(+id));
     }
-    setName(name);
+    setActive(false);
   };
 
-  React.useEffect(() => {
-    for (const i of arr) {
-      if (+keys?.typeKey === +i?.codeid) {
-        setName(i.name);
-      }
-    }
-  }, [keys?.typeKey]);
-
-  // console.log(name, "name");
   return (
     <div className="selectBlockMain">
       <h5>{initText}</h5>
@@ -76,7 +69,7 @@ const Selects = (props) => {
           className="selectBlock__inner"
           onClick={() => setActive((prevState) => !prevState)}
         >
-          <p>{name}</p>
+          <p>{searchNameSelect(arr, [keys?.typeKey])}</p>
           <img
             src={img}
             alt="<"

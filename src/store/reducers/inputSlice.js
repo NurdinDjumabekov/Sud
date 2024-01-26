@@ -4,7 +4,7 @@ const initialState = {
   typeFace: 1,
   //// addPlaintiffFizFace
   // adff: {
-  //   action_type: 0,
+  //   action_type: 1,
   //   codeid: 0,
   //   code_isk: 0,
   //   name: "",
@@ -37,8 +37,6 @@ const initialState = {
   //   description: "",
   //   typeFace : 1
   // },
-
-  //// addPlaintiffUrFace
 
   adff: {
     action_type: 1,
@@ -74,6 +72,8 @@ const initialState = {
     description: "sadas",
     typeFace: 1,
   },
+
+  //// addPlaintiffUrFace
 
   aduf: {
     action_type: 1,

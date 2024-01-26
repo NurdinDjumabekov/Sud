@@ -1,7 +1,7 @@
 .applicationFiles {
   padding: 20px 10px 10px 10px;
   border-radius: 8px;
-  height: 87vh;
+  height: 86vh;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     width: 0px;
@@ -56,6 +56,10 @@
         padding: 5px;
         border-radius: 5px;
         border: 1px solid grey;
+        > span {
+          cursor: pointer;
+
+        }
         button {
           background: transparent;
           width: 20px;

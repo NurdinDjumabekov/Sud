@@ -1,8 +1,8 @@
-$paddingTableInner: 2px 14px;
+$paddingTableInner: 2px 10px;
 
 .mainTables {
-  height: 93vh;
-  padding: 20px 0px;
+  height: 96vh;
+  padding: 20px 0px 5px;
   width: 100%;
   border-radius: 10px;
   background: #fff;
@@ -60,7 +60,7 @@ $paddingTableInner: 2px 14px;
     overflow-y: scroll;
     border: 1px solid rgb(237, 242, 249);
     padding-bottom: 0 !important;
-    height: 93%;
+    height: 95%;
 
     table {
       // table-layout: fixed;
@@ -171,7 +171,6 @@ $paddingTableInner: 2px 14px;
       padding: $paddingTableInner;
       text-align: left !important;
       margin: 0px 0px 5px 0px;
-
     }
     .table_isk_td {
       .btnPlaintiff {
@@ -233,17 +232,23 @@ $paddingTableInner: 2px 14px;
 
     .table_isk_td:nth-child(1),
     .table_isk_th:nth-child(1) {
-      width: 170px;
+      width: 140px;
     }
 
     .table_isk_td:nth-child(2),
     .table_isk_th:nth-child(2) {
-      width: 220px;
+      width: 120px;
+      // background: red;
     }
 
     .table_isk_td:nth-child(3),
     .table_isk_th:nth-child(3) {
-      width: 220px;
+      width: 150px !important;
+      // background: red;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      // white-space: nowrap;
+
     }
 
     .table_isk_td:nth-child(4),
@@ -260,7 +265,7 @@ $paddingTableInner: 2px 14px;
 
     .table_isk_td:nth-child(6),
     .table_isk_th:nth-child(6) {
-      width: 12.67rem;
+      width: 150px;
     }
 
     .table_isk_td:nth-child(7),
@@ -280,6 +285,11 @@ $paddingTableInner: 2px 14px;
 
     .table_isk_td:nth-child(10),
     .table_isk_th:nth-child(10) {
+      width: 150px;
+    }
+
+    .table_isk_td:nth-child(11),
+    .table_isk_th:nth-child(11) {
       // max-width: 200px;
       width: 200px;
       border-right: 1px solid rgb(234, 234, 234);

@@ -6,6 +6,7 @@ import { changeStatusOrg } from "../../store/reducers/sendDocsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import PdfFileReject from "../PdfFile/PdfFileReject/PdfFileReject";
 import PdfFulfilled from "../PdfFile/PdfFulfilled/PdfFulfilled";
+import { useNavigate } from "react-router-dom";
 
 const ConfirmStatus = ({
   setSendStatusIsk,
@@ -16,6 +17,7 @@ const ConfirmStatus = ({
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const dispatch = useDispatch();
   const editorRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleConfirm = (type) => {
     dispatch(
@@ -32,7 +34,7 @@ const ConfirmStatus = ({
     e.preventDefault();
     if (editorRef.current && editorRef.current.editor) {
       const content = editorRef.current.editor.getContent();
-      console.log(content, "content");
+      // console.log(content, "content");
       dispatch(
         changeStatusOrg({
           id: istype.id,
@@ -40,6 +42,7 @@ const ConfirmStatus = ({
           isk_status: istype.type,
           content,
           type: istype?.type === 2 ? 13 : istype?.type === 4 ? 14 : 0,
+          navigate,
         })
       );
       setSendStatusIsk(false);
@@ -55,7 +58,7 @@ const ConfirmStatus = ({
           tokenA,
           isk_status: istype.type,
           content,
-          type: 15, /// принятие иска
+          type: 12, /// принятие иска
         })
       );
       setSendStatusIsk(false);
@@ -99,7 +102,7 @@ const ConfirmStatus = ({
             <PdfFulfilled istype={istype} editorRef={editorRef} />
             <div className="modalchangeStatus" style={{ height: "auto" }}>
               <div className="btnsSendIsks">
-                <button onClick={(e) => fulfilledIsk(e)}>Отклонить иск</button>
+                <button onClick={(e) => fulfilledIsk(e)}>Принять иск</button>
                 <button onClick={() => setSendStatusIsk(false)}>Отмена</button>
               </div>
             </div>

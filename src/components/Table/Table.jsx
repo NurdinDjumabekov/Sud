@@ -97,7 +97,7 @@ export const Table = () => {
                 onClick={() => clickBtn(btn.id)}
               >
                 {btn.name}
-                <span className="countInfo">{listTodos?.[0]?.draft_count}</span>
+                <span className="countInfo">{listTodos?.[0]?.isk_count}</span>
               </button>
             </li>
           ))}
@@ -107,6 +107,7 @@ export const Table = () => {
             <thead>
               <tr>
                 <th className="table_isk_th">Иск</th>
+                <th className="table_isk_th">Дата</th>
                 <th className="table_isk_th">Истец</th>
                 <th className="table_isk_th">Ответчик</th>
                 <th className="table_isk_th">Арбитражный сбор</th>
@@ -134,12 +135,10 @@ export const Table = () => {
                         {row?.isk_number ? `№ ${row?.isk_number}` : ""}
                       </span>
                       {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
-                      <span
-                        style={row?.isk_number ? { margin: "8px 0 0 0" } : {}}
-                      >
-                        {row?.isk_date}
-                      </span>
                     </div>
+                  </td>
+                  <td className="table_isk_td">
+                    <span>{row?.isk_date}</span>
                   </td>
                   <td className="table_isk_td">
                     <>
@@ -208,9 +207,13 @@ export const Table = () => {
                   </td>
                   <td className="table_isk_td">
                     {+row?.status === 1 ? (
-                      <span style={{ color: "#1cd81c" }}>Активен</span>
+                      <span style={{ color: "#1cd81c", padding: "0px 10px" }}>
+                        Активен
+                      </span>
                     ) : (
-                      <span style={{ color: "red" }}>Черновик</span>
+                      <span style={{ color: "red", padding: "0px 10px" }}>
+                        Черновик
+                      </span>
                     )}
                   </td>
                   <td className="table_isk_td">
@@ -248,9 +251,7 @@ export const Table = () => {
                       ) : (
                         <div className="docsBlock">
                           {row?.files?.map((pdf) => (
-                            <>
-                              <LookPdfModal pdf={pdf} />
-                            </>
+                            <LookPdfModal pdf={pdf} key={pdf?.codeid} />
                           ))}
                         </div>
                       )}

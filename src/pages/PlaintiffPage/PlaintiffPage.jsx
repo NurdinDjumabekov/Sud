@@ -3,6 +3,7 @@ import "./PlaintiffPage.scss";
 import InputsPlaintiff from "../../components/PlaintiffPage/InputsPlaintiff/InputsPlaintiff";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 import { changeLookAddPlaintiff } from "../../store/reducers/stateSlice";
 import TargetPlaintiff from "../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff";
 import DescriptionClaim from "../../components/PlaintiffPage/DescriptionClaim/DescriptionClaim";
@@ -18,6 +19,7 @@ import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/Da
 import { checkDataIsks } from "../../helpers/checkDataIsks";
 import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
 import { createIdIsk, sendEveryIsks } from "../../store/reducers/sendDocsSlice";
+import kerstImg from "../../asstes/icons/krestik.svg";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -34,17 +36,13 @@ const PlaintiffPage = () => {
       id: 1,
       name: "Истец",
       bool: true,
-      components: (
-        <DataArrPlaintiff arr={todosApplications} typerole={"истца"} />
-      ),
+      components: <DataArrPlaintiff typerole={"истца"} />,
     },
     {
       id: 2,
       name: "Ответчик",
       bool: false,
-      components: (
-        <DataArrPlaintiff arr={todosApplications} typerole={"ответчика"} />
-      ),
+      components: <DataArrPlaintiff typerole={"ответчика"} />,
     },
     {
       id: 3,
@@ -132,6 +130,8 @@ const PlaintiffPage = () => {
       dispatch(clearTodosApplications());
     };
   }, []);
+  
+  const decodedToken = jwtDecode(tokenA);
 
   return (
     <div className="plaintiff">
@@ -150,8 +150,14 @@ const PlaintiffPage = () => {
             </button>
           ))}
         </ul>
+        {+decodedToken?.type_user !== 4 && (
+          <div className="cloused">
+            <button onClick={() => navigate(-1)}>
+              <img src={kerstImg} alt="x" />
+            </button>
+          </div>
+        )}
       </div>
-      {/* /// для адаптивки */}
       <InputsPlaintiff btnList={btnList} indexComp={indexComp} />
     </div>
   );

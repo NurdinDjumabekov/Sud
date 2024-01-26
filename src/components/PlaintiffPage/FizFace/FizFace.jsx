@@ -2,6 +2,7 @@ import React from "react";
 import "./FizFace.scss";
 import Selects from "../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 import {
   changeADFF,
   clearADFF,
@@ -97,6 +98,20 @@ const FizFace = ({ typerole }) => {
     e.preventDefault();
     dispatch(changeADFF({ ...adff, [e.target.name]: e.target.value }));
   };
+
+  // console.log(selRegions, "selRegions");
+  // console.log(selCountries, "selCountries");
+  console.log(adff, "adff");
+
+  React.useEffect(() => {
+    dispatch(changeADFF({ ...adff, region: 0, district: 0 }));
+  }, [adff?.country]);
+
+  React.useEffect(() => {
+    dispatch(changeADFF({ ...adff, district: 0 }));
+  }, [adff?.region]);
+
+  const decodedToken = jwtDecode(tokenA);
 
   return (
     <div className="addPlaintiffFiz">
@@ -475,12 +490,14 @@ const FizFace = ({ typerole }) => {
           </div>
         </div>
         <div className="btnsSave">
-          <button className="saveBtn" type="submit">
-            Добавить
-          </button>
-          {/* <span
+          {+decodedToken?.type_user === 4 && (
+            <button className="saveBtn" type="submit">
+              Добавить
+            </button>
+          )}
+          <span
             style={{ width: "150px" }}
-            className="saveBtn"
+            className="saveBtn moreBtn"
             onClick={() => {
               dispatch(changeLookAddPlaintiff(0));
               dispatch(clearADFF());
@@ -488,7 +505,7 @@ const FizFace = ({ typerole }) => {
             }}
           >
             Отмена
-          </span> */}
+          </span>
         </div>
       </form>
     </div>
