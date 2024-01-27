@@ -3,7 +3,6 @@ import axios from "axios";
 import { changeADFF, changeADUF, changeDocsIsks } from "./inputSlice";
 import {
   changeTodosApplications,
-  sendDocsReject,
   toTakeTypeTypeDocs,
 } from "./applicationsSlice";
 import { changeActionType } from "../../helpers/changeActionType";
@@ -295,6 +294,11 @@ export const changeStatusOrg = createAsyncThunk(
             } else if (+info?.type === 14) {
               info?.navigate("/mainRespPred");
             }
+          }, 600);
+        } else if (+info?.isk_status === 1) {
+          setTimeout(() => {
+            dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
+            info?.navigate("/mainRespSec");
           }, 600);
         }
       } else {

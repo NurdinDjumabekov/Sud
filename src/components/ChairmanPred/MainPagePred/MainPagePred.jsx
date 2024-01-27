@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import "./MainPagePred.scss";
 import imgPdf from "../../../asstes/icons/pdf.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  changeListPlaint,
-  changeLookDataAllPlaintiff,
-} from "../../../store/reducers/stateSlice";
-import { changeAlertText } from "../../../store/reducers/typesSlice";
 import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
+import { useNavigate } from "react-router-dom";
+import { editIsks } from "../../../store/reducers/applicationsSlice";
 
 export const MainPagePred = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { applicationList } = useSelector((state) => state.applicationsSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
@@ -64,8 +64,11 @@ export const MainPagePred = () => {
     setBtnList(newList);
   };
 
-  console.log(listTodos, "listTodos");
+  // console.log(listTodos, "listTodos");
   // console.log(todosApplications, "todosApplications");
+  const editIsksFn = (id) => {
+    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+  };
 
   const statusMessages = {
     2: "Отклонён ответственным секретарём",
@@ -189,7 +192,7 @@ export const MainPagePred = () => {
                   <td className="table_isk_td">
                     {+row?.isk_status === 0 || +row?.isk_status === 1 ? (
                       <div className="statusIsks">
-                        <button
+                        {/* <button
                           onClick={() => changeStatusIsks(row?.codeid, 3)}
                         >
                           Принять
@@ -198,6 +201,9 @@ export const MainPagePred = () => {
                           onClick={() => changeStatusIsks(row?.codeid, 4)}
                         >
                           Отклонить
+                        </button> */}
+                        <button onClick={() => editIsksFn(row?.codeid)}>
+                          Просмотреть
                         </button>
                       </div>
                     ) : (
@@ -235,12 +241,12 @@ export const MainPagePred = () => {
           </table>
         </div>
       </div>
-      <ConfirmStatus
+      {/* <ConfirmStatus
         setSendStatusIsk={setSendStatusIsk}
         sendStatusIsk={sendStatusIsk}
         setIsType={setIsType}
         istype={istype}
-      />
+      /> */}
     </>
   );
 };

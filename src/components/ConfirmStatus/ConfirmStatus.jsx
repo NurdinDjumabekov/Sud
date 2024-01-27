@@ -58,21 +58,37 @@ const ConfirmStatus = ({
   };
   const fulfilledIsk = (e) => {
     e.preventDefault();
-    if (editorRef.current && editorRef.current.editor) {
-      const content = editorRef.current.editor.getContent();
+    if (istype.type === 1) {
       dispatch(
         changeStatusOrg({
           id: istype.id,
           tokenA,
           isk_status: istype.type,
-          content,
-          type: 12, /// принятие иска
+          content: "",
+          type: 0, /// принятие иска (12 у председателя) 0 просто так для условия чтобы не сработало 12
+          navigate,
         })
       );
       setSendStatusIsk(false);
+    } else if (istype?.type === 3) {
+      if (editorRef.current && editorRef.current.editor) {
+        const content = editorRef.current.editor.getContent();
+        dispatch(
+          changeStatusOrg({
+            id: istype.id,
+            tokenA,
+            isk_status: istype.type,
+            content,
+            type: 12, /// принятие иска как ответственный секретарь
+            navigate, 
+          })
+        );
+        setSendStatusIsk(false);
+      }
     }
   };
 
+  console.log(istype.type,"istype.type");
   React.useEffect(() => {
     return () => setIsType({ type: 0, id: 0 });
   }, []);
@@ -87,9 +103,7 @@ const ConfirmStatus = ({
             <h5>Вы уверены что хотите поменять статус иска?</h5>
             <p>После подтверждения обратно иск поменять не получится...</p>
             <div className="btnsSendIsks">
-              <button onClick={() => handleConfirm(istype.type)}>
-                Принять иск
-              </button>
+              <button onClick={(e) => fulfilledIsk(e)}>Принять иск</button>
               <button onClick={() => setSendStatusIsk(false)}>Отмена</button>
             </div>
           </div>

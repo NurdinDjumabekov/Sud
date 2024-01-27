@@ -102,7 +102,7 @@ const UrFace = ({ typerole }) => {
   };
 
   React.useEffect(() => {
-    console.log("ur face");
+    // console.log("ur face");
 
     return () => dispatch(changeTypeFace(1));
   }, []);
@@ -172,7 +172,6 @@ const UrFace = ({ typerole }) => {
           <div style={{ width: "300px" }}>
             <p>Второй адрес электронной почты</p>
             <input
-              required
               type="text"
               placeholder="Второй адрес электронной почты"
               name="email2"

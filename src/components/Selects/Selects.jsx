@@ -43,6 +43,7 @@ const Selects = (props) => {
   const clickSelect = (name, id) => {
     if (keys?.type === "country") {
       dispatch(toTakeRegions({ tokenA, id }));
+      dispatch(toTakeDistrict({ tokenA, id: 0 }));
     }
     if (keys?.type === "region") {
       dispatch(toTakeDistrict({ tokenA, id }));

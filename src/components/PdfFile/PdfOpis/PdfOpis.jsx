@@ -1,14 +1,15 @@
 import React, { useRef, useState } from "react";
-import "./PdfFile.scss";
-import pdf from "../../asstes/pdf/sud_pdf.pdf";
+import "./PdfOpis.scss";
+import pdf from "../../../asstes/pdf/sud_pdf.pdf";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchIdCurrency } from "../../helpers/searchIdCurrency";
+import Modals from "../../Modals/Modals";
 
-const PdfFile = ({ editorRef }) => {
+const PdfOpis = ({ lookOpis, setLookOpis }) => {
   const dispatch = useDispatch();
   const { selCurrency } = useSelector((state) => state.selectsSlice);
   const [date, setDate] = useState("");
+  const editorRef = useRef(null);
 
   const handleEditorChange = (content, editor) => {
     // console.log('Content was updated:', content);
@@ -87,28 +88,6 @@ const PdfFile = ({ editorRef }) => {
           4
         )}
         </div>
-         <p style="color: transparent;  font-size: 16px;">${
-           todosApplications?.summ === "0" ||
-           todosApplications?.summ === "" ||
-           todosApplications?.summ === 0
-             ? ""
-             : `Цена иска: ${
-                 todosApplications?.summ === ""
-                   ? ""
-                   : `${todosApplications?.summ}${" "}${
-                       searchIdCurrency(
-                         selCurrency,
-                         +todosApplications?.summ_curr
-                       )
-                         ? searchIdCurrency(
-                             selCurrency,
-                             +todosApplications?.summ_curr
-                           )
-                         : ""
-                     }`
-               }`
-         }
-              </p>
             </div>
         </div>
           <div style="
@@ -188,28 +167,30 @@ const PdfFile = ({ editorRef }) => {
   `;
 
   return (
-    <div className="pdfFile">
-      <Editor
-        apiKey="frhhgiuyhy64k6q9ojm6xdiqqvkg6ee4yka7yracc74t2i5a"
-        initialValue={initialContent}
-        init={{
-          height: "100%",
-          width: "100%",
-          menubar: {
-            file: {
-              title: "File",
-              items: "print | undo redo",
+    <Modals openModal={lookOpis} setOpenModal={() => setLookOpis()}>
+      <div className="pdfFile newPdf">
+        <Editor
+          apiKey="frhhgiuyhy64k6q9ojm6xdiqqvkg6ee4yka7yracc74t2i5a"
+          initialValue={initialContent}
+          init={{
+            height: "100%",
+            width: "100%",
+            menubar: {
+              file: {
+                title: "File",
+                items: "print | undo redo",
+              },
             },
-          },
-          // readonly: true,
-          content_style: "body { font-family: 'Times New Roman', sans-serif; }",
-          toolbar: false,
-        }}
-        onEditorChange={handleEditorChange}
-        ref={editorRef}
-      />
-    </div>
+            content_style:
+              "body { font-family: 'Times New Roman', sans-serif; }",
+            toolbar: false,
+          }}
+          onEditorChange={handleEditorChange}
+          ref={editorRef}
+        />
+      </div>
+    </Modals>
   );
 };
 
-export default PdfFile;
+export default PdfOpis;

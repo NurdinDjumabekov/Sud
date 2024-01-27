@@ -24,8 +24,8 @@ const initialState = {
   //   numPhone: "",
   //   email: "",
   //   email2: "",
-  //   country: 0, /// select
-  //   region: 0, /// область /// select
+  //   country: 5, /// select
+  //   region: 4, /// область /// select
   //   district: 0, //// район /// select
   //   adddreselement: 0, // адресный элемент /// select
   //   city: "",
@@ -42,34 +42,34 @@ const initialState = {
     action_type: 1,
     codeid: 0,
     code_isk: 0,
-    name: "Nurdin Djumabekov",
+    name: "",
     sex: 1, // пол
-    dob: "03/01/2024", /// data of birth
-    inn: "1241231231212",
+    dob: "", /// data of birth
+    inn: "",
     ///////////////////////////
     unknownDob: 0, // неизвестная дата рождения
     unknownInn: 0, // неизвестный ИНН
     unknownPassport: 0, // неизвестный паспорт
     unknownDataPassport: 0, // не учитывать срок действия паспорта
     ///////////////////////////
-    passportSeries: "asdsa", // серия паспорта
-    timePassportStart: "03/01/2024", // дата выдачи паспорта
-    timePassportEnd: "03/01/2024", // дата истечения паспорта
-    organizationPassport: "dsadsa", // кем выдан
-    numPhone: "asdas",
-    email: "asdsa@sadasd",
-    email2: "sadsad@asdasd",
-    country: 31, /// select
-    region: 1, /// область /// select
-    district: 11, //// район /// select
+    passportSeries: "", // серия паспорта
+    timePassportStart: "", // дата выдачи паспорта
+    timePassportEnd: "", // дата истечения паспорта
+    organizationPassport: "", // кем выдан
+    numPhone: "",
+    email: "",
+    email2: "",
+    country: 5, /// select
+    region: 4, /// область /// select
+    district: 9, //// район /// select
     adddreselement: 1, // адресный элемент /// select
-    city: "Бишкек",
-    street: "Жайылма",
-    numObj: "19",
-    index: "dasdasd",
-    apartament: "sadas",
-    emailIndex: "adsa",
-    description: "sadas",
+    city: "",
+    street: "",
+    numObj: "",
+    index: "",
+    apartament: "",
+    emailIndex: "",
+    description: "",
     typeFace: 1,
   },
 
@@ -79,25 +79,25 @@ const initialState = {
     action_type: 1,
     code_isk: 0,
     codeid: 0,
-    name: "asdas",
-    numPhone: "sadsad",
-    inn: "231231",
-    okpo: "asdasdsa",
-    email: "sdasd@adasd",
-    email2: "asdasds@dassadas",
+    name: "",
+    numPhone: "",
+    inn: "",
+    okpo: "",
+    email: "",
+    email2: "",
     typeOrganization: 1, /// select
-    dataReg: "03/01/2024", // дата регистрации
+    dataReg: "", // дата регистрации
     typeCompany: 1, /// select
     country_ur: 1, /// select
 
     userStatus: 1, //// должность в компании /// select
-    startData: "03/01/2024",
-    endData: "03/01/2024",
-    fioBoss: "asdasdsa",
+    startData: "",
+    endData: "",
+    fioBoss: "",
 
-    country: 0, /// select
-    district: 0, //// район   /// select
-    region: 0, /// область   /// select
+    country: 5, /// select
+    district: 4, //// район   /// select
+    region: 9, /// область   /// select
     adddreselement: 0, // адресный элемент   /// select
     city: "",
     street: "",
@@ -134,34 +134,34 @@ const inputSlice = createSlice({
         action_type: 1,
         codeid: 0,
         code_isk: 0,
-        name: "Nurdin Djumabekov",
+        name: "",
         sex: 1, // пол
-        dob: "03/01/2024", /// data of birth
-        inn: "1241231231212",
+        dob: "", /// data of birth
+        inn: "",
         ///////////////////////////
         unknownDob: 0, // неизвестная дата рождения
         unknownInn: 0, // неизвестный ИНН
         unknownPassport: 0, // неизвестный паспорт
         unknownDataPassport: 0, // не учитывать срок действия паспорта
         ///////////////////////////
-        passportSeries: "asdsa", // серия паспорта
-        timePassportStart: "03/01/2024", // дата выдачи паспорта
-        timePassportEnd: "03/01/2024", // дата истечения паспорта
-        organizationPassport: "dsadsa", // кем выдан
-        numPhone: "asdas",
-        email: "asdsa@sadasd",
-        email2: "sadsad@asdasd",
-        country: 31, /// select
-        region: 9, /// область /// select
-        district: 11, //// район /// select
+        passportSeries: "", // серия паспорта
+        timePassportStart: "", // дата выдачи паспорта
+        timePassportEnd: "", // дата истечения паспорта
+        organizationPassport: "", // кем выдан
+        numPhone: "",
+        email: "",
+        email2: "",
+        country: 5, /// select
+        region: 4, /// область /// select
+        district: 9, //// район /// select
         adddreselement: 1, // адресный элемент /// select
-        city: "Бишкек",
-        street: "Жайылма",
-        numObj: "19",
-        index: "dasdasd",
-        apartament: "sadas",
-        emailIndex: "adsa",
-        description: "sadas",
+        city: "",
+        street: "",
+        numObj: "",
+        index: "",
+        apartament: "",
+        emailIndex: "",
+        description: "",
         typeFace: 1,
       };
     },
@@ -180,20 +180,20 @@ const inputSlice = createSlice({
         okpo: "",
         email: "",
         email2: "",
-        typeOrganization: 0,
-        dataReg: "",
-        typeCompany: 0,
-        country_ur: 0,
-
-        userStatus: 0,
+        typeOrganization: 1, /// select
+        dataReg: "", // дата регистрации
+        typeCompany: 1, /// select
+        country_ur: 1, /// select
+    
+        userStatus: 1, //// должность в компании /// select
         startData: "",
         endData: "",
         fioBoss: "",
-
-        country: 0,
-        district: 0,
-        region: 0,
-        adddreselement: 0,
+    
+        country: 0, /// select
+        district: 0, //// район   /// select
+        region: 0, /// область   /// select
+        adddreselement: 0, // адресный элемент   /// select
         city: "",
         street: "",
         numObj: "",
@@ -201,8 +201,8 @@ const inputSlice = createSlice({
         apartament: "",
         emailIndex: "",
         description: "",
-        ur_face_type: 1,
-        type: 1,
+        ur_face_type: 1, // 1-plaintiff, 2-defendan
+        type: 1, //1 -
       };
     },
     ////////////////////////
@@ -214,6 +214,7 @@ const inputSlice = createSlice({
     },
   },
 });
+
 export const {
   changeInput,
   changeADFF,

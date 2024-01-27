@@ -5,6 +5,7 @@ import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
 import { useNavigate } from "react-router-dom";
+
 export const MainPageRS = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

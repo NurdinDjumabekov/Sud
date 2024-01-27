@@ -103,13 +103,13 @@ const FizFace = ({ typerole }) => {
   // console.log(selCountries, "selCountries");
   console.log(adff, "adff");
 
-  React.useEffect(() => {
-    dispatch(changeADFF({ ...adff, region: 0, district: 0 }));
-  }, [adff?.country]);
+  // React.useEffect(() => {
+  //   dispatch(changeADFF({ ...adff, region: 0, district: 0 }));
+  // }, [adff?.country]);
 
-  React.useEffect(() => {
-    dispatch(changeADFF({ ...adff, district: 0 }));
-  }, [adff?.region]);
+  // React.useEffect(() => {
+  //   dispatch(changeADFF({ ...adff, district: 0 }));
+  // }, [adff?.region]);
 
   const decodedToken = jwtDecode(tokenA);
 
@@ -177,7 +177,6 @@ const FizFace = ({ typerole }) => {
               value={adff.email2}
               onChange={changeInput}
               name="email2"
-              required
             />
           </div>
         </div>
@@ -343,20 +342,7 @@ const FizFace = ({ typerole }) => {
                 readOnly={adff.unknownInn === 1 ? true : false}
               />
             </div>
-            {/* {lookAddPlaintiff === 2 ? (
-              <Selects
-                arr={
-                  typerole === "истца"
-                    ? todosApplications?.plaintiff
-                    : todosApplications?.defendant
-                }
-                initText={`${"Выберите "}${typerole} *`}
-                keys={{ typeKey: adff.code_fiz_face, type: "code_fiz_face" }}
-                type="code_fiz_face"
-              />
-            ) : (
-              ""
-            )} */}
+            <div className="noneDataInputs"></div>
           </div>
         </div>
         <h4>
@@ -419,7 +405,7 @@ const FizFace = ({ typerole }) => {
           </div>
         </div>
         <div className="sixInputs">
-          <div className="threeInputs moreStyles">
+          <div className="threeInputs moreStyles ">
             <div>
               <p>
                 Номер объекта <b className="required">*</b>
@@ -487,6 +473,7 @@ const FizFace = ({ typerole }) => {
                 required
               />
             </div>
+            <div className="noneDataInputs"></div>
           </div>
         </div>
         <div className="btnsSave">

@@ -204,6 +204,7 @@ export const toTakeTypeValuta = createAsyncThunk(
     }
   }
 );
+
 //////toTakeCurrency
 export const toTakeCurrency = createAsyncThunk(
   "toTakeCurrency",
@@ -321,39 +322,39 @@ const selectsSlice = createSlice({
   extraReducers: (builder) => {
     ///// toTakeCountries
     builder.addCase(toTakeCountries.fulfilled, (state, action) => {
-      state.preloaderSel = false;
+      // state.preloaderSel = false;
       state.selCountries = action.payload;
     });
     builder.addCase(toTakeCountries.rejected, (state, action) => {
       state.error = action.payload;
-      state.preloaderSel = false;
+      // state.preloaderSel = false;
     });
     builder.addCase(toTakeCountries.pending, (state, action) => {
-      state.preloaderSel = true;
+      // state.preloaderSel = true;
     });
     ///// selDistrict
     builder.addCase(toTakeDistrict.fulfilled, (state, action) => {
-      state.preloaderSel = false;
+      // state.preloaderSel = false;
       state.selDistrict = action.payload;
     });
     builder.addCase(toTakeDistrict.rejected, (state, action) => {
       state.error = action.payload;
-      state.preloaderSel = false;
+      // state.preloaderSel = false;
     });
     builder.addCase(toTakeDistrict.pending, (state, action) => {
-      state.preloaderSel = true;
+      // state.preloaderSel = true;
     });
     ///// selRegions
     builder.addCase(toTakeRegions.fulfilled, (state, action) => {
-      state.preloaderSel = false;
+      // state.preloaderSel = false;
       state.selRegions = action.payload;
     });
     builder.addCase(toTakeRegions.rejected, (state, action) => {
       state.error = action.payload;
-      state.preloaderSel = false;
+      // state.preloaderSel = false;
     });
     builder.addCase(toTakeRegions.pending, (state, action) => {
-      state.preloaderSel = true;
+      // state.preloaderSel = true;
     });
     ///// selTypeAddress
     builder.addCase(toTakeTypeAddress.fulfilled, (state, action) => {

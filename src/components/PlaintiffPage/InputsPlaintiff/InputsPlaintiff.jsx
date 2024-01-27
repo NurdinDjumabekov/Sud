@@ -95,16 +95,34 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
       ) : (
         <>
           <div className="actionBtn">
-            <button
-              onClick={() => changeStatusIsks(todosApplications?.codeid, 1)}
-            >
-              Принять иск
-            </button>
-            <button
-              onClick={() => changeStatusIsks(todosApplications?.codeid, 2)}
-            >
-              Отказать в иске
-            </button>
+            {+decodedToken?.type_user === 2 && (
+              <>
+                <button
+                  onClick={() => changeStatusIsks(todosApplications?.codeid, 1)}
+                >
+                  Принять иск
+                </button>
+                <button
+                  onClick={() => changeStatusIsks(todosApplications?.codeid, 2)}
+                >
+                  Отказать в иске
+                </button>
+              </>
+            )}
+            {+decodedToken?.type_user === 3 && (
+              <>
+                <button
+                  onClick={() => changeStatusIsks(todosApplications?.codeid, 3)}
+                >
+                  Принять иск
+                </button>
+                <button
+                  onClick={() => changeStatusIsks(todosApplications?.codeid, 4)}
+                >
+                  Отказать в иске
+                </button>
+              </>
+            )}
           </div>
           {/* ///// это для ответственного секретаря и председателя */}
           <ConfirmStatus
