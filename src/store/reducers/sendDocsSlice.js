@@ -8,6 +8,7 @@ import {
 import { changeActionType } from "../../helpers/changeActionType";
 import { transformCreateData } from "../../helpers/transformCreateData";
 import { changeAlertText } from "./typesSlice";
+import { sortDataIsksCounts } from "./stateSlice";
 
 const initialState = {
   preloader: false,
@@ -27,7 +28,18 @@ export const toTakeIsksList = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        return response?.data;
+        // console.log(response?.data, "response");
+        dispatch(
+          sortDataIsksCounts({
+            draft_count: response?.data?.draft_count,
+            isk_count: response?.data?.isk_count,
+            otclon_pred_total: response?.data?.otclon_pred_total,
+            otclon_sec_total: response?.data?.otclon_sec_total,
+            prinat_pred_total: response?.data?.prinat_pred_total,
+            prinat_sec_total: response?.data?.prinat_sec_total,
+          })
+        );
+        return response?.data?.recordset;
       } else {
         throw Error(`Error: ${response.status}`);
       }

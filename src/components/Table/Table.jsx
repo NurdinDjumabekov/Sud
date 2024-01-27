@@ -94,10 +94,14 @@ export const Table = () => {
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
+                style={{ margin: "0px " }}
                 onClick={() => clickBtn(btn.id)}
               >
                 {btn.name}
-                <span className="countInfo">{listTodos?.[0]?.isk_count}</span>
+                {/* {btn?.name} [{btn?.count}] */}
+                <span className="countInfo" style={{ right: "-18px" }}>
+                  {btn?.count || 0}
+                </span>
               </button>
             </li>
           ))}

@@ -4,45 +4,18 @@ import pdf from "../../../asstes/pdf/sud_pdf.pdf";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../../Modals/Modals";
+import { newListDocs } from "../../../helpers/newListDocs";
 
 const PdfOpis = ({ lookOpis, setLookOpis }) => {
   const dispatch = useDispatch();
-  const { selCurrency } = useSelector((state) => state.selectsSlice);
   const [date, setDate] = useState("");
   const editorRef = useRef(null);
+  const { applicationList } = useSelector((state) => state.applicationsSlice);
 
   const handleEditorChange = (content, editor) => {
     // console.log('Content was updated:', content);
   };
 
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
-
-  const transformData = (arr, type) => {
-    let allText = `<div style="font-weight: 500; font-size: 16px;">`;
-    for (const text of arr) {
-      const titleText = `<div style="display:inline-block;margin: 15px 5px 0px 0px;">${mainText(
-        type
-      )}${text.name}</div>`;
-      const phoneText = `<div style="display:flex; align-items:center"><span>Телефон: </span> ${text.numPhone}</div>`;
-      const adresText = `<div style="display:flex; align-items:center"><span>Адрес: </span> ${text.country}, ${text.region}, ${text.district}, ${text.city}, ${text.street}, ${text.numObj}</div>`;
-      const email = `<div style="display:flex; align-items:center"><span>Почта: </span> ${text.email}</div>`;
-      const inn = `<div style="display:flex; align-items:center"><span>Инн: </span> ${text.inn}</div>`;
-      allText += titleText + phoneText + adresText + email + inn;
-    }
-    allText += "</div>";
-    return allText;
-  };
-  const mainText = (type) => {
-    if (type === 1) {
-      return "<h3 style='display:inline; margin: 0px 5px 5px 0px; font-size: 16px;'>Истец: </h3>";
-    } else if (type === 2) {
-      return "<h3 style='display:flex; margin: 0px 0px 5px 0px; font-size: 16px;'>Представитель по доверенности: </h3>";
-    } else if (type === 3) {
-      return "<h3 style='display:inline; margin: 0px 5px 5px 0px; font-size: 16px;'>Ответчик: </h3>";
-    } else if (type === 4) {
-      return "<h3 style='display:flex; margin: 0px 0px 5px 0px; font-size: 16px;'>Представитель ответчика: </h3>";
-    }
-  };
   React.useEffect(() => {
     const currentDateObject = new Date();
     const day = currentDateObject.getDate();
@@ -55,115 +28,35 @@ const PdfOpis = ({ lookOpis, setLookOpis }) => {
 
     setDate(formattedDate);
   }, []);
+  //   console.log(applicationList, "applicationList");
 
   ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 64 - 108 строки
   const initialContent = `
-    <div>
-      <div>
-       <div style="margin: 40px 0px 20px 0px; font-size: 16px; width: 100%; position: relative;">
-        <p style="margin: 0px 0px 0px 10px; font-size: 16px;">от ${date}</p>
-        <div style="
-            width: 280px;
-            padding: 0px 10px 0px 0px;
-            line-height: 25px;
-            font-weight: 600;
-            font-family: 'Times New Roman', sans-serif;">
-        <p style="color: transparent; margin: 0px; font-size: 16px;">Международный Третейский суд</p>
-        <p style="color: transparent; margin: 0px; font-size: 16px;">при Торгово-Промышленной палате</p>
-        <p style="color: transparent; margin: 0px; font-size: 16px;">Кыргызской Республики</p>
-        <div style="color: transparent; margin: 0px">${transformData(
-          todosApplications?.plaintiff,
-          1
-        )}</div>
-        <div style="color: transparent; margin: 0px">${transformData(
-          todosApplications?.plaintiffResper,
-          2
-        )}</div>
-        <div style="color: transparent; margin: 0px">${transformData(
-          todosApplications?.defendant,
-          3
-        )}</div>
-        <div style="color: transparent; margin: 0px">${transformData(
-          todosApplications?.defendantResper,
-          4
-        )}
-        </div>
-            </div>
-        </div>
-          <div style="
-              width: 280px;
-              padding: 0px 10px 0px 0px;
-              line-height: 25px;
-              font-weight: 600;
-              font-family: 'Times New Roman', sans-serif;
-              position: absolute;
-              top: 62px;
-              right: 10px;
-              ">
-            <p style="margin: 0px; font-size: 16px;">Международный Третейский суд</p>
-            <p style="margin: 0px; font-size: 16px;">при Торгово-Промышленной палате</p>
-            <p style="margin: 0px; font-size: 16px;">Кыргызской Республики</p>
-            <div style="margin: 0px">${transformData(
-              todosApplications?.plaintiff,
-              1
-            )}</div>
-            <div style="margin: 0px">${transformData(
-              todosApplications?.plaintiffResper,
-              2
-            )}</div>
-            <div style="margin: 0px">${transformData(
-              todosApplications?.defendant,
-              3
-            )}</div>
-            <div style="margin: 0px">${transformData(
-              todosApplications?.defendantResper,
-              4
-            )}
-            </div>
-            
-            </div>
-        </div>
-        ${
-          todosApplications?.name === ""
-            ? ""
-            : `<h4 style="text-align:center; font-size: 18px; margin: 0 auto; width: 60%;">
-              ${todosApplications?.name}
-            </h4>`
-        }
-        ${
-          todosApplications?.description === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.description}</p>`
-        }
-        ${
-          todosApplications?.motivation === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.motivation}</p>`
-        }
-        ${
-          todosApplications?.obosnovanie === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.obosnovanie}</p>`
-        }
-        ${
-          todosApplications?.finance_raschet === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.finance_raschet}</p>`
-        }
-        ${
-          todosApplications?.law_links === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.law_links}</p>`
-        }
-        ${
-          todosApplications?.claim === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px;">${todosApplications?.claim}</p>`
-        }
-        <p style="text-align:center; font-size: 20px;">
-              Приложения в копиях
-            </p>
-    </div>
+  <div class="block-container">
+  <table style="width: 100%; border: 1px solid transparent !important">
+      <tr>
+          <td style="width: 48%; position: relative;border: 1px solid transparent !important">
+              <p style="text-align: left;  position: absolute; top: 10px; left: 10px;">${date}</p>
+          </td>
+          <td style="width: 50%; text-align: left; border: 1px solid transparent !important">
+              <p style="text-align: right;">Форма № 107</p>
+              <div class="text-left">
+              <p style="margin-top: 50px;"><b>ОПИСЬ</b></p>
+              <p>Вложения в <b>ценное письмо</b></p>
+              <p><b>Куда</b></p>
+              <p><b>На имя</b></p>
+              </div>
+              ${newListDocs(applicationList)}
+              <div class="text-left">
+              <p>Общий итог ценности <b>5 (пять) сом</b></p>
+              <p>Отправил  _________________________________________</p>
+              <p><b>Проверил</b> _________________________________________</p>
+              </div>
+              <p style="text-align:right; margin: 0 15px 0 0;">(подпись приемщика)</p>
+          </td>
+      </tr>
+  </table>
+</div>
   `;
 
   return (

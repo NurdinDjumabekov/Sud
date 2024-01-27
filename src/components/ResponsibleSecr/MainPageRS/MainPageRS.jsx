@@ -5,6 +5,8 @@ import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
 import { useNavigate } from "react-router-dom";
+import { changeMainBtnList } from "../../../store/reducers/stateSlice";
+import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
 
 export const MainPageRS = () => {
   const dispatch = useDispatch();
@@ -12,49 +14,51 @@ export const MainPageRS = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
+  const { mainBtnList } = useSelector((state) => state.stateSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
 
-  const [btnList, setBtnList] = React.useState([
-    {
-      id: 1,
-      name: "Все иски",
-      bool: true,
-    },
-    {
-      id: 2,
-      name: "Принятые отвественным секретарём",
-      bool: false,
-    },
-    {
-      id: 3,
-      name: "Отклонённые отвественным секретарём",
-      bool: false,
-    },
-    {
-      id: 4,
-      name: "Принятые председателем",
-      bool: false,
-    },
-    {
-      id: 5,
-      name: "Отклонённые председателем",
-      bool: false,
-    },
-  ]);
+  // const [btnList, setBtnList] = React.useState([
+  //   {
+  //     id: 1,
+  //     name: "Все иски",
+  //     bool: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Принятые отвественным секретарём",
+  //     bool: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Отклонённые отвественным секретарём",
+  //     bool: false,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Принятые председателем",
+  //     bool: false,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Отклонённые председателем",
+  //     bool: false,
+  //   },
+  // ]);
 
   const clickBtn = (id) => {
-    const newList = btnList.map((item) => {
+    const newList = mainBtnList.map((item) => {
       return {
         ...item,
         bool: id === item.id ? true : false,
       };
     });
-    setBtnList(newList);
+    dispatch(toTakeIsksList({ tokenA, id })); /// запрос для получения списка
+    dispatch(changeMainBtnList(newList));
   };
 
-  console.log(listTodos, "listTodos");
+  console.log(mainBtnList, "mainBtnList");
   // console.log(todosApplications, "todosApplications");
 
   const editIsksFn = (id) => {
@@ -72,14 +76,16 @@ export const MainPageRS = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {btnList?.map((btn) => (
+          {mainBtnList?.map((btn, ind) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
-                onClick={() => clickBtn(btn.id)}
+                onClick={() => clickBtn(btn?.id)}
+                style={ind === 0 ? { marginLeft: "0px" } : {}}
               >
-                {btn.name}
-                {/* <span className="countInfo">{listTodos?.[0]?.draft_count}</span> */}
+                {btn?.name}
+                {/* [{btn?.count}] */}
+                <span className="countInfo">{btn?.count || 0}</span>
               </button>
             </li>
           ))}

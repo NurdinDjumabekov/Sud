@@ -27,13 +27,13 @@ const FizFace = ({ typerole }) => {
 
   const sendData = (e) => {
     e.preventDefault();
-    if (adff?.dataReg === "") {
-      alertFN("Заполните дату регистрации");
+    if (adff?.dob === "" && adff?.unknownDob === 0) {
+      alertFN("Заполните дату рождения");
     } else {
-      if (adff?.timePassportStart === "") {
+      if (adff?.timePassportStart === "" && adff?.unknownDataPassport === 0) {
         alertFN("Заполните дату выдачи паспорта");
       } else {
-        if (adff?.timePassportEnd === "") {
+        if (adff?.timePassportEnd === "" && adff?.unknownDataPassport === 0) {
           alertFN("Заполните дату истечения срока паспорта");
         } else {
           if (adff?.country === 0) {
@@ -168,9 +168,7 @@ const FizFace = ({ typerole }) => {
             />
           </div>
           <div>
-            <p>
-              Ваш второй адрес электронной почты <b className="required">*</b>
-            </p>
+            <p>Ваш второй адрес электронной почты</p>
             <input
               type="email"
               placeholder="Второй адрес электронной почты"

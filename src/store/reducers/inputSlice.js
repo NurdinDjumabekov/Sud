@@ -2,41 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   typeFace: 1,
-  //// addPlaintiffFizFace
-  // adff: {
-  //   action_type: 1,
-  //   codeid: 0,
-  //   code_isk: 0,
-  //   name: "",
-  //   sex: 1, // пол
-  //   dob: "", /// data of birth
-  //   inn: "",
-  //   ///////////////////////////
-  //   unknownDob: 0, // неизвестная дата рождения
-  //   unknownInn: 0, // неизвестный ИНН
-  //   unknownPassport: 0, // неизвестный паспорт
-  //   unknownDataPassport: 0, // не учитывать срок действия паспорта
-  //   ///////////////////////////
-  //   passportSeries: "", // серия паспорта
-  //   timePassportStart: "", // дата выдачи паспорта
-  //   timePassportEnd: "", // дата истечения паспорта
-  //   organizationPassport: "", // кем выдан
-  //   numPhone: "",
-  //   email: "",
-  //   email2: "",
-  //   country: 5, /// select
-  //   region: 4, /// область /// select
-  //   district: 0, //// район /// select
-  //   adddreselement: 0, // адресный элемент /// select
-  //   city: "",
-  //   street: "",
-  //   numObj: "",
-  //   index: "",
-  //   apartament: "",
-  //   emailIndex: "",
-  //   description: "",
-  //   typeFace : 1
-  // },
 
   adff: {
     action_type: 1,
@@ -59,9 +24,9 @@ const initialState = {
     numPhone: "",
     email: "",
     email2: "",
-    country: 5, /// select
-    region: 4, /// область /// select
-    district: 9, //// район /// select
+    country: 36, /// select
+    region: 12, /// область /// select
+    district: 18, //// район /// select
     adddreselement: 1, // адресный элемент /// select
     city: "",
     street: "",
@@ -95,9 +60,9 @@ const initialState = {
     endData: "",
     fioBoss: "",
 
-    country: 5, /// select
-    district: 4, //// район   /// select
-    region: 9, /// область   /// select
+    country: 36, /// select
+    region: 12, /// область /// select
+    district: 18, //// район /// select
     adddreselement: 0, // адресный элемент   /// select
     city: "",
     street: "",
@@ -151,9 +116,9 @@ const inputSlice = createSlice({
         numPhone: "",
         email: "",
         email2: "",
-        country: 5, /// select
-        region: 4, /// область /// select
-        district: 9, //// район /// select
+        country: 36, /// select
+        region: 12, /// область /// select
+        district: 18, //// район /// select
         adddreselement: 1, // адресный элемент /// select
         city: "",
         street: "",
@@ -184,15 +149,15 @@ const inputSlice = createSlice({
         dataReg: "", // дата регистрации
         typeCompany: 1, /// select
         country_ur: 1, /// select
-    
+
         userStatus: 1, //// должность в компании /// select
         startData: "",
         endData: "",
         fioBoss: "",
-    
-        country: 0, /// select
-        district: 0, //// район   /// select
-        region: 0, /// область   /// select
+
+        country: 36, /// select
+        region: 12, /// область /// select
+        district: 18, //// район /// select
         adddreselement: 0, // адресный элемент   /// select
         city: "",
         street: "",

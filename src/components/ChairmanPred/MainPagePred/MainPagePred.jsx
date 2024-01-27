@@ -7,6 +7,8 @@ import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
 import { useNavigate } from "react-router-dom";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
+import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
+import { changeMainBtnList } from "../../../store/reducers/stateSlice";
 
 export const MainPagePred = () => {
   const dispatch = useDispatch();
@@ -15,16 +17,17 @@ export const MainPagePred = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
+  const { mainBtnList } = useSelector((state) => state.stateSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
-  const [sendStatusIsk, setSendStatusIsk] = useState(false);
-  const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
+  // const [sendStatusIsk, setSendStatusIsk] = useState(false);
+  // const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
 
-  const changeStatusIsks = (id, status) => {
-    setSendStatusIsk(true);
-    setIsType({ type: status, id: id });
-  };
+  // const changeStatusIsks = (id, status) => {
+  //   setSendStatusIsk(true);
+  //   setIsType({ type: status, id: id });
+  // };
 
   const [btnList, setBtnList] = React.useState([
     {
@@ -55,17 +58,18 @@ export const MainPagePred = () => {
   ]);
 
   const clickBtn = (id) => {
-    const newList = btnList.map((item) => {
+    const newList = mainBtnList.map((item) => {
       return {
         ...item,
         bool: id === item.id ? true : false,
       };
     });
-    setBtnList(newList);
+    dispatch(toTakeIsksList({ tokenA, id })); /// запрос для получения списка
+    dispatch(changeMainBtnList(newList));
   };
-
   // console.log(listTodos, "listTodos");
-  // console.log(todosApplications, "todosApplications");
+  console.log(mainBtnList, "mainBtnList");
+
   const editIsksFn = (id) => {
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
   };
@@ -80,13 +84,16 @@ export const MainPagePred = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {btnList?.map((btn) => (
+          {mainBtnList?.map((btn, ind) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
                 onClick={() => clickBtn(btn.id)}
+                style={ind === 0 ? { marginLeft: "0px" } : {}}
               >
                 {btn.name}
+                {/* {btn?.name} [{btn?.count}] */}
+                <span className="countInfo">{btn?.count || 0}</span>
               </button>
             </li>
           ))}

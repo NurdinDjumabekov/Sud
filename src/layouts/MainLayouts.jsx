@@ -37,20 +37,20 @@ function MainLayouts() {
 
   const [pages, setPages] = useState([
     {
-      id: 1,
-      name: "Все иски",
-      path: "/mainPlaintiff",
-      bool: true,
-      icon: myIski,
-      iconWhite: myIskiWhite,
-    },
-    {
       id: 2,
       name: "Создать черновик",
       path: "/plaintiffCreate",
       bool: false,
       icon: create,
       iconWhite: createWhite,
+    },
+    {
+      id: 1,
+      name: "Все иски",
+      path: "/mainPlaintiff",
+      bool: true,
+      icon: myIski,
+      iconWhite: myIskiWhite,
     },
     {
       id: 3,

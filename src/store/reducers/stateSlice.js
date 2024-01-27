@@ -84,7 +84,40 @@ const stateSlice = createSlice({
         },
       ];
     },
-
+    sortDataIsksCounts: (state, action) => {
+      state.mainBtnList = [
+        {
+          id: 0,
+          name: "Все иски",
+          bool: state.mainBtnList[0]?.bool, // Сохраняю текущее значение bool
+          count: action?.payload?.draft_count,
+        },
+        {
+          id: 1,
+          name: "Принятые отвественным секретарём",
+          bool: state.mainBtnList[1]?.bool,
+          count: action?.payload?.prinat_sec_total,
+        },
+        {
+          id: 2,
+          name: "Отклонённые отвественным секретарём",
+          bool: state.mainBtnList[2]?.bool,
+          count: action?.payload?.otclon_sec_total,
+        },
+        {
+          id: 3,
+          name: "Принятые председателем",
+          bool: state.mainBtnList[3]?.bool,
+          count: action?.payload?.prinat_pred_total,
+        },
+        {
+          id: 4,
+          name: "Отклонённые председателем",
+          bool: state.mainBtnList[4]?.bool,
+          count: action?.payload?.otclon_pred_total,
+        },
+      ];
+    },
     changeLookAddPlaintiff: (state, action) => {
       state.lookAddPlaintiff = action.payload;
     },
@@ -130,6 +163,7 @@ export const {
   changeListPlaint,
   changeLookChangeStatus,
   changeIdStatus,
+  sortDataIsksCounts,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;
