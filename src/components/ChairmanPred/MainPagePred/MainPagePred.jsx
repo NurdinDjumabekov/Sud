@@ -21,42 +21,7 @@ export const MainPagePred = () => {
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
-  // const [sendStatusIsk, setSendStatusIsk] = useState(false);
-  // const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
-
-  // const changeStatusIsks = (id, status) => {
-  //   setSendStatusIsk(true);
-  //   setIsType({ type: status, id: id });
-  // };
-
-  const [btnList, setBtnList] = React.useState([
-    {
-      id: 1,
-      name: "Все иски",
-      bool: true,
-    },
-    {
-      id: 2,
-      name: "Принятые отвественным секретарём",
-      bool: false,
-    },
-    {
-      id: 3,
-      name: "Отклонённые отвественным секретарём",
-      bool: false,
-    },
-    {
-      id: 4,
-      name: "Принятые председателем",
-      bool: false,
-    },
-    {
-      id: 5,
-      name: "Отклонённые председателем",
-      bool: false,
-    },
-  ]);
-
+  
   const clickBtn = (id) => {
     const newList = mainBtnList.map((item) => {
       return {
@@ -80,6 +45,11 @@ export const MainPagePred = () => {
     4: "Отклонён председателем",
   };
 
+  const allSumsIsks = (arr) => {
+      const allIsks = +arr?.[0]?.count + 1 +arr?.[1]?.count + +arr?.[2]?.count + +arr?.[3]?.count + +arr?.[4]?.count 
+      return allIsks;
+    };
+
   return (
     <>
       <div className="mainTables">
@@ -91,9 +61,12 @@ export const MainPagePred = () => {
                 onClick={() => clickBtn(btn.id)}
                 style={ind === 0 ? { marginLeft: "0px" } : {}}
               >
-                {btn.name}
-                {/* {btn?.name} [{btn?.count}] */}
-                <span className="countInfo">{btn?.count || 0}</span>
+                {btn?.name} 
+                {" "}
+                [{ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}]
+                {/* <span className="countInfo">
+                   {ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}
+                </span> */}
               </button>
             </li>
           ))}
@@ -199,16 +172,6 @@ export const MainPagePred = () => {
                   <td className="table_isk_td">
                     {+row?.isk_status === 0 || +row?.isk_status === 1 ? (
                       <div className="statusIsks">
-                        {/* <button
-                          onClick={() => changeStatusIsks(row?.codeid, 3)}
-                        >
-                          Принять
-                        </button>
-                        <button
-                          onClick={() => changeStatusIsks(row?.codeid, 4)}
-                        >
-                          Отклонить
-                        </button> */}
                         <button onClick={() => editIsksFn(row?.codeid)}>
                           Просмотреть
                         </button>
@@ -216,7 +179,11 @@ export const MainPagePred = () => {
                     ) : (
                       <>
                         {statusMessages[row?.isk_status] && (
-                          <span style={{ padding: "0px 0px 0px 10px" }}>
+                          <span style={{ padding: "0px 0px 0px 10px" }} 
+                          className={+row?.isk_status === 3 ? "colorStatusGreen":
+                              +row?.isk_status === 2 || +row?.isk_status === 4 ? "colorStatusRed":
+                            ""}
+                          >
                             {statusMessages[row?.isk_status]}
                           </span>
                         )}

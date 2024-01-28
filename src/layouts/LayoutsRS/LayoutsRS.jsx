@@ -109,10 +109,12 @@ function LayoutsRS() {
 
   const decodedToken = jwtDecode(tokenA);
 
+  // console.log(decodedToken,"decodedToken");
+
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">
-        <div className="logo">
+        <div className="logo" onClick={()=> navigate("/mainRespSec")}>
           <img src={logo} alt="logo" />
         </div>
         <p className="moreInfoMenu">{decodedToken?.name}</p>

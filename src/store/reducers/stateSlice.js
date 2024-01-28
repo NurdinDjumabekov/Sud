@@ -88,33 +88,33 @@ const stateSlice = createSlice({
       state.mainBtnList = [
         {
           id: 0,
-          name: "Все иски",
+          name: 'Все иски',
           bool: state.mainBtnList[0]?.bool, // Сохраняю текущее значение bool
-          count: action?.payload?.draft_count,
+          count: action?.payload?.isk_count || 0,
         },
         {
           id: 1,
-          name: "Принятые отвественным секретарём",
+          name: 'Принятые отвественным секретарём',
           bool: state.mainBtnList[1]?.bool,
-          count: action?.payload?.prinat_sec_total,
+          count: action?.payload?.prinat_sec_total || 0,
         },
         {
           id: 2,
-          name: "Отклонённые отвественным секретарём",
+          name: 'Отклонённые отвественным секретарём',
           bool: state.mainBtnList[2]?.bool,
-          count: action?.payload?.otclon_sec_total,
+          count: action?.payload?.otclon_sec_total || 0,
         },
         {
           id: 3,
-          name: "Принятые председателем",
+          name: 'Принятые председателем',
           bool: state.mainBtnList[3]?.bool,
-          count: action?.payload?.prinat_pred_total,
+          count: action?.payload?.prinat_pred_total || 0,
         },
         {
           id: 4,
-          name: "Отклонённые председателем",
+          name: 'Отклонённые председателем',
           bool: state.mainBtnList[4]?.bool,
-          count: action?.payload?.otclon_pred_total,
+          count: action?.payload?.otclon_pred_total || 0,
         },
       ];
     },

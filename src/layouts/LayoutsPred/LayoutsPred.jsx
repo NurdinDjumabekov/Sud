@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import LogOut from '../../components/LogOut/LogOut';
 import './LayoutsPred.scss';
+import { jwtDecode } from "jwt-decode";
+
 ////// imgsBlack
 import myIski from '../../asstes/icons/IconPage/me_iski.svg';
 import notif from '../../asstes/icons/IconPage/notification.svg';
@@ -9,6 +11,7 @@ import create from '../../asstes/icons/IconPage/create.svg';
 import meetingsPlaintiff from '../../asstes/icons/IconPage/calendar.svg';
 import calTodoPlaintiff from '../../asstes/icons/IconPage/calendar2.svg';
 import archive from '../../asstes/icons/IconPage/archive.svg';
+import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
 
 ////// imgsWhite
 import myIskiWhite from '../../asstes/icons/IconPageWhite/me_iski.svg';
@@ -22,6 +25,7 @@ import logo from '../../asstes/images/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { toTakeTypeTypeDocs } from '../../store/reducers/applicationsSlice';
 import { toTakeIsksList } from '../../store/reducers/sendDocsSlice';
+import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
 
 function LayoutsPred() {
   const navigate = useNavigate();
@@ -109,12 +113,27 @@ function LayoutsPred() {
     dispatch(toTakeTypeTypeDocs(tokenA));
   }, []);
 
+  const decodedToken = jwtDecode(tokenA);
+
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">
-        <div className="logo">
+        <div className="logo" onClick={()=> navigate("/mainRespPred")}>
           <img src={logo} alt="logo" />
         </div>
+        <p className="moreInfoMenu">{decodedToken?.name}</p>
+        <div className="mainUser">
+          <button>
+            <img
+              src={faceImg}
+              alt="иконка"
+              className="imgIcon"
+              style={{ width: "23px", height: "23px" }}
+            />
+            <span>{shortenToTwoWords(decodedToken?.fio)}</span>
+          </button>
+        </div>
+        <p className="moreInfoMenu">Меню</p>
         {pages?.map((page) => (
           <div key={page.id}>
             <button

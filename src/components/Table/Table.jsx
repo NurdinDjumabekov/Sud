@@ -29,7 +29,7 @@ export const Table = () => {
   const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { applicationList } = useSelector((state) => state.applicationsSlice);
+  const { todosApplications, applicationList } = useSelector((state) => state.applicationsSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
@@ -76,8 +76,8 @@ export const Table = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  console.log(listTodos, "listTodos");
-  // console.log(todosApplications, "todosApplications");
+  // console.log(listTodos, "listTodos");
+  console.log(todosApplications, "todosApplications");
 
   const statusMessages = {
     1: "Ожидание ...",
@@ -85,6 +85,11 @@ export const Table = () => {
     3: "Иск принят председателем",
     4: "Иск отклонён председателем",
   };
+
+   const allSumsIsks = (arr) => {
+      const allIsks = +arr?.[0]?.count + 1 +arr?.[1]?.count + +arr?.[2]?.count + +arr?.[3]?.count + +arr?.[4]?.count 
+      return allIsks;
+    };
 
   return (
     <>
@@ -99,7 +104,8 @@ export const Table = () => {
               >
                 {btn.name}
                 {/* {btn?.name} [{btn?.count}] */}
-                <span className="countInfo" style={{ right: "-18px" }}>
+                {/* [{ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}] */}
+                <span className="countInfo" style={{ right: "-23px" }}>
                   {btn?.count || 0}
                 </span>
               </button>
@@ -236,7 +242,11 @@ export const Table = () => {
                     ) : (
                       <>
                         {statusMessages[row?.isk_status] && (
-                          <span style={{ padding: "0px 0px 0px 10px" }}>
+                          <span style={{ padding: "0px 0px 0px 10px" }}
+                           className={+row?.isk_status === 3 ? "colorStatusGreen":
+                              +row?.isk_status === 2 || +row?.isk_status === 4 ? "colorStatusRed":
+                            ""}
+                          >
                             {statusMessages[row?.isk_status]}
                           </span>
                         )}
