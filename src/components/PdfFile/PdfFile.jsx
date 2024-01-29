@@ -4,17 +4,19 @@ import pdf from "../../asstes/pdf/sud_pdf.pdf";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchIdCurrency } from "../../helpers/searchIdCurrency";
+import { searchNameSelect } from "../../helpers/searchNameSelect";
+import { addFilesList } from "../../helpers/addFilesList";
 
 const PdfFile = ({ editorRef }) => {
   const dispatch = useDispatch();
-  const { selCurrency } = useSelector((state) => state.selectsSlice);
+  const { selCurrency, selCountries, selRegions, selDistrict } = useSelector((state) => state.selectsSlice);
   const [date, setDate] = useState("");
 
   const handleEditorChange = (content, editor) => {
     // console.log('Content was updated:', content);
   };
 
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { todosApplications, applicationList } = useSelector((state) => state.applicationsSlice);
 
   const transformData = (arr, type) => {
     let allText = `<div style="font-weight: 500; font-size: 16px;">`;
@@ -23,14 +25,15 @@ const PdfFile = ({ editorRef }) => {
         type
       )}${text.name}</div>`;
       const phoneText = `<div style="display:flex; align-items:center"><span>Телефон: </span> ${text.numPhone}</div>`;
-      const adresText = `<div style="display:flex; align-items:center"><span>Адрес: </span> ${text.country}, ${text.region}, ${text.district}, ${text.city}, ${text.street}, ${text.numObj}</div>`;
+      const adresText = `<div style="display:flex; align-items:center"><span>Адрес: </span> ${searchNameSelect(selCountries,text.country)}, ${searchNameSelect(selRegions,text.region)}, ${searchNameSelect(selDistrict,text.district)}, ${text.city}, ${text.street}, ${text.numObj}</div>`;
       const email = `<div style="display:flex; align-items:center"><span>Почта: </span> ${text.email}</div>`;
-      const inn = `<div style="display:flex; align-items:center"><span>Инн: </span> ${text.inn}</div>`;
+      const inn = `<div style="display:flex; align-items:center"><span>Инн: </span> ${text.inn}</div>`; 
       allText += titleText + phoneText + adresText + email + inn;
     }
     allText += "</div>";
     return allText;
   };
+
   const mainText = (type) => {
     if (type === 1) {
       return "<h3 style='display:inline; margin: 0px 5px 5px 0px; font-size: 16px;'>Истец: </h3>";
@@ -42,6 +45,14 @@ const PdfFile = ({ editorRef }) => {
       return "<h3 style='display:flex; margin: 0px 0px 5px 0px; font-size: 16px;'>Представитель ответчика: </h3>";
     }
   };
+
+  const signaturePlaintiff = (arrData) => {
+     const newHtml = `<div style="font-weight: 500; font-size: 16px; margin:0px 0px 0px 10px; text-align:right">
+    ${arrData?.map((i,ind) => `<p><span>_______________________</span>  ${i?.name}</p>`).join('')}
+    </div>`;
+    return newHtml
+  }
+
   React.useEffect(() => {
     const currentDateObject = new Date();
     const day = currentDateObject.getDate();
@@ -53,8 +64,10 @@ const PdfFile = ({ editorRef }) => {
     }${month}.${year}г.`;
 
     setDate(formattedDate);
+
   }, []);
 
+  // console.log(applicationList,"applicationList");
   ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 64 - 108 строки
   const initialContent = `
     <div>
@@ -93,9 +106,6 @@ const PdfFile = ({ editorRef }) => {
            todosApplications?.summ === 0
              ? ""
              : `Цена иска: ${
-                 todosApplications?.summ === ""
-                   ? ""
-                   : `${todosApplications?.summ}${" "}${
                        searchIdCurrency(
                          selCurrency,
                          +todosApplications?.summ_curr
@@ -106,7 +116,6 @@ const PdfFile = ({ editorRef }) => {
                            )
                          : ""
                      }`
-               }`
          }
               </p>
             </div>
@@ -181,16 +190,17 @@ const PdfFile = ({ editorRef }) => {
             ? ""
             : `<p style=" font-size: 18px; text-indent: 40px;">${todosApplications?.claim}</p>`
         }
-        <p style="text-align:center; font-size: 20px;">
-              Приложения в копиях
-            </p>
+        <p style="text-align:center; font-size: 20px;">Приложения в копиях</p>
+        ${addFilesList(applicationList)}
+        ${signaturePlaintiff(todosApplications?.plaintiff)}
     </div>
   `;
-
+  // console.log(todosApplications,"todosApplications");
+  
   return (
     <div className="pdfFile">
       <Editor
-        apiKey="frhhgiuyhy64k6q9ojm6xdiqqvkg6ee4yka7yracc74t2i5a"
+        apiKey="gydld2v6nkt94wd85xei7jj62bgagm191o3utnlxihf8cg0a"
         initialValue={initialContent}
         init={{
           height: "100%",

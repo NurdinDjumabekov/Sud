@@ -32,8 +32,8 @@ const initialState = {
     arbitr_doplata_end_date: "", //
     ///////////////////////////////
     prim_pravo: 1, /// select
-    reglament: 0, /// select
-    haracter_spor: 0, /// select
+    reglament: 2, /// select
+    haracter_spor: 1, /// select
     arbitr_lang: 1, /// select
     is_arbitr_po_dogovor: 0, //  1 - true и 0 - false
     status: 1, /// why?
@@ -433,7 +433,7 @@ const applicationsSlice = createSlice({
         arbitr_pay_end_date: "", //
         arbitr_doplata_end_date: "", //
         prim_pravo: 1,
-        reglament: 1,
+        reglament: 2,
         haracter_spor: 1,
         arbitr_lang: 1,
         is_arbitr_po_dogovor: 0, // заменить на 1 и 0

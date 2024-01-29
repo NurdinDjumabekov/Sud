@@ -116,12 +116,12 @@ function MainLayouts() {
   const decodedToken = jwtDecode(tokenA);
   // console.log(decodedToken?.fio, "decodedToken");
   // console.log(decodedToken?.name, "decodedToken");
-  // console.log(decodedToken, "decodedToken");
+  // console.log(decodedToken?.type_user, "decodedToken");
 
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">
-        <div className="logo">
+        <div className="logo" onClick={()=>navigate("/mainPlaintiff")}>
           <img src={logo} alt="logo" />
         </div>
         {/* <p className="moreInfoMenu">Ответсвенный секретарь</p> */}

@@ -51,8 +51,8 @@ export const toTakeRegions = createAsyncThunk(
     try {
       const response = await axios({
         method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/region?code_country${
-          id ? `=${id}` : ""
+        url: `http://mttp-renaissance.333.kg/api/get/region${
+          id ? `?code_country=${id}` : ""
         }`,
         headers: {
           Authorization: `Bearer ${tokenA}`,

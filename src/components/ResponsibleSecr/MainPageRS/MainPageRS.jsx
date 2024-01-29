@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import "./MainPageRS.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { searchNameSelect } from "../../../helpers/searchNameSelect";
-import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
-import { editIsks } from "../../../store/reducers/applicationsSlice";
-import { useNavigate } from "react-router-dom";
-import { changeMainBtnList } from "../../../store/reducers/stateSlice";
-import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
+import React, { useState } from 'react';
+import './MainPageRS.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchNameSelect } from '../../../helpers/searchNameSelect';
+import LookPdfModal from '../../PdfFile/LookPdfModal/LookPdfModal';
+import { editIsks } from '../../../store/reducers/applicationsSlice';
+import { useNavigate } from 'react-router-dom';
+import { changeMainBtnList } from '../../../store/reducers/stateSlice';
+import { toTakeIsksList } from '../../../store/reducers/sendDocsSlice';
 
 export const MainPageRS = () => {
   const dispatch = useDispatch();
@@ -19,34 +19,6 @@ export const MainPageRS = () => {
     (state) => state.selectsSlice
   );
 
-  // const [btnList, setBtnList] = React.useState([
-  //   {
-  //     id: 1,
-  //     name: "Все иски",
-  //     bool: true,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Принятые отвественным секретарём",
-  //     bool: false,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Отклонённые отвественным секретарём",
-  //     bool: false,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Принятые председателем",
-  //     bool: false,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Отклонённые председателем",
-  //     bool: false,
-  //   },
-  // ]);
-
   const clickBtn = (id) => {
     const newList = mainBtnList.map((item) => {
       return {
@@ -58,7 +30,7 @@ export const MainPageRS = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  console.log(mainBtnList, "mainBtnList");
+  console.log(mainBtnList, 'mainBtnList');
   // console.log(todosApplications, "todosApplications");
 
   const editIsksFn = (id) => {
@@ -66,11 +38,18 @@ export const MainPageRS = () => {
   };
 
   const statusMessages = {
-    1: "Отправлено председателю",
-    2: "Отклонён ответственным секретарём",
-    3: "Принят председателем",
-    4: "Отклонён председателем",
+    1: 'Отправлено председателю',
+    2: 'Отклонён ответственным секретарём',
+    3: 'Принят председателем',
+    4: 'Отклонён председателем',
   };
+
+  // console.log(mainBtnList, 'mainBtnList');
+  // console.log(+mainBtnList?.[0]?.count, '+mainBtnList?.[0]?.count');
+  const allSumsIsks = (arr) => {
+      const allIsks = +arr?.[0]?.count + 1 +arr?.[1]?.count + +arr?.[2]?.count + +arr?.[3]?.count + +arr?.[4]?.count 
+      return allIsks;
+    };
 
   return (
     <>
@@ -79,13 +58,16 @@ export const MainPageRS = () => {
           {mainBtnList?.map((btn, ind) => (
             <li key={btn.id}>
               <button
-                className={btn?.bool ? "activeBtnsPlaintiff" : ""}
+                className={btn?.bool ? 'activeBtnsPlaintiff' : ''}
                 onClick={() => clickBtn(btn?.id)}
-                style={ind === 0 ? { marginLeft: "0px" } : {}}
+                style={ind === 0 ? { marginLeft: '0px' } : {}}
               >
                 {btn?.name}
-                {/* [{btn?.count}] */}
-                <span className="countInfo">{btn?.count || 0}</span>
+                {" "}
+                [{ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}]
+                {/* <span className="countInfo" style={ind === 0 ? { right: '-10px',padding:"4px 7px"} : {padding:"4px 11px"}}                >
+                   {ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}
+                </span> */}
               </button>
             </li>
           ))}
@@ -112,14 +94,14 @@ export const MainPageRS = () => {
                   key={index}
                   style={
                     +index % 2 === 0
-                      ? { background: "#fff" }
-                      : { background: "#f9fafd" }
+                      ? { background: '#fff' }
+                      : { background: '#f9fafd' }
                   }
                 >
                   <td className="table_isk_td">
                     <div>
                       <span className="span_teble">
-                        {row?.isk_number ? `№ ${row?.isk_number}` : ""}
+                        {row?.isk_number ? `№ ${row?.isk_number}` : ''}
                       </span>
                       {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
                     </div>
@@ -136,7 +118,7 @@ export const MainPageRS = () => {
                           {row.plaintiff.map((i, index) => (
                             <span key={index}>
                               {i.name}
-                              {index !== row.plaintiff.length - 1 && ","}
+                              {index !== row.plaintiff.length - 1 && ','}
                             </span>
                           ))}
                         </>
@@ -146,13 +128,13 @@ export const MainPageRS = () => {
                   <td className="table_isk_td">
                     <>
                       {row?.defendant?.length === 0 ? ( ////  "ФИО ответчика отсутствует"
-                        ""
+                        ''
                       ) : (
                         <>
                           {row.defendant.map((i, index) => (
                             <span key={index}>
                               {i.name}
-                              {index !== row.defendant.length - 1 && ","}
+                              {index !== row.defendant.length - 1 && ','}
                             </span>
                           ))}
                         </>
@@ -163,10 +145,10 @@ export const MainPageRS = () => {
                   <td className="table_isk_td">
                     <span>
                       {+row?.arbitr_fee === 0 ? (
-                        ""
+                        ''
                       ) : (
                         <>
-                          {row?.arbitr_fee}{" "}
+                          {row?.arbitr_fee}{' '}
                           {searchNameSelect(selCurrency, +row?.arbitr_curr)}
                         </>
                       )}
@@ -175,7 +157,7 @@ export const MainPageRS = () => {
                   <td className="table_isk_td">
                     <span>
                       {+row?.reglament === 0 ? (
-                        ""
+                        ''
                       ) : (
                         <>{searchNameSelect(selReglament, +row?.reglament)}</>
                       )}
@@ -189,24 +171,28 @@ export const MainPageRS = () => {
                     )}
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.secretary ? row.secretary : ""}</span>
+                    <span>{row.secretary ? row.secretary : ''}</span>
                   </td>
                   <td className="table_isk_td">
                     {+row?.isk_status === 0 ? (
-                      <div className="statusIsks">
-                        <button onClick={() => editIsksFn(row?.codeid)}>
+                      <div className="statusIsks moreIsksStatus">
+                        <button onClick={() => editIsksFn(row?.codeid)} className="moreBtn">
                           Просмотреть
                         </button>
                       </div>
                     ) : (
                       <>
                         {statusMessages[row?.isk_status] && (
-                          <span style={{ padding: "0px 0px 0px 10px" }}>
+                          <span style={{ padding: '0px 0px 0px 10px' }}
+                            className={+row?.isk_status === 1 || +row?.isk_status === 3 ? "colorStatusGreen":
+                              +row?.isk_status === 2 || +row?.isk_status === 4 ? "colorStatusRed":
+                            ""}
+                           >
                             {statusMessages[row?.isk_status]}
                           </span>
                         )}
                         {!statusMessages[row?.isk_status] && (
-                          <span style={{ padding: "0px 0px 0px 10px" }}>
+                          <span style={{ padding: '0px 0px 0px 10px' }}>
                             Ожидание ...
                           </span>
                         )}

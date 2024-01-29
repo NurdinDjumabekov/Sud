@@ -81,8 +81,8 @@ function MainRoutes() {
   } else if (+typeUser === 4) {
     userRoutes = (
       <Route element={<MainLayouts />}>
-        <Route path="/mainPlaintiff" element={<MainPage />} />
         <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
+        <Route path="/mainPlaintiff" element={<MainPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
         <Route path="/calTodoPlaintiff" element={<CalendarTodoPage />} />
         <Route path="/meetingsPlaintiff" element={<CalendarMeetings />} />
@@ -98,8 +98,8 @@ function MainRoutes() {
 
     /// селекты
     dispatch(toTakeCountries({ tokenA }));
-    dispatch(toTakeRegions({ tokenA, id: 5 }));
-    dispatch(toTakeDistrict({ tokenA, id: 4 }));
+    dispatch(toTakeRegions({ tokenA, id: 36 }));
+    dispatch(toTakeDistrict({ tokenA, id: 12 }));
     dispatch(toTakeTypeAddress(tokenA));
     dispatch(toTakeTypeOrganiz(tokenA));
     dispatch(toTakeTypeCompany(tokenA));

@@ -26,7 +26,7 @@ const initialState = {
     email2: "",
     country: 36, /// select
     region: 12, /// область /// select
-    district: 18, //// район /// select
+    district: 48, //// район /// select
     adddreselement: 1, // адресный элемент /// select
     city: "",
     street: "",
@@ -62,8 +62,8 @@ const initialState = {
 
     country: 36, /// select
     region: 12, /// область /// select
-    district: 18, //// район /// select
-    adddreselement: 0, // адресный элемент   /// select
+    district: 48, //// район /// select
+    adddreselement: 1, // адресный элемент   /// select
     city: "",
     street: "",
     numObj: "",
@@ -118,7 +118,7 @@ const inputSlice = createSlice({
         email2: "",
         country: 36, /// select
         region: 12, /// область /// select
-        district: 18, //// район /// select
+        district: 48, //// район /// select
         adddreselement: 1, // адресный элемент /// select
         city: "",
         street: "",
@@ -157,8 +157,8 @@ const inputSlice = createSlice({
 
         country: 36, /// select
         region: 12, /// область /// select
-        district: 18, //// район /// select
-        adddreselement: 0, // адресный элемент   /// select
+        district: 48, //// район /// select
+        adddreselement: 1, // адресный элемент   /// select
         city: "",
         street: "",
         numObj: "",

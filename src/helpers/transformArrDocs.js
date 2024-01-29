@@ -1,8 +1,8 @@
 /// transformArrDocs трансформация массива с файлами, добавление данных а массив файлов(приложений)Ю, при нажатии на редактирование иска
 export const transformArrDocs = (data) => {
   const { arrIsk, reqData } = data;
-  //   console.log(arrIsk, "arrIsk");
-  //   console.log(reqData, "reqData");
+    // console.log(arrIsk, "arrIsk");
+    // console.log(reqData, "reqData");
 
   const newdata = arrIsk.map((i) => {
     const matchingItems = reqData.filter(

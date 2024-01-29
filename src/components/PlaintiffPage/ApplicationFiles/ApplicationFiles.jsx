@@ -54,7 +54,7 @@ const ApplicationFiles = () => {
   };
 
   // console.log(selTypeTypeDocs, "selTypeTypeDocs");
-  console.log(applicationList, "applicationList");
+  // console.log(applicationList, "applicationList");
   // console.log(selectedFilesArray, "selectedFilesArray");\
 
   React.useEffect(() => {
@@ -97,20 +97,22 @@ const ApplicationFiles = () => {
                   <div key={+file?.codeid_file} className="file-item">
                     {/* <span >{file.name}</span> */}
                     <LookDocs file={file} key={file?.codeid_file} />
-                    <button
-                      disabled={+decodedToken?.type_user === 4 ? false : true}
-                      onClick={() => {
-                        dispatch(
-                          deleteDocsIsks({
-                            file: file?.codeid_file,
-                            tokenA,
-                            code_isk: todosApplications.codeid,
-                          })
-                        );
-                      }}
-                    >
-                      <img src={krestik} alt="x" />
-                    </button>
+                    {
+                      +decodedToken?.type_user === 4 &&
+                      <button
+                        onClick={() => {
+                          dispatch(
+                            deleteDocsIsks({
+                              file: file?.codeid_file,
+                              tokenA,
+                              code_isk: todosApplications.codeid,
+                            })
+                          );
+                        }}
+                      >
+                        <img src={krestik} alt="x" />
+                      </button>
+                    }
                   </div>
                 ))}
               </div>

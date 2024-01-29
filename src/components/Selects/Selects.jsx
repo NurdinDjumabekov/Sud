@@ -41,13 +41,6 @@ const Selects = (props) => {
   }, [active]);
 
   const clickSelect = (name, id) => {
-    if (keys?.type === "country") {
-      dispatch(toTakeRegions({ tokenA, id }));
-      dispatch(toTakeDistrict({ tokenA, id: 0 }));
-    }
-    if (keys?.type === "region") {
-      dispatch(toTakeDistrict({ tokenA, id }));
-    }
     if (type === "adff") {
       dispatch(changeADFF({ ...adff, [keys.type]: id }));
     } else if (type === "aduf") {
@@ -58,6 +51,15 @@ const Selects = (props) => {
       );
     } else if (type === "typePay") {
       dispatch(changeTypePay(+id));
+    }
+
+    if (keys?.type === "country" && type ==="adff") {
+      dispatch(toTakeRegions({ tokenA, id }));
+      dispatch(toTakeDistrict({ tokenA, id: 0 }));
+      dispatch(changeADFF({ ...adff, district: 48, region: 12, country: id}));
+    }
+    if (keys?.type === "region" && type ==="adff") {
+      dispatch(toTakeDistrict({ tokenA, id }));
     }
     setActive(false);
   };

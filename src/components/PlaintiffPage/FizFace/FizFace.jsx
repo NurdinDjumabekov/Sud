@@ -57,6 +57,7 @@ const FizFace = ({ typerole }) => {
       }
     }
   };
+
   const addData = (type) => {
     /// action_type 1 - создание , 2 - редактирование
     dispatch(
@@ -69,6 +70,7 @@ const FizFace = ({ typerole }) => {
       })
     );
   };
+
   const checkData = () => {
     if (typerole === "истца" && lookAddPlaintiff === 1) {
       addData(1);
@@ -96,12 +98,28 @@ const FizFace = ({ typerole }) => {
 
   const changeInput = (e) => {
     e.preventDefault();
-    dispatch(changeADFF({ ...adff, [e.target.name]: e.target.value }));
+
+    const { name, value } = e.target;
+    if (name === "inn") {
+      const allowedCharsRegex = /^[0-9]{0,12}$/;
+      if (allowedCharsRegex.test(value)) {
+        dispatch(changeADFF({ ...adff, [name]: value }));
+      }
+    } else if (name === "numPhone") {
+      const numReg = /[0-9+()-]/;
+      const filteredValue = value
+        .split("")
+        .filter((char) => numReg.test(char))
+        .join("");
+      dispatch(changeADFF({ ...adff, [name]: filteredValue }));
+    } else {
+      dispatch(changeADFF({ ...adff, [name]: value }));
+    }
   };
 
+  console.log(adff, "adff");
   // console.log(selRegions, "selRegions");
   // console.log(selCountries, "selCountries");
-  console.log(adff, "adff");
 
   // React.useEffect(() => {
   //   dispatch(changeADFF({ ...adff, region: 0, district: 0 }));
@@ -468,7 +486,6 @@ const FizFace = ({ typerole }) => {
                 value={adff.description}
                 onChange={changeInput}
                 name="description"
-                required
               />
             </div>
             <div className="noneDataInputs"></div>
