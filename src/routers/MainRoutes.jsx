@@ -98,8 +98,8 @@ function MainRoutes() {
 
     /// селекты
     dispatch(toTakeCountries({ tokenA }));
-    dispatch(toTakeRegions({ tokenA, id: 5 }));
-    dispatch(toTakeDistrict({ tokenA, id: 4 }));
+    dispatch(toTakeRegions({ tokenA, id: 36 }));
+    dispatch(toTakeDistrict({ tokenA, id: 12 }));
     dispatch(toTakeTypeAddress(tokenA));
     dispatch(toTakeTypeOrganiz(tokenA));
     dispatch(toTakeTypeCompany(tokenA));

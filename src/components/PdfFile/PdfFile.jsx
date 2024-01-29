@@ -46,7 +46,6 @@ const PdfFile = ({ editorRef }) => {
     }
   };
 
-
   const signaturePlaintiff = (arrData) => {
      const newHtml = `<div style="font-weight: 500; font-size: 16px; margin:0px 0px 0px 10px; text-align:right">
     ${arrData?.map((i,ind) => `<p><span>_______________________</span>  ${i?.name}</p>`).join('')}
@@ -67,8 +66,8 @@ const PdfFile = ({ editorRef }) => {
     setDate(formattedDate);
 
   }, []);
-  // console.log(applicationList,"applicationList");
 
+  // console.log(applicationList,"applicationList");
   ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 64 - 108 строки
   const initialContent = `
     <div>
@@ -196,13 +195,12 @@ const PdfFile = ({ editorRef }) => {
         ${signaturePlaintiff(todosApplications?.plaintiff)}
     </div>
   `;
-
   // console.log(todosApplications,"todosApplications");
   
   return (
     <div className="pdfFile">
       <Editor
-        apiKey="frhhgiuyhy64k6q9ojm6xdiqqvkg6ee4yka7yracc74t2i5a"
+        apiKey="gydld2v6nkt94wd85xei7jj62bgagm191o3utnlxihf8cg0a"
         initialValue={initialContent}
         init={{
           height: "100%",

@@ -142,7 +142,7 @@ const TargetPlaintiff = () => {
                 className={calculatorType ? "" : "activeBtnsPlaintiff"}
                 onClick={() => dispatch(changeCalculatorType(false))}
               >
-                Реквизины
+                Реквизиты
               </span>
               <span
                 className={calculatorType ? "activeBtnsPlaintiff" : ""}
