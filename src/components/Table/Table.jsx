@@ -99,7 +99,7 @@ export const Table = () => {
               >
                 {btn.name}
                 {/* {btn?.name} [{btn?.count}] */}
-                <span className="countInfo" style={{ right: "-18px" }}>
+                <span className="countInfo" style={{ right: "-22px" }}>
                   {btn?.count || 0}
                 </span>
               </button>
