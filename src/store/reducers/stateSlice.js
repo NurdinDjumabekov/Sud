@@ -90,11 +90,7 @@ const stateSlice = createSlice({
           id: 0,
           name: 'Все иски',
           bool: state.mainBtnList[0]?.bool, // Сохраняю текущее значение bool
-<<<<<<< HEAD
-          count: action?.payload?.isk_count,
-=======
           count: action?.payload?.isk_count || 0,
->>>>>>> 303b5c36e136f3264ec4f068247094949d4a3c9a
         },
         {
           id: 1,
