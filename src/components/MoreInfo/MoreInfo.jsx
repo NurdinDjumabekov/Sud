@@ -66,8 +66,8 @@ const MoreInfo = () => {
           <div className="imgBlock">
             <img src={imgWarning} alt="send!" />
           </div>
-          <h5>Вы уверены что хотите подать этот иск?</h5>
-          <p>Если вы отправите этот иск, то у вас не будет возможности отменить подачу! </p>
+          <h5>Подать иск?</h5>
+          {/* <p>Если вы отправите этот иск, то у вас не будет возможности отменить подачу! </p> */}
           <div className="btnsSendIsks">
             <button
               onClick={() => {
@@ -75,10 +75,10 @@ const MoreInfo = () => {
                 dispatch(changeLookChangeStatus(false));
               }}
             >
-              Отправить
+              Да
             </button>
             <button onClick={() => dispatch(changeLookChangeStatus(false))}>
-              Отменить
+              Отмена
             </button>
           </div>
         </div>

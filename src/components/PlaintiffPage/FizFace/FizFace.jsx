@@ -100,9 +100,15 @@ const FizFace = ({ typerole }) => {
     e.preventDefault();
 
     const { name, value } = e.target;
-    if (name === "inn") {
-      const allowedCharsRegex = /^[0-9]{0,12}$/;
-      if (allowedCharsRegex.test(value)) {
+
+    if (name === "name") {
+      const regName = /^[A-Za-zА-Яа-я\s\-]+$/;
+      if (regName.test(value)) {
+        dispatch(changeADFF({ ...adff, [name]: value }));
+      }
+    } else if (name === "inn") {
+      const innRegex = /^[0-9]{0,12}$/;
+      if (innRegex.test(value)) {
         dispatch(changeADFF({ ...adff, [name]: value }));
       }
     } else if (name === "numPhone") {
@@ -130,6 +136,8 @@ const FizFace = ({ typerole }) => {
   // }, [adff?.region]);
 
   const decodedToken = jwtDecode(tokenA);
+
+  console.log(todosApplications, "todosApplications");
 
   return (
     <div className="addPlaintiffFiz">
@@ -212,6 +220,7 @@ const FizFace = ({ typerole }) => {
                   nameInput: "dob",
                   keyData: adff.dob,
                   typeChange: "adff",
+                  urgently: true,
                 }}
               />
             ) : (
@@ -226,9 +235,10 @@ const FizFace = ({ typerole }) => {
             )}
             <Selects
               arr={selectArr}
-              initText={"Пол *"}
+              initText={"Пол"}
               keys={{ typeKey: adff.sex, type: "sex" }}
               type="adff"
+              urgently={true}
             />
           </div>
           <div className="threeInputs">
@@ -247,6 +257,7 @@ const FizFace = ({ typerole }) => {
                     nameInput: "timePassportStart",
                     keyData: adff.timePassportStart,
                     typeChange: "adff",
+                    urgently: true,
                   }}
                 />
                 <DataInput
@@ -255,6 +266,7 @@ const FizFace = ({ typerole }) => {
                     nameInput: "timePassportEnd",
                     keyData: adff.timePassportEnd,
                     typeChange: "adff",
+                    urgently: true,
                   }}
                 />
               </>
@@ -368,21 +380,24 @@ const FizFace = ({ typerole }) => {
           <div className="threeInputs moreStyles">
             <Selects
               arr={selCountries}
-              initText={"Страна *"}
+              initText={`Страна`}
               keys={{ typeKey: adff.country, type: "country" }}
               type="adff"
+              urgently={true}
             />
             <Selects
               arr={selRegions}
-              initText={"Область *"}
+              initText={"Область"}
               keys={{ typeKey: adff.region, type: "region" }}
               type="adff"
+              urgently={true}
             />
             <Selects
               arr={selDistrict}
-              initText={"Район *"}
+              initText={"Район"}
               keys={{ typeKey: adff.district, type: "district" }}
               type="adff"
+              urgently={true}
             />
           </div>
           <div className="threeInputs moreStyles">
@@ -401,9 +416,10 @@ const FizFace = ({ typerole }) => {
             </div>
             <Selects
               arr={selTypeAddress}
-              initText={"Адресный элемент *"}
+              initText={"Адресный элемент"}
               keys={{ typeKey: adff.adddreselement, type: "adddreselement" }}
               type="adff"
+              urgently={true}
             />
             <div>
               <p>

@@ -342,68 +342,22 @@ const applicationsSlice = createSlice({
       };
     },
     addTodosPlaintiffResper: (state, action) => {
-      const { plaintiffResper } = state.todosApplications;
-      if (action.payload.id) {
-        const newArr = plaintiffResper.map((obj) => {
-          if (obj.id === action.payload.id) {
-            return action.payload;
-          } else {
-            return obj;
-          }
-        });
-        state.todosApplications.plaintiffResper = newArr;
-      } else {
-        const id =
-          plaintiffResper.length === 0
-            ? 1
-            : plaintiffResper[plaintiffResper.length - 1].id + 1;
-        state.todosApplications.plaintiffResper = [
-          ...plaintiffResper,
-          { ...action.payload, id },
-        ];
-      }
+      state.todosApplications = {
+        ...state.todosApplications,
+        plaintiffResper: [...state.todosApplications.plaintiffResper, action.payload],
+      };
     },
     addTodosDefendant: (state, action) => {
-      const { defendant } = state.todosApplications;
-      if (action.payload.id) {
-        const newArr = defendant.map((obj) => {
-          if (obj.id === action.payload.id) {
-            return action.payload;
-          } else {
-            return obj;
-          }
-        });
-        state.todosApplications.defendant = newArr;
-      } else {
-        const id =
-          defendant.length === 0 ? 1 : defendant[defendant.length - 1].id + 1;
-        state.todosApplications.defendant = [
-          ...defendant,
-          { ...action.payload, id },
-        ];
-      }
+      state.todosApplications = {
+        ...state.todosApplications,
+        defendant: [...state.todosApplications.defendant, action.payload],
+      };
     },
     addTodosDefendantResper: (state, action) => {
-      const { defendantResper } = state.todosApplications;
-      if (action.payload.id) {
-        const newArr = defendantResper.map((obj) => {
-          if (obj.id === action.payload.id) {
-            return action.payload;
-          } else {
-            return obj;
-          }
-        });
-        state.todosApplications.defendantResper = newArr;
-      } else {
-        const id =
-          defendantResper.length === 0
-            ? 1
-            : defendantResper[defendantResper.length - 1].id + 1;
-        state.todosApplications.defendantResper = [
-          ...defendantResper,
-          { ...action.payload, id },
-        ];
-      }
+      state.todosApplications = {
+        ...state.todosApplications,
+        defendantResper: [...state.todosApplications.defendantResper, action.payload],
+      };
     },
     changeTodosApplications: (state, action) => {
       state.todosApplications = action.payload;

@@ -78,7 +78,9 @@ const DataInput = ({ props }) => {
 
   return (
     <div className="date__inner">
-      <p>{props.title}</p>
+      <p>
+        {props.title} {props?.urgently ? <b className="required">*</b> : ""}
+      </p>
       <DatePicker
         selected={selectedDate}
         onChange={(date) => transformData(date)}

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import './MainPageRS.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { searchNameSelect } from '../../../helpers/searchNameSelect';
-import LookPdfModal from '../../PdfFile/LookPdfModal/LookPdfModal';
-import { editIsks } from '../../../store/reducers/applicationsSlice';
-import { useNavigate } from 'react-router-dom';
-import { changeMainBtnList } from '../../../store/reducers/stateSlice';
-import { toTakeIsksList } from '../../../store/reducers/sendDocsSlice';
+import React, { useState } from "react";
+import "./MainPageRS.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { searchNameSelect } from "../../../helpers/searchNameSelect";
+import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
+import { editIsks } from "../../../store/reducers/applicationsSlice";
+import { useNavigate } from "react-router-dom";
+import { changeMainBtnList } from "../../../store/reducers/stateSlice";
+import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
+import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 
 export const MainPageRS = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,13 @@ export const MainPageRS = () => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
+
+  const [sendStatusIsk, setSendStatusIsk] = useState(false);
+  const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
 
   const clickBtn = (id) => {
     const newList = mainBtnList.map((item) => {
@@ -30,7 +35,7 @@ export const MainPageRS = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  console.log(mainBtnList, 'mainBtnList');
+  console.log(mainBtnList, "mainBtnList");
   // console.log(todosApplications, "todosApplications");
 
   const editIsksFn = (id) => {
@@ -38,18 +43,16 @@ export const MainPageRS = () => {
   };
 
   const statusMessages = {
-    1: 'Отправлено председателю',
-    2: 'Отклонён ответственным секретарём',
-    3: 'Принят председателем',
-    4: 'Отклонён председателем',
+    1: "Отправлено председателю",
+    2: "Отклонён ответственным секретарём",
+    3: "Принят председателем",
+    4: "Отклонён председателем",
   };
 
-  // console.log(mainBtnList, 'mainBtnList');
-  // console.log(+mainBtnList?.[0]?.count, '+mainBtnList?.[0]?.count');
-  const allSumsIsks = (arr) => {
-      const allIsks = +arr?.[0]?.count + 1 +arr?.[1]?.count + +arr?.[2]?.count + +arr?.[3]?.count + +arr?.[4]?.count 
-      return allIsks;
-    };
+  const changeStatusIsks = (id, status) => {
+    setSendStatusIsk(true);
+    setIsType({ type: status, id });
+  };
 
   return (
     <>
@@ -58,13 +61,11 @@ export const MainPageRS = () => {
           {mainBtnList?.map((btn, ind) => (
             <li key={btn.id}>
               <button
-                className={btn?.bool ? 'activeBtnsPlaintiff' : ''}
+                className={btn?.bool ? "activeBtnsPlaintiff" : ""}
                 onClick={() => clickBtn(btn?.id)}
-                style={ind === 0 ? { marginLeft: '0px' } : {}}
+                style={ind === 0 ? { marginLeft: "0px" } : {}}
               >
-                {btn?.name}
-                {" "}
-                [{ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}]
+                {btn?.name} [{btn?.count || 0}]
                 {/* <span className="countInfo" style={ind === 0 ? { right: '-10px',padding:"4px 7px"} : {padding:"4px 11px"}}                >
                    {ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}
                 </span> */}
@@ -94,14 +95,17 @@ export const MainPageRS = () => {
                   key={index}
                   style={
                     +index % 2 === 0
-                      ? { background: '#fff' }
-                      : { background: '#f9fafd' }
+                      ? { background: "#fff" }
+                      : { background: "#f9fafd" }
                   }
                 >
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <div>
                       <span className="span_teble">
-                        {row?.isk_number ? `№ ${row?.isk_number}` : ''}
+                        {row?.isk_number ? `№ ${row?.isk_number}` : ""}
                       </span>
                       {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
                     </div>
@@ -109,7 +113,10 @@ export const MainPageRS = () => {
                   <td className="table_isk_td">
                     <span>{row?.isk_date}</span>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <>
                       {row?.plaintiff?.length === 0 ? ( ////  "ФИО Истца отсутствует"
                         <p></p>
@@ -118,23 +125,26 @@ export const MainPageRS = () => {
                           {row.plaintiff.map((i, index) => (
                             <span key={index}>
                               {i.name}
-                              {index !== row.plaintiff.length - 1 && ','}
+                              {index !== row.plaintiff.length - 1 && ","}
                             </span>
                           ))}
                         </>
                       )}
                     </>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <>
                       {row?.defendant?.length === 0 ? ( ////  "ФИО ответчика отсутствует"
-                        ''
+                        ""
                       ) : (
                         <>
                           {row.defendant.map((i, index) => (
                             <span key={index}>
                               {i.name}
-                              {index !== row.defendant.length - 1 && ','}
+                              {index !== row.defendant.length - 1 && ","}
                             </span>
                           ))}
                         </>
@@ -142,58 +152,82 @@ export const MainPageRS = () => {
                     </>
                   </td>
                   {/* ///////////////////////////////////// */}
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <span>
                       {+row?.arbitr_fee === 0 ? (
-                        ''
+                        ""
                       ) : (
                         <>
-                          {row?.arbitr_fee}{' '}
+                          {row?.arbitr_fee}{" "}
                           {searchNameSelect(selCurrency, +row?.arbitr_curr)}
                         </>
                       )}
                     </span>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <span>
                       {+row?.reglament === 0 ? (
-                        ''
+                        ""
                       ) : (
                         <>{searchNameSelect(selReglament, +row?.reglament)}</>
                       )}
                     </span>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     {row?.arbitrs?.length === 0 ? (
                       <span></span>
                     ) : (
                       row?.arbitrs?.map((i) => <span>{i?.name}</span>)
                     )}
                   </td>
-                  <td className="table_isk_td">
-                    <span>{row.secretary ? row.secretary : ''}</span>
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
+                    <span>{row.secretary ? row.secretary : ""}</span>
                   </td>
                   <td className="table_isk_td">
                     {+row?.isk_status === 0 ? (
                       <div className="statusIsks moreIsksStatus">
-                        <button onClick={() => editIsksFn(row?.codeid)} className="moreBtn">
+                        <button
+                          className="moreBtn"
+                          onClick={() => {
+                            setSendStatusIsk(true);
+                            changeStatusIsks(todosApplications?.codeid, 2);
+                          }}
+                        >
                           Просмотреть
                         </button>
                       </div>
                     ) : (
                       <>
                         {statusMessages[row?.isk_status] && (
-                          <span style={{ padding: '0px 0px 0px 10px' }}
-                            className={+row?.isk_status === 1 || +row?.isk_status === 3 ? "colorStatusGreen":
-                              +row?.isk_status === 2 || +row?.isk_status === 4 ? "colorStatusRed":
-                            ""}
-                           >
+                          <span
+                            style={{ padding: "0px 0px 0px 10px" }}
+                            className={
+                              +row?.isk_status === 1 || +row?.isk_status === 3
+                                ? "colorStatusGreen"
+                                : +row?.isk_status === 2 ||
+                                  +row?.isk_status === 4
+                                ? "colorStatusRed"
+                                : ""
+                            }
+                          >
                             {statusMessages[row?.isk_status]}
                           </span>
                         )}
                         {!statusMessages[row?.isk_status] && (
-                          <span style={{ padding: '0px 0px 0px 10px' }}>
-                            Ожидание ...
+                          <span style={{ padding: "0px 0px 0px 10px" }}>
+                            Иск подан
                           </span>
                         )}
                       </>
@@ -218,6 +252,13 @@ export const MainPageRS = () => {
           </table>
         </div>
       </div>
+      {/* ////  */}
+      <ConfirmStatus
+        setSendStatusIsk={setSendStatusIsk}
+        sendStatusIsk={sendStatusIsk}
+        setIsType={setIsType}
+        istype={istype}
+      />
     </>
   );
 };

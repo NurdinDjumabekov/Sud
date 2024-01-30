@@ -21,8 +21,8 @@ const DataArrPlaintiff = ({ typerole }) => {
   // console.log(typerole, "typerole");
 
   const approvId = () => {
-    dispatch(changeADFF({ ...adff, code_isk: todosApplications.codeid }));
-    dispatch(changeADUF({ ...aduf, code_isk: todosApplications.codeid }));
+    dispatch(changeADFF({ ...adff, code_isk: todosApplications?.codeid }));
+    dispatch(changeADUF({ ...aduf, code_isk: todosApplications?.codeid }));
   };
 
   const clickPlaintiff = () => {

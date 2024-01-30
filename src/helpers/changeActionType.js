@@ -1,6 +1,6 @@
-export const changeActionType = (objs) => {
+export const changeActionType = (objs,codeid) => {
   return {
-    codeid: objs.codeid,
+    codeid: codeid, 
     plaintiff: objs?.plaintiff.map((obj) => ({
       ...obj,
       codeid: obj.codeid,

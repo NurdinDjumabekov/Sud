@@ -22,6 +22,7 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf, docsIsks } = useSelector((state) => state.inputSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { typeUser } = useSelector((state) => state.saveDataSlice);
 
   const saveData = () => {
     if (checkDataIsks(todosApplications)) {
@@ -90,7 +91,21 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
       {+decodedToken?.type_user === 4 ? (
         <div className="actionBtn">
           <button onClick={saveData}>Сохранить</button>
-          <button onClick={() => navigate(-1)}>Отменить</button>
+          <button
+            onClick={() => {
+              if (+typeUser === 1) {
+                navigate("/asdfdsf");
+              } else if (+typeUser === 2) {
+                navigate("/mainRespSec");
+              } else if (+typeUser === 3) {
+                navigate("/mainRespPred");
+              } else if (+typeUser === 4) {
+                navigate("/mainPlaintiff"); //// ???
+              }
+            }}
+          >
+            Отменить
+          </button>
         </div>
       ) : (
         <>

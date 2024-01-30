@@ -189,7 +189,7 @@ export const MainPagePred = () => {
                         )}
                         {!statusMessages[row?.isk_status] && (
                           <span style={{ padding: "0px 0px 0px 10px" }}>
-                            Ожидание ...
+                            Иск подан
                           </span>
                         )}
                       </>

@@ -8,6 +8,7 @@ import {
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
+import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import imgFizFace from "../../../asstes/icons/plaintiff/fiz_face.svg";
 import imgUrFace from "../../../asstes/icons/plaintiff/ur_face.svg";
 import editImg from "../../../asstes/icons/editBtn.svg";
@@ -19,6 +20,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
   const dispatch = useDispatch();
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { selCountries } = useSelector((state) => state.selectsSlice);
 
   const changeAddPlaintiff = (objData, type) => {
     if (type === "plaint" && typerole === "истца") {
@@ -74,6 +76,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
     }
   };
 
+  console.log(arr,"arr");
   const decodedToken = jwtDecode(tokenA);
   return (
     <div className="listDocs">
@@ -95,7 +98,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
                 <p>
                   {i.country && i.city ? (
                     <>
-                      {i.country},{i.city}
+                      {searchNameSelect(selCountries, +i.country)},{i.city}
                       {/* Кыргызстан, Бишкек */}
                     </>
                   ) : (
@@ -108,11 +111,11 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
               {+decodedToken?.type_user === 4 ? (
                 <>
                   <button onClick={() => changeAddPlaintiff(i, "plaint")}>
-                    <p>Редактировать</p>
+                    {/* <p>Редактировать</p> */}
                     <img src={editImg} alt="edit" className="imgMini" />
                   </button>
                   <button onClick={() => deleteIsks(i, "plaint")}>
-                    <p>Удалить</p>
+                    {/* <p>Удалить</p> */}
                     <img src={deleteImg} alt="del" />
                   </button>
                 </>
@@ -161,11 +164,11 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
               {+decodedToken?.type_user === 4 ? (
                 <>
                   <button onClick={() => changeAddPlaintiff(i, "represen")}>
-                    <p>Редактировать</p>
+                    {/* <p>Редактировать</p> */}
                     <img src={editImg} alt="edit" className="imgMini" />
                   </button>
                   <button onClick={() => deleteIsks(i, "represen")}>
-                    <p>Удалить</p>
+                    {/* <p>Удалить</p> */}
                     <img src={deleteImg} alt="del" />
                   </button>
                 </>

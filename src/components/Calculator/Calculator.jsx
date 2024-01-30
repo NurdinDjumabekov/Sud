@@ -11,6 +11,7 @@ import {
 
 const Calculator = () => {
   const dispatch = useDispatch();
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { sumIsk, calculatorState, typePay, resultSumIsk } = useSelector(
     (state) => state.stateSlice
   );
@@ -193,10 +194,10 @@ const Calculator = () => {
 
     dispatch(
       changeResult({
-        num1: +sumIsk,
-        num2: +sumIsk + 500,
-        num3: +sumIsk + 100,
-        num4: +sumIsk + 800,
+        num1: Math.round(+data?.regSbor),
+        num2: Math.round(+data?.arbitrSbor),
+        num3: Math.round(+data?.regSbor) + data?.regSbor,
+        num4: Math.round(+data?.arbitrSborDiscounted),
       })
     );
   };
@@ -212,6 +213,11 @@ const Calculator = () => {
   // calculateSbor({ isk_sum: 100, isk_type: 1 });
   // console.log();
   // console.log(typePay, "typePay");
+
+  React.useEffect(() => {
+    dispatch(changeSumIsk(todosApplications.summ));
+  }, []);
+
   return (
     <div className="calculator">
       <div className="calculator__count">
@@ -234,7 +240,7 @@ const Calculator = () => {
           />
         </div>
         <span className="btnCal" onClick={resultCal}>
-          Расчитать
+          Рассчитать
         </span>
       </div>
       {calculatorState && (

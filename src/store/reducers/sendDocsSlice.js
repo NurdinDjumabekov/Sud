@@ -195,7 +195,7 @@ export const createEveryIsk = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        const newdata = changeActionType(response?.data);
+        const newdata = changeActionType(response?.data, obj?.codeid);
         dispatch(
           changeTodosApplications({
             ...info?.todosApplications,

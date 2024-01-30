@@ -12,7 +12,7 @@ import {
 import { searchNameSelect } from "../../helpers/searchNameSelect";
 
 const Selects = (props) => {
-  const { arr, initText, keys, type } = props;
+  const { arr, initText, keys, type, urgently } = props;
   const dispatch = useDispatch();
   const [active, setActive] = React.useState(false);
   const [name, setName] = React.useState("");
@@ -53,12 +53,12 @@ const Selects = (props) => {
       dispatch(changeTypePay(+id));
     }
 
-    if (keys?.type === "country" && type ==="adff") {
+    if (keys?.type === "country" && type === "adff") {
       dispatch(toTakeRegions({ tokenA, id }));
       dispatch(toTakeDistrict({ tokenA, id: 0 }));
-      dispatch(changeADFF({ ...adff, district: 48, region: 12, country: id}));
+      dispatch(changeADFF({ ...adff, district: 48, region: 12, country: id }));
     }
-    if (keys?.type === "region" && type ==="adff") {
+    if (keys?.type === "region" && type === "adff") {
       dispatch(toTakeDistrict({ tokenA, id }));
     }
     setActive(false);
@@ -66,7 +66,10 @@ const Selects = (props) => {
 
   return (
     <div className="selectBlockMain">
-      <h5>{initText}</h5>
+      <h5>
+        {initText}
+        {urgently ? <b className="required">*</b> : ""}
+      </h5>
       <div className="selectBlock" id="uniqueSelectID" ref={accordionRef}>
         <div
           className="selectBlock__inner"

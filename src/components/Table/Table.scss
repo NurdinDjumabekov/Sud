@@ -61,7 +61,7 @@ $paddingTableInner: 2px 10px;
       }
     }
   }
-
+  
   .colorStatusGreen {
     color: #008000 !important;
   }
@@ -81,6 +81,12 @@ $paddingTableInner: 2px 10px;
       // table-layout: fixed;
       border-collapse: collapse;
       border-radius: 8px;
+    }
+
+    .tbody_isk {
+      tr {
+        cursor: pointer;
+      }
     }
 
     .create_isk_btn {
@@ -141,6 +147,29 @@ $paddingTableInner: 2px 10px;
           margin: 0 0 5px 0;
         }
       }
+      // .statusIsks {
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: space-between;
+      //   gap: 5px;
+      //   > button {
+      //     color: #4d5969;
+      //     font-size: 12px;
+      //     font-weight: 600;
+      //     font-family: 'Montserrat', sans-serif;
+      //     transition: 0.2s;
+      //     padding: 12px 8px;
+      //     height: auto !important;
+      //     margin: 0 !important;
+      //     border-radius: 3px;
+      //     background: rgb(237, 242, 249);
+      //     width: 100%;
+         
+      //   }
+      //   > button:hover {
+      //     background: rgba(215, 219, 224, 0.76);
+      //   }
+      // }
       .statusIsks {
         display: flex;
         align-items: center;
@@ -152,19 +181,23 @@ $paddingTableInner: 2px 10px;
           font-weight: 600;
           font-family: 'Montserrat', sans-serif;
           transition: 0.2s;
-          padding: 12px 8px;
+          padding: 5px;
           height: auto !important;
           margin: 0 !important;
           border-radius: 3px;
           background: rgb(237, 242, 249);
           width: 100%;
+          > img {
+            width: 15px;
+            height: 25px;
+          }
         }
         > button:hover {
           background: rgba(215, 219, 224, 0.76);
         }
       }
     }
-
+   
     .table_isk th {
       font-size: 13px;
       font-weight: 500;

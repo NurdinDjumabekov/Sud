@@ -9,14 +9,18 @@ import { addFilesList } from "../../helpers/addFilesList";
 
 const PdfFile = ({ editorRef }) => {
   const dispatch = useDispatch();
-  const { selCurrency, selCountries, selRegions, selDistrict } = useSelector((state) => state.selectsSlice);
+  const { selCurrency, selCountries, selRegions, selDistrict } = useSelector(
+    (state) => state.selectsSlice
+  );
   const [date, setDate] = useState("");
 
   const handleEditorChange = (content, editor) => {
     // console.log('Content was updated:', content);
   };
 
-  const { todosApplications, applicationList } = useSelector((state) => state.applicationsSlice);
+  const { todosApplications, applicationList } = useSelector(
+    (state) => state.applicationsSlice
+  );
 
   const transformData = (arr, type) => {
     let allText = `<div style="font-weight: 500; font-size: 16px;">`;
@@ -25,9 +29,15 @@ const PdfFile = ({ editorRef }) => {
         type
       )}${text.name}</div>`;
       const phoneText = `<div style="display:flex; align-items:center"><span>Телефон: </span> ${text.numPhone}</div>`;
-      const adresText = `<div style="display:flex; align-items:center"><span>Адрес: </span> ${searchNameSelect(selCountries,text.country)}, ${searchNameSelect(selRegions,text.region)}, ${searchNameSelect(selDistrict,text.district)}, ${text.city}, ${text.street}, ${text.numObj}</div>`;
+      const adresText = `<div style="display:flex; align-items:center"><span>Адрес: </span> ${searchNameSelect(
+        selCountries,
+        text.country
+      )}, ${searchNameSelect(selRegions, text.region)}, ${searchNameSelect(
+        selDistrict,
+        text.district
+      )}, ${text.city}, ${text.street}, ${text.numObj}</div>`;
       const email = `<div style="display:flex; align-items:center"><span>Почта: </span> ${text.email}</div>`;
-      const inn = `<div style="display:flex; align-items:center"><span>Инн: </span> ${text.inn}</div>`; 
+      const inn = `<div style="display:flex; align-items:center"><span>Инн: </span> ${text.inn}</div>`;
       allText += titleText + phoneText + adresText + email + inn;
     }
     allText += "</div>";
@@ -47,11 +57,15 @@ const PdfFile = ({ editorRef }) => {
   };
 
   const signaturePlaintiff = (arrData) => {
-     const newHtml = `<div style="font-weight: 500; font-size: 16px; margin:0px 0px 0px 10px; text-align:right">
-    ${arrData?.map((i,ind) => `<p><span>_______________________</span>  ${i?.name}</p>`).join('')}
+    const newHtml = `<div style="font-weight: 500; font-size: 16px; margin:0px 0px 0px 10px; text-align:right">
+    ${arrData
+      ?.map(
+        (i, ind) => `<p><span>_______________________</span>  ${i?.name}</p>`
+      )
+      .join("")}
     </div>`;
-    return newHtml
-  }
+    return newHtml;
+  };
 
   React.useEffect(() => {
     const currentDateObject = new Date();
@@ -64,7 +78,6 @@ const PdfFile = ({ editorRef }) => {
     }${month}.${year}г.`;
 
     setDate(formattedDate);
-
   }, []);
 
   // console.log(applicationList,"applicationList");
@@ -106,16 +119,13 @@ const PdfFile = ({ editorRef }) => {
            todosApplications?.summ === 0
              ? ""
              : `Цена иска: ${
-                       searchIdCurrency(
-                         selCurrency,
-                         +todosApplications?.summ_curr
-                       )
-                         ? searchIdCurrency(
-                             selCurrency,
-                             +todosApplications?.summ_curr
-                           )
-                         : ""
-                     }`
+                 searchIdCurrency(selCurrency, +todosApplications?.summ_curr)
+                   ? searchIdCurrency(
+                       selCurrency,
+                       +todosApplications?.summ_curr
+                     )
+                   : ""
+               }`
          }
               </p>
             </div>
@@ -196,7 +206,7 @@ const PdfFile = ({ editorRef }) => {
     </div>
   `;
   // console.log(todosApplications,"todosApplications");
-  
+
   return (
     <div className="pdfFile">
       <Editor

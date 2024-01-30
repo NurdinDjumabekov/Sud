@@ -53,7 +53,7 @@ const initialState = {
     typeOrganization: 1, /// select
     dataReg: "", // дата регистрации
     typeCompany: 1, /// select
-    country_ur: 1, /// select
+    // country_ur: 1, /// select
 
     userStatus: 1, //// должность в компании /// select
     startData: "",
@@ -148,7 +148,7 @@ const inputSlice = createSlice({
         typeOrganization: 1, /// select
         dataReg: "", // дата регистрации
         typeCompany: 1, /// select
-        country_ur: 1, /// select
+        // country_ur: 1, /// select
 
         userStatus: 1, //// должность в компании /// select
         startData: "",

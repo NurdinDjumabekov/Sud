@@ -130,8 +130,10 @@ const PlaintiffPage = () => {
       dispatch(clearTodosApplications());
     };
   }, []);
-  
+
   const decodedToken = jwtDecode(tokenA);
+
+  // console.log(todosApplications, "todosApplications");
 
   return (
     <div className="plaintiff">

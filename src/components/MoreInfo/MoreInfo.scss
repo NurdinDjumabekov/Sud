@@ -70,10 +70,10 @@
         }
     }
     .modalchangeStatus {
-        width: 550px;
+        width: 450px;
         margin: 10px 0 0 0;
         // background: red;
-        height: 300px;
+        height: 250px;
         .imgBlock {
             width: 60px;
             height: 60px;
@@ -92,6 +92,9 @@
           font-size: 28px;
           text-align: center;
         }
+        h5 {
+          margin: 20px 0px 40px 0px;
+        }
         p {
           line-height: 20px;
           position: relative;
@@ -107,8 +110,8 @@
             align-items: center;
             gap: 8px;
             button {
-                height: 45px;
-                width: 180px;
+                height: 40px;
+                width: 150px;
                 border-radius: 6px;
                 background: #fff;
                 border: 1px solid #9994948a;

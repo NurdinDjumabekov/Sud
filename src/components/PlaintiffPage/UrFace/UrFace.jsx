@@ -45,10 +45,34 @@ const UrFace = ({ typerole }) => {
         if (aduf?.typeCompany === 0) {
           alertFN("Заполните тип компании");
         } else {
-          if (aduf?.country_ur === 0) {
+          if (aduf?.country === 0) {
             alertFN("Выберите страну");
           } else {
-            checkData();
+            if (aduf?.userStatus === 0) {
+              alertFN("Заполните должность компании");
+            } else {
+              if (aduf?.startData === "") {
+                alertFN("Заполните дату назначения");
+              } else {
+                if (aduf?.endData === 0) {
+                  alertFN("Заполните дату истечения ");
+                } else {
+                  if (aduf?.region === 0) {
+                    alertFN("Выберите область");
+                  } else {
+                    if (aduf?.district === 0) {
+                      alertFN("Выберите район");
+                    } else {
+                      if (aduf?.adddreselement === 0) {
+                        alertFN("Выберите адресный элемент");
+                      } else {
+                        checkData();
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -101,22 +125,21 @@ const UrFace = ({ typerole }) => {
     e.preventDefault();
 
     const { name, value } = e.target;
-      if (name === "inn") {
-        const allowedCharsRegex = /^[0-9]{0,12}$/;
-        if (allowedCharsRegex.test(value)) {
-          dispatch(changeADUF({ ...aduf, [name]: value }));
-        }
-      }
-      else if (name === "numPhone") {
-        const numReg = /[0-9+()-]/;
-        const filteredValue = value
-          .split('')
-          .filter(char => numReg.test(char))
-          .join('');
-        dispatch(changeADUF({ ...aduf, [name]: filteredValue }));
-      } else {
+    if (name === "inn") {
+      const allowedCharsRegex = /^[0-9]{0,12}$/;
+      if (allowedCharsRegex.test(value)) {
         dispatch(changeADUF({ ...aduf, [name]: value }));
       }
+    } else if (name === "numPhone") {
+      const numReg = /[0-9+()-]/;
+      const filteredValue = value
+        .split("")
+        .filter((char) => numReg.test(char))
+        .join("");
+      dispatch(changeADUF({ ...aduf, [name]: filteredValue }));
+    } else {
+      dispatch(changeADUF({ ...aduf, [name]: value }));
+    }
   };
 
   React.useEffect(() => {
@@ -126,14 +149,19 @@ const UrFace = ({ typerole }) => {
   }, []);
 
   const decodedToken = jwtDecode(tokenA);
-  
+
+  console.log(aduf, "aduf");
+  console.log(todosApplications, "todosApplications");
+
   return (
     <>
       <h3>{typerole === "истца" ? "Истец" : "Ответчик"}</h3>
       <form onSubmit={sendData}>
         <div className="twoInputs">
           <div>
-            <p>Название <b className="required">*</b></p>
+            <p>
+              Название <b className="required">*</b>
+            </p>
             <input
               type="text"
               placeholder="Название"
@@ -144,7 +172,9 @@ const UrFace = ({ typerole }) => {
             />
           </div>
           <div>
-            <p>Номер телефона <b className="required">*</b></p>
+            <p>
+              Номер телефона <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -155,7 +185,9 @@ const UrFace = ({ typerole }) => {
             />
           </div>
           <div>
-            <p>Ваш ИНН <b className="required">*</b></p>
+            <p>
+              Ваш ИНН <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -166,7 +198,9 @@ const UrFace = ({ typerole }) => {
             />
           </div>
           <div>
-            <p>ОКПО <b className="required">*</b></p>
+            <p>
+              ОКПО <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -179,7 +213,9 @@ const UrFace = ({ typerole }) => {
         </div>
         <div className="threeInputs two_more">
           <div>
-            <p>Электронная почта <b className="required">*</b></p>
+            <p>
+              Электронная почта <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -208,6 +244,7 @@ const UrFace = ({ typerole }) => {
                 type: "typeOrganization",
               }}
               type="aduf"
+              urgently={true}
             />
           </div>
           <DataInput
@@ -218,6 +255,7 @@ const UrFace = ({ typerole }) => {
               change: changeInput,
               keyData: aduf.dataReg,
               typeChange: "aduf",
+              urgently: true,
             }}
           />
           <Selects
@@ -225,6 +263,7 @@ const UrFace = ({ typerole }) => {
             initText={"Тип компании"}
             keys={{ typeKey: aduf.typeCompany, type: "typeCompany" }}
             type="aduf"
+            urgently={true}
           />
         </div>
         {/* <div className="btnsTypeMain">
@@ -245,38 +284,43 @@ const UrFace = ({ typerole }) => {
         </div>
         /////////// */}
         <div className="threeInputs">
-          <Selects
+          {/* <Selects
             arr={selCountries}
             initText={"Страна"}
             keys={{ typeKey: aduf.country_ur, type: "country_ur" }}
             type="aduf"
-          />
+          /> */}
           <Selects
             arr={selTypePosition}
             initText={"Должность в компании"}
             keys={{ typeKey: aduf.userStatus, type: "userStatus" }}
             type="aduf"
+            urgently={true}
           />
           <DataInput
             props={{
-              title: "Дата назначения *",
+              title: "Дата назначения",
               nameInput: "startData",
               placeholder: "",
               keyData: aduf.startData,
               typeChange: "aduf",
+              urgently: true,
             }}
           />
           <DataInput
             props={{
-              title: "Дата истечения *",
+              title: "Дата истечения",
               nameInput: "endData",
               placeholder: "",
               keyData: aduf.endData,
               typeChange: "aduf",
+              urgently: true,
             }}
           />
           <div>
-            <p>ФИО руководителя</p>
+            <p>
+              ФИО руководителя <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -286,28 +330,34 @@ const UrFace = ({ typerole }) => {
               value={aduf.fioBoss}
             />
           </div>
+          <div className="noneDataInputs"></div>
         </div>
         <div className="threeInputs">
           <Selects
             arr={selCountries}
-            initText={"Страна *"}
+            initText={"Страна"}
             keys={{ typeKey: aduf.country, type: "country" }}
             type="aduf"
+            urgently={true}
           />
           <Selects
             arr={selRegions}
-            initText={"Область *"}
+            initText={"Область"}
             keys={{ typeKey: aduf.region, type: "region" }}
             type="aduf"
+            urgently={true}
           />
           <Selects
             arr={selDistrict}
-            initText={"Район *"}
+            initText={"Район"}
             keys={{ typeKey: aduf.district, type: "district" }}
             type="aduf"
+            urgently={true}
           />
           <div>
-            <p>Город <b className="required">*</b></p>
+            <p>
+              Город <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -319,15 +369,18 @@ const UrFace = ({ typerole }) => {
           </div>
           <Selects
             arr={selTypeAddress}
-            initText={"Адресный элемент *"}
+            initText={"Адресный элемент"}
             keys={{ typeKey: aduf.adddreselement, type: "adddreselement" }}
             type="aduf"
+            urgently={true}
           />
         </div>
 
         <div className="threeInputs">
           <div>
-            <p>Улица <b className="required">*</b></p>
+            <p>
+              Улица <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -338,7 +391,9 @@ const UrFace = ({ typerole }) => {
             />
           </div>
           <div>
-            <p>Номер объекта <b className="required">*</b></p>
+            <p>
+              Номер объекта <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -349,7 +404,9 @@ const UrFace = ({ typerole }) => {
             />
           </div>
           <div>
-            <p>Буквенный индекс <b className="required">*</b></p>
+            <p>
+              Буквенный индекс <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -360,7 +417,9 @@ const UrFace = ({ typerole }) => {
             />
           </div>
           <div>
-            <p>Квартира <b className="required">*</b></p>
+            <p>
+              Квартира <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -371,7 +430,9 @@ const UrFace = ({ typerole }) => {
             />
           </div>
           <div>
-            <p>Почтовый индекс <b className="required">*</b></p>
+            <p>
+              Почтовый индекс <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -384,7 +445,9 @@ const UrFace = ({ typerole }) => {
         </div>
         <div className="threeInputs">
           <div>
-            <p>Описание <b className="required">*</b></p>
+            <p>
+              Описание <b className="required">*</b>
+            </p>
             <input
               required
               type="text"
@@ -396,7 +459,7 @@ const UrFace = ({ typerole }) => {
           </div>
         </div>
         <div className="btnsSave">
-           {+decodedToken?.type_user === 4 && (
+          {+decodedToken?.type_user === 4 && (
             <button className="saveBtn" type="submit">
               Добавить
             </button>

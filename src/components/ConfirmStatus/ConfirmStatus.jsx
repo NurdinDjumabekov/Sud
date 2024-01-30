@@ -80,7 +80,7 @@ const ConfirmStatus = ({
             isk_status: istype.type,
             content,
             type: 12, /// принятие иска как ответственный секретарь
-            navigate, 
+            navigate,
           })
         );
         setSendStatusIsk(false);
@@ -88,36 +88,43 @@ const ConfirmStatus = ({
     }
   };
 
-  console.log(istype.type,"istype.type");
+  // console.log(istype.type, "istype.type");
   React.useEffect(() => {
     return () => setIsType({ type: 0, id: 0 });
   }, []);
+  
   return (
     <div className="blockModal">
       <Modals openModal={sendStatusIsk} setOpenModal={() => setSendStatusIsk()}>
         {istype.type === 1 && (
-          <div className="modalchangeStatus">
-            <div className="imgBlock">
-              <img src={imgWarning} alt="send!" />
-            </div>
-            <h5>Вы уверены что хотите поменять статус иска?</h5>
-            <p>После подтверждения обратно иск поменять не получится...</p>
-            <div className="btnsSendIsks">
-              <button onClick={(e) => fulfilledIsk(e)}>Принять иск</button>
-              <button onClick={() => setSendStatusIsk(false)}>Отмена</button>
-            </div>
-          </div>
-        )}
-        {(istype.type === 2 || istype.type === 4) && (
-          <div className="plaintiFilling__container moreStyle">
-            <PdfFileReject istype={istype} editorRef={editorRef} />
-            <div className="modalchangeStatus" style={{ height: "auto" }}>
+          <>
+            <div className="modalchangeStatus">
+              <div className="imgBlock">
+                <img src={imgWarning} alt="send!" />
+              </div>
+              <h5>Принять иск?</h5>
+              {/* <p>После подтверждения обратно иск поменять не получится...</p> */}
               <div className="btnsSendIsks">
-                <button onClick={(e) => rejectIsk(e)}>Отклонить иск</button>
+                <button onClick={(e) => fulfilledIsk(e)}>Принять</button>
                 <button onClick={() => setSendStatusIsk(false)}>Отмена</button>
               </div>
             </div>
-          </div>
+          </>
+        )}
+        {(istype.type === 2 || istype.type === 4) && (
+          <>
+            <div className="plaintiFilling__container moreStyle">
+              <PdfFileReject istype={istype} editorRef={editorRef} />
+              <div className="modalchangeStatus" style={{ height: "auto" }}>
+                <div className="btnsSendIsks">
+                  <button onClick={(e) => rejectIsk(e)}>Отклонить иск</button>
+                  <button onClick={() => setSendStatusIsk(false)}>
+                    Отмена
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
         )}
         {istype.type === 3 && (
           <div className="plaintiFilling__container moreStyle">
