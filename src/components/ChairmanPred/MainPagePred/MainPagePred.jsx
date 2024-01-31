@@ -17,11 +17,15 @@ export const MainPagePred = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
-  
+
+  const [sendStatusIsk, setSendStatusIsk] = useState(false);
+  const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
+
   const clickBtn = (id) => {
     const newList = mainBtnList.map((item) => {
       return {
@@ -33,10 +37,16 @@ export const MainPagePred = () => {
     dispatch(changeMainBtnList(newList));
   };
   // console.log(listTodos, "listTodos");
-  console.log(mainBtnList, "mainBtnList");
+  // console.log(mainBtnList, "mainBtnList");
+  // console.log(todosApplications, "todosApplications");
 
   const editIsksFn = (id) => {
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+  };
+
+  const changeStatusIsks = (id, status) => {
+    setSendStatusIsk(true);
+    setIsType({ type: status, id });
   };
 
   const statusMessages = {
@@ -44,11 +54,6 @@ export const MainPagePred = () => {
     3: "Принят председателем",
     4: "Отклонён председателем",
   };
-
-  const allSumsIsks = (arr) => {
-      const allIsks = +arr?.[0]?.count + 1 +arr?.[1]?.count + +arr?.[2]?.count + +arr?.[3]?.count + +arr?.[4]?.count 
-      return allIsks;
-    };
 
   return (
     <>
@@ -61,9 +66,7 @@ export const MainPagePred = () => {
                 onClick={() => clickBtn(btn.id)}
                 style={ind === 0 ? { marginLeft: "0px" } : {}}
               >
-                {btn?.name} 
-                {" "}
-                [{ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}]
+                {btn?.name} [{btn?.count || 0}]
                 {/* <span className="countInfo">
                    {ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}
                 </span> */}
@@ -97,15 +100,24 @@ export const MainPagePred = () => {
                       : { background: "#f9fafd" }
                   }
                 >
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <span className="span_teble">
                       {row?.isk_number ? `№ ${row?.isk_number}` : ""}
                     </span>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <span>{row?.isk_date}</span>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <>
                       {row?.plaintiff?.length === 0 ? ( ////  "ФИО Истца отсутствует"
                         <p></p>
@@ -121,7 +133,10 @@ export const MainPagePred = () => {
                       )}
                     </>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <>
                       {row?.defendant?.length === 0 ? ( ////  "ФИО ответчика отсутствует"
                         ""
@@ -138,7 +153,10 @@ export const MainPagePred = () => {
                     </>
                   </td>
                   {/* ///////////////////////////////////// */}
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <span>
                       {+row?.arbitr_fee === 0 ? (
                         ""
@@ -150,7 +168,10 @@ export const MainPagePred = () => {
                       )}
                     </span>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <span>
                       {+row?.reglament === 0 ? (
                         ""
@@ -159,36 +180,64 @@ export const MainPagePred = () => {
                       )}
                     </span>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     {row?.arbitrs?.length === 0 ? (
                       <span></span>
                     ) : (
                       row?.arbitrs?.map((i) => <span>{i?.name}</span>)
                     )}
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <span>{row.secretary ? row.secretary : ""}</span>
                   </td>
                   <td className="table_isk_td">
                     {+row?.isk_status === 0 || +row?.isk_status === 1 ? (
                       <div className="statusIsks">
-                        <button onClick={() => editIsksFn(row?.codeid)}>
+                        <button
+                          onClick={() => {
+                            setSendStatusIsk(true);
+                            changeStatusIsks(row?.codeid, 4);
+                            dispatch(
+                              editIsks({
+                                id: row?.codeid,
+                                tokenA,
+                                applicationList,
+                              })
+                            );
+                          }}
+                        >
                           Просмотреть
                         </button>
                       </div>
                     ) : (
                       <>
                         {statusMessages[row?.isk_status] && (
-                          <span style={{ padding: "0px 0px 0px 10px" }} 
-                          className={+row?.isk_status === 3 ? "colorStatusGreen":
-                              +row?.isk_status === 2 || +row?.isk_status === 4 ? "colorStatusRed":
-                            ""}
+                          <span
+                            style={{ padding: "0px 0px 0px 10px" }}
+                            className={
+                              +row?.isk_status === 3
+                                ? "colorStatusGreen"
+                                : +row?.isk_status === 2 ||
+                                  +row?.isk_status === 4
+                                ? "colorStatusRed"
+                                : ""
+                            }
+                            onClick={() => editIsksFn(row?.codeid)}
                           >
                             {statusMessages[row?.isk_status]}
                           </span>
                         )}
                         {!statusMessages[row?.isk_status] && (
-                          <span style={{ padding: "0px 0px 0px 10px" }}>
+                          <span
+                            style={{ padding: "0px 0px 0px 10px" }}
+                            onClick={() => editIsksFn(row?.codeid)}
+                          >
                             Иск подан
                           </span>
                         )}
@@ -215,12 +264,39 @@ export const MainPagePred = () => {
           </table>
         </div>
       </div>
-      {/* <ConfirmStatus
+      {/* //// модалки для принятия и отказа иска */}
+      <ConfirmStatus
         setSendStatusIsk={setSendStatusIsk}
         sendStatusIsk={sendStatusIsk}
         setIsType={setIsType}
         istype={istype}
-      /> */}
+      />
     </>
   );
 };
+
+
+// {(istype.type === 2 || istype.type === 4) && (
+//   <>
+//     <div className="blockModal__inner">
+//       <PdfFile editorRef={editorRefReject} />
+//       <div className="plaintiFilling__container moreStyle">
+//         <PdfFileReject istype={istype} editorRef={editorRef} />
+//       </div>
+//     </div>
+//     <div className="modalchangeStatus" style={{ height: "auto" }}>
+//       <div className="btnsSendIsks">
+//         <button
+//           onClick={(e) => {
+//             setIsType({ ...istype, type: 3 });
+//           }}
+//         >
+//           Принять
+//         </button>
+//         <button onClick={(e) => rejectIsk(e)} className="rejectBtn">
+//           Отклонить
+//         </button>
+//       </div>
+//     </div>
+//   </>
+// )}

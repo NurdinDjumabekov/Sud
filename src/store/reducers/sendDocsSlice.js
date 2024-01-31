@@ -271,7 +271,7 @@ export const changeStatusIsks = createAsyncThunk(
 export const changeStatusOrg = createAsyncThunk(
   "changeStatusOrg",
   async function (info, { dispatch, rejectWithValue }) {
-    console.log(info, "info");
+    // console.log(info, "info");
     try {
       const response = await axios({
         method: "POST",

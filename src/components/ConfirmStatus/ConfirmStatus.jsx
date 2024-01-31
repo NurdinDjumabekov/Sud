@@ -7,6 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import PdfFileReject from "../PdfFile/PdfFileReject/PdfFileReject";
 import PdfFulfilled from "../PdfFile/PdfFulfilled/PdfFulfilled";
 import { useNavigate } from "react-router-dom";
+import PdfFile from "../PdfFile/PdfFile";
+import { clearMainBtnList } from "../../store/reducers/stateSlice";
+import Selects from "../Selects/Selects";
+import { typeSecretar } from "../../helpers/dataArr";
+import { changeAlertText } from "../../store/reducers/typesSlice";
 
 const ConfirmStatus = ({
   setSendStatusIsk,
@@ -15,29 +20,12 @@ const ConfirmStatus = ({
   istype,
 }) => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { typeSecretarDela } = useSelector((state) => state.selectsSlice);
   const dispatch = useDispatch();
   const editorRef = useRef(null);
+  const editorRefReject = useRef(null);
   const navigate = useNavigate();
 
-  const handleConfirm = (type) => {
-    if (editorRef.current && editorRef.current.editor) {
-      const content = editorRef.current.editor.getContent();
-      dispatch(
-        changeStatusOrg({
-          id: istype.id,
-          tokenA,
-          isk_status: istype.type,
-          content,
-          // description: "",
-          type: 12,
-          isk_status: +type,
-          navigate,
-          ///// завтра
-        })
-      );
-      setSendStatusIsk(false);
-    }
-  };
   const rejectIsk = (e) => {
     e.preventDefault();
     if (editorRef.current && editorRef.current.editor) {
@@ -54,8 +42,10 @@ const ConfirmStatus = ({
         })
       );
       setSendStatusIsk(false);
+      dispatch(clearMainBtnList());
     }
   };
+
   const fulfilledIsk = (e) => {
     e.preventDefault();
     if (istype.type === 1) {
@@ -71,30 +61,44 @@ const ConfirmStatus = ({
       );
       setSendStatusIsk(false);
     } else if (istype?.type === 3) {
-      if (editorRef.current && editorRef.current.editor) {
-        const content = editorRef.current.editor.getContent();
+      if (+typeSecretarDela === 0) {
         dispatch(
-          changeStatusOrg({
-            id: istype.id,
-            tokenA,
-            isk_status: istype.type,
-            content,
-            type: 12, /// принятие иска как ответственный секретарь
-            navigate,
+          changeAlertText({
+            text: "Выберите секретаря!",
+            backColor: "#f9fafd",
+            state: true,
           })
         );
-        setSendStatusIsk(false);
+      } else {
+        if (editorRef.current && editorRef.current.editor) {
+          const content = editorRef.current.editor.getContent();
+          dispatch(
+            changeStatusOrg({
+              id: istype.id,
+              tokenA,
+              isk_status: istype.type,
+              content,
+              type: 12, /// принятие иска как ответственный секретарь
+              navigate,
+            })
+          );
+          setSendStatusIsk(false);
+          dispatch(clearMainBtnList());
+        }
       }
     }
   };
 
-  // console.log(istype.type, "istype.type");
   React.useEffect(() => {
-    return () => setIsType({ type: 0, id: 0 });
+    return () => {
+      setIsType({ type: 0, id: 0 });
+    };
   }, []);
-  
+
+  // console.log(typeSecretarDela, "typeSecretarDela");
+
   return (
-    <div className="blockModal">
+    <div className="blockModal moreStylePdf">
       <Modals openModal={sendStatusIsk} setOpenModal={() => setSendStatusIsk()}>
         {istype.type === 1 && (
           <>
@@ -106,36 +110,91 @@ const ConfirmStatus = ({
               {/* <p>После подтверждения обратно иск поменять не получится...</p> */}
               <div className="btnsSendIsks">
                 <button onClick={(e) => fulfilledIsk(e)}>Принять</button>
-                <button onClick={() => setSendStatusIsk(false)}>Отмена</button>
+                <button
+                  onClick={() => {
+                    setIsType({ ...istype, type: 2 });
+                    // setSendStatusIsk(false);
+                  }}
+                >
+                  Отмена
+                </button>
               </div>
             </div>
           </>
         )}
-        {(istype.type === 2 || istype.type === 4) && (
+        {istype.type === 2 && (
           <>
-            <div className="plaintiFilling__container moreStyle">
-              <PdfFileReject istype={istype} editorRef={editorRef} />
-              <div className="modalchangeStatus" style={{ height: "auto" }}>
-                <div className="btnsSendIsks">
-                  <button onClick={(e) => rejectIsk(e)}>Отклонить иск</button>
-                  <button onClick={() => setSendStatusIsk(false)}>
-                    Отмена
-                  </button>
-                </div>
+            <div className="blockModal__inner">
+              <PdfFile editorRef={editorRefReject} />
+              <div className="plaintiFilling__container moreStyle">
+                <PdfFileReject istype={istype} editorRef={editorRef} />
+              </div>
+            </div>
+            <div className="modalchangeStatus" style={{ height: "auto" }}>
+              <div className="btnsSendIsks">
+                <button onClick={(e) => setIsType({ ...istype, type: 1 })}>
+                  Принять
+                </button>
+                <button onClick={(e) => rejectIsk(e)} className="rejectBtn">
+                  Отклонить
+                </button>
               </div>
             </div>
           </>
         )}
         {istype.type === 3 && (
-          <div className="plaintiFilling__container moreStyle">
-            <PdfFulfilled istype={istype} editorRef={editorRef} />
-            <div className="modalchangeStatus" style={{ height: "auto" }}>
-              <div className="btnsSendIsks">
-                <button onClick={(e) => fulfilledIsk(e)}>Принять иск</button>
-                <button onClick={() => setSendStatusIsk(false)}>Отмена</button>
+          <>
+            <div className="choiceSecretard">
+              <Selects
+                arr={typeSecretar}
+                initText={"Выберите секретаря дела"}
+                keys={{ typeKey: typeSecretarDela, type: "typeSecretarDela" }}
+                type="secr"
+                urgently={false}
+              />
+            </div>
+            <div className="blockModal__inner">
+              <PdfFile editorRef={editorRefReject} />
+              <div className="plaintiFilling__container moreStyle">
+                <PdfFulfilled istype={istype} editorRef={editorRef} />
               </div>
             </div>
-          </div>
+            <div className="modalchangeStatus" style={{ height: "auto" }}>
+              <div className="btnsSendIsks">
+                <button onClick={(e) => fulfilledIsk(e)}>Принять</button>
+                <button
+                  onClick={(e) => setIsType({ ...istype, type: 4 })}
+                  className="rejectBtn"
+                >
+                  Отклонить
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+        {istype.type === 4 && (
+          <>
+            <div className="blockModal__inner">
+              <PdfFile editorRef={editorRefReject} />
+              <div className="plaintiFilling__container moreStyle">
+                <PdfFileReject istype={istype} editorRef={editorRef} />
+              </div>
+            </div>
+            <div className="modalchangeStatus" style={{ height: "auto" }}>
+              <div className="btnsSendIsks">
+                <button
+                  onClick={(e) => {
+                    setIsType({ ...istype, type: 3 });
+                  }}
+                >
+                  Принять
+                </button>
+                <button onClick={(e) => rejectIsk(e)} className="rejectBtn">
+                  Отклонить
+                </button>
+              </div>
+            </div>
+          </>
         )}
       </Modals>
     </div>

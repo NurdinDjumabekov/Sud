@@ -67,6 +67,7 @@
       // border: 1px solid #344050;
       max-height: 220px;
       overflow-y: scroll;
+      box-shadow: 0 1px 5px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);;
        &::-webkit-scrollbar {
           width: 0px;
         }

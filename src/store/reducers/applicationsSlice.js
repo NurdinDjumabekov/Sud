@@ -311,7 +311,9 @@ const applicationsSlice = createSlice({
         arrIsk: action?.payload?.applicationList,
         reqData: action.payload?.data?.files,
       });
-      action.payload?.navigate("/plaintiffCreate");
+      if (action.payload?.navigate) {
+        action.payload?.navigate("/plaintiffCreate");
+      }
     });
     builder.addCase(editIsks.rejected, (state, action) => {
       state.error = action.payload;
@@ -344,7 +346,10 @@ const applicationsSlice = createSlice({
     addTodosPlaintiffResper: (state, action) => {
       state.todosApplications = {
         ...state.todosApplications,
-        plaintiffResper: [...state.todosApplications.plaintiffResper, action.payload],
+        plaintiffResper: [
+          ...state.todosApplications.plaintiffResper,
+          action.payload,
+        ],
       };
     },
     addTodosDefendant: (state, action) => {
@@ -356,7 +361,10 @@ const applicationsSlice = createSlice({
     addTodosDefendantResper: (state, action) => {
       state.todosApplications = {
         ...state.todosApplications,
-        defendantResper: [...state.todosApplications.defendantResper, action.payload],
+        defendantResper: [
+          ...state.todosApplications.defendantResper,
+          action.payload,
+        ],
       };
     },
     changeTodosApplications: (state, action) => {

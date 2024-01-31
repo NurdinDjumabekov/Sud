@@ -2,7 +2,7 @@ import {
   combineReducers,
   configureStore,
   getDefaultMiddleware,
-} from '@reduxjs/toolkit';
+} from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -12,19 +12,20 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 //// slice
-import inputSlice from './reducers/inputSlice';
-import stateSlice from './reducers/stateSlice';
-import typesSlice from './reducers/typesSlice';
-import requestSlice from './reducers/requestSlice';
-import applicationsSlice from './reducers/applicationsSlice';
-import sendDocsSlice from './reducers/sendDocsSlice';
-import saveDataSlice from './reducers/saveDataSlice';
-import selectsSlice from './reducers/selectsSlice';
-import authSlice from './reducers/authSlice';
+import inputSlice from "./reducers/inputSlice";
+import stateSlice from "./reducers/stateSlice";
+import typesSlice from "./reducers/typesSlice";
+import requestSlice from "./reducers/requestSlice";
+import applicationsSlice from "./reducers/applicationsSlice";
+import sendDocsSlice from "./reducers/sendDocsSlice";
+import saveDataSlice from "./reducers/saveDataSlice";
+import selectsSlice from "./reducers/selectsSlice";
+import authSlice from "./reducers/authSlice";
+import notificationSlice from "./reducers/notificationSlice";
 
 const reducer = combineReducers({
   inputSlice,
@@ -36,12 +37,13 @@ const reducer = combineReducers({
   saveDataSlice,
   selectsSlice,
   authSlice,
+  notificationSlice,
 });
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-  whitelist: ['saveDataSlice'],
+  whitelist: ["saveDataSlice"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);

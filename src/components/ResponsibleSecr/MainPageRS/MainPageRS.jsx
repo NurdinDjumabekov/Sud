@@ -35,11 +35,16 @@ export const MainPageRS = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  console.log(mainBtnList, "mainBtnList");
-  // console.log(todosApplications, "todosApplications");
+  // console.log(mainBtnList, "mainBtnList");
+  console.log(todosApplications, "todosApplications");
 
   const editIsksFn = (id) => {
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+  };
+
+  const changeStatusIsks = (id, status) => {
+    setSendStatusIsk(true);
+    setIsType({ type: status, id });
   };
 
   const statusMessages = {
@@ -47,11 +52,6 @@ export const MainPageRS = () => {
     2: "Отклонён ответственным секретарём",
     3: "Принят председателем",
     4: "Отклонён председателем",
-  };
-
-  const changeStatusIsks = (id, status) => {
-    setSendStatusIsk(true);
-    setIsType({ type: status, id });
   };
 
   return (
@@ -110,7 +110,10 @@ export const MainPageRS = () => {
                       {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
                     </div>
                   </td>
-                  <td className="table_isk_td">
+                  <td
+                    className="table_isk_td"
+                    onClick={() => editIsksFn(row?.codeid)}
+                  >
                     <span>{row?.isk_date}</span>
                   </td>
                   <td
@@ -202,7 +205,14 @@ export const MainPageRS = () => {
                           className="moreBtn"
                           onClick={() => {
                             setSendStatusIsk(true);
-                            changeStatusIsks(todosApplications?.codeid, 2);
+                            changeStatusIsks(row?.codeid, 2);
+                            dispatch(
+                              editIsks({
+                                id: row?.codeid,
+                                tokenA,
+                                applicationList,
+                              })
+                            );
                           }}
                         >
                           Просмотреть
@@ -252,7 +262,7 @@ export const MainPageRS = () => {
           </table>
         </div>
       </div>
-      {/* ////  */}
+      {/* //// модалки для принятия и отказа иска */}
       <ConfirmStatus
         setSendStatusIsk={setSendStatusIsk}
         sendStatusIsk={sendStatusIsk}

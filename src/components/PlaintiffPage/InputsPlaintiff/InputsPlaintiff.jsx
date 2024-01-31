@@ -16,11 +16,10 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const editorRef = useRef(null);
-  const [sendStatusIsk, setSendStatusIsk] = useState(false);
-  const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
+  // const [sendStatusIsk, setSendStatusIsk] = useState(false);
+  // const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { adff, aduf, docsIsks } = useSelector((state) => state.inputSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { typeUser } = useSelector((state) => state.saveDataSlice);
 
@@ -65,10 +64,10 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
     }
   };
 
-  const changeStatusIsks = (id, status) => {
-    setSendStatusIsk(true);
-    setIsType({ type: status, id });
-  };
+  // const changeStatusIsks = (id, status) => {
+  //   setSendStatusIsk(true);
+  //   setIsType({ type: status, id });
+  // };
 
   const decodedToken = jwtDecode(tokenA);
   // console.log(decodedToken?.type_user, "decodedToken");
@@ -80,12 +79,7 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
           <React.Fragment key={indexComp}>
             {btnList?.[indexComp]?.components}
           </React.Fragment>
-          {lookAddPlaintiff === 0 && (
-            <PdfFile
-              // typerole={indexComp === 0 ? "Истец" : "Ответчик"}
-              editorRef={editorRef}
-            />
-          )}
+          {lookAddPlaintiff === 0 && <PdfFile editorRef={editorRef} />}
         </div>
       </div>
       {+decodedToken?.type_user === 4 ? (
@@ -110,42 +104,16 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
       ) : (
         <>
           <div className="actionBtn">
-            {+decodedToken?.type_user === 2 && (
-              <>
-                <button
-                  onClick={() => changeStatusIsks(todosApplications?.codeid, 1)}
-                >
-                  Принять иск
-                </button>
-                <button
-                  onClick={() => changeStatusIsks(todosApplications?.codeid, 2)}
-                >
-                  Отказать в иске
-                </button>
-              </>
-            )}
-            {+decodedToken?.type_user === 3 && (
-              <>
-                <button
-                  onClick={() => changeStatusIsks(todosApplications?.codeid, 3)}
-                >
-                  Принять иск
-                </button>
-                <button
-                  onClick={() => changeStatusIsks(todosApplications?.codeid, 4)}
-                >
-                  Отказать в иске
-                </button>
-              </>
-            )}
+            <button
+              style={{
+                color: "#4d5969",
+                background: "rgba(237, 242, 249, 0.404)",
+              }}
+              onClick={() => navigate(-1)}
+            >
+              Закрыть
+            </button>
           </div>
-          {/* ///// это для ответственного секретаря и председателя */}
-          <ConfirmStatus
-            setSendStatusIsk={setSendStatusIsk}
-            sendStatusIsk={sendStatusIsk}
-            setIsType={setIsType}
-            istype={istype}
-          />
         </>
       )}
     </>

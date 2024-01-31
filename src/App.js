@@ -1,5 +1,4 @@
-import { useSelector } from 'react-redux';
-import MainRoutes from './routers/MainRoutes';
+import MainRoutes from "./routers/MainRoutes";
 
 function App() {
   return (

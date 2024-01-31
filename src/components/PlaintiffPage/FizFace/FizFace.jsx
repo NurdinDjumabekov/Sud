@@ -513,17 +513,19 @@ const FizFace = ({ typerole }) => {
               Добавить
             </button>
           )}
-          <span
-            style={{ width: "150px" }}
-            className="saveBtn moreBtn"
-            onClick={() => {
-              dispatch(changeLookAddPlaintiff(0));
-              dispatch(clearADFF());
-              dispatch(clearADUF());
-            }}
-          >
-            Отмена
-          </span>
+          {+decodedToken?.type_user !== 4 && (
+            <span
+              style={{ width: "150px" }}
+              className="saveBtn moreBtn"
+              onClick={() => {
+                dispatch(changeLookAddPlaintiff(0));
+                dispatch(clearADFF());
+                dispatch(clearADUF());
+              }}
+            >
+              Отмена
+            </span>
+          )}
         </div>
       </form>
     </div>

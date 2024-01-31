@@ -9,12 +9,12 @@ const initialState = {
     },
     {
       id: 1,
-      name: "Принятые отвественным секретарём",
+      name: "Принятые ответственным секретарём",
       bool: false,
     },
     {
       id: 2,
-      name: "Отклонённые отвественным секретарём",
+      name: "Отклонённые ответственным секретарём",
       bool: false,
     },
     {
@@ -94,13 +94,13 @@ const stateSlice = createSlice({
         },
         {
           id: 1,
-          name: 'Принятые отвественным секретарём',
+          name: 'Принятые ответственным секретарём',
           bool: state.mainBtnList[1]?.bool,
           count: action?.payload?.prinat_sec_total || 0,
         },
         {
           id: 2,
-          name: 'Отклонённые отвественным секретарём',
+          name: 'Отклонённые ответственным секретарём',
           bool: state.mainBtnList[2]?.bool,
           count: action?.payload?.otclon_sec_total || 0,
         },

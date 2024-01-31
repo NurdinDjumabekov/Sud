@@ -11,7 +11,10 @@
   }
   > .main_tabla_isk {
     .table_isk {
-      height: 98vh !important;
+      .table_isk_td {
+        padding: 10px 20px;
+      }
+      // height: 98vh !important;
       .table_isk_td:nth-child(1),
       .table_isk_th:nth-child(1) {
         min-width: 25px;

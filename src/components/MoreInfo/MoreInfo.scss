@@ -71,9 +71,10 @@
     }
     .modalchangeStatus {
         width: 450px;
-        margin: 10px 0 0 0;
+        margin: 10px auto 10px;
+        padding: 0 30px;
         // background: red;
-        height: 250px;
+        height: 230px;
         .imgBlock {
             width: 60px;
             height: 60px;
@@ -109,6 +110,8 @@
             justify-content: center;
             align-items: center;
             gap: 8px;
+            width: 100%;
+            
             button {
                 height: 40px;
                 width: 150px;

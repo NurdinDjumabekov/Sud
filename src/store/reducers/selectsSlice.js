@@ -17,6 +17,8 @@ const initialState = {
   selPrimPravo: [],
   selReglament: [],
   selLangArbitr: [],
+  selSecretarDela: [],
+  typeSecretarDela: 0,
 };
 
 /// toTakeCountries
@@ -42,7 +44,6 @@ export const toTakeCountries = createAsyncThunk(
     }
   }
 );
-
 /// toTakeRegions
 export const toTakeRegions = createAsyncThunk(
   "toTakeRegions",
@@ -93,7 +94,6 @@ export const toTakeDistrict = createAsyncThunk(
     }
   }
 );
-
 /// toTakeTypeAddress
 export const toTakeTypeAddress = createAsyncThunk(
   "toTakeTypeAddress",
@@ -204,7 +204,6 @@ export const toTakeTypeValuta = createAsyncThunk(
     }
   }
 );
-
 //////toTakeCurrency
 export const toTakeCurrency = createAsyncThunk(
   "toTakeCurrency",
@@ -481,7 +480,12 @@ const selectsSlice = createSlice({
       state.preloaderSel = true;
     });
   },
+  reducers: {
+    changeTypeSecretarDela: (state, action) => {
+      state.typeSecretarDela = action.payload;
+    },
+  },
 });
-export const {} = selectsSlice.actions;
+export const { changeTypeSecretarDela } = selectsSlice.actions;
 
 export default selectsSlice.reducer;

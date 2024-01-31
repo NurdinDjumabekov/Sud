@@ -150,8 +150,8 @@ const UrFace = ({ typerole }) => {
 
   const decodedToken = jwtDecode(tokenA);
 
-  console.log(aduf, "aduf");
-  console.log(todosApplications, "todosApplications");
+  // console.log(aduf, "aduf");
+  // console.log(todosApplications, "todosApplications");
 
   return (
     <>
@@ -445,11 +445,8 @@ const UrFace = ({ typerole }) => {
         </div>
         <div className="threeInputs">
           <div>
-            <p>
-              Описание <b className="required">*</b>
-            </p>
+            <p>Описание</p>
             <input
-              required
               type="text"
               placeholder="Описание"
               name="description"
@@ -464,17 +461,19 @@ const UrFace = ({ typerole }) => {
               Добавить
             </button>
           )}
-          <span
-            style={{ width: "150px" }}
-            className="saveBtn moreBtn"
-            onClick={() => {
-              dispatch(changeLookAddPlaintiff(0));
-              dispatch(clearADFF());
-              dispatch(clearADUF());
-            }}
-          >
-            Отмена
-          </span>
+          {+decodedToken?.type_user !== 4 && (
+            <span
+              style={{ width: "150px" }}
+              className="saveBtn moreBtn"
+              onClick={() => {
+                dispatch(changeLookAddPlaintiff(0));
+                dispatch(clearADFF());
+                dispatch(clearADUF());
+              }}
+            >
+              Отмена
+            </span>
+          )}
         </div>
       </form>
     </>

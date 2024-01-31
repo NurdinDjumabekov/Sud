@@ -125,7 +125,6 @@ const PlaintiffPage = () => {
         createIdIsk({ todosApplications, tokenA, adff, aduf, docsIsks })
       ); /// для того чтобы взть id для создания иска
     }
-
     return () => {
       dispatch(clearTodosApplications());
     };
@@ -133,7 +132,7 @@ const PlaintiffPage = () => {
 
   const decodedToken = jwtDecode(tokenA);
 
-  // console.log(todosApplications, "todosApplications");
+  console.log(todosApplications, "todosApplications");
 
   return (
     <div className="plaintiff">

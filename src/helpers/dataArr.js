@@ -68,3 +68,9 @@ export const typeCountSum = [
   { codeid: 1, name: "спор материального характера" },
   { codeid: 2, name: "спор неимущественного характера" },
 ];
+
+export const typeSecretar = [
+  { codeid: 0, name: "Секретарь дела выбран" },
+  { codeid: 1, name: "Джумабеков Нурдин" },
+  { codeid: 2, name: "Садирдинов Руслан" },
+];

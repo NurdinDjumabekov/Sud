@@ -62,6 +62,8 @@ const PdfFileReject = ({ istype, editorRef }) => {
       </div>
       `;
 
+  // console.log(initialContent, "initialContent");
+
   return (
     <>
       <div className="pdfFileReject">
