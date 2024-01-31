@@ -315,6 +315,29 @@ export const toTakeLangArbit = createAsyncThunk(
   }
 );
 
+////toTakeSecretarList
+export const toTakeSecretarList = createAsyncThunk(
+  "toTakeSecretarList",
+  async function (token, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `http://mttp-renaissance.333.kg/api/get/sp_secretar`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const selectsSlice = createSlice({
   name: "selectsSlice",
   initialState,
@@ -477,6 +500,18 @@ const selectsSlice = createSlice({
       state.preloaderSel = false;
     });
     builder.addCase(toTakeLangArbit.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+    ///// toTakeSecretarList
+    builder.addCase(toTakeSecretarList.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      state.selSecretarDela = action.payload;
+    });
+    builder.addCase(toTakeSecretarList.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(toTakeSecretarList.pending, (state, action) => {
       state.preloaderSel = true;
     });
   },

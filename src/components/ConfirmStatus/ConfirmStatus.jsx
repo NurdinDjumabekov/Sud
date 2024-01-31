@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 import PdfFile from "../PdfFile/PdfFile";
 import { clearMainBtnList } from "../../store/reducers/stateSlice";
 import Selects from "../Selects/Selects";
-import { typeSecretar } from "../../helpers/dataArr";
 import { changeAlertText } from "../../store/reducers/typesSlice";
+import { toTakeSecretarList } from "../../store/reducers/selectsSlice";
 
 const ConfirmStatus = ({
   setSendStatusIsk,
@@ -19,12 +19,14 @@ const ConfirmStatus = ({
   setIsType,
   istype,
 }) => {
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { typeSecretarDela } = useSelector((state) => state.selectsSlice);
   const dispatch = useDispatch();
   const editorRef = useRef(null);
   const editorRefReject = useRef(null);
   const navigate = useNavigate();
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { typeSecretarDela, selSecretarDela } = useSelector(
+    (state) => state.selectsSlice
+  );
 
   const rejectIsk = (e) => {
     e.preventDefault();
@@ -80,6 +82,7 @@ const ConfirmStatus = ({
               content,
               type: 12, /// принятие иска как ответственный секретарь
               navigate,
+              idSecr: typeSecretarDela,
             })
           );
           setSendStatusIsk(false);
@@ -90,12 +93,14 @@ const ConfirmStatus = ({
   };
 
   React.useEffect(() => {
+    dispatch(toTakeSecretarList(tokenA));
     return () => {
       setIsType({ type: 0, id: 0 });
     };
   }, []);
 
   // console.log(typeSecretarDela, "typeSecretarDela");
+  // console.log(selSecretarDela, "selSecretarDela");
 
   return (
     <div className="blockModal moreStylePdf">
@@ -146,7 +151,7 @@ const ConfirmStatus = ({
           <>
             <div className="choiceSecretard">
               <Selects
-                arr={typeSecretar}
+                arr={selSecretarDela}
                 initText={"Выберите секретаря дела"}
                 keys={{ typeKey: typeSecretarDela, type: "typeSecretarDela" }}
                 type="secr"

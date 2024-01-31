@@ -126,7 +126,7 @@ const UrFace = ({ typerole }) => {
 
     const { name, value } = e.target;
     if (name === "inn") {
-      const allowedCharsRegex = /^[0-9]{0,12}$/;
+      const allowedCharsRegex = /^[0-9]{0,14}$/;
       if (allowedCharsRegex.test(value)) {
         dispatch(changeADUF({ ...aduf, [name]: value }));
       }

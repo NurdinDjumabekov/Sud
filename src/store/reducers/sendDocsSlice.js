@@ -280,6 +280,7 @@ export const changeStatusOrg = createAsyncThunk(
           code_isk: +info?.id,
           isk_status: +info?.isk_status, ///  1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем, 4 Отклонённые председателем
           description: "", //// delete
+          code_secretar: info.idSecr || "",
         },
         headers: {
           Authorization: `Bearer ${info?.tokenA}`,

@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../store/reducers/sendDocsSlice";
 import { shortenToTwoWords } from "../helpers/shortenToTwoWords";
+import { notificationCount } from "../store/reducers/notificationSlice";
 
 function MainLayouts() {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ function MainLayouts() {
   const dispatch = useDispatch();
   const [lookInnerPages, setLookInnerPages] = useState(false);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { notifCount } = useSelector((state) => state.notificationSlice);
 
   const [pages, setPages] = useState([
     {
@@ -112,6 +114,7 @@ function MainLayouts() {
   React.useEffect(() => {
     dispatch(toTakeIsksList({ tokenA, id: "0" }));
     dispatch(toTakeTypeTypeDocs(tokenA));
+    dispatch(notificationCount(tokenA));
   }, []);
   const decodedToken = jwtDecode(tokenA);
   // console.log(decodedToken?.fio, "decodedToken");
@@ -121,7 +124,7 @@ function MainLayouts() {
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">
-        <div className="logo" onClick={()=>navigate("/mainPlaintiff")}>
+        <div className="logo" onClick={() => navigate("/mainPlaintiff")}>
           <img src={logo} alt="logo" />
         </div>
         {/* <p className="moreInfoMenu">Ответсвенный секретарь</p> */}
@@ -160,7 +163,11 @@ function MainLayouts() {
                 />
                 <p>
                   {page.name}
-                  {page?.count ? <button className="notifNums">5</button> : ""}
+                  {page?.count ? (
+                    <button className="notifNums">{notifCount || 0}</button>
+                  ) : (
+                    ""
+                  )}
                 </p>
               </div>
             </button>

@@ -107,7 +107,7 @@ const FizFace = ({ typerole }) => {
         dispatch(changeADFF({ ...adff, [name]: value }));
       }
     } else if (name === "inn") {
-      const innRegex = /^[0-9]{0,12}$/;
+      const innRegex = /^[0-9]{0,14}$/;
       if (innRegex.test(value)) {
         dispatch(changeADFF({ ...adff, [name]: value }));
       }
