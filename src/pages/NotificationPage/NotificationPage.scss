@@ -31,18 +31,30 @@
   }
   h3 {
     font-weight: 600;
-    font-size: 20px;
+    font-weight: 500;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px ;
+  }
+  h4 {
+    padding-left: 30px;
+    font-weight: 500;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px ;
+  }
+  .line {
+    width: 100%;
+    border-bottom: 1px solid #acd29a;
   }
   p {
     // overflow: hidden;
     // text-overflow: ellipsis;
     font-weight: 500;
     font-family: "Montserrat", sans-serif;
-    font-size: 17px ;
+    font-size: 20px ;
   }
   p:nth-child(1),
   h3:nth-child(1){
-    min-width: 180px;
+    min-width: 250px;
     padding: 10px;
   }
   p:nth-child(2),
@@ -57,3 +69,5 @@
     padding: 10px;
   }
 }
+////  background: "rgba(242 ,195 ,195, 0.43)"
+////  background: "rgba(159, 217, 151, 0.24)"

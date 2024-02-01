@@ -32,7 +32,7 @@ $widthAllContent: 100%;
       text-transform: uppercase;
       // border-bottom: 1px solid black;
     }
-
+   
     .mainUser {
       margin: 0 0 40px 0;
       > button {
@@ -120,18 +120,21 @@ $widthAllContent: 100%;
               display: inline-block;
               border: 1px solid #000;
               color: #000;
-              height: 20px;
-              min-width: 20px;
+              height: 30px;
+              max-height: 38px;
+              min-width: 30px;
               text-align: center;
-              font-size: 12px;
+              font-size: 18px;
               position: absolute;
-              right: -30px;
-              top: -5px;
+              right: -40px;
+              top: -20px;
               display: flex;
               justify-content: center;
               align-items: center;
               font-weight: 500;
-              transform: rotate(4deg);
+              // transform: rotate(4deg);
+              padding: 0 5px;
+
             }
           }
           &:hover {
