@@ -12,12 +12,12 @@ const DataInput = ({ props }) => {
   const dispatch = useDispatch();
   const { adff, aduf } = useSelector((state) => state.inputSlice);
   const [selectedDate, setSelectedDate] = useState(
-    props?.keyData ? parse(props.keyData, "dd/MM/yyyy", new Date()) : null
+    props?.keyData ? parse(props.keyData, "dd.MM.yyyy", new Date()) : null
   );
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const parseDate = (dateString) => {
-    const [day, month, year] = dateString.split("/");
+    const [day, month, year] = dateString.split(".");
     return new Date(year, month - 1, day); // month - 1, так как месяцы в JavaScript начинаются с 0
   };
 
@@ -26,7 +26,7 @@ const DataInput = ({ props }) => {
       const day = date.getDate().toString().padStart(2, "0");
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
+      return `${day}.${month}.${year}`;
     }
     return "";
   };
@@ -36,7 +36,7 @@ const DataInput = ({ props }) => {
       const year = date.getFullYear();
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const day = date.getDate().toString().padStart(2, "0");
-      return `${day}/${month}/${year}`;
+      return `${day}.${month}.${year}`;
     }
     return "";
   };
@@ -84,8 +84,8 @@ const DataInput = ({ props }) => {
       <DatePicker
         selected={selectedDate}
         onChange={(date) => transformData(date)}
-        placeholderText="ДД/ММ/ГГГГ"
-        dateFormat="dd/MM/yyyy"
+        placeholderText="ДД.ММ.ГГГГ"
+        dateFormat="dd.MM.yyyy"
         locale={ru}
         shouldCloseOnSelect={true}
         customInput={<input onChange={handleDateInputChange} />}

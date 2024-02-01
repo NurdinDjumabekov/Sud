@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import DataInput from "../DataInput/DataInput";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
 import { changeCalculatorType } from "../../../store/reducers/stateSlice";
+import { calculateDates } from "../../../helpers/addDate";
 
 const TargetPlaintiff = () => {
   const dispatch = useDispatch();
-  const [btnSend, setBtnSend] = React.useState(true);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selCurrency } = useSelector((state) => state.selectsSlice);
   const { calculatorType } = useSelector((state) => state.stateSlice);
@@ -26,8 +26,6 @@ const TargetPlaintiff = () => {
       })
     );
   };
-
-  // console.log(todosApplications);
 
   return (
     <div className="plaintiFilling__container">

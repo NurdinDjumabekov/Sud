@@ -16,8 +16,6 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const editorRef = useRef(null);
-  // const [sendStatusIsk, setSendStatusIsk] = useState(false);
-  // const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
@@ -64,13 +62,7 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
     }
   };
 
-  // const changeStatusIsks = (id, status) => {
-  //   setSendStatusIsk(true);
-  //   setIsType({ type: status, id });
-  // };
-
   const decodedToken = jwtDecode(tokenA);
-  // console.log(decodedToken?.type_user, "decodedToken");
 
   return (
     <>
@@ -97,8 +89,12 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
                 navigate("/mainPlaintiff"); //// ???
               }
             }}
+            style={{
+              color: "#4d5969",
+              background: "rgba(237, 242, 249, 0.404)",
+            }}
           >
-            Отменить
+            Закрыть
           </button>
         </div>
       ) : (

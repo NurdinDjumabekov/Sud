@@ -76,7 +76,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
     }
   };
 
-  console.log(arr,"arr");
+  console.log(arr, "arr");
   const decodedToken = jwtDecode(tokenA);
   return (
     <div className="listDocs">

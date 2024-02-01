@@ -56,7 +56,7 @@ const Selects = (props) => {
 
     if (keys?.type === "country" && type === "adff") {
       dispatch(toTakeRegions({ tokenA, id }));
-      dispatch(toTakeDistrict({ tokenA, id: 0 }));
+      dispatch(toTakeDistrict({ tokenA, id: 48 }));
       dispatch(changeADFF({ ...adff, district: 48, region: 12, country: id }));
     }
     if (keys?.type === "region" && type === "adff") {
@@ -64,7 +64,7 @@ const Selects = (props) => {
     }
     if (keys?.type === "country" && type === "aduf") {
       dispatch(toTakeRegions({ tokenA, id }));
-      dispatch(toTakeDistrict({ tokenA, id: 0 }));
+      dispatch(toTakeDistrict({ tokenA, id: 48 }));
       dispatch(changeADUF({ ...aduf, district: 48, region: 12, country: id }));
     }
     if (keys?.type === "region" && type === "aduf") {

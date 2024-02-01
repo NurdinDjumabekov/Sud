@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import "./Table.scss";
-import imgPdf from "../../asstes/icons/pdf.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  editIsks,
-  toTakeTypeTypeDocs,
-} from "../../store/reducers/applicationsSlice";
-import { deleteIsks, toTakeIsksList } from "../../store/reducers/sendDocsSlice";
+import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
 import {
   changeIdStatus,
-  changeListPlaint,
+  changeLookChangeDeleteIsks,
+  changeLookChangeEditIsks,
   changeLookChangeStatus,
-  changeLookDataAllPlaintiff,
   changeMainBtnList,
 } from "../../store/reducers/stateSlice";
-import { changeAlertText } from "../../store/reducers/typesSlice";
 import { searchNameSelect } from "../../helpers/searchNameSelect";
 
 import editImg from "../../asstes/icons/editBtn.svg";
@@ -25,46 +18,12 @@ import LookPdfModal from "../PdfFile/LookPdfModal/LookPdfModal";
 
 export const Table = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { todosApplications, applicationList } = useSelector(
-    (state) => state.applicationsSlice
-  );
   const { mainBtnList } = useSelector((state) => state.stateSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
-
-  const lookDataPlaintiff = (arr, type) => {
-    if (arr?.length === 0) {
-      dispatch(
-        changeAlertText({
-          text: `Данные ${type === 1 ? "истца" : "ответчика"} отсутствуют`,
-          backColor: "#f9fafd",
-          state: true,
-        })
-      );
-    } else {
-      dispatch(changeLookDataAllPlaintiff(true));
-      dispatch(changeListPlaint(arr));
-    }
-  };
-
-  const changeStatus = (id) => {
-    dispatch(changeLookChangeStatus(true)); /// для вызова модалки изменения статуса иска
-    dispatch(changeIdStatus(id)); /// для отправки id иска
-  };
-
-  const editIsksFn = (id) => {
-    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
-  };
-
-  const deleteIsksFn = (codeid) => {
-    dispatch(deleteIsks({ codeid, tokenA }));
-  };
-
-  // const [btnList, setBtnList] = React.useState();
 
   const clickBtn = (id) => {
     const newList = mainBtnList.map((item) => {
@@ -77,8 +36,20 @@ export const Table = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  // console.log(listTodos, "listTodos");
-  console.log(todosApplications, "todosApplications");
+  const changeStatus = (id) => {
+    dispatch(changeLookChangeStatus(true)); /// для вызова модалки изменения статуса иска
+    dispatch(changeIdStatus(id)); /// для отправки id иска
+  };
+
+  const editIsksFn = (id) => {
+    dispatch(changeLookChangeEditIsks(true));
+    dispatch(changeIdStatus(id));
+  };
+
+  const deleteIsksFn = (id) => {
+    dispatch(changeLookChangeDeleteIsks(true));
+    dispatch(changeIdStatus(id));
+  };
 
   const statusMessages = {
     1: "Иск подан",
@@ -86,20 +57,6 @@ export const Table = () => {
     3: "Иск принят председателем",
     4: "Иск отклонён председателем",
   };
-
-  const allSumsIsks = (arr) => {
-    const allIsks =
-      +arr?.[0]?.count +
-      1 +
-      arr?.[1]?.count +
-      +arr?.[2]?.count +
-      +arr?.[3]?.count +
-      +arr?.[4]?.count;
-    return allIsks;
-  };
-
-  // console.log(mainBtnList, "mainBtnList");
-  console.log(listTodos, "listTodos");
 
   return (
     <>
@@ -113,9 +70,6 @@ export const Table = () => {
                 onClick={() => clickBtn(btn.id)}
               >
                 {btn.name} [{btn?.count}]
-                {/* <span className="countInfo" style={{ right: "-22px" }}>
-                  {btn?.count || 0}
-                </span> */}
               </button>
             </li>
           ))}

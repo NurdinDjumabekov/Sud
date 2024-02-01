@@ -102,7 +102,7 @@ const FizFace = ({ typerole }) => {
     const { name, value } = e.target;
 
     if (name === "name") {
-      const regName = /^[A-Za-zА-Яа-я\s\-]+$/;
+      const regName = /^[A-Za-zА-Яа-я- ]{0,70}$/;
       if (regName.test(value)) {
         dispatch(changeADFF({ ...adff, [name]: value }));
       }
@@ -123,17 +123,9 @@ const FizFace = ({ typerole }) => {
     }
   };
 
-  console.log(adff, "adff");
-  // console.log(selRegions, "selRegions");
-  // console.log(selCountries, "selCountries");
-
-  // React.useEffect(() => {
-  //   dispatch(changeADFF({ ...adff, region: 0, district: 0 }));
-  // }, [adff?.country]);
-
-  // React.useEffect(() => {
-  //   dispatch(changeADFF({ ...adff, district: 0 }));
-  // }, [adff?.region]);
+  React.useEffect(() => {
+    
+  }, []);
 
   const decodedToken = jwtDecode(tokenA);
 
@@ -493,9 +485,7 @@ const FizFace = ({ typerole }) => {
               />
             </div>
             <div>
-              <p>
-                Описание <b className="required">*</b>
-              </p>
+              <p>Описание</p>
               <input
                 type="text"
                 placeholder="Описание"

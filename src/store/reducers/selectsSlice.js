@@ -77,8 +77,8 @@ export const toTakeDistrict = createAsyncThunk(
     try {
       const response = await axios({
         method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/district?code_region${
-          id ? `=${id}` : ""
+        url: `http://mttp-renaissance.333.kg/api/get/district${
+          id ? `?code_region=${id}` : ""
         }`,
         headers: {
           Authorization: `Bearer ${tokenA}`,

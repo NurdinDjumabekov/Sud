@@ -120,12 +120,17 @@ const UrFace = ({ typerole }) => {
     dispatch(clearADFF());
     dispatch(clearADUF());
   };
-
   const changeInput = (e) => {
     e.preventDefault();
 
     const { name, value } = e.target;
-    if (name === "inn") {
+
+    if (name === "name") {
+      const regName = /^[A-Za-zА-Яа-я- ]{0,70}$/;
+      if (regName.test(value)) {
+        dispatch(changeADUF({ ...aduf, [name]: value }));
+      }
+    } else if (name === "inn") {
       const allowedCharsRegex = /^[0-9]{0,14}$/;
       if (allowedCharsRegex.test(value)) {
         dispatch(changeADUF({ ...aduf, [name]: value }));

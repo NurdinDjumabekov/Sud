@@ -43,8 +43,11 @@ const initialState = {
   },
   lookDataAllPlaintiff: false, /// для просмотра списка истцов и представителей
   listPlaint: [], /// для просмотра списка истцов и представителей
+  /// delete
 
   lookChangeStatus: false, /// для просмотра модалки изменения статуса у истца
+  lookChangeEditIsks: false, /// для изменения иска у истца
+  lookChangeDeleteIsks: false, /// для удаления иска у истца
   idStatus: 0, /// для просмотра модалки изменения статуса(id)
 };
 
@@ -88,31 +91,31 @@ const stateSlice = createSlice({
       state.mainBtnList = [
         {
           id: 0,
-          name: 'Все иски',
+          name: "Все иски",
           bool: state.mainBtnList[0]?.bool, // Сохраняю текущее значение bool
           count: action?.payload?.isk_count || 0,
         },
         {
           id: 1,
-          name: 'Принятые ответственным секретарём',
+          name: "Принятые ответственным секретарём",
           bool: state.mainBtnList[1]?.bool,
           count: action?.payload?.prinat_sec_total || 0,
         },
         {
           id: 2,
-          name: 'Отклонённые ответственным секретарём',
+          name: "Отклонённые ответственным секретарём",
           bool: state.mainBtnList[2]?.bool,
           count: action?.payload?.otclon_sec_total || 0,
         },
         {
           id: 3,
-          name: 'Принятые председателем',
+          name: "Принятые председателем",
           bool: state.mainBtnList[3]?.bool,
           count: action?.payload?.prinat_pred_total || 0,
         },
         {
           id: 4,
-          name: 'Отклонённые председателем',
+          name: "Отклонённые председателем",
           bool: state.mainBtnList[4]?.bool,
           count: action?.payload?.otclon_pred_total || 0,
         },
@@ -145,11 +148,18 @@ const stateSlice = createSlice({
     changeLookChangeStatus: (state, action) => {
       state.lookChangeStatus = action.payload;
     },
+    changeLookChangeEditIsks: (state, action) => {
+      state.lookChangeEditIsks = action.payload;
+    },
+    changeLookChangeDeleteIsks: (state, action) => {
+      state.lookChangeDeleteIsks = action.payload;
+    },
     changeIdStatus: (state, action) => {
       state.idStatus = action.payload;
     },
   },
 });
+
 export const {
   changeMainBtnList,
   clearMainBtnList,
@@ -162,6 +172,8 @@ export const {
   changeLookDataAllPlaintiff,
   changeListPlaint,
   changeLookChangeStatus,
+  changeLookChangeEditIsks,
+  changeLookChangeDeleteIsks,
   changeIdStatus,
   sortDataIsksCounts,
 } = stateSlice.actions;

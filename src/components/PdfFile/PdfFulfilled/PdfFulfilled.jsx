@@ -7,7 +7,6 @@ import imgSud from "../../../asstes/images/logo.png";
 
 const PdfFulfilled = ({ istype, editorRef }) => {
   const dispatch = useDispatch();
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selPrimPravo, selLangArbitr, selReglament } = useSelector(
     (state) => state.selectsSlice
@@ -180,28 +179,25 @@ const PdfFulfilled = ({ istype, editorRef }) => {
       `;
 
   return (
-    <>
-      <div className="pdfFileReject">
-        <Editor
-          apiKey="gydld2v6nkt94wd85xei7jj62bgagm191o3utnlxihf8cg0a"
-          initialValue={initialContent}
-          init={{
-            height: "100%",
-            width: "100%",
-            menubar: {
-              file: {
-                title: "File",
-                items: "preview | print | save",
-              },
+    <div className="pdfFileReject">
+      <Editor
+        apiKey="gydld2v6nkt94wd85xei7jj62bgagm191o3utnlxihf8cg0a"
+        initialValue={initialContent}
+        init={{
+          height: "100%",
+          width: "100%",
+          menubar: {
+            file: {
+              title: "File",
+              items: "preview | print | save",
             },
-            content_style:
-              "body { font-family: 'Times New Roman', sans-serif; }",
-            toolbar: false,
-          }}
-          ref={editorRef}
-        />
-      </div>
-    </>
+          },
+          content_style: "body { font-family: 'Times New Roman', sans-serif; }",
+          toolbar: false,
+        }}
+        ref={editorRef}
+      />
+    </div>
   );
 };
 
