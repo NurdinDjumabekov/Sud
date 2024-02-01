@@ -9,6 +9,7 @@ import { changeActionType } from "../../helpers/changeActionType";
 import { transformCreateData } from "../../helpers/transformCreateData";
 import { changeAlertText } from "./typesSlice";
 import { sortDataIsksCounts } from "./stateSlice";
+import { calculateDates } from "../../helpers/addDate";
 
 const initialState = {
   preloader: false,
@@ -89,6 +90,17 @@ export const createIdIsk = createAsyncThunk(
             code_isk: response?.data?.codeid,
           })
         );
+        const { formattedTwoWeeksLater, formattedOneMonthLater } =
+          calculateDates(); /// для получения даты 2 - 4 недели
+
+        dispatch(
+          changeTodosApplications({
+            ...info?.todosApplications,
+            arbitr_pay_end_date: formattedTwoWeeksLater,
+            arbitr_doplata_end_date: formattedOneMonthLater,
+            codeid: response?.data?.codeid,
+          })
+        ); /// подставляю дату сроков уплаты
       } else {
         throw Error(`Error: ${response.status}`);
       }

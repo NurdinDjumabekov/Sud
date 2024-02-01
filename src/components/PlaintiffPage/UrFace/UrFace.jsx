@@ -78,7 +78,7 @@ const UrFace = ({ typerole }) => {
       }
     }
   };
-  // console.log(aduf, "aduf");
+  console.log(aduf, "aduf");
 
   const alertFN = (text) => {
     dispatch(
@@ -148,8 +148,6 @@ const UrFace = ({ typerole }) => {
   };
 
   React.useEffect(() => {
-    // console.log("ur face");
-
     return () => dispatch(changeTypeFace(1));
   }, []);
 

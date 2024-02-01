@@ -39,7 +39,6 @@ const initialState = {
   },
 
   //// addPlaintiffUrFace
-
   aduf: {
     action_type: 1,
     code_isk: 0,
@@ -72,7 +71,6 @@ const initialState = {
     emailIndex: "",
     description: "",
     ur_face_type: 1, // 1-plaintiff, 2-defendan
-    type: 1, //1 - Руководитель компании, 2 - Адрес компании
   },
 
   docsIsks: {
@@ -167,7 +165,6 @@ const inputSlice = createSlice({
         emailIndex: "",
         description: "",
         ur_face_type: 1, // 1-plaintiff, 2-defendan
-        type: 1, //1 -
       };
     },
     ////////////////////////

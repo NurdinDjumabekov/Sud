@@ -123,22 +123,11 @@ const PlaintiffPage = () => {
   };
 
   React.useEffect(() => {
-    const { formattedTwoWeeksLater, formattedOneMonthLater } = calculateDates(); /// для получения даты 2 - 4 недели
-
     if (todosApplications.codeid === 0) {
       // 0 = я создаю новый документ, а если не !0, то редактирую документ
       dispatch(
         createIdIsk({ todosApplications, tokenA, adff, aduf, docsIsks })
       ); /// для того чтобы взть id для создания иска
-      setTimeout(() => {
-        dispatch(
-          changeTodosApplications({
-            ...todosApplications,
-            arbitr_pay_end_date: formattedTwoWeeksLater,
-            arbitr_doplata_end_date: formattedOneMonthLater,
-          })
-        );
-      }, 1500); /// подставляю дату сроков уплаты
     }
     return () => {
       dispatch(clearTodosApplications());
@@ -146,6 +135,8 @@ const PlaintiffPage = () => {
   }, []);
 
   const decodedToken = jwtDecode(tokenA);
+
+  console.log(todosApplications, "todosApplications");
 
   return (
     <div className="plaintiff">

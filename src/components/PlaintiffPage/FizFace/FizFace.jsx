@@ -123,13 +123,9 @@ const FizFace = ({ typerole }) => {
     }
   };
 
-  React.useEffect(() => {
-    
-  }, []);
-
   const decodedToken = jwtDecode(tokenA);
 
-  console.log(todosApplications, "todosApplications");
+  // console.log(todosApplications, "todosApplications");
 
   return (
     <div className="addPlaintiffFiz">
