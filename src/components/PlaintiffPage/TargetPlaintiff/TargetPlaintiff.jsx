@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import DataInput from "../DataInput/DataInput";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
 import { changeCalculatorType } from "../../../store/reducers/stateSlice";
-import { calculateDates } from "../../../helpers/addDate";
 
 const TargetPlaintiff = () => {
   const dispatch = useDispatch();

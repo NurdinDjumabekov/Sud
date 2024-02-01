@@ -44,7 +44,7 @@ const PdfFulfilled = ({ istype, editorRef }) => {
                 <p>Кыргызская Республика, 720001,<br>г.Бишкек, ул.Турусбекова 109/3,<br>БЦ "Максимум плюс", 6 этаж, офис 601/2</p>
                 <p>Моб.: +996 770 900 920 <br>Тел.: +996 312 383 005 <br>office@arbitricaccikr.com <br>www.arbitricaccikr.com</p>
               </div>
-              <img src=${imgSud} alt="" style="width: 250px; position: absolute; top: 10px; right: 10px; display: block;"/>
+              <img src="http://mttp-renaissance.333.kg/files/sud/logo.png" alt="" style="width: 250px; position: absolute; top: 10px; right: 10px; display: block;"/>
             </div>
         </div>
       </div>

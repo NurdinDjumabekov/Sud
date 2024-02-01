@@ -57,11 +57,11 @@ const ApplicationFiles = () => {
   // console.log(applicationList, "applicationList");
   // console.log(selectedFilesArray, "selectedFilesArray");\
 
-  React.useEffect(() => {
-    return () => {
-      dispatch(toTakeTypeTypeDocs(tokenA));
-    };
-  }, []);
+  // React.useEffect(() => {
+  //   return () => {
+  //     dispatch(toTakeTypeTypeDocs(tokenA));
+  //   };
+  // }, []);
 
   const decodedToken = jwtDecode(tokenA);
 

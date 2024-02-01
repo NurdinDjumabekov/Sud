@@ -14,9 +14,10 @@ export const MainPageRS = () => {
   const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { applicationList } = useSelector((state) => state.applicationsSlice);
+  const { applicationList, todosApplications } = useSelector(
+    (state) => state.applicationsSlice
+  );
   const { mainBtnList } = useSelector((state) => state.stateSlice);
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
@@ -36,7 +37,9 @@ export const MainPageRS = () => {
   };
 
   // console.log(mainBtnList, "mainBtnList");
-  console.log(todosApplications, "todosApplications");
+  // console.log(todosApplications, "todosApplications");
+  console.log(applicationList, "applicationList");
+  console.log(istype, "istype");
 
   const editIsksFn = (id) => {
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
@@ -66,9 +69,6 @@ export const MainPageRS = () => {
                 style={ind === 0 ? { marginLeft: "0px" } : {}}
               >
                 {btn?.name} [{btn?.count || 0}]
-                {/* <span className="countInfo" style={ind === 0 ? { right: '-10px',padding:"4px 7px"} : {padding:"4px 11px"}}                >
-                   {ind === 0 ? allSumsIsks(mainBtnList) : btn?.count || 0}
-                </span> */}
               </button>
             </li>
           ))}
@@ -115,6 +115,7 @@ export const MainPageRS = () => {
                     onClick={() => editIsksFn(row?.codeid)}
                   >
                     <span>{row?.isk_date}</span>
+                    <span>{row?.isk_time}</span>
                   </td>
                   <td
                     className="table_isk_td"

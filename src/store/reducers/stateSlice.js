@@ -49,6 +49,9 @@ const initialState = {
   lookChangeEditIsks: false, /// для изменения иска у истца
   lookChangeDeleteIsks: false, /// для удаления иска у истца
   idStatus: 0, /// для просмотра модалки изменения статуса(id)
+  /////////////////////////////
+  confirmActionFullfilled: false, /// для прнятия иска ответствкным секретарём и для прнятия иска председателем
+  confirmActionReject: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
 };
 
 const stateSlice = createSlice({
@@ -145,6 +148,7 @@ const stateSlice = createSlice({
     changeListPlaint: (state, action) => {
       state.listPlaint = action.payload;
     },
+    /////////////////////////////////////////////////
     changeLookChangeStatus: (state, action) => {
       state.lookChangeStatus = action.payload;
     },
@@ -156,6 +160,13 @@ const stateSlice = createSlice({
     },
     changeIdStatus: (state, action) => {
       state.idStatus = action.payload;
+    },
+    /////////////////////////////////////////////////
+    changeActionFullfilled: (state, action) => {
+      state.confirmActionFullfilled = action?.payload;
+    },
+    changeActionReject: (state, action) => {
+      state.confirmActionReject = action?.payload;
     },
   },
 });
@@ -176,6 +187,8 @@ export const {
   changeLookChangeDeleteIsks,
   changeIdStatus,
   sortDataIsksCounts,
+  changeActionFullfilled,
+  changeActionReject,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

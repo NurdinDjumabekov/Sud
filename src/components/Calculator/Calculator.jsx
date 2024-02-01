@@ -8,9 +8,13 @@ import {
   changeResult,
   changeSumIsk,
 } from "../../store/reducers/stateSlice";
+import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
+import { jwtDecode } from "jwt-decode";
 
 const Calculator = () => {
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
   const dispatch = useDispatch();
+  const decodedToken = jwtDecode(tokenA);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { sumIsk, calculatorState, typePay, resultSumIsk } = useSelector(
     (state) => state.stateSlice
@@ -196,10 +200,23 @@ const Calculator = () => {
       changeResult({
         num1: Math.round(+data?.regSbor),
         num2: Math.round(+data?.arbitrSbor),
-        num3: Math.round(+data?.regSbor) + data?.regSbor,
+        num3: Math.round(+data?.regSbor),
         num4: Math.round(+data?.arbitrSborDiscounted),
       })
     );
+    if (+decodedToken?.type_user === 4) {
+      dispatch(
+        changeTodosApplications({
+          ...todosApplications,
+          arbitr_fee: Math.round(+data?.arbitrSbor),
+          arbitr_curr: 6, /// с сомов в доллары
+          registr_fee: Math.round(+data?.regSbor),
+          registr_curr: 6, /// с сомов в доллары
+          summ: sumIsk,
+          summ_curr: 6, /// с сомов в доллары
+        })
+      );
+    }
   };
 
   const handleSumInputChange = (e) => {
@@ -209,10 +226,6 @@ const Calculator = () => {
       dispatch(changeSumIsk(inputValue));
     }
   };
-
-  // calculateSbor({ isk_sum: 100, isk_type: 1 });
-  // console.log();
-  // console.log(typePay, "typePay");
 
   React.useEffect(() => {
     dispatch(changeSumIsk(todosApplications.summ));

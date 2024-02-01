@@ -113,6 +113,7 @@ export const MainPagePred = () => {
                     onClick={() => editIsksFn(row?.codeid)}
                   >
                     <span>{row?.isk_date}</span>
+                    <span>{row?.isk_time}</span>
                   </td>
                   <td
                     className="table_isk_td"
@@ -202,7 +203,7 @@ export const MainPagePred = () => {
                         <button
                           onClick={() => {
                             setSendStatusIsk(true);
-                            changeStatusIsks(row?.codeid, 4);
+                            changeStatusIsks(row?.codeid, 3);
                             dispatch(
                               editIsks({
                                 id: row?.codeid,
@@ -274,7 +275,6 @@ export const MainPagePred = () => {
     </>
   );
 };
-
 
 // {(istype.type === 2 || istype.type === 4) && (
 //   <>

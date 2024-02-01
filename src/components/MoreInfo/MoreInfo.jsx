@@ -42,7 +42,7 @@ const MoreInfo = () => {
   }, []);
 
   return (
-    <div className="blockModal">
+    <div className="blockModal noneKrest">
       {/* ////// для подтверждения отправки иска (изменения статуса) */}
       <Modals
         openModal={lookChangeStatus}
@@ -63,7 +63,7 @@ const MoreInfo = () => {
               Да
             </button>
             <button onClick={() => dispatch(changeLookChangeStatus(false))}>
-              Отмена
+              нет
             </button>
           </div>
         </div>
@@ -90,7 +90,7 @@ const MoreInfo = () => {
               Да
             </button>
             <button onClick={() => dispatch(changeLookChangeEditIsks(false))}>
-              Отмена
+              нет
             </button>
           </div>
         </div>
@@ -111,11 +111,12 @@ const MoreInfo = () => {
                 dispatch(deleteIsks({ codeid: idStatus, tokenA }));
                 dispatch(changeLookChangeDeleteIsks(false));
               }}
+              style={{ background: "red" }}
             >
               Да
             </button>
             <button onClick={() => dispatch(changeLookChangeDeleteIsks(false))}>
-              Отмена
+              нет
             </button>
           </div>
         </div>
