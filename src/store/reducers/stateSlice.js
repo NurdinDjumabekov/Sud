@@ -74,6 +74,9 @@ const initialState = {
   /////////////////////////////
   confirmActionFullfilled: false, /// для прнятия иска ответствкным секретарём и для прнятия иска председателем
   confirmActionReject: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
+  //////////////////////////////////
+  objectionPdfVeiw: false, /// для создания возражения ответчика
+  objectionConfirmPdfVeiw: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
 };
 
 const stateSlice = createSlice({
@@ -237,6 +240,13 @@ const stateSlice = createSlice({
     changeActionReject: (state, action) => {
       state.confirmActionReject = action?.payload;
     },
+    /////////////////////////////////////////////////
+    changeObjectionPdfVeiw: (state, action) => {
+      state.objectionPdfVeiw = action?.payload;
+    },
+    changeObjectionConfirm: (state, action) => {
+      state.objectionConfirmPdfVeiw = action?.payload;
+    },
   },
 });
 
@@ -258,6 +268,8 @@ export const {
   sortDataIsksCounts,
   changeActionFullfilled,
   changeActionReject,
+  changeObjectionPdfVeiw,
+  changeObjectionConfirm,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

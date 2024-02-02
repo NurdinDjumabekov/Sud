@@ -64,6 +64,7 @@ const ConfirmStatus = ({
     dispatch(changeActionReject(false));
     setSendStatusIsk(false);
   };
+
   const fulfilledIsk = (e) => {
     e.preventDefault();
     if (istype.type === 1) {

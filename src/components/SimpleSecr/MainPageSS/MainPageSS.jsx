@@ -260,7 +260,7 @@ export const MainPageSS = () => {
                   </td>
                   <td className="table_isk_td">
                     <span className="documentBlock">
-                      {row?.files?.length === 0 ? ( //// 	Уведомить ответчика
+                      {row?.files?.length === 0 ? ( ////Уведомить ответчика
                         <span></span>
                       ) : (
                         <div className="docsBlock">

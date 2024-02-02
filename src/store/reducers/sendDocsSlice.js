@@ -295,14 +295,14 @@ export const changeStatusOrg = createAsyncThunk(
           code_isk: +info?.id,
           isk_status: +info?.isk_status, ///  1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем, 4 Отклонённые председателем, 5 ответчик уведомлен
           description: "", //// delete
-          code_secretar: info.idSecr || "",
+          code_secretar: info?.idSecr || "",
         },
         headers: {
           Authorization: `Bearer ${info?.tokenA}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        if ([2, 3, 4].includes(+info?.isk_status)) {
+        if ([2, 3, 4, 5].includes(+info?.isk_status)) {
           // 12  Определение о принятии иска
           // 13, 14  Определение об отказе иска
           // 15   Исковое заявление
@@ -317,10 +317,10 @@ export const changeStatusOrg = createAsyncThunk(
             dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
             if (+info?.type === 13) {
               info?.navigate("/mainRespSec");
-            } else if (+info?.type === 12) {
+            } else if (+info?.type === 12 || +info?.type === 14) {
               info?.navigate("/mainRespPred");
-            } else if (+info?.type === 14) {
-              info?.navigate("/mainRespPred");
+            } else if (+info?.type === 17) {
+              info?.navigate("/mainSimpSecr");
             }
           }, 600);
         } else if (+info?.isk_status === 1) {

@@ -66,9 +66,8 @@ const PdfObjection = ({ istype, editorRef }) => {
     <p style=" font-size: 18px; margin: 5px 0px">
     В удовлетворении исковых тербований по иску ${transform(
       todosApplications?.plaintiff
-    )} к ${transform(todosApplications?.defendant)} отказать по причине того что ....
+    )} к ${transform(todosApplications?.defendant)} отказать по причине того что
     </p>
-    <p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px"></p>
     <div style="display:flex; gap:200px; padding: 20px 0 0 0px"></div>
       `;
 
