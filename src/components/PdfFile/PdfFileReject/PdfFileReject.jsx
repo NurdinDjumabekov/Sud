@@ -51,7 +51,7 @@ const PdfFileReject = ({ istype, editorRef }) => {
       todosApplications?.isk_number
     }</h4>
     <h4 style="text-align:right !important; font-size: 18px; margin: 20px 0 0 0px; padding: 0px 30px 0px 0px;">г.Бишкек</h4>
-    <p style=" font-size: 18px; text-indent: 40px; margin: 20px 0px 0 0">Международный Третейский Суд при Торгово-промышленной палате Кыргызской Республики (МТС ТПП) в лице Председателя Майчиева Шамарала Юсуповича, отказывает принятии искового заявление в производство МТС ТПП от ${transform(
+    <p style=" font-size: 18px; text-indent: 40px; margin: 20px 0px 0 0">Международный Третейский Суд при Торгово-промышленной палате Кыргызской Республики (МТС ТПП) в лице Председателя Майчиева Шамарала Юсуповича, отказывает в принятии искового заявление в производство МТС ТПП от ${transform(
       todosApplications?.plaintiff
     )}</p>
     <h4 style="text-align:center; font-size: 18px; margin: 20px 0 0 0px;">По причине:</h4>

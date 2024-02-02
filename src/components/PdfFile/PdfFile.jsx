@@ -15,7 +15,7 @@ const PdfFile = ({ editorRef }) => {
   const [date, setDate] = useState("");
 
   const handleEditorChange = (content, editor) => {
-    // console.log('Content was updated:', content);
+    console.log("Content was updated:", content);
   };
 
   const { todosApplications, applicationList } = useSelector(

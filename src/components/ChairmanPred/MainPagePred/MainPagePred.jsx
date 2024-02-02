@@ -59,7 +59,7 @@ export const MainPagePred = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {mainBtnList?.map((btn, ind) => (
+          {mainBtnList?.slice(0, 5)?.map((btn, ind) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}

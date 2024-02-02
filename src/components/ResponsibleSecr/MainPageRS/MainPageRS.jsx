@@ -38,8 +38,8 @@ export const MainPageRS = () => {
 
   // console.log(mainBtnList, "mainBtnList");
   // console.log(todosApplications, "todosApplications");
-  console.log(applicationList, "applicationList");
-  console.log(istype, "istype");
+  // console.log(applicationList, "applicationList");
+  // console.log(istype, "istype");
 
   const editIsksFn = (id) => {
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
@@ -61,7 +61,7 @@ export const MainPageRS = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {mainBtnList?.map((btn, ind) => (
+          {mainBtnList?.slice(0, 5)?.map((btn, ind) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}

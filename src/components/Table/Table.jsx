@@ -58,15 +58,16 @@ export const Table = () => {
     4: "Иск отклонён председателем",
   };
 
+  console.log(mainBtnList, "mainBtnList");
   return (
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {mainBtnList?.slice(0, 1)?.map((btn) => (
+          {mainBtnList?.slice(5, 9)?.map((btn) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
-                style={{ margin: "0px " }}
+                style={{ margin: "0px 10px 0 5px" }}
                 onClick={() => clickBtn(btn.id)}
               >
                 {btn.name} [{btn?.count}]
