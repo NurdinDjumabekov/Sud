@@ -122,7 +122,8 @@ const ConfirmStatus = ({
     }
   }, [sendStatusIsk]);
 
-  //// 1 - принять ответ. секр, 2 - отказ отв. секр, 3 - принят председ. 4 - отказ. председ.
+  //// 1 - принять ответ. секр, 2 - отказ отв. секр, 3 - принят председ. 4 - отказ. председ. 5 - возражение
+
   return (
     <div className="blockModal moreStylePdf">
       <Modals openModal={sendStatusIsk} setOpenModal={() => setSendStatusIsk()}>

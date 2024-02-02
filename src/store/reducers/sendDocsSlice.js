@@ -34,10 +34,13 @@ export const toTakeIsksList = createAsyncThunk(
           sortDataIsksCounts({
             draft_count: response?.data?.draft_count,
             isk_count: response?.data?.isk_count,
+            isk_draft_total: response?.data?.isk_draft_total,
             otclon_pred_total: response?.data?.otclon_pred_total,
             otclon_sec_total: response?.data?.otclon_sec_total,
             prinat_pred_total: response?.data?.prinat_pred_total,
             prinat_sec_total: response?.data?.prinat_sec_total,
+            otclon_total: response?.data?.otclon_total,
+            prinat_total: response?.data?.prinat_total,
           })
         );
         return response?.data?.recordset;
@@ -290,7 +293,7 @@ export const changeStatusOrg = createAsyncThunk(
         url: `http://mttp-renaissance.333.kg/api/isks/set_isk_status`,
         data: {
           code_isk: +info?.id,
-          isk_status: +info?.isk_status, ///  1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем, 4 Отклонённые председателем
+          isk_status: +info?.isk_status, ///  1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем, 4 Отклонённые председателем, 5 ответчик уведомлен
           description: "", //// delete
           code_secretar: info.idSecr || "",
         },

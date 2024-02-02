@@ -29,9 +29,7 @@ const PlaintiffPage = () => {
   const [indexComp, setIndexComp] = useState(0);
   const [lookInnerType, setLookInnerType] = useState(true);
 
-  const { todosApplications, applicationList } = useSelector(
-    (state) => state.applicationsSlice
-  );
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf, docsIsks } = useSelector((state) => state.inputSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
 
@@ -134,11 +132,7 @@ const PlaintiffPage = () => {
       dispatch(toTakeTypeTypeDocs(tokenA));
     };
   }, []);
-
   const decodedToken = jwtDecode(tokenA);
-
-  // console.log(todosApplications, "todosApplications");
-  // console.log(applicationList, "applicationList");
 
   return (
     <div className="plaintiff">

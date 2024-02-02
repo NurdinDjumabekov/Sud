@@ -28,7 +28,6 @@ export default function SignIn() {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
 
-  // console.log(login, 'login');
   useEffect(() => {
     CLOUDS({
       el: "#vanta",

@@ -33,6 +33,8 @@ import {
   toTakeTypePosition,
   toTakeTypeValuta,
 } from "../store/reducers/selectsSlice";
+import LayoutsSS from "../layouts/LayoutsSS/LayoutsSS";
+import { MainPageSS } from "../components/SimpleSecr/MainPageSS/MainPageSS";
 
 function MainRoutes() {
   const dispatch = useDispatch();
@@ -51,8 +53,8 @@ function MainRoutes() {
   let userRoutes;
   if (+typeUser === 1) {
     userRoutes = (
-      <Route element={<MainLayouts />}>
-        <Route path="/mainPlaintiff" element={<MainPage />} />
+      <Route element={<LayoutsSS />}>
+        <Route path="/mainSimpSecr" element={<MainPageSS />} />
         <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
         {/* <Route path="/calTodoPlaintiff" element={<CalendarTodoPage />} />

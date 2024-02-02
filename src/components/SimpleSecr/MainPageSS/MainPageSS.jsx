@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import "./MainPagePred.scss";
-import imgPdf from "../../../asstes/icons/pdf.svg";
+import "./MainPageSS.scss";
 import { useDispatch, useSelector } from "react-redux";
-import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
-import { useNavigate } from "react-router-dom";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
-import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
+import { useNavigate } from "react-router-dom";
 import { changeMainBtnList } from "../../../store/reducers/stateSlice";
+import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
+import ConfirmDocs from "../../ConfirmDocs/ConfirmDocs";
 
-export const MainPagePred = () => {
+export const MainPageSS = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
@@ -47,6 +44,7 @@ export const MainPagePred = () => {
   };
 
   const statusMessages = {
+    1: "Отправлено председателю",
     2: "Отклонён ответственным секретарём",
     3: "Принят председателем",
     4: "Отклонён председателем",
@@ -56,14 +54,14 @@ export const MainPagePred = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {mainBtnList?.slice(0, 5)?.map((btn, ind) => (
+          {mainBtnList?.slice(0, 1)?.map((btn, ind) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
-                onClick={() => clickBtn(btn.id)}
-                style={ind === 0 ? { marginLeft: "0px" } : {}}
+                onClick={() => clickBtn(0)}
+                style={ind === 0 ? { margin: "0px", padding: "0px 30px" } : {}}
               >
-                {btn?.name} [{btn?.count || 0}]
+                {btn?.name} [{listTodos?.length || 0}]
               </button>
             </li>
           ))}
@@ -81,6 +79,7 @@ export const MainPagePred = () => {
                 <th className="table_isk_th">Арбитры</th>
                 <th className="table_isk_th">Секретарь</th>
                 <th className="table_isk_th">Статус</th>
+                <th className="table_isk_th">Действие</th>
                 <th className="table_isk_th">Документы</th>
               </tr>
             </thead>
@@ -98,9 +97,12 @@ export const MainPagePred = () => {
                     className="table_isk_td"
                     onClick={() => editIsksFn(row?.codeid)}
                   >
-                    <span className="span_teble">
-                      {row?.isk_number ? `№ ${row?.isk_number}` : ""}
-                    </span>
+                    <div>
+                      <span className="span_teble">
+                        {row?.isk_number ? `№ ${row?.isk_number}` : ""}
+                      </span>
+                      {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
+                    </div>
                   </td>
                   <td
                     className="table_isk_td"
@@ -189,15 +191,16 @@ export const MainPagePred = () => {
                     className="table_isk_td"
                     onClick={() => editIsksFn(row?.codeid)}
                   >
-                    <span>{row.secretary ? row.secretary : ""}</span>
+                    <span>{row.secretary || ""}</span>
                   </td>
                   <td className="table_isk_td">
-                    {+row?.isk_status === 0 || +row?.isk_status === 1 ? (
-                      <div className="statusIsks">
+                    {+row?.isk_status === 0 ? (
+                      <div className="statusIsks moreIsksStatus">
                         <button
+                          className="moreBtn"
                           onClick={() => {
                             setSendStatusIsk(true);
-                            changeStatusIsks(row?.codeid, 3);
+                            changeStatusIsks(row?.codeid, 2);
                             dispatch(
                               editIsks({
                                 id: row?.codeid,
@@ -216,23 +219,19 @@ export const MainPagePred = () => {
                           <span
                             style={{ padding: "0px 0px 0px 10px" }}
                             className={
-                              +row?.isk_status === 3
+                              +row?.isk_status === 1 || +row?.isk_status === 3
                                 ? "colorStatusGreen"
                                 : +row?.isk_status === 2 ||
                                   +row?.isk_status === 4
                                 ? "colorStatusRed"
                                 : ""
                             }
-                            onClick={() => editIsksFn(row?.codeid)}
                           >
                             {statusMessages[row?.isk_status]}
                           </span>
                         )}
                         {!statusMessages[row?.isk_status] && (
-                          <span
-                            style={{ padding: "0px 0px 0px 10px" }}
-                            onClick={() => editIsksFn(row?.codeid)}
-                          >
+                          <span style={{ padding: "0px 0px 0px 10px" }}>
                             Иск подан
                           </span>
                         )}
@@ -240,8 +239,28 @@ export const MainPagePred = () => {
                     )}
                   </td>
                   <td className="table_isk_td">
+                    <div className="statusIsks">
+                      <button
+                        onClick={() => {
+                          setSendStatusIsk(true);
+                          changeStatusIsks(row?.codeid, 5);
+                          dispatch(
+                            editIsks({
+                              id: row?.codeid,
+                              tokenA,
+                              applicationList,
+                            })
+                          );
+                        }}
+                      >
+                        Возражение
+                      </button>
+                      <button>Уведомить ответчика</button>
+                    </div>
+                  </td>
+                  <td className="table_isk_td">
                     <span className="documentBlock">
-                      {row?.files?.length === 0 ? (
+                      {row?.files?.length === 0 ? ( //// 	Уведомить ответчика
                         <span></span>
                       ) : (
                         <div className="docsBlock">
@@ -259,7 +278,7 @@ export const MainPagePred = () => {
         </div>
       </div>
       {/* //// модалки для принятия и отказа иска */}
-      <ConfirmStatus
+      <ConfirmDocs
         setSendStatusIsk={setSendStatusIsk}
         sendStatusIsk={sendStatusIsk}
         setIsType={setIsType}
@@ -268,28 +287,3 @@ export const MainPagePred = () => {
     </>
   );
 };
-
-// {(istype.type === 2 || istype.type === 4) && (
-//   <>
-//     <div className="blockModal__inner">
-//       <PdfFile editorRef={editorRefReject} />
-//       <div className="plaintiFilling__container moreStyle">
-//         <PdfFileReject istype={istype} editorRef={editorRef} />
-//       </div>
-//     </div>
-//     <div className="modalchangeStatus" style={{ height: "auto" }}>
-//       <div className="btnsSendIsks">
-//         <button
-//           onClick={(e) => {
-//             setIsType({ ...istype, type: 3 });
-//           }}
-//         >
-//           Принять
-//         </button>
-//         <button onClick={(e) => rejectIsk(e)} className="rejectBtn">
-//           Отклонить
-//         </button>
-//       </div>
-//     </div>
-//   </>
-// )}

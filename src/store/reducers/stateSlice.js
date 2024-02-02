@@ -171,13 +171,13 @@ const stateSlice = createSlice({
           id: 5,
           name: "Все иски",
           bool: state.mainBtnList[5]?.bool,
-          count: action?.payload?.isk_count || 0,
+          count: action?.payload?.isk_draft_total || 0,
         },
         {
           id: 6,
           name: "Поданные",
           bool: state.mainBtnList[6]?.bool,
-          count: action?.payload?.isk_draft_total || 0,
+          count: action?.payload?.isk_count || 0,
         },
         {
           id: 7,

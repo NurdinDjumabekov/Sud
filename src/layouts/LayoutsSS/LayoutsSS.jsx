@@ -1,35 +1,28 @@
 import React, { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import LogOut from "../components/LogOut/LogOut";
-import "./MainLayouts.scss";
+import LogOut from "../../components/LogOut/LogOut";
+import "./LayoutsSS.scss";
 import { jwtDecode } from "jwt-decode";
+import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
 
 ////// imgsBlack
-import myIski from "../asstes/icons/IconPage/me_iski.svg";
-import notif from "../asstes/icons/IconPage/notification.svg";
-import create from "../asstes/icons/IconPage/create.svg";
-import faceImg from "../asstes/icons/plaintiff/fiz_face.svg";
-import meetingsPlaintiff from "../asstes/icons/IconPage/calendar.svg";
-import calTodoPlaintiff from "../asstes/icons/IconPage/calendar2.svg";
-import archive from "../asstes/icons/IconPage/archive.svg";
-import arrow from "../asstes/icons/IconPage/arrow.svg";
-////
-import myIskiWhite from "../asstes/icons/IconPageWhite/me_iski.svg";
-import notifWhite from "../asstes/icons/IconPageWhite/notification.svg";
-import createWhite from "../asstes/icons/IconPageWhite/create.svg";
-import meetingsPlaintiffWhite from "../asstes/icons/IconPageWhite/calendar.svg";
-import calTodoPlaintiffWhite from "../asstes/icons/IconPageWhite/calendar2.svg";
-import archiveWhite from "../asstes/icons/IconPageWhite/archive.svg";
-import arrowWhite from "../asstes/icons/IconPageWhite/arrow.svg";
+import myIski from "../../asstes/icons/IconPage/me_iski.svg";
+import notif from "../../asstes/icons/IconPage/notification.svg";
+import archive from "../../asstes/icons/IconPage/archive.svg";
 
-import logo from "../asstes/images/logo.png";
+////// imgsWhite
+import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
+import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
+import archiveWhite from "../../asstes/icons/IconPageWhite/archive.svg";
+
+import logo from "../../asstes/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
-import { toTakeIsksList } from "../store/reducers/sendDocsSlice";
-import { shortenToTwoWords } from "../helpers/shortenToTwoWords";
-import { notificationCount } from "../store/reducers/notificationSlice";
+import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
+import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
+import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
+import { notificationCount } from "../../store/reducers/notificationSlice";
 
-function MainLayouts() {
+function LayoutsSS() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -39,17 +32,9 @@ function MainLayouts() {
 
   const [pages, setPages] = useState([
     {
-      id: 2,
-      name: "Создать черновик",
-      path: "/plaintiffCreate",
-      bool: false,
-      icon: create,
-      iconWhite: createWhite,
-    },
-    {
       id: 1,
-      name: "Все иски",
-      path: "/mainPlaintiff",
+      name: "Список исков",
+      path: "/mainSimpSecr",
       bool: true,
       icon: myIski,
       iconWhite: myIskiWhite,
@@ -63,6 +48,14 @@ function MainLayouts() {
       iconWhite: notifWhite,
       count: true,
     },
+    // {
+    //   id: 2,
+    //   name: 'Создать черновик',
+    //   path: '/plaintiffCreate',
+    //   bool: false,
+    //   icon: create,
+    //   iconWhite: createWhite,
+    // },
     // {
     //   id: 4,
     //   name: "Календарь дел",
@@ -79,14 +72,14 @@ function MainLayouts() {
     //   icon: calTodoPlaintiff,
     //   iconWhite: calTodoPlaintiffWhite,
     // },
-    // {
-    //   id: 6,
-    //   name: "Архив дел",
-    //   path: "/archive",
-    //   bool: false,
-    //   icon: archive,
-    //   iconWhite: archiveWhite,
-    // },
+    {
+      id: 6,
+      name: "Архив дел",
+      path: "/archive",
+      bool: false,
+      icon: archive,
+      iconWhite: archiveWhite,
+    },
   ]);
 
   React.useEffect(() => {
@@ -112,7 +105,7 @@ function MainLayouts() {
   }, [location.pathname]);
 
   React.useEffect(() => {
-    dispatch(toTakeIsksList({ tokenA, id: "5" }));
+    dispatch(toTakeIsksList({ tokenA, id: 0 }));
     dispatch(toTakeTypeTypeDocs(tokenA));
     dispatch(notificationCount(tokenA));
   }, []);
@@ -122,7 +115,7 @@ function MainLayouts() {
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">
-        <div className="logo" onClick={() => navigate("/mainPlaintiff")}>
+        <div className="logo" onClick={() => navigate("/mainRespSec")}>
           <img src={logo} alt="logo" />
         </div>
         <p className="moreInfoMenu">{decodedToken?.name}</p>
@@ -176,7 +169,7 @@ function MainLayouts() {
         className="plaintiffBlock__content"
         style={
           location.pathname === "/plaintiffCreate"
-            ? { alignItems: "start" }
+            ? { alignItems: "start", marginTop: "26px" }
             : {}
         }
       >
@@ -186,4 +179,4 @@ function MainLayouts() {
   );
 }
 
-export default MainLayouts;
+export default LayoutsSS;

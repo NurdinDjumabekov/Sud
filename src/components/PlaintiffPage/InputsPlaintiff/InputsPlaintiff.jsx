@@ -80,7 +80,7 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
           <button
             onClick={() => {
               if (+typeUser === 1) {
-                navigate("/asdfdsf");
+                navigate("/mainSimpSecr");
               } else if (+typeUser === 2) {
                 navigate("/mainRespSec");
               } else if (+typeUser === 3) {

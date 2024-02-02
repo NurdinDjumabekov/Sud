@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import { changeTokenA, changeTypeUser } from './saveDataSlice';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { changeTokenA, changeTypeUser } from "./saveDataSlice";
 
 const initialState = {
   listTodos: [],
@@ -9,12 +9,12 @@ const initialState = {
 };
 
 export const authLogin = createAsyncThunk(
-  'authLogin',
+  "authLogin",
   async function (info, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
-        method: 'POST',
-        url: 'http://mttp-renaissance.333.kg/api/auth/login',
+        method: "POST",
+        url: "http://mttp-renaissance.333.kg/api/auth/login",
         data: {
           ...info?.dataLogin,
         },
@@ -37,7 +37,7 @@ export const authLogin = createAsyncThunk(
 );
 
 const authSlice = createSlice({
-  name: 'authSlice',
+  name: "authSlice",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -46,13 +46,13 @@ const authSlice = createSlice({
       state.loadingAuth = false;
       // state.allDataFood = action.payload;
       if (+action.payload?.type_user === 4) {
-        action?.payload?.navigate('/plaintiffCreate');
+        action?.payload?.navigate("/plaintiffCreate");
       } else if (+action.payload?.type_user === 3) {
-        action?.payload?.navigate('/mainRespPred');
+        action?.payload?.navigate("/mainRespPred");
       } else if (+action.payload?.type_user === 2) {
-        action?.payload?.navigate('/mainRespSec');
+        action?.payload?.navigate("/mainRespSec");
       } else if (+action.payload?.type_user === 1) {
-        action?.payload?.navigate('/');
+        action?.payload?.navigate("/mainSimpSecr");
       }
     });
     builder.addCase(authLogin.rejected, (state, action) => {
