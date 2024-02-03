@@ -56,6 +56,7 @@ export const Table = () => {
     2: "Иск отклонён ответственным секретарём",
     3: "Иск принят председателем",
     4: "Иск отклонён председателем",
+    5: "Ответчик уведомлён",
   };
 
   console.log(mainBtnList, "mainBtnList");
@@ -181,7 +182,7 @@ export const Table = () => {
                   </td>
                   <td className="table_isk_td">
                     {+row?.status === 1 ? (
-                      <span style={{ color: "#1cd81c", padding: "0px 10px" }}>
+                      <span style={{ color: "#16bb16", padding: "0px 10px" }}>
                         Активен
                       </span>
                     ) : (
@@ -212,7 +213,7 @@ export const Table = () => {
                           <span
                             style={{ padding: "0px 0px 0px 10px" }}
                             className={
-                              +row?.isk_status === 3
+                              +row?.isk_status === 3 || +row?.isk_status === 5
                                 ? "colorStatusGreen"
                                 : +row?.isk_status === 2 ||
                                   +row?.isk_status === 4

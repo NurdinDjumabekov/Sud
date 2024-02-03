@@ -1,0 +1,9 @@
+.moreBtnStatus {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    button {
+        padding: 8px 13px !important;
+        width: 170px;
+    }
+}

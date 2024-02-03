@@ -57,9 +57,10 @@ function MainRoutes() {
         <Route path="/mainSimpSecr" element={<MainPageSS />} />
         <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
+        <Route path="/archive" element={<ArchivePage />} />
         {/* <Route path="/calTodoPlaintiff" element={<CalendarTodoPage />} />
         <Route path="/meetingsPlaintiff" element={<CalendarMeetings />} />
-        <Route path="/archive" element={<ArchivePage />} /> */}
+        */}
       </Route>
     );
   } else if (+typeUser === 2) {

@@ -51,7 +51,17 @@ const NotificationPage = () => {
                 key={notif?.codeid}
                 style={
                   notif?.comment?.includes("Отклонён")
-                    ? { color: "red", background: "rgba(242 ,195 ,195, 0.43)" }
+                    ? { color: "red", background: "rgba(242, 195, 195, 0.43)" }
+                    : notif?.comment?.includes("уведомлен")
+                    ? {
+                        color: "#000",
+                        background: "rgb(210, 218 ,92 , 0.29)",
+                      }
+                    : notif?.comment?.includes("подтверждён")
+                    ? {
+                        color: "green",
+                        background: "rgba(159, 217, 151, 0.24)",
+                      }
                     : {
                         color: "green",
                         background: "rgba(159, 217, 151, 0.24)",

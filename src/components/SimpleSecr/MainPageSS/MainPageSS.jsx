@@ -43,11 +43,29 @@ export const MainPageSS = () => {
     setIsType({ type: status, id });
   };
 
+  const clickObjection = (id) => {
+    setSendStatusIsk(true);
+    changeStatusIsks(id, 5);
+    dispatch(
+      editIsks({
+        id,
+        tokenA,
+        applicationList,
+      })
+    );
+  };
+
   const statusMessages = {
     1: "Отправлено председателю",
     2: "Отклонён ответственным секретарём",
     3: "Принят председателем",
     4: "Отклонён председателем",
+    5: "Ответчик уведомлён",
+  };
+
+  const checkDocs = (innerArr) => {
+    // Для проверки документов: если в документе нет возражения, то отображать кнопку возражения, иначе не отображать
+    return innerArr.some((i) => i.code_file_type === 17);
   };
 
   return (
@@ -239,24 +257,29 @@ export const MainPageSS = () => {
                     )}
                   </td>
                   <td className="table_isk_td">
-                    <div className="statusIsks">
-                      <button
-                        onClick={() => {
-                          setSendStatusIsk(true);
-                          changeStatusIsks(row?.codeid, 5);
-                          dispatch(
-                            editIsks({
-                              id: row?.codeid,
-                              tokenA,
-                              applicationList,
-                            })
-                          );
-                        }}
-                      >
-                        Возражение
-                      </button>
-                      <button>Уведомить ответчика</button>
-                    </div>
+                    {+row?.isk_status === 5 ? (
+                      <div className="statusIsks moreBtnStatus">
+                        <button onClick={() => editIsksFn(row?.codeid)}>
+                          Просмотреть
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="statusIsks moreBtnStatus">
+                        {!checkDocs(row.files) && (
+                          <button onClick={() => clickObjection(row?.codeid)}>
+                            Возражение
+                          </button>
+                        )}
+                        <button
+                          onClick={() => {
+                            setSendStatusIsk(true);
+                            changeStatusIsks(row?.codeid, 6);
+                          }}
+                        >
+                          Уведомить ответчика
+                        </button>
+                      </div>
+                    )}
                   </td>
                   <td className="table_isk_td">
                     <span className="documentBlock">

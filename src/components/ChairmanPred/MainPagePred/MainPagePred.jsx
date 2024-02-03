@@ -50,6 +50,7 @@ export const MainPagePred = () => {
     2: "Отклонён ответственным секретарём",
     3: "Принят председателем",
     4: "Отклонён председателем",
+    5: "Ответчик уведомлён",
   };
 
   return (
@@ -268,28 +269,3 @@ export const MainPagePred = () => {
     </>
   );
 };
-
-// {(istype.type === 2 || istype.type === 4) && (
-//   <>
-//     <div className="blockModal__inner">
-//       <PdfFile editorRef={editorRefReject} />
-//       <div className="plaintiFilling__container moreStyle">
-//         <PdfFileReject istype={istype} editorRef={editorRef} />
-//       </div>
-//     </div>
-//     <div className="modalchangeStatus" style={{ height: "auto" }}>
-//       <div className="btnsSendIsks">
-//         <button
-//           onClick={(e) => {
-//             setIsType({ ...istype, type: 3 });
-//           }}
-//         >
-//           Принять
-//         </button>
-//         <button onClick={(e) => rejectIsk(e)} className="rejectBtn">
-//           Отклонить
-//         </button>
-//       </div>
-//     </div>
-//   </>
-// )}

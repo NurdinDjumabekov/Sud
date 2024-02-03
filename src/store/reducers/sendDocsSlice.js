@@ -181,7 +181,12 @@ export const sendDocsEveryIsks = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        // return { navigate: info.navigate };
+        if (+info?.type === 17) {
+          info?.navigate("/mainSimpSecr");
+          setTimeout(() => {
+            dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 })); /// для обновления списка на главной странице
+          }, 1000);
+        }
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -302,7 +307,7 @@ export const changeStatusOrg = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        if ([2, 3, 4, 5].includes(+info?.isk_status)) {
+        if ([2, 3, 4].includes(+info?.isk_status)) {
           // 12  Определение о принятии иска
           // 13, 14  Определение об отказе иска
           // 15   Исковое заявление
@@ -319,14 +324,17 @@ export const changeStatusOrg = createAsyncThunk(
               info?.navigate("/mainRespSec");
             } else if (+info?.type === 12 || +info?.type === 14) {
               info?.navigate("/mainRespPred");
-            } else if (+info?.type === 17) {
-              info?.navigate("/mainSimpSecr");
             }
           }, 600);
         } else if (+info?.isk_status === 1) {
           setTimeout(() => {
             dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
             info?.navigate("/mainRespSec");
+          }, 600);
+        } else if (+info?.isk_status === 5) {
+          setTimeout(() => {
+            dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
+            info?.navigate("/mainSimpSecr");
           }, 600);
         }
       } else {
