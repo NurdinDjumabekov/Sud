@@ -8,7 +8,14 @@ import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
 import { useNavigate } from "react-router-dom";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
-import { changeMainBtnList } from "../../../store/reducers/stateSlice";
+import {
+  changeActionFullfilled,
+  changeActionReject,
+  changeMainBtnList,
+} from "../../../store/reducers/stateSlice";
+////// imgs
+import fullfiled from "../../../asstes/icons/goodSend.svg";
+import reject from "../../../asstes/icons/krestik.svg";
 
 export const MainPagePred = () => {
   const dispatch = useDispatch();
@@ -39,6 +46,18 @@ export const MainPagePred = () => {
 
   const editIsksFn = (id) => {
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+  };
+
+  const lookIsks = (id, type) => {
+    setSendStatusIsk(true);
+    changeStatusIsks(id, type);
+    dispatch(
+      editIsks({
+        id,
+        tokenA,
+        applicationList,
+      })
+    );
   };
 
   const changeStatusIsks = (id, status) => {
@@ -194,23 +213,31 @@ export const MainPagePred = () => {
                   </td>
                   <td className="table_isk_td">
                     {+row?.isk_status === 0 || +row?.isk_status === 1 ? (
-                      <div className="statusIsks">
-                        <button
-                          onClick={() => {
-                            setSendStatusIsk(true);
-                            changeStatusIsks(row?.codeid, 3);
-                            dispatch(
-                              editIsks({
-                                id: row?.codeid,
-                                tokenA,
-                                applicationList,
-                              })
-                            );
-                          }}
-                        >
-                          Просмотреть
-                        </button>
-                      </div>
+                      <>
+                        <div className="statusIsks">
+                          <div className="statusIsks moreIsksStatus">
+                            <button onClick={() => editIsksFn(row?.codeid)}>
+                              Просмотреть
+                            </button>
+                          </div>
+                          <button
+                            onClick={() => {
+                              // dispatch(changeActionFullfilled(true));
+                              lookIsks(row?.codeid, 3);
+                            }}
+                          >
+                            <img src={fullfiled} alt="ok" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              lookIsks(row?.codeid, 4);
+                              // dispatch(changeActionReject(true));
+                            }}
+                          >
+                            <img src={reject} alt="no" />
+                          </button>
+                        </div>
+                      </>
                     ) : (
                       <>
                         {statusMessages[row?.isk_status] && (

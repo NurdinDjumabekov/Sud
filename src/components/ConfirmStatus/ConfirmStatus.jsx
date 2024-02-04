@@ -15,7 +15,10 @@ import {
 } from "../../store/reducers/stateSlice";
 import Selects from "../Selects/Selects";
 import { changeAlertText } from "../../store/reducers/typesSlice";
-import { toTakeSecretarList } from "../../store/reducers/selectsSlice";
+import {
+  changeTypeSecretarDela,
+  toTakeSecretarList,
+} from "../../store/reducers/selectsSlice";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 
 const ConfirmStatus = ({
@@ -108,6 +111,7 @@ const ConfirmStatus = ({
         }
       }
     }
+    dispatch(changeTypeSecretarDela(0)); /// обнуляю секретаря дела
   };
 
   React.useEffect(() => {
@@ -126,188 +130,198 @@ const ConfirmStatus = ({
   //// 1 - принять ответ. секр, 2 - отказ отв. секр, 3 - принят председ. 4 - отказ. председ. 5 - возражение
 
   return (
-    <div className="blockModal moreStylePdf">
-      <Modals openModal={sendStatusIsk} setOpenModal={() => setSendStatusIsk()}>
-        {istype.type === 2 && (
-          <>
-            <div className="blockModal__inner">
-              <PdfFile editorRef={editorRefReject} />
-              <div className="plaintiFilling__container moreStyle">
-                <PdfFileReject istype={istype} editorRef={editorRef} />
+    <>
+      <div className="blockModal moreStylePdf">
+        <Modals
+          openModal={sendStatusIsk}
+          setOpenModal={() => setSendStatusIsk()}
+        >
+          {istype.type === 2 && (
+            <>
+              <div className="blockModal__inner">
+                <PdfFile editorRef={editorRefReject} />
+                <div className="plaintiFilling__container moreStyle">
+                  <PdfFileReject istype={istype} editorRef={editorRef} />
+                </div>
               </div>
-            </div>
-            <div className="modalchangeStatus" style={{ height: "auto" }}>
+              <div className="modalchangeStatus" style={{ height: "auto" }}>
+                <div className="btnsSendIsks">
+                  <button
+                    onClick={(e) => {
+                      setIsType({ ...istype, type: 1 });
+                      dispatch(changeActionFullfilled(true));
+                    }}
+                  >
+                    Принять
+                  </button>
+                  <button
+                    onClick={(e) => dispatch(changeActionReject(true))}
+                    className="rejectBtn"
+                  >
+                    Отклонить
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+          {istype.type === 3 && (
+            <>
+              <div className="choiceSecretard">
+                <Selects
+                  arr={selSecretarDela}
+                  initText={"Выберите секретаря дела"}
+                  keys={{ typeKey: typeSecretarDela, type: "typeSecretarDela" }}
+                  type="secr"
+                  urgently={false}
+                />
+              </div>
+              <div className="blockModal__inner">
+                <PdfFile editorRef={editorRefReject} />
+                <div className="plaintiFilling__container moreStyle">
+                  <PdfFulfilled istype={istype} editorRef={editorRef} />
+                </div>
+              </div>
+              <div className="modalchangeStatus" style={{ height: "auto" }}>
+                <div className="btnsSendIsks">
+                  <button
+                    onClick={() => dispatch(changeActionFullfilled(true))}
+                  >
+                    Принять
+                  </button>
+                  <button
+                    onClick={(e) => setIsType({ ...istype, type: 4 })}
+                    className="rejectBtn"
+                  >
+                    Отклонить
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+          {istype.type === 4 && (
+            <>
+              <div className="blockModal__inner">
+                <PdfFile editorRef={editorRefReject} />
+                <div className="plaintiFilling__container moreStyle">
+                  <PdfFileReject istype={istype} editorRef={editorRef} />
+                </div>
+              </div>
+              <div className="modalchangeStatus" style={{ height: "auto" }}>
+                <div className="btnsSendIsks">
+                  <button
+                    onClick={(e) => {
+                      setIsType({ ...istype, type: 3 });
+                      // dispatch(changeActionFullfilled(true));
+                    }}
+                  >
+                    Принять
+                  </button>
+                  <button
+                    onClick={() => {
+                      dispatch(changeActionReject(true));
+                      setIsType({ ...istype, type: 4 });
+                    }}
+                    className="rejectBtn"
+                  >
+                    Отклонить
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </Modals>
+      </div>
+      <div className="blockModal moreStylePdf noneKrestic">
+        {/* ////////// только для подтверждения иска  */}
+        <Modals
+          openModal={confirmActionFullfilled}
+          setOpenModal={() => dispatch(changeActionFullfilled())}
+        >
+          {+istype.type === 1 && (
+            <div className="modalchangeStatus">
+              <div className="imgBlock">
+                <img src={imgWarning} alt="send!" />
+              </div>
+              <h5>Принять иск?</h5>
               <div className="btnsSendIsks">
-                <button
-                  onClick={(e) => {
-                    setIsType({ ...istype, type: 1 });
-                    dispatch(changeActionFullfilled(true));
-                  }}
-                >
-                  Принять
-                </button>
-                <button
-                  onClick={(e) => dispatch(changeActionReject(true))}
-                  className="rejectBtn"
-                >
-                  Отклонить
-                </button>
-              </div>
-            </div>
-          </>
-        )}
-        {istype.type === 3 && (
-          <>
-            <div className="choiceSecretard">
-              <Selects
-                arr={selSecretarDela}
-                initText={"Выберите секретаря дела"}
-                keys={{ typeKey: typeSecretarDela, type: "typeSecretarDela" }}
-                type="secr"
-                urgently={false}
-              />
-            </div>
-            <div className="blockModal__inner">
-              <PdfFile editorRef={editorRefReject} />
-              <div className="plaintiFilling__container moreStyle">
-                <PdfFulfilled istype={istype} editorRef={editorRef} />
-              </div>
-            </div>
-            <div className="modalchangeStatus" style={{ height: "auto" }}>
-              <div className="btnsSendIsks">
-                <button onClick={() => dispatch(changeActionFullfilled(true))}>
-                  Принять
-                </button>
-                <button
-                  onClick={(e) => setIsType({ ...istype, type: 4 })}
-                  className="rejectBtn"
-                >
-                  Отклонить
-                </button>
-              </div>
-            </div>
-          </>
-        )}
-        {istype.type === 4 && (
-          <>
-            <div className="blockModal__inner">
-              <PdfFile editorRef={editorRefReject} />
-              <div className="plaintiFilling__container moreStyle">
-                <PdfFileReject istype={istype} editorRef={editorRef} />
-              </div>
-            </div>
-            <div className="modalchangeStatus" style={{ height: "auto" }}>
-              <div className="btnsSendIsks">
-                <button
-                  onClick={(e) => {
-                    setIsType({ ...istype, type: 3 });
-                    // dispatch(changeActionFullfilled(true));
-                  }}
-                >
-                  Принять
-                </button>
+                <button onClick={(e) => fulfilledIsk(e)}>Да</button>
                 <button
                   onClick={() => {
-                    dispatch(changeActionReject(true));
-                    setIsType({ ...istype, type: 4 });
+                    // setIsType({ ...istype, type: 2 });
+                    dispatch(changeActionFullfilled(false));
+                    setSendStatusIsk(false);
                   }}
-                  className="rejectBtn"
                 >
-                  Отклонить
+                  Нет
                 </button>
               </div>
             </div>
-          </>
-        )}
-      </Modals>
-      {/* ////////// только для подтверждения иска  */}
-      <Modals
-        openModal={confirmActionFullfilled}
-        setOpenModal={() => dispatch(changeActionFullfilled())}
-      >
-        {istype.type === 1 && (
-          <div className="modalchangeStatus">
-            <div className="imgBlock">
-              <img src={imgWarning} alt="send!" />
+          )}
+          {+istype.type === 3 && (
+            <div className="modalchangeStatus">
+              <div className="imgBlock">
+                <img src={imgWarning} alt="send!" />
+              </div>
+              <h5>Принять иск?</h5>
+              <div className="btnsSendIsks">
+                <button onClick={(e) => fulfilledIsk(e)}>Да</button>
+                <button
+                  onClick={() => {
+                    setIsType({ ...istype, type: 3 });
+                    dispatch(changeActionFullfilled(false));
+                  }}
+                >
+                  Нет
+                </button>
+              </div>
             </div>
-            <h5>Принять иск?</h5>
-            <div className="btnsSendIsks">
-              <button onClick={(e) => fulfilledIsk(e)}>Да</button>
-              <button
-                onClick={() => {
-                  setIsType({ ...istype, type: 2 });
-                  dispatch(changeActionFullfilled(false));
-                }}
-              >
-                Нет
-              </button>
+          )}
+        </Modals>
+        {/* /////// */}
+        <Modals
+          openModal={confirmActionReject}
+          setOpenModal={() => dispatch(changeActionReject())}
+        >
+          {+istype.type === 2 && (
+            <div className="modalchangeStatus">
+              <div className="imgBlock">
+                <img src={imgWarning} alt="send!" />
+              </div>
+              <h5>Отказать в иске?</h5>
+              <div className="btnsSendIsks">
+                <button onClick={(e) => rejectIsk(e)}>Да</button>
+                <button
+                  onClick={() => {
+                    setIsType({ ...istype, type: 2 });
+                    dispatch(changeActionReject(false));
+                  }}
+                >
+                  нет
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-        {istype.type === 3 && (
-          <div className="modalchangeStatus">
-            <div className="imgBlock">
-              <img src={imgWarning} alt="send!" />
+          )}
+          {+istype.type === 4 && (
+            <div className="modalchangeStatus">
+              <div className="imgBlock">
+                <img src={imgWarning} alt="send!" />
+              </div>
+              <h5>Отказать в иске?</h5>
+              <div className="btnsSendIsks">
+                <button onClick={(e) => rejectIsk(e)}>Да</button>
+                <button
+                  onClick={() => {
+                    dispatch(changeActionReject(false));
+                  }}
+                >
+                  нет
+                </button>
+              </div>
             </div>
-            <h5>Принять иск?</h5>
-            <div className="btnsSendIsks">
-              <button onClick={(e) => fulfilledIsk(e)}>Да</button>
-              <button
-                onClick={() => {
-                  setIsType({ ...istype, type: 3 });
-                  dispatch(changeActionFullfilled(false));
-                }}
-              >
-                Нет
-              </button>
-            </div>
-          </div>
-        )}
-      </Modals>
-      {/* /////// */}
-      <Modals
-        openModal={confirmActionReject}
-        setOpenModal={() => dispatch(changeActionReject())}
-      >
-        {istype.type === 2 && (
-          <div className="modalchangeStatus">
-            <div className="imgBlock">
-              <img src={imgWarning} alt="send!" />
-            </div>
-            <h5>Отказать в иске?</h5>
-            <div className="btnsSendIsks">
-              <button onClick={(e) => rejectIsk(e)}>Да</button>
-              <button
-                onClick={() => {
-                  setIsType({ ...istype, type: 2 });
-                  dispatch(changeActionReject(false));
-                }}
-              >
-                нет
-              </button>
-            </div>
-          </div>
-        )}
-        {istype.type === 4 && (
-          <div className="modalchangeStatus">
-            <div className="imgBlock">
-              <img src={imgWarning} alt="send!" />
-            </div>
-            <h5>Отказать в иске?</h5>
-            <div className="btnsSendIsks">
-              <button onClick={(e) => rejectIsk(e)}>Да</button>
-              <button
-                onClick={() => {
-                  dispatch(changeActionReject(false));
-                }}
-              >
-                нет
-              </button>
-            </div>
-          </div>
-        )}
-      </Modals>
-    </div>
+          )}
+        </Modals>
+      </div>
+    </>
   );
 };
 export default ConfirmStatus;
