@@ -221,7 +221,6 @@ const PdfFile = ({ editorRef }) => {
               items: "print | undo redo",
             },
           },
-          // readonly: true,
           content_style: "body { font-family: 'Times New Roman', sans-serif; }",
           toolbar: false,
         }}

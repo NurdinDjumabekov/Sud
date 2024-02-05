@@ -69,7 +69,7 @@ const MoreInfo = () => {
         </div>
       </Modals>
       {/* ////// для редактирования иска */}
-      <Modals
+      {/* <Modals
         openModal={lookChangeEditIsks}
         setOpenModal={() => dispatch(changeLookChangeEditIsks())}
       >
@@ -94,7 +94,7 @@ const MoreInfo = () => {
             </button>
           </div>
         </div>
-      </Modals>
+      </Modals> */}
       {/* ////// для удаления иска */}
       <Modals
         openModal={lookChangeDeleteIsks}

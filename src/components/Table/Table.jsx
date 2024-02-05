@@ -15,12 +15,16 @@ import editImg from "../../asstes/icons/editBtn.svg";
 import deleteImg from "../../asstes/icons/deleteBtn.svg";
 import sendImg from "../../asstes/icons/goodSend.svg";
 import LookPdfModal from "../PdfFile/LookPdfModal/LookPdfModal";
+import { editIsks } from "../../store/reducers/applicationsSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Table = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
+  const { applicationList } = useSelector((state) => state.applicationsSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
@@ -42,8 +46,9 @@ export const Table = () => {
   };
 
   const editIsksFn = (id) => {
-    dispatch(changeLookChangeEditIsks(true));
-    dispatch(changeIdStatus(id));
+    // dispatch(changeLookChangeEditIsks(true));
+    // dispatch(changeIdStatus(id));
+    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
   };
 
   const deleteIsksFn = (id) => {
