@@ -35,6 +35,7 @@ const NotificationPage = () => {
   return (
     <div className="mainTables notifMain">
       <div className="notification">
+        <h4>Уведомления</h4>
         {/* <div className="notification__titles">
           <h3>Дата и время</h3>
           <h3>Номер иска</h3>
@@ -44,36 +45,33 @@ const NotificationPage = () => {
           <></>
         ) : (
           <>
-            <h4>Новые уведомления</h4>
             {sortNotif(listNotifs)?.lookNoList?.map((notif) => (
               <div
                 className="notification__every"
                 key={notif?.codeid}
-                // style={
-                //   notif?.comment?.includes("Отклонён")
-                //     ? { color: "red", background: "rgba(242, 195, 195, 0.43)" }
-                //     : notif?.comment?.includes("уведомлен")
-                //     ? {
-                //         color: "#000",
-                //         background: "rgb(210, 218 ,92 , 0.29)",
-                //       }
-                //     : notif?.comment?.includes("подтверждён")
-                //     ? {
-                //         color: "green",
-                //         background: "rgba(159, 217, 151, 0.24)",
-                //       }
-                //     : {
-                //         color: "green",
-                //         background: "rgba(159, 217, 151, 0.24)",
-                //       }
-                // }
+                style={{
+                  background: "rgba(159, 217, 151, 0.24)",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "12px",
+                }}
               >
-                <p>
-                  {notif?.date}
-                  <span style={{ marginLeft: "10px" }}>{notif?.time}</span>
-                </p>
-                <p>№ {notif?.isk_number}</p>
-                <p>{notif?.comment}</p>
+                <div>
+                  <p>
+                    № {notif?.isk_number},
+                    <span style={{ margin: "0px 10px" }}>{notif?.date}, </span>
+                    {notif?.time}
+                  </p>
+                </div>
+                <div className="notification__every__inner">
+                  <p>{notif?.comment}</p>
+                  {/* <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Veniam laborum impedit minus veritatis necessitatibus,
+                    asperiores quo! Quo eveniet id voluptatibus labore officiis
+                    nulla impedit dolore?
+                  </p> */}
+                </div>
               </div>
             ))}
             <div className="line"></div>
@@ -81,24 +79,22 @@ const NotificationPage = () => {
         )}
         {sortNotif(listNotifs)?.lookList?.map((notif) => (
           <>
-            <div
-              className="notification__every"
-              key={notif?.codeid}
-              // style={
-              //   notif?.comment?.includes("Отклонён")
-              //     ? { color: "red" }
-              //     : { color: "green" }
-              // }
-            >
+            <div className="notification__every" key={notif?.codeid}>
               <div>
                 <p>
-                  <span>Председатель Шамарал Юсупович в </span>({notif?.date},
-                  <span style={{ marginLeft: "10px" }}>{notif?.time}</span>)
+                  № {notif?.isk_number},
+                  <span style={{ margin: "0px 10px" }}>{notif?.date}, </span>
+                  {notif?.time}
                 </p>
               </div>
               <div className="notification__every__inner">
-                <p>№ {notif?.isk_number}</p>
-                <p>{notif?.comment} и еще небольшое описание....</p>
+                <p>{notif?.comment}</p>
+                {/* <p>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Veniam laborum impedit minus veritatis necessitatibus,
+                  asperiores quo! Quo eveniet id voluptatibus labore officiis
+                  nulla impedit dolore?
+                </p> */}
               </div>
             </div>
           </>
@@ -107,7 +103,7 @@ const NotificationPage = () => {
     </div>
   );
 };
-
+///  и еще небольшое описание....
 export default NotificationPage;
 
 // import React from "react";

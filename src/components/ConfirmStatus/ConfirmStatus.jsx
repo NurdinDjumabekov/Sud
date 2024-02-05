@@ -70,19 +70,24 @@ const ConfirmStatus = ({
 
   const fulfilledIsk = (e) => {
     e.preventDefault();
-    if (istype.type === 1) {
-      dispatch(
-        changeStatusOrg({
-          id: istype.id,
-          tokenA,
-          isk_status: istype.type,
-          content: "",
-          type: 0, /// принятие иска (12 у председателя) 0 просто так для условия чтобы не сработало 12
-          navigate,
-        })
-      );
+    if (+istype.type === 1) {
+      if (editorRef.current && editorRef.current.editor) {
+        const content = editorRef.current.editor.getContent();
+        dispatch(
+          changeStatusOrg({
+            id: istype.id,
+            tokenA,
+            isk_status: istype.type,
+            content,
+            type: 12, /// принятие иска как ответственный секретарь
+            navigate,
+          })
+        );
+        dispatch(clearMainBtnList());
+        closeAllModal();
+      }
       closeAllModal();
-    } else if (istype?.type === 3) {
+    } else if (+istype?.type === 3) {
       if (+typeSecretarDela === 0) {
         dispatch(changeActionFullfilled(false));
         dispatch(
@@ -136,6 +141,34 @@ const ConfirmStatus = ({
           openModal={sendStatusIsk}
           setOpenModal={() => setSendStatusIsk()}
         >
+          {istype.type === 1 && (
+            <>
+              <div className="blockModal__inner">
+                <PdfFile editorRef={editorRefReject} />
+                <div className="plaintiFilling__container moreStyle">
+                  <PdfFulfilled istype={istype} editorRef={editorRef} />
+                </div>
+              </div>
+              <div className="modalchangeStatus" style={{ height: "auto" }}>
+                <div className="btnsSendIsks">
+                  <button
+                    onClick={(e) => dispatch(changeActionFullfilled(true))}
+                  >
+                    Принять
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      setIsType({ ...istype, type: 0 });
+                      setSendStatusIsk(false);
+                      dispatch(changeActionReject(false));
+                    }}
+                  >
+                    Отмена
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
           {istype.type === 2 && (
             <>
               <div className="blockModal__inner">
@@ -147,18 +180,19 @@ const ConfirmStatus = ({
               <div className="modalchangeStatus" style={{ height: "auto" }}>
                 <div className="btnsSendIsks">
                   <button
-                    onClick={(e) => {
-                      setIsType({ ...istype, type: 1 });
-                      dispatch(changeActionFullfilled(true));
-                    }}
-                  >
-                    Принять
-                  </button>
-                  <button
                     onClick={(e) => dispatch(changeActionReject(true))}
                     className="rejectBtn"
                   >
                     Отклонить
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      setIsType({ ...istype, type: 0 });
+                      setSendStatusIsk(false);
+                      dispatch(changeActionReject(false));
+                    }}
+                  >
+                    Отмена
                   </button>
                 </div>
               </div>
@@ -188,11 +222,8 @@ const ConfirmStatus = ({
                   >
                     Принять
                   </button>
-                  <button
-                    onClick={(e) => setIsType({ ...istype, type: 4 })}
-                    className="rejectBtn"
-                  >
-                    Отклонить
+                  <button onClick={() => setSendStatusIsk(false)}>
+                    Отмена
                   </button>
                 </div>
               </div>
@@ -209,21 +240,13 @@ const ConfirmStatus = ({
               <div className="modalchangeStatus" style={{ height: "auto" }}>
                 <div className="btnsSendIsks">
                   <button
-                    onClick={(e) => {
-                      setIsType({ ...istype, type: 3 });
-                      // dispatch(changeActionFullfilled(true));
-                    }}
-                  >
-                    Принять
-                  </button>
-                  <button
-                    onClick={() => {
-                      dispatch(changeActionReject(true));
-                      setIsType({ ...istype, type: 4 });
-                    }}
+                    onClick={(e) => dispatch(changeActionReject(true))}
                     className="rejectBtn"
                   >
                     Отклонить
+                  </button>
+                  <button onClick={() => setSendStatusIsk(false)}>
+                    Отмена
                   </button>
                 </div>
               </div>
@@ -249,7 +272,7 @@ const ConfirmStatus = ({
                   onClick={() => {
                     // setIsType({ ...istype, type: 2 });
                     dispatch(changeActionFullfilled(false));
-                    setSendStatusIsk(false);
+                    // setSendStatusIsk(false);
                   }}
                 >
                   Нет
@@ -267,7 +290,7 @@ const ConfirmStatus = ({
                 <button onClick={(e) => fulfilledIsk(e)}>Да</button>
                 <button
                   onClick={() => {
-                    setIsType({ ...istype, type: 3 });
+                    // setIsType({ ...istype, type: 3 });
                     dispatch(changeActionFullfilled(false));
                   }}
                 >

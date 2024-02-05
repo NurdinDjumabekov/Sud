@@ -307,7 +307,7 @@ export const changeStatusOrg = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        if ([2, 3, 4].includes(+info?.isk_status)) {
+        if ([1, 2, 3, 4].includes(+info?.isk_status)) {
           // 12  Определение о принятии иска
           // 13, 14  Определение об отказе иска
           // 15   Исковое заявление
@@ -320,9 +320,9 @@ export const changeStatusOrg = createAsyncThunk(
           );
           setTimeout(() => {
             dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-            if (+info?.type === 13) {
+            if (+info?.isk_status === 1 || +info?.isk_status === 2) {
               info?.navigate("/mainRespSec");
-            } else if (+info?.type === 12 || +info?.type === 14) {
+            } else if (+info?.isk_status === 3 || +info?.isk_status === 4) {
               info?.navigate("/mainRespPred");
             }
           }, 600);

@@ -230,7 +230,7 @@ export const MainPageRS = () => {
                           </div>
                           <button
                             onClick={() => {
-                              dispatch(changeActionFullfilled(true));
+                              // dispatch(changeActionFullfilled(true));
                               lookIsks(row?.codeid, 1);
                             }}
                           >
