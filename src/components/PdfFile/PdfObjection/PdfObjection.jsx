@@ -78,7 +78,7 @@ const PdfObjection = ({ istype, editorRef }) => {
     <>
       <div className="pdfFileReject">
         <Editor
-          apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
+          apiKey="gydld2v6nkt94wd85xei7jj62bgagm191o3utnlxihf8cg0a"
           initialValue={initialContent}
           init={{
             height: "100%",
