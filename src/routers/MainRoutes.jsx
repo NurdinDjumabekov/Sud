@@ -84,8 +84,8 @@ function MainRoutes() {
   } else if (+typeUser === 4) {
     userRoutes = (
       <Route element={<MainLayouts />}>
-        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/mainPlaintiff" element={<MainPage />} />
+        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
         <Route path="/calTodoPlaintiff" element={<CalendarTodoPage />} />
         <Route path="/meetingsPlaintiff" element={<CalendarMeetings />} />

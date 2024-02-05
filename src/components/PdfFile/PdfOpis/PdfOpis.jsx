@@ -63,7 +63,7 @@ const PdfOpis = ({ lookOpis, setLookOpis }) => {
     <Modals openModal={lookOpis} setOpenModal={() => setLookOpis()}>
       <div className="pdfFile newPdf">
         <Editor
-          apiKey="gydld2v6nkt94wd85xei7jj62bgagm191o3utnlxihf8cg0a"
+          apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
           initialValue={initialContent}
           init={{
             height: "100%",

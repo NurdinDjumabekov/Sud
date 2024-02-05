@@ -46,7 +46,7 @@ const authSlice = createSlice({
       state.loadingAuth = false;
       // state.allDataFood = action.payload;
       if (+action.payload?.type_user === 4) {
-        action?.payload?.navigate("/plaintiffCreate");
+        action?.payload?.navigate("/mainPlaintiff");
       } else if (+action.payload?.type_user === 3) {
         action?.payload?.navigate("/mainRespPred");
       } else if (+action.payload?.type_user === 2) {
