@@ -8,6 +8,7 @@ import imgSud from "../../../asstes/images/logo.png";
 const PdfFulfilled = ({ editorRef }) => {
   const dispatch = useDispatch();
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { typeUser } = useSelector((state) => state.saveDataSlice);
   const { selPrimPravo, selLangArbitr, selReglament } = useSelector(
     (state) => state.selectsSlice
   );
@@ -187,7 +188,14 @@ const PdfFulfilled = ({ editorRef }) => {
     <div className="pdfFileReject">
       <Editor
         apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
-        initialValue={initialContent}
+        initialValue={
+          +typeUser === 3
+            ? todosApplications?.contentPred == "" ||
+              !todosApplications?.contentPred
+              ? initialContent
+              : todosApplications?.contentPred
+            : initialContent
+        }
         init={{
           height: "100%",
           width: "100%",

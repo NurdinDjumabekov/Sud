@@ -16,6 +16,7 @@ import {
 ////// imgs
 import fullfiled from "../../../asstes/icons/goodSend.svg";
 import reject from "../../../asstes/icons/krestik.svg";
+import TimerRevers from "../../Timers/TimerRevers/TimerRevers";
 
 export const MainPagePred = () => {
   const dispatch = useDispatch();
@@ -101,6 +102,7 @@ export const MainPagePred = () => {
                 <th className="table_isk_th">Арбитры</th>
                 <th className="table_isk_th">Секретарь</th>
                 <th className="table_isk_th">Статус</th>
+                <th className="table_isk_th">До рассмотрения осталось</th>
                 <th className="table_isk_th">Документы</th>
               </tr>
             </thead>
@@ -265,6 +267,13 @@ export const MainPagePred = () => {
                           </span>
                         )}
                       </>
+                    )}
+                  </td>
+                  <td className="table_isk_td">
+                    {(+row?.isk_status === 1 ||
+                      +row?.isk_status === 0 ||
+                      +row?.isk_status === 3) && (
+                      <TimerRevers days={row?.isk_date} time={row.isk_time} />
                     )}
                   </td>
                   <td className="table_isk_td">

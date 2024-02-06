@@ -16,6 +16,7 @@ import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 import fullfiled from "../../../asstes/icons/goodSend.svg";
 import reject from "../../../asstes/icons/krestik.svg";
 import TimerRevers from "../../Timers/TimerRevers/TimerRevers";
+import Timer from "../../Timers/Timer/Timer";
 
 export const MainPageRS = () => {
   const dispatch = useDispatch();
@@ -74,7 +75,25 @@ export const MainPageRS = () => {
   };
 
   console.log(listTodos, "listTodos");
+  // const users = [
+  //   { name: "Анна", online: true },
+  //   { name: "Михаил", online: false },
+  //   { name: "Саша", online: true },
+  // ];
+  // const isAllUsersOnline = users.every((user) => {
+  //   return user.online;
+  // });
+  // console.log(isAllUsersOnline);
 
+  // const everyTimesRejectSecr = () => {
+  //   const resultLookTimes = listTodos.every((i) => {
+  //     console.log(i, "4456456456");
+  //     return i.isk_status === 2 ? true : false;
+  //   });
+  //   return resultLookTimes;
+  // };
+
+  // const rejectSecr = everyTimesRejectSecr();
   return (
     <>
       <div className="mainTables">
@@ -270,12 +289,13 @@ export const MainPageRS = () => {
                       </>
                     )}
                   </td>
+                  {/* {console.log(row?.isk_status, "row?.isk_status")} */}
                   <td className="table_isk_td">
-                    {/* {(+row?.status === 1 ||
-                      +row?.status === 3 ||
-                      +row?.status === 5) && (
-                        )} */}
-                    <TimerRevers days={row?.isk_date} time={row.isk_time} />
+                    {(+row?.isk_status === 1 ||
+                      +row?.isk_status === 0 ||
+                      +row?.isk_status === 3) && (
+                      <TimerRevers days={row?.isk_date} time={row.isk_time} />
+                    )}
                   </td>
                   <td className="table_isk_td">
                     <span className="documentBlock">

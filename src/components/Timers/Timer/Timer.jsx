@@ -14,13 +14,21 @@ const Timer = ({ days, time }) => {
     );
     const minutesDiff = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
     const secondsDiff = Math.floor((timeDiff % (1000 * 60)) / 1000);
+    // console.log(minutesDiff, "minutesDiff");
 
     return (
       <div className="everyTime">
         <span>
-          {`${+daysDiff === 0 ? "" : `${daysDiff} д. `}${
-            +hoursDiff === 0 ? "" : `${hoursDiff} ч. `
-          }${+minutesDiff === 0 ? "" : `${minutesDiff} мин. `}`}
+          {+minutesDiff > 0 ? (
+            <>
+              {`${+daysDiff === 0 ? "" : `${daysDiff} д. `}${
+                +hoursDiff === 0 ? "" : `${hoursDiff} ч. `
+              }${+minutesDiff === 0 ? "" : `${minutesDiff} мин. `} `}
+            </>
+          ) : (
+            ` ${secondsDiff} сек.`
+          )}
+
           {/* /// ${secondsDiff} сек. */}
         </span>
       </div>
