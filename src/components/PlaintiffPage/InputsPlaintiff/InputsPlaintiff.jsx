@@ -64,6 +64,7 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
 
   const decodedToken = jwtDecode(tokenA);
 
+
   return (
     <>
       <div className="plaintiffData">

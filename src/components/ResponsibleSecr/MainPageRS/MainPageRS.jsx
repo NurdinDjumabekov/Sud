@@ -15,6 +15,7 @@ import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 ////// imgs
 import fullfiled from "../../../asstes/icons/goodSend.svg";
 import reject from "../../../asstes/icons/krestik.svg";
+import TimerRevers from "../../Timers/TimerRevers/TimerRevers";
 
 export const MainPageRS = () => {
   const dispatch = useDispatch();
@@ -43,11 +44,6 @@ export const MainPageRS = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  // console.log(mainBtnList, "mainBtnList");
-  // console.log(todosApplications, "todosApplications");
-  // console.log(applicationList, "applicationList");
-  console.log(istype, "istype");
-
   const editIsksFn = (id) => {
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
   };
@@ -74,8 +70,10 @@ export const MainPageRS = () => {
     2: "Отклонён ответственным секретарём",
     3: "Принят председателем",
     4: "Отклонён председателем",
-    5: "Ответчик уведомлён",
+    5: "Принят председателем",
   };
+
+  console.log(listTodos, "listTodos");
 
   return (
     <>
@@ -106,6 +104,7 @@ export const MainPageRS = () => {
                 <th className="table_isk_th">Арбитры</th>
                 <th className="table_isk_th">Секретарь</th>
                 <th className="table_isk_th">Статус</th>
+                <th className="table_isk_th">До рассмотрения осталось</th>
                 <th className="table_isk_th">Документы</th>
               </tr>
             </thead>
@@ -270,6 +269,13 @@ export const MainPageRS = () => {
                         )}
                       </>
                     )}
+                  </td>
+                  <td className="table_isk_td">
+                    {/* {(+row?.status === 1 ||
+                      +row?.status === 3 ||
+                      +row?.status === 5) && (
+                        )} */}
+                    <TimerRevers days={row?.isk_date} time={row.isk_time} />
                   </td>
                   <td className="table_isk_td">
                     <span className="documentBlock">

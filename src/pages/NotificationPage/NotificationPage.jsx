@@ -53,7 +53,7 @@ const NotificationPage = () => {
                   background: "rgba(159, 217, 151, 0.24)",
                   border: "none",
                   borderRadius: "5px",
-                  padding: "12px",
+                  padding: "3px 12px",
                 }}
               >
                 <div>
@@ -64,7 +64,11 @@ const NotificationPage = () => {
                   </p>
                 </div>
                 <div className="notification__every__inner">
-                  <p>{notif?.comment}</p>
+                  <p style={{ color: "green" }}>
+                    {notif?.fio
+                      ? `${notif?.fio} : ${notif?.comment?.toLocaleLowerCase()}`
+                      : `${notif?.comment}`}
+                  </p>
                   {/* <p>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Veniam laborum impedit minus veritatis necessitatibus,
@@ -88,7 +92,11 @@ const NotificationPage = () => {
                 </p>
               </div>
               <div className="notification__every__inner">
-                <p>{notif?.comment}</p>
+                <p>
+                  {notif?.fio
+                    ? `${notif?.fio} : ${notif?.comment?.toLocaleLowerCase()}`
+                    : `${notif?.comment}`}
+                </p>
                 {/* <p>
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Veniam laborum impedit minus veritatis necessitatibus,

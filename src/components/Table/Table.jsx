@@ -10,6 +10,7 @@ import {
   changeMainBtnList,
 } from "../../store/reducers/stateSlice";
 import { searchNameSelect } from "../../helpers/searchNameSelect";
+import Timer from "../Timers/Timer/Timer";
 
 import editImg from "../../asstes/icons/editBtn.svg";
 import deleteImg from "../../asstes/icons/deleteBtn.svg";
@@ -58,13 +59,12 @@ export const Table = () => {
 
   const statusMessages = {
     1: "Иск подан",
-    2: "Иск отклонён ответственным секретарём",
-    3: "Иск принят председателем",
-    4: "Иск отклонён председателем",
-    5: "Иск принят председателем",
+    2: "Отклонён ответственным секретарём",
+    3: "Принят председателем",
+    4: "Отклонён председателем",
+    5: "Принят председателем",
   };
 
-  console.log(mainBtnList, "mainBtnList");
   return (
     <>
       <div className="mainTables">
@@ -95,6 +95,7 @@ export const Table = () => {
                 <th className="table_isk_th">Секретарь</th>
                 <th className="table_isk_th">Статус</th>
                 <th className="table_isk_th">Действие</th>
+                <th className="table_isk_th">На рассмотрении</th>
                 <th className="table_isk_th">Документы</th>
               </tr>
             </thead>
@@ -235,6 +236,13 @@ export const Table = () => {
                           </span>
                         )}
                       </>
+                    )}
+                  </td>
+                  <td className="table_isk_td">
+                    {(+row?.status === 1 ||
+                      +row?.status === 3 ||
+                      +row?.status === 5) && (
+                      <Timer days={row?.isk_date} time={row.isk_time} />
                     )}
                   </td>
                   <td className="table_isk_td">

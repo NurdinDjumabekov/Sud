@@ -9,10 +9,12 @@ import { addFilesList } from "../../helpers/addFilesList";
 
 const PdfFile = ({ editorRef }) => {
   const dispatch = useDispatch();
+  const { typeUser } = useSelector((state) => state.saveDataSlice);
   const { selCurrency, selCountries, selRegions, selDistrict } = useSelector(
     (state) => state.selectsSlice
   );
   const [date, setDate] = useState("");
+  const [data, setData] = useState("");
 
   const handleEditorChange = (content, editor) => {
     // console.log("Content was updated:", content);
@@ -81,7 +83,7 @@ const PdfFile = ({ editorRef }) => {
   }, []);
 
   // console.log(applicationList,"applicationList");
-  ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 64 - 108 строки
+  ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 87 - 131 строки
   const initialContent = `
     <div>
       <div>
@@ -134,11 +136,11 @@ const PdfFile = ({ editorRef }) => {
               width: 280px;
               padding: 0px 10px 0px 0px;
               line-height: 25px;
-              font-weight: 600;
-              font-family: 'Times New Roman', sans-serif;
               position: absolute;
               top: 62px;
               right: 10px;
+              font-weight: 600;
+              font-family: 'Times New Roman', sans-serif;
               ">
             <p style="margin: 0px; font-size: 16px;">Международный Третейский суд</p>
             <p style="margin: 0px; font-size: 16px;">при Торгово-Промышленной палате</p>
@@ -205,13 +207,34 @@ const PdfFile = ({ editorRef }) => {
         ${signaturePlaintiff(todosApplications?.plaintiff)}
     </div>
   `;
-  // console.log(todosApplications,"todosApplications");
+  // console.log(todosApplications.content, "todosApplications");
+
+  React.useEffect(() => {
+    if (todosApplications.content === "") {
+      setData(initialContent);
+    } else {
+      setData(todosApplications?.content);
+    }
+  }, [initialContent]);
+
+  React.useEffect(() => {
+    setData(initialContent);
+  }, [todosApplications]);
+
+  React.useEffect(() => {
+    setData(initialContent);
+  }, [applicationList]);
+
+  // console.log(todosApplications?.content);
+  // console.log(htmlContentReq, "htmlContentReq");
+  // console.log(htmlContentInitial, "htmlContentInitial");
+  // console.log(data, "data");
 
   return (
     <div className="pdfFile">
       <Editor
         apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
-        initialValue={initialContent}
+        initialValue={+typeUser === 4 ? data : todosApplications.content}
         init={{
           height: "100%",
           width: "100%",

@@ -37,6 +37,7 @@ const initialState = {
     arbitr_lang: 1, /// select
     is_arbitr_po_dogovor: 0, //  1 - true и 0 - false
     status: 1, /// why?
+    content: "", /// для html разметки(доков)
     //////////////////
   },
   //// массив дел

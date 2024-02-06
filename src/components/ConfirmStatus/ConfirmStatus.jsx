@@ -88,35 +88,39 @@ const ConfirmStatus = ({
       }
       closeAllModal();
     } else if (+istype?.type === 3) {
-      if (+typeSecretarDela === 0) {
-        dispatch(changeActionFullfilled(false));
+      if (editorRef.current && editorRef.current.editor) {
+        const content = editorRef.current.editor.getContent();
         dispatch(
-          changeAlertText({
-            text: "Выберите секретаря!",
-            backColor: "#f9fafd",
-            state: true,
+          changeStatusOrg({
+            id: istype.id,
+            tokenA,
+            isk_status: istype.type,
+            content,
+            type: 12, /// принятие иска как ответственный секретарь
+            navigate,
+            idSecr: typeSecretarDela,
           })
         );
-      } else {
-        if (editorRef.current && editorRef.current.editor) {
-          const content = editorRef.current.editor.getContent();
-          dispatch(
-            changeStatusOrg({
-              id: istype.id,
-              tokenA,
-              isk_status: istype.type,
-              content,
-              type: 12, /// принятие иска как ответственный секретарь
-              navigate,
-              idSecr: typeSecretarDela,
-            })
-          );
-          dispatch(clearMainBtnList());
-          closeAllModal();
-        }
+        dispatch(clearMainBtnList());
+        closeAllModal();
       }
     }
     dispatch(changeTypeSecretarDela(0)); /// обнуляю секретаря дела
+  };
+
+  const goodIsks = () => {
+    if (+typeSecretarDela === 0) {
+      dispatch(changeActionFullfilled(false));
+      dispatch(
+        changeAlertText({
+          text: "Выберите секретаря!",
+          backColor: "#f9fafd",
+          state: true,
+        })
+      );
+    } else {
+      dispatch(changeActionFullfilled(true));
+    }
   };
 
   React.useEffect(() => {
@@ -217,11 +221,7 @@ const ConfirmStatus = ({
               </div>
               <div className="modalchangeStatus" style={{ height: "auto" }}>
                 <div className="btnsSendIsks">
-                  <button
-                    onClick={() => dispatch(changeActionFullfilled(true))}
-                  >
-                    Принять
-                  </button>
+                  <button onClick={() => goodIsks()}>Принять</button>
                   <button onClick={() => setSendStatusIsk(false)}>
                     Отмена
                   </button>
@@ -270,9 +270,7 @@ const ConfirmStatus = ({
                 <button onClick={(e) => fulfilledIsk(e)}>Да</button>
                 <button
                   onClick={() => {
-                    // setIsType({ ...istype, type: 2 });
                     dispatch(changeActionFullfilled(false));
-                    // setSendStatusIsk(false);
                   }}
                 >
                   Нет
@@ -290,7 +288,6 @@ const ConfirmStatus = ({
                 <button onClick={(e) => fulfilledIsk(e)}>Да</button>
                 <button
                   onClick={() => {
-                    // setIsType({ ...istype, type: 3 });
                     dispatch(changeActionFullfilled(false));
                   }}
                 >

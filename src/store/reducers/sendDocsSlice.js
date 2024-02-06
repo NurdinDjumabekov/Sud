@@ -144,7 +144,7 @@ export const sendEveryIsks = createAsyncThunk(
           sendDocsEveryIsks({
             content: info?.content,
             id: info?.todosApplications?.codeid,
-            type: 16, ///(16 - для создания иска)
+            type: 15, ///(15 - для создания иска)
           }) /// для создания документа иска
         );
         setTimeout(() => {

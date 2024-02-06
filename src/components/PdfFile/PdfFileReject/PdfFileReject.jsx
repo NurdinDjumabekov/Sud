@@ -32,7 +32,7 @@ const PdfFileReject = ({ istype, editorRef }) => {
               padding: 10px 0px 0px 0px;
               line-height: 18px;
               font-weight: 500;
-              font-family: 'Times New Roman', sans-serif;
+              font-family: "Times New Roman", sans-serif;
               height: 250px;
               position: relative;
               font-size:16px !important;
@@ -85,7 +85,7 @@ const PdfFileReject = ({ istype, editorRef }) => {
               },
             },
             content_style:
-              "body { font-family: 'Times New Roman', sans-serif; }",
+              'body { font-family: "Times New Roman", sans-serif; }',
             toolbar: false,
           }}
           ref={editorRef}
