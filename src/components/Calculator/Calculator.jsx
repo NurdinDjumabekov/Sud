@@ -194,7 +194,7 @@ const Calculator = () => {
     dispatch(changeCalculatorState(true));
 
     const data = calculateSbor({ isk_sum: sumIsk, isk_type: typePay });
-    console.log(data, "data");
+    // console.log(data, "data");
 
     dispatch(
       changeResult({

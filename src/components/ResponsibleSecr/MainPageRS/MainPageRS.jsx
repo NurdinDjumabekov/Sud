@@ -291,10 +291,17 @@ export const MainPageRS = () => {
                   </td>
                   {/* {console.log(row?.isk_status, "row?.isk_status")} */}
                   <td className="table_isk_td">
-                    {(+row?.isk_status === 1 ||
-                      +row?.isk_status === 0 ||
-                      +row?.isk_status === 3) && (
-                      <TimerRevers days={row?.isk_date} time={row.isk_time} />
+                    {+row?.status === 0 ? (
+                      ""
+                    ) : (
+                      <>
+                        {(+row?.isk_status === 0 || +row?.isk_status === 1) && (
+                          <TimerRevers
+                            days={row?.isk_date}
+                            time={row.isk_time}
+                          />
+                        )}
+                      </>
                     )}
                   </td>
                   <td className="table_isk_td">

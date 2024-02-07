@@ -58,7 +58,7 @@ export const Table = () => {
   };
 
   const statusMessages = {
-    1: "Иск подан",
+    1: "Принят ответственным секретарём",
     2: "Отклонён ответственным секретарём",
     3: "Принят председателем",
     4: "Отклонён председателем",
@@ -219,7 +219,9 @@ export const Table = () => {
                           <span
                             style={{ padding: "0px 0px 0px 10px" }}
                             className={
-                              +row?.isk_status === 3 || +row?.isk_status === 5
+                              +row?.isk_status === 3 ||
+                              +row?.isk_status === 5 ||
+                              +row?.isk_status === 1
                                 ? "colorStatusGreen"
                                 : +row?.isk_status === 2 ||
                                   +row?.isk_status === 4
@@ -239,10 +241,16 @@ export const Table = () => {
                     )}
                   </td>
                   <td className="table_isk_td">
-                    {(+row?.status === 1 ||
-                      +row?.status === 3 ||
-                      +row?.status === 5) && (
-                      <Timer days={row?.isk_date} time={row.isk_time} />
+                    {+row?.status === 0 ? (
+                      ""
+                    ) : (
+                      <>
+                        {(+row?.isk_status === 0 ||
+                          +row?.isk_status === 1 ||
+                          +row?.isk_status === 5) && (
+                          <Timer days={row?.isk_date} time={row.isk_time} />
+                        )}
+                      </>
                     )}
                   </td>
                   <td className="table_isk_td">

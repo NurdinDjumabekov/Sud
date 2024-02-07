@@ -7,7 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { checkDataIsks } from "../../../helpers/checkDataIsks";
 import { sendEveryIsks } from "../../../store/reducers/sendDocsSlice";
 import { clearTodosApplications } from "../../../store/reducers/applicationsSlice";
-import { clearMainBtnList } from "../../../store/reducers/stateSlice";
+import {
+  changeCalculatorState,
+  changeCalculatorType,
+  changeResult,
+  changeSumIsk,
+  clearMainBtnList,
+} from "../../../store/reducers/stateSlice";
 import { changeAlertText } from "../../../store/reducers/typesSlice";
 import { jwtDecode } from "jwt-decode";
 import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
@@ -48,6 +54,7 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
             );
             dispatch(clearTodosApplications());
             dispatch(clearMainBtnList()); /// очистка состояние типа исков
+            clearDataCalculator();
           }
         }
       }
@@ -62,8 +69,22 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
     }
   };
 
-  const decodedToken = jwtDecode(tokenA);
+  const clearDataCalculator = () => {
+    dispatch(changeCalculatorType(false)); /// строс отображение калькулятора
+    dispatch(changeSumIsk("")); /// строс суммы калькулятора
+    dispatch(changeCalculatorState(false)); // отображение таблицы
+    dispatch(
+      /// строс подсчёт калькулятора
+      changeResult({
+        num1: 0,
+        num2: 0,
+        num3: 0,
+        num4: 0,
+      })
+    );
+  };
 
+  const decodedToken = jwtDecode(tokenA);
 
   return (
     <>
