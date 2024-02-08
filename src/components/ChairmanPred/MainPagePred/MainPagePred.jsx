@@ -11,6 +11,7 @@ import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
 import {
   changeActionFullfilled,
   changeActionReject,
+  changeLookDocs,
   changeMainBtnList,
 } from "../../../store/reducers/stateSlice";
 ////// imgs
@@ -59,6 +60,7 @@ export const MainPagePred = () => {
         applicationList,
       })
     );
+    dispatch(changeLookDocs(false)); /// для сброса cостояния просмтотра доков только у председателя
   };
 
   const changeStatusIsks = (id, status) => {

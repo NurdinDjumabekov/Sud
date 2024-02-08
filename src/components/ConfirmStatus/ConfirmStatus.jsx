@@ -11,6 +11,7 @@ import PdfFile from "../PdfFile/PdfFile";
 import {
   changeActionFullfilled,
   changeActionReject,
+  changeLookDocs,
   clearMainBtnList,
 } from "../../store/reducers/stateSlice";
 import Selects from "../Selects/Selects";
@@ -20,6 +21,7 @@ import {
   toTakeSecretarList,
 } from "../../store/reducers/selectsSlice";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
+import ApplicationFiles from "../PlaintiffPage/ApplicationFiles/ApplicationFiles";
 
 const ConfirmStatus = ({
   setSendStatusIsk,
@@ -31,10 +33,10 @@ const ConfirmStatus = ({
   const editorRef = useRef(null);
   const editorRefReject = useRef(null);
   const navigate = useNavigate();
+  // const [lookDocs, setLookDocs] = useState(false);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { confirmActionFullfilled, confirmActionReject } = useSelector(
-    (state) => state.stateSlice
-  );
+  const { confirmActionFullfilled, confirmActionReject, lookDocs } =
+    useSelector((state) => state.stateSlice);
   const { typeSecretarDela, selSecretarDela } = useSelector(
     (state) => state.selectsSlice
   );
@@ -137,7 +139,6 @@ const ConfirmStatus = ({
   }, [sendStatusIsk]);
 
   //// 1 - принять ответ. секр, 2 - отказ отв. секр, 3 - принят председ. 4 - отказ. председ. 5 - возражение
-
   return (
     <>
       <div className="blockModal moreStylePdf">
@@ -212,9 +213,24 @@ const ConfirmStatus = ({
                   type="secr"
                   urgently={false}
                 />
+                {lookDocs ? (
+                  <button onClick={() => dispatch(changeLookDocs(false))}>
+                    Исковое заявление
+                  </button>
+                ) : (
+                  <button onClick={() => dispatch(changeLookDocs(true))}>
+                    Документы
+                  </button>
+                )}
               </div>
               <div className="blockModal__inner">
-                <PdfFile editorRef={editorRefReject} />
+                {lookDocs ? (
+                  <div className="lookDocsIsksPred">
+                    <ApplicationFiles />
+                  </div>
+                ) : (
+                  <PdfFile editorRef={editorRefReject} />
+                )}
                 <div className="plaintiFilling__container moreStyle">
                   <PdfFulfilled istype={istype} editorRef={editorRef} />
                 </div>

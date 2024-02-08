@@ -221,7 +221,7 @@ const UrFace = ({ typerole }) => {
             </p>
             <input
               required
-              type="text"
+              type="email"
               placeholder="Электронная почта"
               name="email"
               onChange={changeInput}
@@ -231,7 +231,7 @@ const UrFace = ({ typerole }) => {
           <div style={{ width: "300px" }}>
             <p>Второй адрес электронной почты</p>
             <input
-              type="text"
+              type="email"
               placeholder="Второй адрес электронной почты"
               name="email2"
               onChange={changeInput}

@@ -111,7 +111,7 @@ export const Table = () => {
                 >
                   <td className="table_isk_td">
                     <div>
-                      <span className="span_teble">
+                      <span>
                         {row?.isk_number ? `№ ${row?.isk_number}` : ""}
                       </span>
                       {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}

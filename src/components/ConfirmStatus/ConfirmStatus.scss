@@ -28,11 +28,25 @@
   //   }
   // }
   .choiceSecretard {
-    height: 20px;
-    width: 200px;
-    margin: -28px 0 24px 0;
+    height: 40px;
+    width: 95%;
+    margin: -20px 0 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
     h5 {
        display: none;
+    }
+    button {
+      padding: 8px 12px;
+      border-radius: 5px;
+      min-width: 150px;
+      background: #fff;
+      box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+      color: #4d5969;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: "Montserrat", sans-serif;
     }
   }
 }
@@ -50,5 +64,22 @@
 .noneKrestic {
   .krest {
     display: none !important;
+  }
+}
+.lookDocsIsksPred {
+  width: 90%;
+  h5 {
+    text-align: left !important;
+  }
+  .clickInputFile {
+    > input, > button, b {
+      display: none !important;
+    }
+  }
+  .modal__shadow  {
+    position: fixed !important;
+  }
+  .modal__inner {
+    top: 45%;
   }
 }

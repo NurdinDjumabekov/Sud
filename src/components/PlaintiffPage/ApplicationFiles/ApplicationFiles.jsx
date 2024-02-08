@@ -97,8 +97,7 @@ const ApplicationFiles = () => {
                   <div key={+file?.codeid_file} className="file-item">
                     {/* <span >{file.name}</span> */}
                     <LookDocs file={file} key={file?.codeid_file} />
-                    {
-                      +decodedToken?.type_user === 4 &&
+                    {+decodedToken?.type_user === 4 && (
                       <button
                         onClick={() => {
                           dispatch(
@@ -112,7 +111,7 @@ const ApplicationFiles = () => {
                       >
                         <img src={krestik} alt="x" />
                       </button>
-                    }
+                    )}
                   </div>
                 ))}
               </div>
