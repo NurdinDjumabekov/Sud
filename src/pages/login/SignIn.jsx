@@ -25,6 +25,9 @@ export default function SignIn() {
 
   const changeInput = (e) => {
     e.preventDefault();
+    if (e.target.value.includes("'") || e.target.value.includes("`")) {
+      return;
+    }
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
 

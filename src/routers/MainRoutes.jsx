@@ -35,6 +35,7 @@ import {
 } from "../store/reducers/selectsSlice";
 import LayoutsSS from "../layouts/LayoutsSS/LayoutsSS";
 import { MainPageSS } from "../components/SimpleSecr/MainPageSS/MainPageSS";
+import NotFoundPage from "../pages/NotFound/NotFoundPage";
 
 function MainRoutes() {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ function MainRoutes() {
   const { loadingAuth } = useSelector((state) => state.authSlice);
   const { typeUser } = useSelector((state) => state.saveDataSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+
+  console.log(todosApplications, "todosApplications");
 
   // 1  Секретарь
   // 2  Ответственный секретарь
@@ -98,7 +102,6 @@ function MainRoutes() {
     if (tokenA === "" || !tokenA) {
       navigate("/");
     }
-
     /// селекты
     dispatch(toTakeCountries({ tokenA }));
     dispatch(toTakeRegions({ tokenA, id: 36 }));
@@ -120,6 +123,7 @@ function MainRoutes() {
       <Routes>
         <Route path="/" element={<SignIn />} />
         {userRoutes}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <MoreInfo />
       {preloader && <Preloader />}

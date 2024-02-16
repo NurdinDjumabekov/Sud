@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import "./PdfFile.scss";
-import pdf from "../../asstes/pdf/sud_pdf.pdf";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchIdCurrency } from "../../helpers/searchIdCurrency";
@@ -82,7 +81,6 @@ const PdfFile = ({ editorRef }) => {
     setDate(formattedDate);
   }, []);
 
-  // console.log(applicationList,"applicationList");
   ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 87 - 131 строки
   const initialContent = `
     <div>
@@ -115,21 +113,21 @@ const PdfFile = ({ editorRef }) => {
           4
         )}
         </div>
-         <p style="color: transparent;  font-size: 16px;">${
-           todosApplications?.summ === "0" ||
-           todosApplications?.summ === "" ||
-           todosApplications?.summ === 0
-             ? ""
-             : `Цена иска: ${
-                 searchIdCurrency(selCurrency, +todosApplications?.summ_curr)
-                   ? searchIdCurrency(
-                       selCurrency,
-                       +todosApplications?.summ_curr
-                     )
-                   : ""
-               }`
-         }
-              </p>
+        <p style="color: transparent; margin: 0px"> font-size: 16px;">${
+          todosApplications?.summ === "0" ||
+          todosApplications?.summ === "" ||
+          todosApplications?.summ === 0
+            ? ""
+            : `Цена иска: ${
+                searchIdCurrency(selCurrency, +todosApplications?.summ_curr)
+                  ? `<span>${todosApplications?.summ}  ${searchIdCurrency(
+                      selCurrency,
+                      +todosApplications?.summ_curr
+                    )}</span>`
+                  : ""
+              }`
+        }
+             </p>
             </div>
         </div>
           <div style="
@@ -162,7 +160,21 @@ const PdfFile = ({ editorRef }) => {
               4
             )}
             </div>
-            
+            <p font-size: 16px;">${
+              todosApplications?.summ === "0" ||
+              todosApplications?.summ === "" ||
+              todosApplications?.summ === 0
+                ? ""
+                : `Цена иска: ${
+                    searchIdCurrency(selCurrency, +todosApplications?.summ_curr)
+                      ? `<span>${todosApplications?.summ}  ${searchIdCurrency(
+                          selCurrency,
+                          +todosApplications?.summ_curr
+                        )}</span>`
+                      : ""
+                  }`
+            }
+                 </p>
             </div>
         </div>
         ${
@@ -172,6 +184,63 @@ const PdfFile = ({ editorRef }) => {
               ${todosApplications?.name}
             </h4>`
         }
+        <div style="margin: 0px; position: relative; width:100%; height: 60px; padding:20px 0px "> 
+            <p style="
+            color: transparent";
+            line-height: 25px;
+            font-family: 'Times New Roman', sans-serif;
+            >${
+              todosApplications?.isk_summ === "0" ||
+              todosApplications?.isk_summ === "" ||
+              todosApplications?.isk_summ === 0
+                ? ""
+                : `Денежные требования: ${
+                    searchIdCurrency(
+                      selCurrency,
+                      +todosApplications?.isk_summ_curr
+                    )
+                      ? `<span>${
+                          todosApplications?.isk_summ
+                        }  ${searchIdCurrency(
+                          selCurrency,
+                          +todosApplications?.isk_summ_curr
+                        )}</span>`
+                      : ""
+                  }`
+            }
+            </p>
+            <p style="
+              font-size: 16px;
+              position: absolute;
+              width: 270px;
+              padding: 0px 10px 0px 0px;
+              line-height: 25px;
+              top: 15px;
+              right: 0px;
+              color:#000;
+              font-weight: 600;
+              font-family: 'Times New Roman', sans-serif;
+              ">${
+                todosApplications?.isk_summ === "0" ||
+                todosApplications?.isk_summ === "" ||
+                todosApplications?.isk_summ === 0
+                  ? ""
+                  : `Денежные требования: ${
+                      searchIdCurrency(
+                        selCurrency,
+                        +todosApplications?.isk_summ_curr
+                      )
+                        ? `<span>${
+                            todosApplications?.isk_summ
+                          }  ${searchIdCurrency(
+                            selCurrency,
+                            +todosApplications?.isk_summ_curr
+                          )}</span>`
+                        : ""
+                    }`
+              }
+            </p>
+          </div>
         ${
           todosApplications?.description === ""
             ? ""
@@ -207,7 +276,6 @@ const PdfFile = ({ editorRef }) => {
         ${signaturePlaintiff(todosApplications?.plaintiff)}
     </div>
   `;
-  // console.log(todosApplications.content, "todosApplications");
 
   React.useEffect(() => {
     if (todosApplications.content === "") {
@@ -224,11 +292,6 @@ const PdfFile = ({ editorRef }) => {
   React.useEffect(() => {
     setData(initialContent);
   }, [applicationList]);
-
-  // console.log(todosApplications?.content);
-  // console.log(htmlContentReq, "htmlContentReq");
-  // console.log(htmlContentInitial, "htmlContentInitial");
-  // console.log(data, "data");
 
   return (
     <div className="pdfFile">

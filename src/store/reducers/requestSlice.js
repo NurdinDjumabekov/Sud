@@ -1,26 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-// export const dataDetailedPage = createAsyncThunk(
-//   'dataDetailedPage',
-//   async (info, { dispatch }) => {
-//     dispatch(changePreloader(true));
-//     try {
-//       const { data } = await standartAxios(info?.url, info.lang);
-//       dispatch(changeEveryLang(data));
-//       dispatch(changePreloader(false));
-//     } catch (err) {
-//       console.log(err);
-//       dispatch(changePreloader(false));
-//     }
-//   }
-// );
-//// delete
 const initialState = {
   preloader: false,
 };
 
 const requestSlice = createSlice({
-  name: 'requestSlice',
+  name: "requestSlice",
   initialState,
   reducers: {
     changePreloader: (state, action) => {

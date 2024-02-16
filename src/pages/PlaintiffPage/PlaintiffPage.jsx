@@ -22,6 +22,7 @@ import {
 } from "../../store/reducers/applicationsSlice";
 import { createIdIsk } from "../../store/reducers/sendDocsSlice";
 import kerstImg from "../../asstes/icons/krestik.svg";
+import { clearADFF, clearADUF } from "../../store/reducers/inputSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -118,6 +119,10 @@ const PlaintiffPage = () => {
     } else {
       setLookInnerType(false);
     }
+
+    /// очищаю fiz and ur face при переходе критерий заполнения
+    dispatch(clearADFF());
+    dispatch(clearADUF());
   };
 
   React.useEffect(() => {

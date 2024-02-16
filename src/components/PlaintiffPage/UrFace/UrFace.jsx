@@ -123,6 +123,10 @@ const UrFace = ({ typerole }) => {
   const changeInput = (e) => {
     e.preventDefault();
 
+    if (e.target.value.includes("'") || e.target.value.includes("`")) {
+      return;
+    }
+
     const { name, value } = e.target;
 
     if (name === "name") {

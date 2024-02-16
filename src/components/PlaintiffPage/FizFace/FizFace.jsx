@@ -101,6 +101,11 @@ const FizFace = ({ typerole }) => {
 
     const { name, value } = e.target;
 
+    // Проверка на наличие одинарных или обратных кавычек
+    if (value.includes("'") || value.includes("`")) {
+      return;
+    }
+
     if (name === "name") {
       const regName = /^[A-Za-zА-Яа-я- ]{0,70}$/;
       if (regName.test(value)) {

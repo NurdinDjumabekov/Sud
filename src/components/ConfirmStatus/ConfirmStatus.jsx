@@ -125,6 +125,12 @@ const ConfirmStatus = ({
     }
   };
 
+  const closeRSPdf = () => {
+    setIsType({ ...istype, type: 0 });
+    setSendStatusIsk(false);
+    dispatch(changeActionReject(false));
+  };
+
   React.useEffect(() => {
     dispatch(toTakeSecretarList(tokenA));
     return () => {
@@ -148,8 +154,25 @@ const ConfirmStatus = ({
         >
           {istype.type === 1 && (
             <>
+              <div className="choiceSecretard">
+                {lookDocs ? (
+                  <button onClick={() => dispatch(changeLookDocs(false))}>
+                    Исковое заявление
+                  </button>
+                ) : (
+                  <button onClick={() => dispatch(changeLookDocs(true))}>
+                    Документы
+                  </button>
+                )}
+              </div>
               <div className="blockModal__inner">
-                <PdfFile editorRef={editorRefReject} />
+                {lookDocs ? (
+                  <div className="lookDocsIsksPred">
+                    <ApplicationFiles />
+                  </div>
+                ) : (
+                  <PdfFile editorRef={editorRefReject} />
+                )}
                 <div className="plaintiFilling__container moreStyle">
                   <PdfFulfilled istype={istype} editorRef={editorRef} />
                 </div>
@@ -161,15 +184,7 @@ const ConfirmStatus = ({
                   >
                     Принять
                   </button>
-                  <button
-                    onClick={(e) => {
-                      setIsType({ ...istype, type: 0 });
-                      setSendStatusIsk(false);
-                      dispatch(changeActionReject(false));
-                    }}
-                  >
-                    Отмена
-                  </button>
+                  <button onClick={closeRSPdf}>Отмена</button>
                 </div>
               </div>
             </>

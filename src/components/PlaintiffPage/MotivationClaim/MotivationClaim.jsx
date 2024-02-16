@@ -9,6 +9,9 @@ const MotivationClaim = () => {
 
   const changeInput = (e) => {
     e.preventDefault();
+    if (e.target.value.includes("'") || e.target.value.includes("`")) {
+      return;
+    }
     dispatch(
       changeTodosApplications({
         ...todosApplications,

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./MainPagePred.scss";
-import imgPdf from "../../../asstes/icons/pdf.svg";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 import { searchNameSelect } from "../../../helpers/searchNameSelect";

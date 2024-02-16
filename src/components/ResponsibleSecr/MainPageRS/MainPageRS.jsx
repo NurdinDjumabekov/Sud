@@ -74,26 +74,8 @@ export const MainPageRS = () => {
     5: "Принят председателем",
   };
 
-  console.log(listTodos, "listTodos");
-  // const users = [
-  //   { name: "Анна", online: true },
-  //   { name: "Михаил", online: false },
-  //   { name: "Саша", online: true },
-  // ];
-  // const isAllUsersOnline = users.every((user) => {
-  //   return user.online;
-  // });
-  // console.log(isAllUsersOnline);
+  // console.log(listTodos, "listTodos");
 
-  // const everyTimesRejectSecr = () => {
-  //   const resultLookTimes = listTodos.every((i) => {
-  //     console.log(i, "4456456456");
-  //     return i.isk_status === 2 ? true : false;
-  //   });
-  //   return resultLookTimes;
-  // };
-
-  // const rejectSecr = everyTimesRejectSecr();
   return (
     <>
       <div className="mainTables">
@@ -289,7 +271,6 @@ export const MainPageRS = () => {
                       </>
                     )}
                   </td>
-                  {/* {console.log(row?.isk_status, "row?.isk_status")} */}
                   <td className="table_isk_td">
                     {+row?.status === 0 ? (
                       ""

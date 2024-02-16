@@ -85,9 +85,6 @@ const inputSlice = createSlice({
   name: "inputSlice",
   initialState,
   reducers: {
-    changeInput: (state, action) => {
-      state.input = action.payload;
-    },
     //// addPlaintiffFizFace
     changeADFF: (state, action) => {
       state.adff = action.payload;
@@ -178,7 +175,6 @@ const inputSlice = createSlice({
 });
 
 export const {
-  changeInput,
   changeADFF,
   clearADFF,
   changeADUF,

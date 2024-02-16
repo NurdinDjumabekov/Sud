@@ -14,6 +14,11 @@ const initialState = {
 
     name: "",
     description: "",
+    ///////////////////////////////
+    isk_summ: "",
+    isk_summ_curr: 0, /// select (default-сом)
+    code_arbitr: 0, /// select (default-не выбран)
+    ///////////////////////////////
     motivation: "",
     obosnovanie: "",
     finance_raschet: "",

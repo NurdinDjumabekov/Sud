@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import "./PdfOpis.scss";
-import pdf from "../../../asstes/pdf/sud_pdf.pdf";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../../Modals/Modals";

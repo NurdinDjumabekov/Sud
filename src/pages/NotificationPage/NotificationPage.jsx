@@ -25,7 +25,7 @@ const NotificationPage = () => {
   const sortNotif = (arr) => {
     const lookList = arr?.filter((i) => (+i?.is_read === 1 ? i : ""));
     const lookNoList = arr?.filter((i) => (+i?.is_read === 0 ? i : ""));
-    console.log(lookList, lookNoList);
+    // console.log(lookList, lookNoList);
     return {
       lookList,
       lookNoList,

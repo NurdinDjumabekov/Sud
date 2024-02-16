@@ -17,6 +17,9 @@ const TargetPlaintiff = () => {
   const changeInput = (e) => {
     e.preventDefault();
     const value = e.target.value;
+    if (value.includes("'") || value.includes("`")) {
+      return;
+    }
     const filteredValue = value.replace(/[^0-9]/g, "");
     dispatch(
       changeTodosApplications({
@@ -32,10 +35,10 @@ const TargetPlaintiff = () => {
         <form className="targetPlaintiff">
           <div className="twoInputs">
             <div>
-              <p>Сумма иска</p>
+              <p>Цена иска</p>
               <input
                 type="text"
-                placeholder="Cумма иска"
+                placeholder="Цена иска"
                 name="summ"
                 onChange={changeInput}
                 value={todosApplications.summ}
