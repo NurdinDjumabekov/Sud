@@ -74,3 +74,10 @@ export const typeSecretar = [
   { codeid: 1, name: "Джумабеков Нурдин" },
   { codeid: 2, name: "Садирдинов Руслан" },
 ];
+
+export const typeArbitrs = [
+  { codeid: 0, name: "арбитр дела выбран" },
+  { codeid: 1, name: "Джумабеков Нурдин" },
+  { codeid: 2, name: "Садирдинов Руслан" },
+  { codeid: 3, name: "Алиев Баатыр" },
+];

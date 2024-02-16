@@ -38,7 +38,7 @@
     .sumIsk {
       display: flex;
       align-items: flex-end;
-      gap: 20px;
+      gap: 30px;
       margin: 20px 0 0 0;
       > div {
         > p {
@@ -60,7 +60,21 @@
         color: #344050;
         min-width: 300px;
       }
+     .blockChoice {
+      width: 240px;
      
+      label {
+        font-weight: 600;
+        font-family: "Montserrat", sans-serif;
+        color: #5e6e82;
+        font-size: 18px;
+        padding: 0;
+        width: 240px;
+      }
+      .choiceNoneData__inner {
+        width: 185px;
+      }
+     }
     }
   }
 }

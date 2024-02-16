@@ -22,6 +22,7 @@ import {
 } from "../../store/reducers/selectsSlice";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import ApplicationFiles from "../PlaintiffPage/ApplicationFiles/ApplicationFiles";
+import ChoiceArbitrsPred from "../ChoiceArbitrsPred/ChoiceArbitrsPred";
 
 const ConfirmStatus = ({
   setSendStatusIsk,
@@ -237,6 +238,7 @@ const ConfirmStatus = ({
                     Документы
                   </button>
                 )}
+                <ChoiceArbitrsPred />
               </div>
               <div className="blockModal__inner">
                 {lookDocs ? (

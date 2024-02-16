@@ -18,6 +18,7 @@ const initialState = {
     isk_summ: "",
     isk_summ_curr: 0, /// select (default-сом)
     code_arbitr: 0, /// select (default-не выбран)
+    non_proprietary: 0,
     ///////////////////////////////
     motivation: "",
     obosnovanie: "",
@@ -386,6 +387,10 @@ const applicationsSlice = createSlice({
         defendantResper: [], //4
         name: "",
         description: "",
+        isk_summ: "",
+        isk_summ_curr: 0, /// select (default-сом)
+        non_proprietary: 0,
+        code_arbitr: 0,
         motivation: "",
         obosnovanie: "",
         finance_raschet: "",

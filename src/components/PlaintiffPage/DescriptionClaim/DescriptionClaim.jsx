@@ -4,11 +4,13 @@ import "./DescriptionClaim.scss";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Selects from "../../Selects/Selects";
+import ChoiceNoneData from "../ChoiceNoneData/ChoiceNoneData";
 
 const DescriptionClaim = () => {
   const dispatch = useDispatch();
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selCurrency } = useSelector((state) => state.selectsSlice);
+  const { typeUser } = useSelector((state) => state.saveDataSlice);
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -38,6 +40,18 @@ const DescriptionClaim = () => {
   };
   // console.log(todosApplications, "todosApplications");
 
+  // React.useEffect(() => {
+  //   if (+todosApplications.non_proprietary === 0) {
+  //     dispatch(
+  //       changeTodosApplications({
+  //         ...todosApplications,
+  //         isk_summ: "",
+  //         isk_summ_curr: 0,
+  //       })
+  //     );
+  //   }
+  // }, [+todosApplications.non_proprietary]);
+
   return (
     <div className="plaintiFilling__container">
       <div className="descriptionClaim">
@@ -57,25 +71,43 @@ const DescriptionClaim = () => {
             ></textarea>
           </div>
           <div className="sumIsk">
-            <div>
-              <p>Денежные требования</p>
-              <input
-                type="text"
-                placeholder="Денежные требования"
-                name="isk_summ"
-                onChange={changeInput}
-                value={todosApplications.isk_summ}
-              />
-            </div>
-            <Selects
-              arr={selCurrency}
-              initText={"Валюта"}
-              keys={{
-                typeKey: todosApplications.isk_summ_curr,
-                type: "isk_summ_curr",
-              }}
-              type="todos"
-            />
+            {+typeUser === 4 && (
+              <div className="blockChoice">
+                <ChoiceNoneData
+                  props={{
+                    title: `Неимущественный иск`,
+                    typeKey: todosApplications.non_proprietary,
+                    type: "non_proprietary",
+                  }}
+                  multiType={true}
+                />
+              </div>
+            )}
+            {todosApplications.non_proprietary === 0 ? (
+              <>
+                <div>
+                  <p>Денежные требования</p>
+                  <input
+                    type="text"
+                    placeholder="Денежные требования"
+                    name="isk_summ"
+                    onChange={changeInput}
+                    value={todosApplications.isk_summ}
+                  />
+                </div>
+                <Selects
+                  arr={selCurrency}
+                  initText={"Валюта"}
+                  keys={{
+                    typeKey: todosApplications.isk_summ_curr,
+                    type: "isk_summ_curr",
+                  }}
+                  type="todos"
+                />
+              </>
+            ) : (
+              ""
+            )}
           </div>
           <div>
             <label htmlFor="description">Описание иска</label>

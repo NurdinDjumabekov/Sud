@@ -167,7 +167,9 @@ const PdfFile = ({ editorRef }) => {
                 ? ""
                 : `Цена иска: ${
                     searchIdCurrency(selCurrency, +todosApplications?.summ_curr)
-                      ? `<span>${todosApplications?.summ}  ${searchIdCurrency(
+                      ? `<span style="font-weight: 500;  font-size: 16px;">${
+                          todosApplications?.summ
+                        }  ${searchIdCurrency(
                           selCurrency,
                           +todosApplications?.summ_curr
                         )}</span>`
@@ -199,7 +201,7 @@ const PdfFile = ({ editorRef }) => {
                       selCurrency,
                       +todosApplications?.isk_summ_curr
                     )
-                      ? `<span>${
+                      ? `<span >${
                           todosApplications?.isk_summ
                         }  ${searchIdCurrency(
                           selCurrency,
@@ -230,7 +232,7 @@ const PdfFile = ({ editorRef }) => {
                         selCurrency,
                         +todosApplications?.isk_summ_curr
                       )
-                        ? `<span>${
+                        ? `<span style="font-weight: 500;  font-size: 16px;">${
                             todosApplications?.isk_summ
                           }  ${searchIdCurrency(
                             selCurrency,

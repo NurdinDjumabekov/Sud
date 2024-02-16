@@ -3,6 +3,7 @@ import "./GeneralInfo.scss";
 import Selects from "../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { typeArbitrs } from "../../../helpers/dataArr";
 // import { selectUserStatus } from "../../../helpers/dataArr";
 
 const GeneralInfo = () => {
@@ -58,7 +59,7 @@ const GeneralInfo = () => {
           </div>
           <div className="blockSelects">
             <Selects
-              arr={selLangArbitr}
+              arr={typeArbitrs}
               initText={"Выбрать арбитра"}
               keys={{
                 typeKey: todosApplications.code_arbitr,

@@ -19,7 +19,6 @@ import storage from "redux-persist/lib/storage";
 import inputSlice from "./reducers/inputSlice";
 import stateSlice from "./reducers/stateSlice";
 import typesSlice from "./reducers/typesSlice";
-import requestSlice from "./reducers/requestSlice";
 import applicationsSlice from "./reducers/applicationsSlice";
 import sendDocsSlice from "./reducers/sendDocsSlice";
 import saveDataSlice from "./reducers/saveDataSlice";
@@ -31,7 +30,6 @@ const reducer = combineReducers({
   inputSlice,
   stateSlice,
   typesSlice,
-  requestSlice,
   applicationsSlice,
   sendDocsSlice,
   saveDataSlice,
