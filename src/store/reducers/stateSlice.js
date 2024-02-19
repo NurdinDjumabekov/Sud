@@ -78,6 +78,7 @@ const initialState = {
   objectionPdfVeiw: false, /// для создания возражения ответчика
   objectionConfirmPdfVeiw: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
   lookDocs: false, // для отображения файлов для просмотра только у председателя
+  arbitrPred: 0, /// для выбора арбитра председателем
 };
 
 const stateSlice = createSlice({
@@ -251,6 +252,9 @@ const stateSlice = createSlice({
     changeLookDocs: (state, action) => {
       state.lookDocs = action?.payload;
     },
+    changeArbitrPred: (state, action) => {
+      state.arbitrPred = action?.payload;
+    },
   },
 });
 
@@ -275,6 +279,7 @@ export const {
   changeObjectionPdfVeiw,
   changeObjectionConfirm,
   changeLookDocs,
+  changeArbitrPred,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

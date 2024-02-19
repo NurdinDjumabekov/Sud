@@ -18,6 +18,7 @@ const ChoiceNoneData = ({ props, multiType }) => {
       dispatch(changeADFF({ ...adff, [props.type]: bool }));
     }
   };
+
   return (
     <div className="choiceNoneData">
       <label htmlFor="checkboxDate">{props.title}</label>

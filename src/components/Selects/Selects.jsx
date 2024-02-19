@@ -4,7 +4,10 @@ import img from "../../asstes/icons/arrowBtn.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { changeADFF, changeADUF } from "../../store/reducers/inputSlice";
 import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
-import { changeTypePay } from "../../store/reducers/stateSlice";
+import {
+  changeArbitrPred,
+  changeTypePay,
+} from "../../store/reducers/stateSlice";
 import {
   changeTypeSecretarDela,
   toTakeDistrict,
@@ -52,8 +55,9 @@ const Selects = (props) => {
       dispatch(changeTypePay(+id));
     } else if (type === "secr") {
       dispatch(changeTypeSecretarDela(+id));
+    } else if (type === "predArb") {
+      dispatch(changeArbitrPred(+id));
     }
-
     if (keys?.type === "country" && type === "adff") {
       dispatch(toTakeRegions({ tokenA, id }));
       dispatch(toTakeDistrict({ tokenA, id: 48 }));

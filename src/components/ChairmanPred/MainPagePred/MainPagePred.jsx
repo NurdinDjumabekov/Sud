@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
 import {
-  changeActionFullfilled,
-  changeActionReject,
   changeLookDocs,
   changeMainBtnList,
 } from "../../../store/reducers/stateSlice";

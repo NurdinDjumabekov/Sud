@@ -38,6 +38,7 @@ const DescriptionClaim = () => {
       );
     }
   };
+
   // console.log(todosApplications, "todosApplications");
 
   // React.useEffect(() => {

@@ -19,6 +19,7 @@ import LayoutsPred from "../layouts/LayoutsPred/LayoutsPred";
 import { MainPagePred } from "../components/ChairmanPred/MainPagePred/MainPagePred";
 import SignIn from "../pages/login/SignIn";
 import {
+  toTakeArbitrsList,
   toTakeCountries,
   toTakeCurrency,
   toTakeDistrict,
@@ -116,6 +117,7 @@ function MainRoutes() {
     dispatch(toTakePrimPravo(tokenA));
     dispatch(toTakeReglament(tokenA));
     dispatch(toTakeLangArbit(tokenA));
+    dispatch(toTakeArbitrsList(tokenA));
   }, [location.pathname]);
 
   return (

@@ -145,6 +145,36 @@ const ConfirmStatus = ({
     }
   }, [sendStatusIsk]);
 
+  const [listBtns, setListBtns] = useState([
+    {
+      id: 1,
+      name: "Исковое заявление",
+      bool: true,
+      comp: <PdfFile editorRef={editorRefReject} />,
+    },
+    {
+      id: 2,
+      name: "Документы",
+      bool: false,
+      comp: (
+        <div className="lookDocsIsksPred">
+          <ApplicationFiles />
+        </div>
+      ),
+    },
+    { id: 3, name: "Арбитры", bool: false, comp: <ChoiceArbitrsPred /> },
+  ]);
+
+  const clickType = (id) => {
+    const newData = listBtns.map((button) => {
+      return {
+        ...button,
+        bool: id === button.id,
+      };
+    });
+    setListBtns(newData);
+  };
+
   //// 1 - принять ответ. секр, 2 - отказ отв. секр, 3 - принят председ. 4 - отказ. председ. 5 - возражение
   return (
     <>
@@ -229,25 +259,22 @@ const ConfirmStatus = ({
                   type="secr"
                   urgently={false}
                 />
-                {lookDocs ? (
-                  <button onClick={() => dispatch(changeLookDocs(false))}>
-                    Исковое заявление
+                {listBtns?.map((btn) => (
+                  <button
+                    key={btn?.id}
+                    onClick={() => clickType(btn?.id)}
+                    className={btn?.bool ? "activeBtnn" : ""}
+                  >
+                    {btn?.name}
                   </button>
-                ) : (
-                  <button onClick={() => dispatch(changeLookDocs(true))}>
-                    Документы
-                  </button>
-                )}
-                <ChoiceArbitrsPred />
+                ))}
               </div>
               <div className="blockModal__inner">
-                {lookDocs ? (
-                  <div className="lookDocsIsksPred">
-                    <ApplicationFiles />
-                  </div>
-                ) : (
-                  <PdfFile editorRef={editorRefReject} />
-                )}
+                {listBtns?.map((btn) => (
+                  <React.Fragment key={btn?.id}>
+                    {btn?.bool && btn?.comp}
+                  </React.Fragment>
+                ))}
                 <div className="plaintiFilling__container moreStyle">
                   <PdfFulfilled istype={istype} editorRef={editorRef} />
                 </div>

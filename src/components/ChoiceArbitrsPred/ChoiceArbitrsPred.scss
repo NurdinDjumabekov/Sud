@@ -1,13 +1,100 @@
 .choiceArbitrs {
-    min-height: 100vh;
-    height: 100vh;
-    background: rgb(232, 227, 227);
-    position: absolute;
-    width: 100%;
-    z-index: 99;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    // min-height: 100vh;
+    height: 90vh;
+    background: #f9fafd;
+    width: 90%;
+    border-radius: 10px;
+    border: 2px solid #eee;
+    padding: 20px;
+    h6 {
+        font-size: 22px;
+        margin: 20px 0 40px 0px;
+        font-weight: 600;
+        font-family: "Montserrat", sans-serif;
+    }
+    .twoInputs {
+        display: flex;
+        align-items: flex-end;
+        width: 100%;
+        // background: red;
+        gap: 20px;
+        > div:nth-child(1) {
+            width: 450px;
+            > p {
+                font-weight: 600;
+                font-family: 'Montserrat', sans-serif;
+                color: #5e6e82;
+                font-size: 18px;
+                padding: 0 0 10px 0;
+            }
+        }
+        input {
+            width: 100%;
+            height: 40px;
+            padding: 2px 10px;
+            border: none;
+            border-radius: 5px;
+            border: 1px solid #d8e2ef;
+            backdrop-filter: blur(15px);
+            color: #344050;
+            min-width: 300px;
+          }
+        input::placeholder{
+            color: #a9afb8;
+          }
+        input:focus {
+            border: 1px solid #d8e2ef;
+            box-shadow: 0 1px 5px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);;
+            // border: none !important;
+            // box-shadow: none !important;
+            outline: none;
+        }
+        .selectBlock {
+            width: 450px !important;
+        }
+    }
+    &__list {
+        height: 70vh;
+        overflow-y: scroll;
+        margin: 20px 0 10px 0;
+        display: flex;
+        align-items: center;
+        // justify-content: space-between;
+        gap: 25px;
+        flex-wrap: wrap;
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+        &__every {
+            padding: 10px 5px;
+            background: #fff;
+            box-shadow: 0px 10px 10px 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+            display: inline-block;
+            width: 47%;
+            border-radius: 10px;
+            margin: 0 0 0 3px;
+            cursor: pointer;
+            .innerArbitr {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                > img {
+                    width: 35px;
+                    height: 35px;
+                    display: block;
+                }
+                p {
+                    font-weight: 500;
+                    color: #5e6e82;
+                    font-size: 18px;
+                    font-family: "Montserrat", sans-serif;
+                    padding: 0;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
 }

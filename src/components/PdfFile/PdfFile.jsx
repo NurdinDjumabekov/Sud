@@ -186,63 +186,69 @@ const PdfFile = ({ editorRef }) => {
               ${todosApplications?.name}
             </h4>`
         }
-        <div style="margin: 0px; position: relative; width:100%; height: 60px; padding:20px 0px "> 
-            <p style="
-            color: transparent";
-            line-height: 25px;
-            font-family: 'Times New Roman', sans-serif;
-            >${
-              todosApplications?.isk_summ === "0" ||
-              todosApplications?.isk_summ === "" ||
-              todosApplications?.isk_summ === 0
-                ? ""
-                : `Денежные требования: ${
-                    searchIdCurrency(
-                      selCurrency,
-                      +todosApplications?.isk_summ_curr
-                    )
-                      ? `<span >${
-                          todosApplications?.isk_summ
-                        }  ${searchIdCurrency(
-                          selCurrency,
-                          +todosApplications?.isk_summ_curr
-                        )}</span>`
-                      : ""
-                  }`
-            }
-            </p>
-            <p style="
-              font-size: 16px;
-              position: absolute;
-              width: 270px;
-              padding: 0px 10px 0px 0px;
-              line-height: 25px;
-              top: 15px;
-              right: 0px;
-              color:#000;
-              font-weight: 600;
-              font-family: 'Times New Roman', sans-serif;
-              ">${
-                todosApplications?.isk_summ === "0" ||
-                todosApplications?.isk_summ === "" ||
-                todosApplications?.isk_summ === 0
-                  ? ""
-                  : `Денежные требования: ${
-                      searchIdCurrency(
-                        selCurrency,
-                        +todosApplications?.isk_summ_curr
-                      )
-                        ? `<span style="font-weight: 500;  font-size: 16px;">${
-                            todosApplications?.isk_summ
-                          }  ${searchIdCurrency(
-                            selCurrency,
-                            +todosApplications?.isk_summ_curr
-                          )}</span>`
-                        : ""
-                    }`
-              }
-            </p>
-          </div>
+        ${
+          +todosApplications?.non_proprietary === 0
+            ? `<div>
+                <div style="margin: 0px; position: relative; width:100%; height: 60px; padding:20px 0px "> 
+                  <p style="
+                    color: transparent";
+                    line-height: 25px;
+                    font-family: 'Times New Roman', sans-serif;
+                    >${
+                      todosApplications?.isk_summ === "0" ||
+                      todosApplications?.isk_summ === "" ||
+                      todosApplications?.isk_summ === 0
+                        ? ""
+                        : `Денежные требования: ${
+                            searchIdCurrency(
+                              selCurrency,
+                              +todosApplications?.isk_summ_curr
+                            )
+                              ? `<span >${+todosApplications?.isk_summ}  ${searchIdCurrency(
+                                  selCurrency,
+                                  +todosApplications?.isk_summ_curr
+                                )}</span>`
+                              : ""
+                          }`
+                    }
+                    </p>
+                    <p style="
+                        font-size: 16px;
+                        position: absolute;
+                        width: 280px;
+                        padding: 0px 10px 0px 0px;
+                        line-height: 25px;
+                        top: 15px;
+                        right: 10px;
+                        color:#000;
+                        font-weight: 600;
+                        font-family: 'Times New Roman', sans-serif;
+                        padding: 0px;
+                      ">${
+                        todosApplications?.isk_summ === "0" ||
+                        todosApplications?.isk_summ === "" ||
+                        todosApplications?.isk_summ === 0
+                          ? ""
+                          : `Денежные требования: ${
+                              searchIdCurrency(
+                                selCurrency,
+                                +todosApplications?.isk_summ_curr
+                              )
+                                ? `<span style="font-weight: 500;  font-size: 16px;">${
+                                    todosApplications?.isk_summ
+                                  }  ${searchIdCurrency(
+                                    selCurrency,
+                                    +todosApplications?.isk_summ_curr
+                                  )}</span>`
+                                : ""
+                            }`
+                      }
+                    </p>
+                </div>
+              </div>`
+            : ""
+        }
+        
         ${
           todosApplications?.description === ""
             ? ""
