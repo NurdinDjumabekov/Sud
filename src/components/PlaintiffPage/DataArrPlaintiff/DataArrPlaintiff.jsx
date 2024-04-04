@@ -9,14 +9,16 @@ import {
   changeADUF,
   changeTypeFace,
 } from "../../../store/reducers/inputSlice";
-import { jwtDecode } from "jwt-decode";
 
 const DataArrPlaintiff = ({ typerole }) => {
   const dispatch = useDispatch();
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf } = useSelector((state) => state.inputSlice);
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { typeUser, checkEditPlaint } = useSelector(
+    (state) => state.saveDataSlice
+  );
+
   // console.log(lookAddPlaintiff, "lookAddPlaintiff");
   // console.log(typerole, "typerole");
 
@@ -44,14 +46,13 @@ const DataArrPlaintiff = ({ typerole }) => {
       dispatch(changeTypeFace(1));
     }
   };
-  const decodedToken = jwtDecode(tokenA);
 
   return (
     <>
       {lookAddPlaintiff == 0 && (
         <div className="mainTables dataPlaintiff">
           <ul className="btnsType add">
-            {+decodedToken?.type_user === 4 ? (
+            {checkEditPlaint ? (
               <>
                 <button onClick={clickPlaintiff}>Добавить {typerole}</button>
                 <button onClick={clickRepresen}>

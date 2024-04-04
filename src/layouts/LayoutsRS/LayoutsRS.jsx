@@ -9,11 +9,13 @@ import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
 import myIski from "../../asstes/icons/IconPage/me_iski.svg";
 import notif from "../../asstes/icons/IconPage/notification.svg";
 import archive from "../../asstes/icons/IconPage/archive.svg";
+import create from "../../asstes/icons/IconPage/create.svg";
 
 ////// imgsWhite
 import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
 import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
 import archiveWhite from "../../asstes/icons/IconPageWhite/archive.svg";
+import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
 
 import logo from "../../asstes/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +23,7 @@ import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
 import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
 import { notificationCount } from "../../store/reducers/notificationSlice";
+import { changeCheckEditPlaint } from "../../store/reducers/saveDataSlice";
 
 function LayoutsRS() {
   const navigate = useNavigate();
@@ -40,6 +43,14 @@ function LayoutsRS() {
       iconWhite: myIskiWhite,
     },
     {
+      id: 2,
+      name: "Создать черновик",
+      path: "/plaintiffCreate",
+      bool: false,
+      icon: create,
+      iconWhite: createWhite,
+    },
+    {
       id: 3,
       name: "Уведомления",
       path: "/notifPlaintiff",
@@ -48,14 +59,6 @@ function LayoutsRS() {
       iconWhite: notifWhite,
       count: true,
     },
-    // {
-    //   id: 2,
-    //   name: 'Создать черновик',
-    //   path: '/plaintiffCreate',
-    //   bool: false,
-    //   icon: create,
-    //   iconWhite: createWhite,
-    // },
     // {
     //   id: 4,
     //   name: "Календарь дел",
@@ -83,19 +86,10 @@ function LayoutsRS() {
   ]);
 
   React.useEffect(() => {
-    const newPage = pages.map((i) => {
-      if (i.path === location.pathname) {
-        return {
-          ...i,
-          bool: true,
-        };
-      } else {
-        return {
-          ...i,
-          bool: false,
-        };
-      }
-    });
+    const newPage = pages.map((i) => ({
+      ...i,
+      bool: i.path === location.pathname,
+    }));
     setPages(newPage);
     if (location.pathname === "/mainPlaintiff") {
       setLookInnerPages(true);
@@ -113,7 +107,14 @@ function LayoutsRS() {
   const decodedToken = jwtDecode(tokenA);
 
   // console.log(decodedToken,"decodedToken");
-
+  const clickMenu = (path) => {
+    navigate(path);
+    setLookInnerPages(!lookInnerPages);
+    if (path === "/plaintiffCreate") {
+      window.location.reload();
+      dispatch(changeCheckEditPlaint(true)); /// true - можно редактировать иск
+    }
+  };
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">
@@ -136,10 +137,7 @@ function LayoutsRS() {
         {pages?.map((page) => (
           <div key={page.id}>
             <button
-              onClick={() => {
-                navigate(page.path);
-                setLookInnerPages(!lookInnerPages);
-              }}
+              onClick={() => clickMenu(page.path)}
               className={page.bool ? "activePage" : ""}
             >
               <div>
@@ -155,10 +153,8 @@ function LayoutsRS() {
                 />
                 <p>
                   {page.name}
-                  {page?.count ? (
+                  {page?.count && (
                     <button className="notifNums">{notifCount || 0}</button>
-                  ) : (
-                    ""
                   )}
                 </p>
               </div>

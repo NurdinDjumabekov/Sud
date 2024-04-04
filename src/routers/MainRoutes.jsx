@@ -92,9 +92,9 @@ function MainRoutes() {
         <Route path="/mainPlaintiff" element={<MainPage />} />
         <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
-        <Route path="/calTodoPlaintiff" element={<CalendarTodoPage />} />
+        {/* <Route path="/calTodoPlaintiff" element={<CalendarTodoPage />} />
         <Route path="/meetingsPlaintiff" element={<CalendarMeetings />} />
-        <Route path="/archive" element={<ArchivePage />} />
+        <Route path="/archive" element={<ArchivePage />} /> */}
       </Route>
     );
   }

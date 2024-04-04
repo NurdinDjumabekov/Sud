@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./AddPlaintiff.scss";
 import FizFace from "../FizFace/FizFace";
 import UrFace from "../UrFace/UrFace";
@@ -9,10 +9,11 @@ const AddPlaintiff = ({ typerole }) => {
   const dispatch = useDispatch();
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { typeFace } = useSelector((state) => state.inputSlice);
+  const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
 
   return (
     <>
-      {lookAddPlaintiff === 2 ? (
+      {lookAddPlaintiff === 2 ? ( /// если это ответчик
         <div className="addPlaintiff">
           <div className="btnsType">
             <button className="activeBtnsPlaintiff">Физическое лицо</button>
@@ -25,7 +26,7 @@ const AddPlaintiff = ({ typerole }) => {
             <button
               className={typeFace === 1 ? "activeBtnsPlaintiff" : ""}
               onClick={() => {
-                dispatch(changeTypeFace(1)); // физ лицо, юр лицо
+                dispatch(changeTypeFace(1)); // физ лицо
               }}
             >
               Физическое лицо
@@ -33,7 +34,7 @@ const AddPlaintiff = ({ typerole }) => {
             <button
               className={typeFace === 2 ? "activeBtnsPlaintiff" : ""}
               onClick={() => {
-                dispatch(changeTypeFace(2)); // физ лицо, юр лицо
+                dispatch(changeTypeFace(2)); // юр лицо
               }}
             >
               Юридическое лицо

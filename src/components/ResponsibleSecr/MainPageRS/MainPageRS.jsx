@@ -5,18 +5,18 @@ import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
 import { useNavigate } from "react-router-dom";
-import {
-  changeActionFullfilled,
-  changeActionReject,
-  changeMainBtnList,
-} from "../../../store/reducers/stateSlice";
+import { changeIdStatus, changeLookChangeDeleteIsks, changeLookChangeStatus, changeMainBtnList } from "../../../store/reducers/stateSlice";
 import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
 import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
+import { changeCheckEditPlaint } from "../../../store/reducers/saveDataSlice";
 ////// imgs
 import fullfiled from "../../../asstes/icons/goodSend.svg";
 import reject from "../../../asstes/icons/krestik.svg";
 import TimerRevers from "../../Timers/TimerRevers/TimerRevers";
-import Timer from "../../Timers/Timer/Timer";
+import redone from "../../../asstes/images/redone1.png";
+import editImg from "../../../asstes/icons/editBtn.svg";
+import deleteImg from "../../../asstes/icons/deleteBtn.svg";
+import sendImg from "../../../asstes/icons/goodSend.svg";
 
 export const MainPageRS = () => {
   const dispatch = useDispatch();
@@ -45,8 +45,12 @@ export const MainPageRS = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  const editIsksFn = (id) => {
-    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+  const lookIsksFn = (obj) => {
+    if (+obj.status === 1) {
+      dispatch(
+        editIsks({ id: obj?.codeid, tokenA, navigate, applicationList })
+      );
+    }
   };
 
   const lookIsks = (id, type) => {
@@ -72,6 +76,20 @@ export const MainPageRS = () => {
     3: "Принят председателем",
     4: "Отклонён председателем",
     5: "Принят председателем",
+  };
+
+  const changeStatus = (id) => {
+    dispatch(changeLookChangeStatus(true)); /// для вызова модалки изменения статуса иска
+    dispatch(changeIdStatus(id)); /// для отправки id иска
+  };
+
+  const editIsksFn = (id) => {
+    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+  };
+
+  const deleteIsksFn = (id) => {
+    dispatch(changeLookChangeDeleteIsks(true));
+    dispatch(changeIdStatus(id));
   };
 
   // console.log(listTodos, "listTodos");
@@ -119,10 +137,7 @@ export const MainPageRS = () => {
                       : { background: "#f9fafd" }
                   }
                 >
-                  <td
-                    className="table_isk_td"
-                    onClick={() => editIsksFn(row?.codeid)}
-                  >
+                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
                     <div>
                       <span className="span_teble">
                         {row?.isk_number ? `№ ${row?.isk_number}` : ""}
@@ -130,17 +145,11 @@ export const MainPageRS = () => {
                       {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
                     </div>
                   </td>
-                  <td
-                    className="table_isk_td"
-                    onClick={() => editIsksFn(row?.codeid)}
-                  >
+                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
                     <span>{row?.isk_date}</span>
                     <span>{row?.isk_time}</span>
                   </td>
-                  <td
-                    className="table_isk_td"
-                    onClick={() => editIsksFn(row?.codeid)}
-                  >
+                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
                     <>
                       {row?.plaintiff?.length === 0 ? ( ////  "ФИО Истца отсутствует"
                         <p></p>
@@ -156,10 +165,7 @@ export const MainPageRS = () => {
                       )}
                     </>
                   </td>
-                  <td
-                    className="table_isk_td"
-                    onClick={() => editIsksFn(row?.codeid)}
-                  >
+                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
                     <>
                       {row?.defendant?.length === 0 ? ( ////  "ФИО ответчика отсутствует"
                         ""
@@ -176,10 +182,7 @@ export const MainPageRS = () => {
                     </>
                   </td>
                   {/* ///////////////////////////////////// */}
-                  <td
-                    className="table_isk_td"
-                    onClick={() => editIsksFn(row?.codeid)}
-                  >
+                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
                     <span>
                       {+row?.arbitr_fee === 0 ? (
                         ""
@@ -191,10 +194,7 @@ export const MainPageRS = () => {
                       )}
                     </span>
                   </td>
-                  <td
-                    className="table_isk_td"
-                    onClick={() => editIsksFn(row?.codeid)}
-                  >
+                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
                     <span>
                       {+row?.reglament === 0 ? (
                         ""
@@ -203,70 +203,83 @@ export const MainPageRS = () => {
                       )}
                     </span>
                   </td>
-                  <td
-                    className="table_isk_td"
-                    onClick={() => editIsksFn(row?.codeid)}
-                  >
+                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
                     {row?.arbitrs?.length === 0 ? (
                       <span></span>
                     ) : (
                       row?.arbitrs?.map((i) => <span>{i?.name}</span>)
                     )}
                   </td>
-                  <td
-                    className="table_isk_td"
-                    onClick={() => editIsksFn(row?.codeid)}
-                  >
+                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
                     <span>{row.secretary ? row.secretary : ""}</span>
                   </td>
                   <td className="table_isk_td">
-                    {+row?.isk_status === 0 ? (
-                      <>
-                        <div className="statusIsks">
-                          <div className="statusIsks moreIsksStatus">
-                            <button onClick={() => editIsksFn(row?.codeid)}>
-                              Просмотреть
-                            </button>
-                          </div>
-                          <button
-                            onClick={() => {
-                              // dispatch(changeActionFullfilled(true));
-                              lookIsks(row?.codeid, 1);
-                            }}
-                          >
-                            <img src={fullfiled} alt="ok" />
-                          </button>
-                          <button
-                            onClick={() => {
-                              lookIsks(row?.codeid, 2);
-                              // dispatch(changeActionReject(true));
-                            }}
-                          >
-                            <img src={reject} alt="no" />
-                          </button>
-                        </div>
-                      </>
+                    {row?.status === 0 ? (
+                      <div className="statusIsks">
+                        <button onClick={() => changeStatus(row?.codeid)}>
+                          {/* Подать */}
+                          <img src={sendImg} alt="sendImg" />
+                        </button>
+                        <button onClick={() => editIsksFn(row?.codeid)}>
+                          {/* Редактировать */}
+                          <img src={editImg} alt="sendImg" />
+                        </button>
+                        <button onClick={() => deleteIsksFn(row?.codeid)}>
+                          {/* Удалить */}
+                          <img src={deleteImg} alt="sendImg" />
+                        </button>
+                      </div>
                     ) : (
                       <>
-                        {statusMessages[row?.isk_status] && (
-                          <span
-                            style={{ padding: "0px 0px 0px 10px" }}
-                            className={
-                              +row?.isk_status === 1 || +row?.isk_status === 3
-                                ? "colorStatusGreen"
-                                : +row?.isk_status === 2 ||
-                                  +row?.isk_status === 4
-                                ? "colorStatusRed"
-                                : ""
-                            }
-                          >
-                            {statusMessages[row?.isk_status]}
-                          </span>
-                        )}
-                        {!statusMessages[row?.isk_status] && (
-                          <span style={{ padding: "0px 0px 0px 10px" }}>
-                            Иск подан
-                          </span>
+                        {+row?.isk_status === 0 ? (
+                          <>
+                            <div className="statusIsks">
+                              <div className="statusIsks moreIsksStatus">
+                                <button
+                                  onClick={() => {
+                                    lookIsksFn(row);
+                                    dispatch(changeCheckEditPlaint(false));
+                                  }}
+                                >
+                                  Просмотреть
+                                </button>
+                              </div>
+                              <button onClick={() => lookIsks(row?.codeid, 1)}>
+                                <img src={fullfiled} alt="ok" />
+                              </button>
+                              <button onClick={() => lookIsks(row?.codeid, 2)}>
+                                <img src={reject} alt="no" />
+                              </button>
+                              {/* <button onClick={() => lookIsks(row?.codeid, 2)}>
+                            <img src={redone} alt="redone" className="redone" />
+                          </button> */}
+                              {/* /////  */}
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            {statusMessages[row?.isk_status] && (
+                              <span
+                                style={{ padding: "0px 0px 0px 10px" }}
+                                className={
+                                  +row?.isk_status === 1 ||
+                                  +row?.isk_status === 3
+                                    ? "colorStatusGreen"
+                                    : +row?.isk_status === 2 ||
+                                      +row?.isk_status === 4
+                                    ? "colorStatusRed"
+                                    : ""
+                                }
+                              >
+                                {statusMessages[row?.isk_status]}
+                              </span>
+                            )}
+                            {!statusMessages[row?.isk_status] && (
+                              <span style={{ padding: "0px 0px 0px 10px" }}>
+                                Иск подан
+                              </span>
+                            )}
+                          </>
                         )}
                       </>
                     )}

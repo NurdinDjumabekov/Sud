@@ -10,7 +10,9 @@ const DescriptionClaim = () => {
   const dispatch = useDispatch();
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selCurrency } = useSelector((state) => state.selectsSlice);
-  const { typeUser } = useSelector((state) => state.saveDataSlice);
+  const { typeUser, checkEditPlaint } = useSelector(
+    (state) => state.saveDataSlice
+  );
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -72,7 +74,7 @@ const DescriptionClaim = () => {
             ></textarea>
           </div>
           <div className="sumIsk">
-            {+typeUser === 4 && (
+            {checkEditPlaint && (
               <div className="blockChoice">
                 <ChoiceNoneData
                   props={{

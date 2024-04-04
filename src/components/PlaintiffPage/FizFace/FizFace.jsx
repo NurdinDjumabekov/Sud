@@ -2,7 +2,6 @@ import React from "react";
 import "./FizFace.scss";
 import Selects from "../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
-import { jwtDecode } from "jwt-decode";
 import {
   changeADFF,
   clearADFF,
@@ -20,7 +19,9 @@ const FizFace = ({ typerole }) => {
   const { adff, typeFace } = useSelector((state) => state.inputSlice);
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { tokenA, checkEditPlaint } = useSelector(
+    (state) => state.saveDataSlice
+  );
   const { selCountries, selDistrict, selTypeAddress, selRegions } = useSelector(
     (state) => state.selectsSlice
   );
@@ -127,8 +128,6 @@ const FizFace = ({ typerole }) => {
       dispatch(changeADFF({ ...adff, [name]: value }));
     }
   };
-
-  const decodedToken = jwtDecode(tokenA);
 
   // console.log(todosApplications, "todosApplications");
 
@@ -499,24 +498,11 @@ const FizFace = ({ typerole }) => {
           </div>
         </div>
         <div className="btnsSave">
-          {+decodedToken?.type_user === 4 && (
+          {checkEditPlaint && (
             <button className="saveBtn" type="submit">
               Добавить
             </button>
           )}
-          {/* {+decodedToken?.type_user !== 4 && (
-            <span
-              style={{ width: "150px" }}
-              className="saveBtn moreBtn"
-              onClick={() => {
-                dispatch(changeLookAddPlaintiff(0));
-                dispatch(clearADFF());
-                dispatch(clearADUF());
-              }}
-            >
-              Отмена
-            </span>
-          )} */}
           <span
             style={{ width: "150px" }}
             className="saveBtn moreBtn"

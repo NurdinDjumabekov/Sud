@@ -16,14 +16,15 @@ import {
 } from "../../../store/reducers/applicationsSlice";
 import { createEveryIsk } from "../../../store/reducers/sendDocsSlice";
 import { changeAlertText } from "../../../store/reducers/typesSlice";
-import { jwtDecode } from "jwt-decode";
 
 const UrFace = ({ typerole }) => {
   const dispatch = useDispatch();
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { aduf, typeFace } = useSelector((state) => state.inputSlice);
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { tokenA, checkEditPlaint } = useSelector(
+    (state) => state.saveDataSlice
+  );
   const {
     selCountries,
     selDistrict,
@@ -78,7 +79,6 @@ const UrFace = ({ typerole }) => {
       }
     }
   };
-  console.log(aduf, "aduf");
 
   const alertFN = (text) => {
     dispatch(
@@ -154,11 +154,6 @@ const UrFace = ({ typerole }) => {
   React.useEffect(() => {
     return () => dispatch(changeTypeFace(1));
   }, []);
-
-  const decodedToken = jwtDecode(tokenA);
-
-  // console.log(aduf, "aduf");
-  // console.log(todosApplications, "todosApplications");
 
   return (
     <>
@@ -463,24 +458,22 @@ const UrFace = ({ typerole }) => {
           </div>
         </div>
         <div className="btnsSave">
-          {+decodedToken?.type_user === 4 && (
+          {checkEditPlaint && (
             <button className="saveBtn" type="submit">
               Добавить
             </button>
           )}
-          {+decodedToken?.type_user !== 4 && (
-            <span
-              style={{ width: "150px" }}
-              className="saveBtn moreBtn"
-              onClick={() => {
-                dispatch(changeLookAddPlaintiff(0));
-                dispatch(clearADFF());
-                dispatch(clearADUF());
-              }}
-            >
-              Отмена
-            </span>
-          )}
+          <span
+            style={{ width: "150px" }}
+            className="saveBtn moreBtn"
+            onClick={() => {
+              dispatch(changeLookAddPlaintiff(0));
+              dispatch(clearADFF());
+              dispatch(clearADUF());
+            }}
+          >
+            Отмена
+          </span>
         </div>
       </form>
     </>

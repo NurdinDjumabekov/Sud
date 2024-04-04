@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Table.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
 import {
   changeIdStatus,
   changeLookChangeDeleteIsks,
-  changeLookChangeEditIsks,
   changeLookChangeStatus,
   changeMainBtnList,
 } from "../../store/reducers/stateSlice";
@@ -31,7 +30,7 @@ export const Table = () => {
   );
 
   const clickBtn = (id) => {
-    const newList = mainBtnList.map((item) => {
+    const newList = mainBtnList?.map((item) => {
       return {
         ...item,
         bool: id === item.id ? true : false,
@@ -47,8 +46,6 @@ export const Table = () => {
   };
 
   const editIsksFn = (id) => {
-    // dispatch(changeLookChangeEditIsks(true));
-    // dispatch(changeIdStatus(id));
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
   };
 
@@ -69,7 +66,7 @@ export const Table = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {mainBtnList?.slice(5, 9)?.map((btn) => (
+          {mainBtnList?.slice(5, 10)?.map((btn) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
@@ -114,7 +111,6 @@ export const Table = () => {
                       <span>
                         {row?.isk_number ? `№ ${row?.isk_number}` : ""}
                       </span>
-                      {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
                     </div>
                   </td>
                   <td className="table_isk_td">
@@ -184,7 +180,6 @@ export const Table = () => {
                   </td>
                   <td className="table_isk_td">
                     <span>{row.secretary ? row.secretary : ""}</span>
-                    {/* <span>Nurdin</span> */}
                   </td>
                   <td className="table_isk_td">
                     {+row?.status === 1 ? (

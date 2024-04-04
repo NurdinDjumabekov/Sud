@@ -9,11 +9,13 @@ import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
 import myIski from "../../asstes/icons/IconPage/me_iski.svg";
 import notif from "../../asstes/icons/IconPage/notification.svg";
 import archive from "../../asstes/icons/IconPage/archive.svg";
+import create from "../../asstes/icons/IconPage/create.svg";
 
 ////// imgsWhite
 import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
 import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
 import archiveWhite from "../../asstes/icons/IconPageWhite/archive.svg";
+import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
 
 import logo from "../../asstes/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,9 +51,9 @@ function LayoutsSS() {
       count: true,
     },
     // {
-    //   id: 2,
-    //   name: 'Создать черновик',
-    //   path: '/plaintiffCreate',
+    //   id: 4,
+    //   name: "Создать черновик",
+    //   path: "/plaintiffCreate",
     //   bool: false,
     //   icon: create,
     //   iconWhite: createWhite,

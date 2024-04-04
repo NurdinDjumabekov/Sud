@@ -3,7 +3,6 @@ import "./PlaintiffPage.scss";
 import InputsPlaintiff from "../../components/PlaintiffPage/InputsPlaintiff/InputsPlaintiff";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { jwtDecode } from "jwt-decode";
 import { changeLookAddPlaintiff } from "../../store/reducers/stateSlice";
 import TargetPlaintiff from "../../components/PlaintiffPage/TargetPlaintiff/TargetPlaintiff";
 import DescriptionClaim from "../../components/PlaintiffPage/DescriptionClaim/DescriptionClaim";
@@ -23,6 +22,7 @@ import {
 import { createIdIsk } from "../../store/reducers/sendDocsSlice";
 import kerstImg from "../../asstes/icons/krestik.svg";
 import { clearADFF, clearADUF } from "../../store/reducers/inputSlice";
+import { changeCheckEditPlaint } from "../../store/reducers/saveDataSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -32,7 +32,9 @@ const PlaintiffPage = () => {
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf, docsIsks } = useSelector((state) => state.inputSlice);
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { tokenA, typeUser, checkEditPlaint } = useSelector(
+    (state) => state.saveDataSlice
+  );
 
   const [btnList, setBtnList] = useState([
     {
@@ -137,7 +139,8 @@ const PlaintiffPage = () => {
       dispatch(toTakeTypeTypeDocs(tokenA));
     };
   }, []);
-  const decodedToken = jwtDecode(tokenA);
+
+  // console.log(checkEditPlaint, "checkEditPlaint");
 
   return (
     <div className="plaintiff">
@@ -156,7 +159,7 @@ const PlaintiffPage = () => {
             </button>
           ))}
         </ul>
-        {+decodedToken?.type_user !== 4 && (
+        {!checkEditPlaint && (
           <div className="cloused">
             <button onClick={() => navigate(-1)}>
               <img src={kerstImg} alt="x" />

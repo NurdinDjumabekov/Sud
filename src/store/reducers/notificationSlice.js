@@ -20,7 +20,7 @@ export const toTakeNotification = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        console.log(response, "sadsad");
+        // console.log(response, "sadsad");
         return response?.data?.notifs;
       } else {
         throw Error(`Error: ${response.status}`);

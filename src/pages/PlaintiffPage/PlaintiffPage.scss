@@ -138,6 +138,11 @@
       display: inline;
       margin: 0px 2px;
       white-space: nowrap;
+      @media screen and (max-width: 2250px) {
+        display: block;
+        padding: 10px ;
+      }
+      
     }
     .activeBtnsPlaintiff {
       color: #4d5969;

@@ -15,10 +15,6 @@ const PdfFile = ({ editorRef }) => {
   const [date, setDate] = useState("");
   const [data, setData] = useState("");
 
-  const handleEditorChange = (content, editor) => {
-    // console.log("Content was updated:", content);
-  };
-
   const { todosApplications, applicationList } = useSelector(
     (state) => state.applicationsSlice
   );
@@ -305,7 +301,7 @@ const PdfFile = ({ editorRef }) => {
     <div className="pdfFile">
       <Editor
         apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
-        initialValue={+typeUser === 4 ? data : todosApplications.content}
+        initialValue={data || todosApplications.content}
         init={{
           height: "100%",
           width: "100%",
@@ -318,7 +314,6 @@ const PdfFile = ({ editorRef }) => {
           content_style: "body { font-family: 'Times New Roman', sans-serif; }",
           toolbar: false,
         }}
-        onEditorChange={handleEditorChange}
         ref={editorRef}
       />
     </div>

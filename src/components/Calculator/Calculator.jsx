@@ -9,13 +9,11 @@ import {
   changeSumIsk,
 } from "../../store/reducers/stateSlice";
 import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
-import { jwtDecode } from "jwt-decode";
 
 const Calculator = () => {
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
   const dispatch = useDispatch();
-  const decodedToken = jwtDecode(tokenA);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
   const { sumIsk, calculatorState, typePay, resultSumIsk } = useSelector(
     (state) => state.stateSlice
   );
@@ -204,7 +202,7 @@ const Calculator = () => {
         num4: Math.round(+data?.arbitrSborDiscounted),
       })
     );
-    if (+decodedToken?.type_user === 4) {
+    if (checkEditPlaint) {
       dispatch(
         changeTodosApplications({
           ...todosApplications,

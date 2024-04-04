@@ -1,12 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  tokenA: '',
+  tokenA: "",
   typeUser: 0, /// типы пользователей
+  checkEditPlaint: true, /// true - можно редактировать иск, false - нельзя редактировать иск
 };
+///   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
 const saveDataSlice = createSlice({
-  name: 'saveDataSlice',
+  name: "saveDataSlice",
   initialState,
   reducers: {
     changeTokenA: (state, action) => {
@@ -15,8 +17,12 @@ const saveDataSlice = createSlice({
     changeTypeUser: (state, action) => {
       state.typeUser = action.payload;
     },
+    changeCheckEditPlaint: (state, action) => {
+      state.checkEditPlaint = action.payload;
+    },
   },
 });
-export const { changeTokenA, changeTypeUser } = saveDataSlice.actions;
+export const { changeTokenA, changeTypeUser, changeCheckEditPlaint } =
+  saveDataSlice.actions;
 
 export default saveDataSlice.reducer;

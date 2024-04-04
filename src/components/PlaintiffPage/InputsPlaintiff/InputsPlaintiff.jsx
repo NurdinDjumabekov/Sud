@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useRef } from "react";
 import "./InputsPlaintiff.scss";
 import PdfFile from "../../PdfFile/PdfFile";
@@ -15,8 +15,7 @@ import {
   clearMainBtnList,
 } from "../../../store/reducers/stateSlice";
 import { changeAlertText } from "../../../store/reducers/typesSlice";
-import { jwtDecode } from "jwt-decode";
-import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
+import { followLink } from "../../../helpers/followLink";
 
 const InputsPlaintiff = ({ btnList, indexComp }) => {
   const navigate = useNavigate();
@@ -24,8 +23,9 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
   const editorRef = useRef(null);
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { typeUser } = useSelector((state) => state.saveDataSlice);
+  const { tokenA, typeUser, checkEditPlaint } = useSelector(
+    (state) => state.saveDataSlice
+  );
 
   const saveData = () => {
     if (checkDataIsks(todosApplications)) {
@@ -50,7 +50,13 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
           if (editorRef.current && editorRef.current.editor) {
             const content = editorRef.current.editor.getContent();
             dispatch(
-              sendEveryIsks({ todosApplications, tokenA, navigate, content })
+              sendEveryIsks({
+                todosApplications,
+                tokenA,
+                navigate,
+                content,
+                typeUser,
+              })
             );
             dispatch(clearTodosApplications());
             dispatch(clearMainBtnList()); /// очистка состояние типа исков
@@ -84,7 +90,15 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
     );
   };
 
-  const decodedToken = jwtDecode(tokenA);
+  useEffect(() => {
+    if (+todosApplications?.codeid === 0 && checkEditPlaint === false) {
+      /// 0 означает что у тебя пустое исковое заявление и ты не истец
+      followLink(typeUser, navigate);
+    }
+  }, []);
+
+  const isCheckRole =
+    checkEditPlaint === false && (+typeUser === 1 || +typeUser === 2);
 
   return (
     <>
@@ -93,46 +107,27 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
           <React.Fragment key={indexComp}>
             {btnList?.[indexComp]?.components}
           </React.Fragment>
-          {lookAddPlaintiff === 0 && <PdfFile editorRef={editorRef} />}
+          {lookAddPlaintiff === 0 && !isCheckRole && (
+            <PdfFile editorRef={editorRef} />
+          )}
         </div>
       </div>
-      {+decodedToken?.type_user === 4 ? (
+      {checkEditPlaint ? (
         <div className="actionBtn">
           <button onClick={saveData}>Сохранить</button>
           <button
-            onClick={() => {
-              if (+typeUser === 1) {
-                navigate("/mainSimpSecr");
-              } else if (+typeUser === 2) {
-                navigate("/mainRespSec");
-              } else if (+typeUser === 3) {
-                navigate("/mainRespPred");
-              } else if (+typeUser === 4) {
-                navigate("/mainPlaintiff"); //// ???
-              }
-            }}
-            style={{
-              color: "#4d5969",
-              background: "rgba(237, 242, 249, 0.404)",
-            }}
+            onClick={() => followLink(typeUser, navigate)}
+            className="btnLink"
           >
             Закрыть
           </button>
         </div>
       ) : (
-        <>
-          <div className="actionBtn">
-            <button
-              style={{
-                color: "#4d5969",
-                background: "rgba(237, 242, 249, 0.404)",
-              }}
-              onClick={() => navigate(-1)}
-            >
-              Закрыть
-            </button>
-          </div>
-        </>
+        <div className="actionBtn">
+          <button className="btnLink" onClick={() => navigate(-1)}>
+            Закрыть
+          </button>
+        </div>
       )}
     </>
   );

@@ -6,7 +6,6 @@ import Modals from "../../Modals/Modals";
 import { newListDocs } from "../../../helpers/newListDocs";
 
 const PdfOpis = ({ lookOpis, setLookOpis }) => {
-  const dispatch = useDispatch();
   const [date, setDate] = useState("");
   const editorRef = useRef(null);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
@@ -31,31 +30,31 @@ const PdfOpis = ({ lookOpis, setLookOpis }) => {
 
   ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 64 - 108 строки
   const initialContent = `
-  <div class="block-container">
-  <table style="width: 100%; border: 1px solid transparent !important">
-      <tr>
-          <td style="width: 48%; position: relative;border: 1px solid transparent !important">
-              <p style="text-align: left;  position: absolute; top: 10px; left: 10px;">${date}</p>
-          </td>
-          <td style="width: 50%; text-align: left; border: 1px solid transparent !important">
-              <p style="text-align: right;">Форма № 107</p>
-              <div class="text-left">
-              <p style="margin-top: 50px;"><b>ОПИСЬ</b></p>
-              <p>Вложения в <b>ценное письмо</b></p>
-              <p><b>Куда</b></p>
-              <p><b>На имя</b></p>
-              </div>
-              ${newListDocs(applicationList)}
-              <div class="text-left">
-              <p>Общий итог ценности <b>5 (пять) сом</b></p>
-              <p>Отправил  _________________________________________</p>
-              <p><b>Проверил</b> _________________________________________</p>
-              </div>
-              <p style="text-align:right; margin: 0 15px 0 0;">(подпись приемщика)</p>
-          </td>
-      </tr>
-  </table>
-</div>
+    <div class="block-container">
+      <table style="width: 100%; border: 1px solid transparent !important">
+          <tr>
+              <td style="width: 48%; position: relative;border: 1px solid transparent !important">
+                  <p style="text-align: left;  position: absolute; top: 10px; left: 10px;">${date}</p>
+              </td>
+              <td style="width: 50%; text-align: left; border: 1px solid transparent !important">
+                  <p style="text-align: right;">Форма № 107</p>
+                  <div class="text-left">
+                  <p style="margin-top: 50px;"><b>ОПИСЬ</b></p>
+                  <p>Вложения в <b>ценное письмо</b></p>
+                  <p><b>Куда</b></p>
+                  <p><b>На имя</b></p>
+                  </div>
+                  ${newListDocs(applicationList)}
+                  <div class="text-left">
+                  <p>Общий итог ценности <b>5 (пять) сом</b></p>
+                  <p>Отправил  _________________________________________</p>
+                  <p><b>Проверил</b> _________________________________________</p>
+                  </div>
+                  <p style="text-align:right; margin: 0 15px 0 0;">(подпись приемщика)</p>
+              </td>
+          </tr>
+      </table>
+    </div>
   `;
 
   return (

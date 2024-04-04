@@ -10,6 +10,7 @@ import { transformCreateData } from "../../helpers/transformCreateData";
 import { changeAlertText } from "./typesSlice";
 import { sortDataIsksCounts } from "./stateSlice";
 import { calculateDates } from "../../helpers/addDate";
+import { followLink } from "../../helpers/followLink";
 
 const initialState = {
   preloader: false,
@@ -150,7 +151,7 @@ export const sendEveryIsks = createAsyncThunk(
         setTimeout(() => {
           dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 })); /// для обновления списка на главной странице
         }, 1000);
-        return { navigate: info.navigate };
+        return { navigate: info.navigate, typeUser: info?.typeUser };
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -400,6 +401,8 @@ const sendDocsSlice = createSlice({
     builder.addCase(sendEveryIsks.fulfilled, (state, action) => {
       state.preloader = false;
       action?.payload?.navigate("/mainPlaintiff");
+      const { navigate, typeUser } = action?.payload;
+      followLink(typeUser, navigate);
     });
     builder.addCase(sendEveryIsks.rejected, (state, action) => {
       state.error = action.payload;
