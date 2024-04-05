@@ -54,7 +54,11 @@
           padding: 10px 5px;
         }
       }
-  }
+    }
+    &_morePdf {
+      justify-content: flex-start !important;
+      gap: 50px;
+    }
   .table_isk {
     width: 100%;
     display: table;

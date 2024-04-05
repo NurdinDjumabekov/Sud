@@ -13,7 +13,9 @@ import { changeTodosApplications } from "../../store/reducers/applicationsSlice"
 const Calculator = () => {
   const dispatch = useDispatch();
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
+  const { typeUser, checkEditPlaint } = useSelector(
+    (state) => state.saveDataSlice
+  );
   const { sumIsk, calculatorState, typePay, resultSumIsk } = useSelector(
     (state) => state.stateSlice
   );
@@ -229,9 +231,12 @@ const Calculator = () => {
     dispatch(changeSumIsk(todosApplications.summ));
   }, []);
 
+  const isCheckRole =
+    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
+
   return (
     <div className="calculator">
-      <div className="calculator__count">
+      <div className={`${"calculator__count"} ${isCheckRole && "calculator_morePdf"}`}>
         <div>
           <p>Сумма иска в USD</p>
           <input

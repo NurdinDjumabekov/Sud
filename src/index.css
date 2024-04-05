@@ -40,6 +40,10 @@ button {
   height: 86vh;
 }
 
+.moreNonePdf {
+  width: 90% !important;
+}
+
 .noneData {
   display: none;
 }

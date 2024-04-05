@@ -23,6 +23,7 @@ import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
 import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
 import { notificationCount } from "../../store/reducers/notificationSlice";
+import { changeCheckEditPlaint } from "../../store/reducers/saveDataSlice";
 
 function LayoutsSS() {
   const navigate = useNavigate();
@@ -42,6 +43,14 @@ function LayoutsSS() {
       iconWhite: myIskiWhite,
     },
     {
+      id: 2,
+      name: "Создать черновик",
+      path: "/plaintiffCreate",
+      bool: false,
+      icon: create,
+      iconWhite: createWhite,
+    },
+    {
       id: 3,
       name: "Уведомления",
       path: "/notifPlaintiff",
@@ -50,14 +59,6 @@ function LayoutsSS() {
       iconWhite: notifWhite,
       count: true,
     },
-    // {
-    //   id: 4,
-    //   name: "Создать черновик",
-    //   path: "/plaintiffCreate",
-    //   bool: false,
-    //   icon: create,
-    //   iconWhite: createWhite,
-    // },
     // {
     //   id: 4,
     //   name: "Календарь дел",
@@ -85,19 +86,10 @@ function LayoutsSS() {
   ]);
 
   React.useEffect(() => {
-    const newPage = pages.map((i) => {
-      if (i.path === location.pathname) {
-        return {
-          ...i,
-          bool: true,
-        };
-      } else {
-        return {
-          ...i,
-          bool: false,
-        };
-      }
-    });
+    const newPage = pages.map((i) => ({
+      ...i,
+      bool: i.path === location.pathname,
+    }));
     setPages(newPage);
     if (location.pathname === "/mainPlaintiff") {
       setLookInnerPages(true);
@@ -113,6 +105,15 @@ function LayoutsSS() {
   }, []);
 
   const decodedToken = jwtDecode(tokenA);
+
+  const clickMenu = (path) => {
+    navigate(path);
+    setLookInnerPages(!lookInnerPages);
+    if (path === "/plaintiffCreate") {
+      window.location.reload();
+      dispatch(changeCheckEditPlaint(true)); /// true - можно редактировать иск
+    }
+  };
 
   return (
     <div className="plaintiffBlock">
@@ -136,10 +137,7 @@ function LayoutsSS() {
         {pages?.map((page) => (
           <div key={page.id}>
             <button
-              onClick={() => {
-                navigate(page.path);
-                setLookInnerPages(!lookInnerPages);
-              }}
+              onClick={() => clickMenu(page.path)}
               className={page.bool ? "activePage" : ""}
             >
               <div>

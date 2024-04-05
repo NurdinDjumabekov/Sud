@@ -49,7 +49,7 @@ function MainRoutes() {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
-  console.log(todosApplications, "todosApplications");
+  // console.log(todosApplications, "todosApplications");
 
   // 1  Секретарь
   // 2  Ответственный секретарь

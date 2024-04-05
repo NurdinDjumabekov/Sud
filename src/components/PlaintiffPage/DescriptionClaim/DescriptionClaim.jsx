@@ -43,6 +43,9 @@ const DescriptionClaim = () => {
 
   // console.log(todosApplications, "todosApplications");
 
+  const isCheckRole =
+    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
+
   // React.useEffect(() => {
   //   if (+todosApplications.non_proprietary === 0) {
   //     dispatch(
@@ -56,7 +59,11 @@ const DescriptionClaim = () => {
   // }, [+todosApplications.non_proprietary]);
 
   return (
-    <div className="plaintiFilling__container">
+    <div
+      className={`${"plaintiFilling__container"} ${
+        isCheckRole && "moreNonePdf"
+      }`}
+    >
       <div className="descriptionClaim">
         <ExampleBlock
           text={"Пример названия и описания иска должен быть таким-то"}

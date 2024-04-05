@@ -24,7 +24,7 @@ const initialState = {
     obosnovanie: "",
     finance_raschet: "",
     law_links: "",
-    claim: "",
+    claim: [],
     ///////////////////////////////
     summ: "",
     summ_curr: 1, /// select (default-сом)
@@ -395,7 +395,7 @@ const applicationsSlice = createSlice({
         obosnovanie: "",
         finance_raschet: "",
         law_links: "",
-        claim: "",
+        claim: [],
         summ: "",
         summ_curr: 1, /// select
         arbitr_fee: "",

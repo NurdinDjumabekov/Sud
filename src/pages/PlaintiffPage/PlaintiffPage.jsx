@@ -22,7 +22,6 @@ import {
 import { createIdIsk } from "../../store/reducers/sendDocsSlice";
 import kerstImg from "../../asstes/icons/krestik.svg";
 import { clearADFF, clearADUF } from "../../store/reducers/inputSlice";
-import { changeCheckEditPlaint } from "../../store/reducers/saveDataSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const PlaintiffPage = () => {
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf, docsIsks } = useSelector((state) => state.inputSlice);
-  const { tokenA, typeUser, checkEditPlaint } = useSelector(
+  const { tokenA, checkEditPlaint } = useSelector(
     (state) => state.saveDataSlice
   );
 
@@ -51,7 +50,7 @@ const PlaintiffPage = () => {
     },
     {
       id: 3,
-      name: "Цена иска",
+      name: "Арбитражный сбор",
       bool: false,
       components: <TargetPlaintiff />,
     },

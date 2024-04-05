@@ -6,7 +6,7 @@ import { searchIdCurrency } from "../../helpers/searchIdCurrency";
 import { searchNameSelect } from "../../helpers/searchNameSelect";
 import { addFilesList } from "../../helpers/addFilesList";
 
-const PdfFile = ({ editorRef }) => {
+const PdfFile = ({ editorRef, isCheckRole }) => {
   const dispatch = useDispatch();
   const { typeUser } = useSelector((state) => state.saveDataSlice);
   const { selCurrency, selCountries, selRegions, selDistrict } = useSelector(
@@ -64,6 +64,17 @@ const PdfFile = ({ editorRef }) => {
     return newHtml;
   };
 
+  const transformClaim = (arr) => {
+    let allText = `<div style="font-weight: 500; font-size: 16px;">`;
+    for (const [index, item] of arr?.entries()) {
+      allText += `<p style="font-size: 18px; text-indent: 40px;">
+                    ${index + 1}. ${item.claimText}
+                  </p>`;
+    }
+    allText += "</div>";
+    return allText;
+  };
+
   React.useEffect(() => {
     const currentDateObject = new Date();
     const day = currentDateObject.getDate();
@@ -109,20 +120,6 @@ const PdfFile = ({ editorRef }) => {
           4
         )}
         </div>
-        <p style="color: transparent; margin: 0px"> font-size: 16px;">${
-          todosApplications?.summ === "0" ||
-          todosApplications?.summ === "" ||
-          todosApplications?.summ === 0
-            ? ""
-            : `Цена иска: ${
-                searchIdCurrency(selCurrency, +todosApplications?.summ_curr)
-                  ? `<span>${todosApplications?.summ}  ${searchIdCurrency(
-                      selCurrency,
-                      +todosApplications?.summ_curr
-                    )}</span>`
-                  : ""
-              }`
-        }
              </p>
             </div>
         </div>
@@ -156,32 +153,8 @@ const PdfFile = ({ editorRef }) => {
               4
             )}
             </div>
-            <p font-size: 16px;">${
-              todosApplications?.summ === "0" ||
-              todosApplications?.summ === "" ||
-              todosApplications?.summ === 0
-                ? ""
-                : `Цена иска: ${
-                    searchIdCurrency(selCurrency, +todosApplications?.summ_curr)
-                      ? `<span style="font-weight: 500;  font-size: 16px;">${
-                          todosApplications?.summ
-                        }  ${searchIdCurrency(
-                          selCurrency,
-                          +todosApplications?.summ_curr
-                        )}</span>`
-                      : ""
-                  }`
-            }
-                 </p>
             </div>
         </div>
-        ${
-          todosApplications?.name === ""
-            ? ""
-            : `<h4 style="text-align:center; font-size: 18px; margin: 0 auto; width: 60%;">
-              ${todosApplications?.name}
-            </h4>`
-        }
         ${
           +todosApplications?.non_proprietary === 0
             ? `<div>
@@ -211,9 +184,8 @@ const PdfFile = ({ editorRef }) => {
                     <p style="
                         font-size: 16px;
                         position: absolute;
-                        width: 280px;
-                        padding: 0px 10px 0px 0px;
-                        line-height: 25px;
+                        width: 275px;
+                        line-height: 0px;
                         top: 15px;
                         right: 10px;
                         color:#000;
@@ -271,9 +243,9 @@ const PdfFile = ({ editorRef }) => {
             : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.law_links}</p>`
         }
         ${
-          todosApplications?.claim === ""
+          todosApplications?.claim?.length === 0
             ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px;">${todosApplications?.claim}</p>`
+            : transformClaim(todosApplications?.claim)
         }
         <p style="text-align:center; font-size: 20px;">Приложения в копиях</p>
         ${addFilesList(applicationList)}
@@ -298,7 +270,7 @@ const PdfFile = ({ editorRef }) => {
   }, [applicationList]);
 
   return (
-    <div className="pdfFile">
+    <div className={`${"pdfFile"} ${isCheckRole && "pdfNone"}`}>
       <Editor
         apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
         initialValue={data || todosApplications.content}

@@ -47,10 +47,17 @@ const DataArrPlaintiff = ({ typerole }) => {
     }
   };
 
+  const isCheckRole =
+    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
+
   return (
     <>
       {lookAddPlaintiff == 0 && (
-        <div className="mainTables dataPlaintiff">
+        <div
+          className={`${"mainTables"} ${"dataPlaintiff"} ${
+            isCheckRole && "dataPlaintiff_more"
+          }`}
+        >
           <ul className="btnsType add">
             {checkEditPlaint ? (
               <>

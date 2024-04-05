@@ -5,7 +5,12 @@ import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
 import { useNavigate } from "react-router-dom";
-import { changeIdStatus, changeLookChangeDeleteIsks, changeLookChangeStatus, changeMainBtnList } from "../../../store/reducers/stateSlice";
+import {
+  changeIdStatus,
+  changeLookChangeDeleteIsks,
+  changeLookChangeStatus,
+  changeMainBtnList,
+} from "../../../store/reducers/stateSlice";
 import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
 import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 import { changeCheckEditPlaint } from "../../../store/reducers/saveDataSlice";
@@ -50,6 +55,7 @@ export const MainPageRS = () => {
       dispatch(
         editIsks({ id: obj?.codeid, tokenA, navigate, applicationList })
       );
+      dispatch(changeCheckEditPlaint(false)); /// запрет на редактирование
     }
   };
 
@@ -85,6 +91,7 @@ export const MainPageRS = () => {
 
   const editIsksFn = (id) => {
     dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+    dispatch(changeCheckEditPlaint(true));
   };
 
   const deleteIsksFn = (id) => {
@@ -142,7 +149,6 @@ export const MainPageRS = () => {
                       <span className="span_teble">
                         {row?.isk_number ? `№ ${row?.isk_number}` : ""}
                       </span>
-                      {/* <span style={{ color: "orange" }}>{row?.isk_date}</span> */}
                     </div>
                   </td>
                   <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
@@ -211,7 +217,7 @@ export const MainPageRS = () => {
                     )}
                   </td>
                   <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
-                    <span>{row.secretary ? row.secretary : ""}</span>
+                    <span>{row.secretary || ""}</span>
                   </td>
                   <td className="table_isk_td">
                     {row?.status === 0 ? (
@@ -235,12 +241,7 @@ export const MainPageRS = () => {
                           <>
                             <div className="statusIsks">
                               <div className="statusIsks moreIsksStatus">
-                                <button
-                                  onClick={() => {
-                                    lookIsksFn(row);
-                                    dispatch(changeCheckEditPlaint(false));
-                                  }}
-                                >
+                                <button onClick={() => lookIsksFn(row)}>
                                   Просмотреть
                                 </button>
                               </div>

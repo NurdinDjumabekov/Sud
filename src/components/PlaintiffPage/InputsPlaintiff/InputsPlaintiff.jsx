@@ -27,6 +27,12 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
     (state) => state.saveDataSlice
   );
 
+  // const { typeUser, checkEditPlaint } = useSelector(
+  //   (state) => state.saveDataSlice
+  // );
+  // const isCheckRole =
+  // checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
+
   const saveData = () => {
     if (checkDataIsks(todosApplications)) {
       if (todosApplications.plaintiff?.length === 0) {
@@ -98,7 +104,7 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
   }, []);
 
   const isCheckRole =
-    checkEditPlaint === false && (+typeUser === 1 || +typeUser === 2);
+    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
 
   return (
     <>
@@ -107,8 +113,8 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
           <React.Fragment key={indexComp}>
             {btnList?.[indexComp]?.components}
           </React.Fragment>
-          {lookAddPlaintiff === 0 && !isCheckRole && (
-            <PdfFile editorRef={editorRef} />
+          {lookAddPlaintiff === 0 && (
+            <PdfFile editorRef={editorRef} isCheckRole={isCheckRole} />
           )}
         </div>
       </div>

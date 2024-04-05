@@ -13,6 +13,9 @@ const TargetPlaintiff = () => {
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selCurrency } = useSelector((state) => state.selectsSlice);
   const { calculatorType } = useSelector((state) => state.stateSlice);
+  const { typeUser, checkEditPlaint } = useSelector(
+    (state) => state.saveDataSlice
+  );
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -29,11 +32,18 @@ const TargetPlaintiff = () => {
     );
   };
 
+  const isCheckRole =
+    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
+
   return (
-    <div className="plaintiFilling__container">
+    <div
+      className={`${"plaintiFilling__container"} ${
+        isCheckRole && "moreNonePdf"
+      }`}
+    >
       <div className="addPlaintiff">
         <form className="targetPlaintiff">
-          <div className="twoInputs">
+          {/* <div className="twoInputs">
             <div>
               <p>Цена иска</p>
               <input
@@ -51,7 +61,7 @@ const TargetPlaintiff = () => {
               keys={{ typeKey: todosApplications.summ_curr, type: "summ_curr" }}
               type="todos"
             />
-          </div>
+          </div> */}
           <div className="twoInputs">
             <div>
               <p>Арбитражный сбор</p>

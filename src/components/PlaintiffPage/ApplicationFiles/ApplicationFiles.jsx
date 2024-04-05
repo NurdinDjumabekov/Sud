@@ -111,7 +111,7 @@ const ApplicationFiles = () => {
                 className="downloadOpis"
                 onClick={() => setLookOpis(true)}
               >
-                Скачать опись
+                Сформировать опись
               </button>
             </div>
           </div>
