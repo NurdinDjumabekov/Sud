@@ -7,8 +7,6 @@ import { searchNameSelect } from "../../helpers/searchNameSelect";
 import { addFilesList } from "../../helpers/addFilesList";
 
 const PdfFile = ({ editorRef, isCheckRole }) => {
-  const dispatch = useDispatch();
-  const { typeUser } = useSelector((state) => state.saveDataSlice);
   const { selCurrency, selCountries, selRegions, selDistrict } = useSelector(
     (state) => state.selectsSlice
   );
@@ -216,7 +214,13 @@ const PdfFile = ({ editorRef, isCheckRole }) => {
               </div>`
             : ""
         }
-        
+        ${
+          todosApplications?.name === ""
+            ? ""
+            : `<h4 style="text-align:center; font-size: 18px; margin: 0 auto; width: 60%;">
+              ${todosApplications?.name}
+            </h4>`
+        }
         ${
           todosApplications?.description === ""
             ? ""
@@ -252,6 +256,8 @@ const PdfFile = ({ editorRef, isCheckRole }) => {
         ${signaturePlaintiff(todosApplications?.plaintiff)}
     </div>
   `;
+
+  console.log(todosApplications?.name, "todosApplications");
 
   React.useEffect(() => {
     if (todosApplications.content === "") {

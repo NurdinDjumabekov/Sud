@@ -347,31 +347,31 @@ export const changeStatusOrg = createAsyncThunk(
   }
 );
 
+/// choiceSecr - выбор секретаря дела председателем
+export const choiceSecr = createAsyncThunk(
+  "choiceSecr",
+  async function ({ tokenA, typeSecretarDela }, { dispatch, rejectWithValue }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://mttp-renaissance.333.kg/api/ ***************************`,
+        data: { asdsa: typeSecretarDela },
+        headers: { Authorization: `Bearer ${tokenA}` },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        dispatch(toTakeIsksList({ tokenA: tokenA, id: 0 }));
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const sendDocsSlice = createSlice({
   name: "sendDocsSlice",
   initialState,
-  reducers: {
-    changePreloader: (state, action) => {
-      state.preloader = action.payload;
-    },
-    changeListTodos: (state, action) => {
-      state.listTodos = action.payload;
-    },
-    addListTodos: (state, action) => {
-      /// добавление нового обьекта!
-      state.listTodos = [
-        ...state.listTodos,
-        {
-          ...action.payload,
-          codeid: "5",
-          isk_status: null,
-          isk_status_name: null,
-          arbitrs: [],
-          files: [],
-        },
-      ];
-    },
-  },
   extraReducers: (builder) => {
     ///// toTakeIsksList
     builder.addCase(toTakeIsksList.fulfilled, (state, action) => {
@@ -447,6 +447,28 @@ const sendDocsSlice = createSlice({
     builder.addCase(changeStatusOrg.pending, (state, action) => {
       state.preloader = true;
     });
+  },
+  reducers: {
+    changePreloader: (state, action) => {
+      state.preloader = action.payload;
+    },
+    changeListTodos: (state, action) => {
+      state.listTodos = action.payload;
+    },
+    addListTodos: (state, action) => {
+      /// добавление нового обьекта!
+      state.listTodos = [
+        ...state.listTodos,
+        {
+          ...action.payload,
+          codeid: "5",
+          isk_status: null,
+          isk_status_name: null,
+          arbitrs: [],
+          files: [],
+        },
+      ];
+    },
   },
 });
 export const { changePreloader, changeListTodos, addListTodos } =

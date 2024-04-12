@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// 1  Секретарь
+// 2  Ответственный секретарь
+// 3  Председатель
+// 4  Истец
+
 const initialState = {
   tokenA: "",
   typeUser: 0, /// типы пользователей

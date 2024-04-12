@@ -4,7 +4,6 @@ import Selects from "../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
 import { typeArbitrs } from "../../../helpers/dataArr";
-// import { selectUserStatus } from "../../../helpers/dataArr";
 
 const GeneralInfo = () => {
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
@@ -13,13 +12,12 @@ const GeneralInfo = () => {
   const { typeUser, checkEditPlaint } = useSelector(
     (state) => state.saveDataSlice
   );
-  
+
   const dispatch = useDispatch();
 
   const isCheckRole =
     checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
 
-  // console.log(todosApplications, "todosApplications");
   return (
     <div
       className={`${"plaintiFilling__container"} ${

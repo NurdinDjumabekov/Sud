@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./TimerRevers.scss";
 
 const TimerRevers = ({ days, time }) => {
   const renderDate = (date, time) => {

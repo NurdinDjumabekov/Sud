@@ -17,6 +17,7 @@ import sendImg from "../../asstes/icons/goodSend.svg";
 import LookPdfModal from "../PdfFile/LookPdfModal/LookPdfModal";
 import { editIsks } from "../../store/reducers/applicationsSlice";
 import { useNavigate } from "react-router-dom";
+import { plaintiffHeaders } from "../../helpers/dataArr";
 
 export const Table = () => {
   const dispatch = useDispatch();
@@ -82,35 +83,22 @@ export const Table = () => {
           <table className="table_isk">
             <thead>
               <tr>
-                <th className="table_isk_th">Иск</th>
-                <th className="table_isk_th">Дата</th>
-                <th className="table_isk_th">Истец</th>
-                <th className="table_isk_th">Ответчик</th>
-                <th className="table_isk_th">Арбитражный сбор</th>
-                <th className="table_isk_th">Регламент</th>
-                <th className="table_isk_th">Арбитры</th>
-                <th className="table_isk_th">Секретарь</th>
-                <th className="table_isk_th">Статус</th>
-                <th className="table_isk_th">Действие</th>
-                <th className="table_isk_th">На рассмотрении</th>
-                <th className="table_isk_th">Документы</th>
+                {plaintiffHeaders?.map((i) => (
+                  <th key={i} className="table_isk_th">
+                    {i}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody className="tbody_isk">
               {listTodos?.map((row, index) => (
                 <tr
                   key={index}
-                  style={
-                    +index % 2 === 0
-                      ? { background: "#fff" }
-                      : { background: "#f9fafd" }
-                  }
+                  className={`${+index % 2 === 0 ? "colorWhite" : "colorGray"}`}
                 >
                   <td className="table_isk_td">
                     <div>
-                      <span>
-                        {row?.isk_number ? `№ ${row?.isk_number}` : ""}
-                      </span>
+                      <span>{row?.isk_number && `№ ${row.isk_number}`}</span>
                     </div>
                   </td>
                   <td className="table_isk_td">
@@ -118,43 +106,33 @@ export const Table = () => {
                     <span>{row?.isk_time}</span>
                   </td>
                   <td className="table_isk_td">
-                    <>
-                      {row?.plaintiff?.length === 0 ? ( ////  "ФИО Истца отсутствует"
-                        <p></p>
-                      ) : (
-                        <>
-                          {row.plaintiff.map((i, index) => (
-                            <span key={index}>
-                              {i.name}
-                              {index !== row.plaintiff.length - 1 && ","}
-                            </span>
-                          ))}
-                        </>
-                      )}
-                    </>
+                    {row?.plaintiff?.length !== 0 && (
+                      <>
+                        {row.plaintiff.map((i, index) => (
+                          <span key={index}>
+                            {i.name}
+                            {index !== row.plaintiff.length - 1 && ","}
+                          </span>
+                        ))}
+                      </>
+                    )}
                   </td>
                   <td className="table_isk_td">
-                    <>
-                      {row?.defendant?.length === 0 ? ( ////  "ФИО ответчика отсутствует"
-                        ""
-                      ) : (
-                        <>
-                          {row.defendant.map((i, index) => (
-                            <span key={index}>
-                              {i.name}
-                              {index !== row.defendant.length - 1 && ","}
-                            </span>
-                          ))}
-                        </>
-                      )}
-                    </>
+                    {row?.defendant?.length !== 0 && (
+                      <>
+                        {row.defendant.map((i, index) => (
+                          <span key={index}>
+                            {i.name}
+                            {index !== row.defendant.length - 1 && ","}
+                          </span>
+                        ))}
+                      </>
+                    )}
                   </td>
                   {/* ///////////////////////////////////// */}
                   <td className="table_isk_td">
                     <span>
-                      {+row?.arbitr_fee === 0 ? (
-                        ""
-                      ) : (
+                      {+row?.arbitr_fee !== 0 && (
                         <>
                           {row?.arbitr_fee}{" "}
                           {searchNameSelect(selCurrency, +row?.arbitr_curr)}
@@ -164,9 +142,7 @@ export const Table = () => {
                   </td>
                   <td className="table_isk_td">
                     <span>
-                      {+row?.reglament === 0 ? (
-                        ""
-                      ) : (
+                      {+row?.reglament !== 0 && (
                         <>{searchNameSelect(selReglament, +row?.reglament)}</>
                       )}
                     </span>
@@ -179,17 +155,13 @@ export const Table = () => {
                     )}
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.secretary ? row.secretary : ""}</span>
+                    <span>{row.secretary || ""}</span>
                   </td>
                   <td className="table_isk_td">
                     {+row?.status === 1 ? (
-                      <span style={{ color: "#16bb16", padding: "0px 10px" }}>
-                        Активен
-                      </span>
+                      <span className="activePlaint">Активен</span>
                     ) : (
-                      <span style={{ color: "red", padding: "0px 10px" }}>
-                        Черновик
-                      </span>
+                      <span className="noActivePlaint">Черновик</span>
                     )}
                   </td>
                   <td className="table_isk_td">
@@ -236,9 +208,7 @@ export const Table = () => {
                     )}
                   </td>
                   <td className="table_isk_td">
-                    {+row?.status === 0 ? (
-                      ""
-                    ) : (
+                    {+row?.status !== 0 && (
                       <>
                         {(+row?.isk_status === 0 ||
                           +row?.isk_status === 1 ||

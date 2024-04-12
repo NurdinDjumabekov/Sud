@@ -13,7 +13,6 @@ import GeneralInfo from "../../components/PlaintiffPage/GeneralInfo/GeneralInfo"
 import LinksLaw from "../../components/PlaintiffPage/LinksLaw/LinksLaw";
 import ClaimRequaire from "../../components/PlaintiffPage/ClaimRequaire/ClaimRequaire";
 import ApplicationFiles from "../../components/PlaintiffPage/ApplicationFiles/ApplicationFiles";
-//// delete
 import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/DataArrPlaintiff";
 import {
   clearTodosApplications,
@@ -139,7 +138,10 @@ const PlaintiffPage = () => {
     };
   }, []);
 
-  // console.log(checkEditPlaint, "checkEditPlaint");
+  const clickBtns = (id) => {
+    clickBtn(id);
+    dispatch(changeLookAddPlaintiff(0));
+  };
 
   return (
     <div className="plaintiff">
@@ -148,10 +150,7 @@ const PlaintiffPage = () => {
           {btnList?.map((btn) => (
             <button
               key={btn.id}
-              onClick={() => {
-                clickBtn(btn.id);
-                dispatch(changeLookAddPlaintiff(0));
-              }}
+              onClick={() => clickBtns(btn?.id)}
               className={btn?.bool ? "activeBtnsPlaintiff" : ""}
             >
               {btn.id}. {btn.name}

@@ -75,14 +75,14 @@ function LayoutsRS() {
     //   icon: calTodoPlaintiff,
     //   iconWhite: calTodoPlaintiffWhite,
     // },
-    {
-      id: 6,
-      name: "Архив дел",
-      path: "/archive",
-      bool: false,
-      icon: archive,
-      iconWhite: archiveWhite,
-    },
+    // {
+    //   id: 6,
+    //   name: "Архив дел",
+    //   path: "/archive",
+    //   bool: false,
+    //   icon: archive,
+    //   iconWhite: archiveWhite,
+    // },
   ]);
 
   React.useEffect(() => {

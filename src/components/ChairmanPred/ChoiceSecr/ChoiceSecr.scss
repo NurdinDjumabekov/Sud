@@ -1,0 +1,23 @@
+.choiceBtn {
+  color: #4d5969;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  transition: 0.2s;
+  padding: 8px 13px;
+  height: auto !important;
+  margin: 0 !important;
+  border-radius: 3px;
+  background: rgb(237, 242, 249);
+}
+.choiceInner {
+  padding: 10px 25px 25px 25px;
+  .acceptSecr {
+    background: green;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 8px;
+    color: #fff;
+    margin: 20px 0 0 0;
+  }
+}

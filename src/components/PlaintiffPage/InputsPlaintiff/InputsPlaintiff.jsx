@@ -83,7 +83,7 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
 
   const clearDataCalculator = () => {
     dispatch(changeCalculatorType(false)); /// строс отображение калькулятора
-    dispatch(changeSumIsk("")); /// строс суммы калькулятора
+    dispatch(changeSumIsk("")); /// сброс суммы калькулятора
     dispatch(changeCalculatorState(false)); // отображение таблицы
     dispatch(
       /// строс подсчёт калькулятора

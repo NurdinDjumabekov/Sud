@@ -252,13 +252,13 @@ const ConfirmStatus = ({
           {istype.type === 3 && (
             <>
               <div className="choiceSecretard">
-                <Selects
+                {/* <Selects
                   arr={selSecretarDela}
                   initText={"Выберите секретаря дела"}
                   keys={{ typeKey: typeSecretarDela, type: "typeSecretarDela" }}
                   type="secr"
                   urgently={false}
-                />
+                /> */}
                 {listBtns?.map((btn) => (
                   <button
                     key={btn?.id}

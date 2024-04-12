@@ -22,6 +22,7 @@ import redone from "../../../asstes/images/redone1.png";
 import editImg from "../../../asstes/icons/editBtn.svg";
 import deleteImg from "../../../asstes/icons/deleteBtn.svg";
 import sendImg from "../../../asstes/icons/goodSend.svg";
+import { respSecrHeaders } from "../../../helpers/dataArr";
 
 export const MainPageRS = () => {
   const dispatch = useDispatch();
@@ -99,8 +100,6 @@ export const MainPageRS = () => {
     dispatch(changeIdStatus(id));
   };
 
-  // console.log(listTodos, "listTodos");
-
   return (
     <>
       <div className="mainTables">
@@ -121,33 +120,23 @@ export const MainPageRS = () => {
           <table className="table_isk">
             <thead>
               <tr>
-                <th className="table_isk_th">Иск</th>
-                <th className="table_isk_th">Дата</th>
-                <th className="table_isk_th">Истец</th>
-                <th className="table_isk_th">Ответчик</th>
-                <th className="table_isk_th">Арбитражный сбор</th>
-                <th className="table_isk_th">Регламент</th>
-                <th className="table_isk_th">Арбитры</th>
-                <th className="table_isk_th">Секретарь</th>
-                <th className="table_isk_th">Статус</th>
-                <th className="table_isk_th">До рассмотрения осталось</th>
-                <th className="table_isk_th">Документы</th>
+                {respSecrHeaders?.map((i) => (
+                  <th key={i} className="table_isk_th">
+                    {i}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody className="tbody_isk">
               {listTodos?.map((row, index) => (
                 <tr
                   key={index}
-                  style={
-                    +index % 2 === 0
-                      ? { background: "#fff" }
-                      : { background: "#f9fafd" }
-                  }
+                  className={`${+index % 2 === 0 ? "colorWhite" : "colorGray"}`}
                 >
                   <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
                     <div>
                       <span className="span_teble">
-                        {row?.isk_number ? `№ ${row?.isk_number}` : ""}
+                        <span>{row?.isk_number && `№ ${row.isk_number}`}</span>
                       </span>
                     </div>
                   </td>
@@ -156,64 +145,52 @@ export const MainPageRS = () => {
                     <span>{row?.isk_time}</span>
                   </td>
                   <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
-                    <>
-                      {row?.plaintiff?.length === 0 ? ( ////  "ФИО Истца отсутствует"
-                        <p></p>
-                      ) : (
-                        <>
-                          {row.plaintiff.map((i, index) => (
-                            <span key={index}>
-                              {i.name}
-                              {index !== row.plaintiff.length - 1 && ","}
-                            </span>
-                          ))}
-                        </>
-                      )}
-                    </>
+                    {row?.plaintiff?.length !== 0 && (
+                      <>
+                        {row.plaintiff.map((i, index) => (
+                          <span key={index}>
+                            {i.name}
+                            {index !== row.plaintiff.length - 1 && ","}
+                          </span>
+                        ))}
+                      </>
+                    )}
                   </td>
                   <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
-                    <>
-                      {row?.defendant?.length === 0 ? ( ////  "ФИО ответчика отсутствует"
-                        ""
-                      ) : (
-                        <>
-                          {row.defendant.map((i, index) => (
-                            <span key={index}>
-                              {i.name}
-                              {index !== row.defendant.length - 1 && ","}
-                            </span>
-                          ))}
-                        </>
-                      )}
-                    </>
+                    {row?.defendant?.length !== 0 && (
+                      <>
+                        {row?.defendant?.map((i, index) => (
+                          <span key={index}>
+                            {i.name}
+                            {index !== row.defendant.length - 1 && ","}
+                          </span>
+                        ))}
+                      </>
+                    )}
                   </td>
                   {/* ///////////////////////////////////// */}
                   <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
-                    <span>
-                      {+row?.arbitr_fee === 0 ? (
-                        ""
-                      ) : (
-                        <>
-                          {row?.arbitr_fee}{" "}
-                          {searchNameSelect(selCurrency, +row?.arbitr_curr)}
-                        </>
-                      )}
-                    </span>
+                    {+row?.arbitr_fee !== 0 && (
+                      <span>
+                        {row?.arbitr_fee}{" "}
+                        {searchNameSelect(selCurrency, +row?.arbitr_curr)}
+                      </span>
+                    )}
                   </td>
                   <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
-                    <span>
-                      {+row?.reglament === 0 ? (
-                        ""
-                      ) : (
-                        <>{searchNameSelect(selReglament, +row?.reglament)}</>
-                      )}
-                    </span>
+                    {+row?.reglament !== 0 && (
+                      <span>
+                        {searchNameSelect(selReglament, +row?.reglament)}
+                      </span>
+                    )}
                   </td>
                   <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
-                    {row?.arbitrs?.length === 0 ? (
-                      <span></span>
-                    ) : (
-                      row?.arbitrs?.map((i) => <span>{i?.name}</span>)
+                    {row?.arbitrs?.length !== 0 && (
+                      <>
+                        {row?.arbitrs?.map((i) => (
+                          <span>{i?.name}</span>
+                        ))}
+                      </>
                     )}
                   </td>
                   <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
@@ -238,25 +215,23 @@ export const MainPageRS = () => {
                     ) : (
                       <>
                         {+row?.isk_status === 0 ? (
-                          <>
-                            <div className="statusIsks">
-                              <div className="statusIsks moreIsksStatus">
-                                <button onClick={() => lookIsksFn(row)}>
-                                  Просмотреть
-                                </button>
-                              </div>
-                              <button onClick={() => lookIsks(row?.codeid, 1)}>
-                                <img src={fullfiled} alt="ok" />
+                          <div className="statusIsks">
+                            <div className="statusIsks moreIsksStatus">
+                              <button onClick={() => lookIsksFn(row)}>
+                                Просмотреть
                               </button>
-                              <button onClick={() => lookIsks(row?.codeid, 2)}>
-                                <img src={reject} alt="no" />
-                              </button>
-                              {/* <button onClick={() => lookIsks(row?.codeid, 2)}>
+                            </div>
+                            <button onClick={() => lookIsks(row?.codeid, 1)}>
+                              <img src={fullfiled} alt="ok" />
+                            </button>
+                            <button onClick={() => lookIsks(row?.codeid, 2)}>
+                              <img src={reject} alt="no" />
+                            </button>
+                            {/* <button onClick={() => lookIsks(row?.codeid, 2)}>
                             <img src={redone} alt="redone" className="redone" />
                           </button> */}
-                              {/* /////  */}
-                            </div>
-                          </>
+                            {/* /////  */}
+                          </div>
                         ) : (
                           <>
                             {statusMessages[row?.isk_status] && (
@@ -286,9 +261,7 @@ export const MainPageRS = () => {
                     )}
                   </td>
                   <td className="table_isk_td">
-                    {+row?.status === 0 ? (
-                      ""
-                    ) : (
+                    {+row?.status !== 0 && (
                       <>
                         {(+row?.isk_status === 0 || +row?.isk_status === 1) && (
                           <TimerRevers
@@ -301,9 +274,7 @@ export const MainPageRS = () => {
                   </td>
                   <td className="table_isk_td">
                     <span className="documentBlock">
-                      {row?.files?.length === 0 ? (
-                        <span></span>
-                      ) : (
+                      {row?.files?.length !== 0 && (
                         <div className="docsBlock">
                           {row?.files?.map((pdf) => (
                             <LookPdfModal pdf={pdf} key={pdf?.codeid} />

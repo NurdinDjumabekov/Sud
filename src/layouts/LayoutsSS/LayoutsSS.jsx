@@ -8,16 +8,15 @@ import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
 ////// imgsBlack
 import myIski from "../../asstes/icons/IconPage/me_iski.svg";
 import notif from "../../asstes/icons/IconPage/notification.svg";
-import archive from "../../asstes/icons/IconPage/archive.svg";
 import create from "../../asstes/icons/IconPage/create.svg";
 
 ////// imgsWhite
 import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
 import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
-import archiveWhite from "../../asstes/icons/IconPageWhite/archive.svg";
 import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
 
 import logo from "../../asstes/images/logo.png";
+
 import { useDispatch, useSelector } from "react-redux";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
@@ -75,14 +74,14 @@ function LayoutsSS() {
     //   icon: calTodoPlaintiff,
     //   iconWhite: calTodoPlaintiffWhite,
     // },
-    {
-      id: 6,
-      name: "Архив дел",
-      path: "/archive",
-      bool: false,
-      icon: archive,
-      iconWhite: archiveWhite,
-    },
+    // {
+    //   id: 6,
+    //   name: "Архив дел",
+    //   path: "/archive",
+    //   bool: false,
+    //   icon: archive,
+    //   iconWhite: archiveWhite,
+    // },
   ]);
 
   React.useEffect(() => {
@@ -115,6 +114,8 @@ function LayoutsSS() {
     }
   };
 
+  const checkCreate = location.pathname === "/plaintiffCreate";
+
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__inner">
@@ -142,21 +143,16 @@ function LayoutsSS() {
             >
               <div>
                 <img
-                  style={
-                    page.id === 4 || page.id === 6
-                      ? { width: "20px", height: "20px" }
-                      : {}
-                  }
                   src={page.bool ? page.iconWhite : page.icon}
                   alt="иконка"
-                  className="imgIcon"
+                  className={`${"imgIcon"} ${
+                    (page.id === 4 || page.id === 6) && "size20"
+                  }`}
                 />
                 <p>
                   {page.name}
-                  {page?.count ? (
+                  {page?.count && (
                     <button className="notifNums">{notifCount || 0}</button>
-                  ) : (
-                    ""
                   )}
                 </p>
               </div>
@@ -166,12 +162,9 @@ function LayoutsSS() {
         <LogOut />
       </div>
       <div
-        className="plaintiffBlock__content"
-        style={
-          location.pathname === "/plaintiffCreate"
-            ? { alignItems: "start", marginTop: "26px" }
-            : {}
-        }
+        className={`${"plaintiffBlock__content"} ${
+          checkCreate && "positionStart"
+        }`}
       >
         <Outlet />
       </div>

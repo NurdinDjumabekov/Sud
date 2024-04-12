@@ -25,7 +25,7 @@ import { editIsks } from "../../store/reducers/applicationsSlice";
 const MoreInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
 
   const {
@@ -52,7 +52,9 @@ const MoreInfo = () => {
           <div className="imgBlock">
             <img src={imgWarning} alt="send!" />
           </div>
-          <h5>Подать иск?</h5>
+          <h5>
+            {+typeUser === 1 || 2 ? "Подтвердить подачу иска?" : "Подать иск?"}
+          </h5>
           <div className="btnsSendIsks">
             <button
               onClick={() => {

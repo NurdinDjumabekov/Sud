@@ -1,5 +1,4 @@
 import React from "react";
-import "./Alerts.scss";
 import { Box, Modal } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { changeAlertText } from "../../store/reducers/typesSlice";
@@ -7,8 +6,6 @@ import { changeAlertText } from "../../store/reducers/typesSlice";
 const Alerts = () => {
   const dispatch = useDispatch();
   const { alertText } = useSelector((state) => state.typesSlice);
-  const handleOpen = () =>
-    dispatch(changeAlertText({ ...alertText, state: true }));
   const handleClose = () =>
     dispatch(changeAlertText({ ...alertText, state: false }));
 
@@ -39,14 +36,6 @@ const Alerts = () => {
         })
       );
     }, 2000);
-    // return () =>
-    //   dispatch(
-    //     changeAlertText({
-    //       text: "",
-    //       backColor: "",
-    //       state: false,
-    //     })
-    //   );
   }, [alertText?.state]);
 
   const styleText = {

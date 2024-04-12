@@ -1,35 +1,28 @@
 import React, { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import LogOut from "../components/LogOut/LogOut";
+import LogOut from "../../components/LogOut/LogOut";
 import "./MainLayouts.scss";
 import { jwtDecode } from "jwt-decode";
 
 ////// imgsBlack
-import myIski from "../asstes/icons/IconPage/me_iski.svg";
-import notif from "../asstes/icons/IconPage/notification.svg";
-import create from "../asstes/icons/IconPage/create.svg";
-import faceImg from "../asstes/icons/plaintiff/fiz_face.svg";
-import meetingsPlaintiff from "../asstes/icons/IconPage/calendar.svg";
-import calTodoPlaintiff from "../asstes/icons/IconPage/calendar2.svg";
-import archive from "../asstes/icons/IconPage/archive.svg";
-import arrow from "../asstes/icons/IconPage/arrow.svg";
+import myIski from "../../asstes/icons/IconPage/me_iski.svg";
+import notif from "../../asstes/icons/IconPage/notification.svg";
+import create from "../../asstes/icons/IconPage/create.svg";
 ////
-import myIskiWhite from "../asstes/icons/IconPageWhite/me_iski.svg";
-import notifWhite from "../asstes/icons/IconPageWhite/notification.svg";
-import createWhite from "../asstes/icons/IconPageWhite/create.svg";
-import meetingsPlaintiffWhite from "../asstes/icons/IconPageWhite/calendar.svg";
-import calTodoPlaintiffWhite from "../asstes/icons/IconPageWhite/calendar2.svg";
-import archiveWhite from "../asstes/icons/IconPageWhite/archive.svg";
-import arrowWhite from "../asstes/icons/IconPageWhite/arrow.svg";
+import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
+import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
+import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
 
-import logo from "../asstes/images/logo.png";
+import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
+import logo from "../../asstes/images/logo.png";
+
 import { useDispatch, useSelector } from "react-redux";
-import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
-import { toTakeIsksList } from "../store/reducers/sendDocsSlice";
-import { shortenToTwoWords } from "../helpers/shortenToTwoWords";
-import { notificationCount } from "../store/reducers/notificationSlice";
+import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
+import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
+import { notificationCount } from "../../store/reducers/notificationSlice";
+import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
 
-function MainLayouts() {
+const MainLayouts = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -90,25 +83,13 @@ function MainLayouts() {
   ]);
 
   React.useEffect(() => {
-    const newPage = pages.map((i) => {
-      if (i.path === location.pathname) {
-        return {
-          ...i,
-          bool: true,
-        };
-      } else {
-        return {
-          ...i,
-          bool: false,
-        };
-      }
-    });
-    setPages(newPage);
-    if (location.pathname === "/mainPlaintiff") {
-      setLookInnerPages(true);
-    } else {
-      setLookInnerPages(false);
-    }
+    setPages(
+      pages.map((i) => ({
+        ...i,
+        bool: i.path === location.pathname,
+      }))
+    );
+    setLookInnerPages(location.pathname === "/mainPlaintiff");
   }, [location.pathname]);
 
   React.useEffect(() => {
@@ -117,7 +98,14 @@ function MainLayouts() {
     dispatch(notificationCount(tokenA));
   }, []);
 
+  const clickMenu = (page) => {
+    navigate(page.path);
+    setLookInnerPages(!lookInnerPages);
+  };
+
   const decodedToken = jwtDecode(tokenA);
+
+  const checkCreate = location.pathname === "/plaintiffCreate";
 
   return (
     <div className="plaintiffBlock">
@@ -141,29 +129,21 @@ function MainLayouts() {
         {pages?.map((page) => (
           <div key={page.id}>
             <button
-              onClick={() => {
-                navigate(page.path);
-                setLookInnerPages(!lookInnerPages);
-              }}
+              onClick={() => clickMenu(page)}
               className={page.bool ? "activePage" : ""}
             >
               <div>
                 <img
-                  style={
-                    page.id === 4 || page.id === 6
-                      ? { width: "20px", height: "20px" }
-                      : {}
-                  }
                   src={page.bool ? page.iconWhite : page.icon}
                   alt="иконка"
-                  className="imgIcon"
+                  className={`${"imgIcon"} ${
+                    (page.id === 4 || page.id === 6) && "size20"
+                  }`}
                 />
                 <p>
                   {page.name}
-                  {page?.count ? (
+                  {page?.count && (
                     <button className="notifNums">{notifCount || 0}</button>
-                  ) : (
-                    ""
                   )}
                 </p>
               </div>
@@ -173,17 +153,14 @@ function MainLayouts() {
         <LogOut />
       </div>
       <div
-        className="plaintiffBlock__content"
-        style={
-          location.pathname === "/plaintiffCreate"
-            ? { alignItems: "start" }
-            : {}
-        }
+        className={`${"plaintiffBlock__content"} ${
+          checkCreate && "positionStart"
+        }`}
       >
         <Outlet />
       </div>
     </div>
   );
-}
+};
 
 export default MainLayouts;
