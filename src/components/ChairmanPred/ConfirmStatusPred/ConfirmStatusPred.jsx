@@ -18,7 +18,7 @@ import { toTakeTypeTypeDocs } from "../../../store/reducers/applicationsSlice";
 import { changeStatusOrg } from "../../../store/reducers/sendDocsSlice";
 //// components
 import ApplicationFiles from "../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
-import ChoiceArbitrsPred from "../../ChoiceArbitrsPred/ChoiceArbitrsPred";
+import ChoiceArbitrsPred from "../ChoiceArbitrsPred/ChoiceArbitrsPred";
 import PdfFileReject from "../../PdfFile/PdfFileReject/PdfFileReject";
 import PdfFulfilled from "../../PdfFile/PdfFulfilled/PdfFulfilled";
 import Modals from "../../Modals/Modals";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ExampleBlock from "../../ExampleBlock/ExampleBlock";
+import ExampleBlock from "../ExampleBlock/ExampleBlock";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
 import "./ClaimRequaire.scss";

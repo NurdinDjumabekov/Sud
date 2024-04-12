@@ -68,9 +68,6 @@ const initialState = {
     num3: 0,
     num4: 0,
   },
-  lookDataAllPlaintiff: false, /// для просмотра списка истцов и представителей
-  listPlaint: [], /// для просмотра списка истцов и представителей
-  /// delete
 
   lookChangeStatus: false, /// для просмотра модалки изменения статуса у истца
   lookChangeEditIsks: false, /// для изменения иска у истца
@@ -231,12 +228,7 @@ const stateSlice = createSlice({
     changeTypePay: (state, action) => {
       state.typePay = action.payload;
     },
-    changeLookDataAllPlaintiff: (state, action) => {
-      state.lookDataAllPlaintiff = action.payload;
-    },
-    changeListPlaint: (state, action) => {
-      state.listPlaint = action.payload;
-    },
+
     /////////////////////////////////////////////////
     changeLookChangeStatus: (state, action) => {
       state.lookChangeStatus = action.payload;
@@ -279,8 +271,6 @@ export const {
   changeResult,
   changeCalculatorType,
   changeTypePay,
-  changeLookDataAllPlaintiff,
-  changeListPlaint,
   changeLookChangeStatus,
   changeLookChangeEditIsks,
   changeLookChangeDeleteIsks,

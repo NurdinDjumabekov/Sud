@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
 import { changeLookDocs } from "../../../store/reducers/stateSlice";
+import { changeCheckEditPlaint } from "../../../store/reducers/saveDataSlice";
+
+///// imgs
 import fullfiled from "../../../asstes/icons/goodSend.svg";
 import reject from "../../../asstes/icons/krestik.svg";
-import { changeCheckEditPlaint } from "../../../store/reducers/saveDataSlice";
 
 const ActionsPred = (props) => {
   const { row, setSendStatusIsk, setIsType } = props;

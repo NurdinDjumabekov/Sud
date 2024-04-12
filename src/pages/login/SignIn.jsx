@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import logoSud from "../../asstes/images/sud-login.png";
-/// delete
 
 import "./SingIn.scss";
 import { useNavigate } from "react-router-dom";

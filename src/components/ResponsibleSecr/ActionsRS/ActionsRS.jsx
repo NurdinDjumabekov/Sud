@@ -9,12 +9,10 @@ import {
   changeLookChangeStatus,
 } from "../../../store/reducers/stateSlice";
 
-import "./ActionsRS.scss";
-
 ////// imgs
 import fullfiled from "../../../asstes/icons/goodSend.svg";
 import reject from "../../../asstes/icons/krestik.svg";
-import redone from "../../../asstes/images/redone1.png";
+import redone from "../../../asstes/images/redone.png";
 import editImg from "../../../asstes/icons/editBtn.svg";
 import deleteImg from "../../../asstes/icons/deleteBtn.svg";
 import sendImg from "../../../asstes/icons/goodSend.svg";

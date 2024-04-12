@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import PlaintiffPage from "../pages/PlaintiffPage/PlaintiffPage";
 import MainLayouts from "../layouts/LayoutPlainttiff/MainLayouts";
-import MainPage from "../pages/MainPage/MainPage";
 import NotificationPage from "../pages/NotificationPage/NotificationPage";
 import { Preloader } from "../components/Preloader/Preloader";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,6 +33,7 @@ import {
 import LayoutsSS from "../layouts/LayoutsSS/LayoutsSS";
 import { MainPageSS } from "../components/SimpleSecr/MainPageSS/MainPageSS";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
+import MainPagePlaintiff from "../pages/MainPagePlaintiff/MainPagePlaintiff";
 
 function MainRoutes() {
   const dispatch = useDispatch();
@@ -58,7 +58,6 @@ function MainRoutes() {
         <Route path="/mainSimpSecr" element={<MainPageSS />} />
         <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
-        {/* <Route path="/archive" element={<ArchivePage />} /> */}
       </Route>
     );
   } else if (+typeUser === 2) {
@@ -67,7 +66,6 @@ function MainRoutes() {
         <Route path="/mainRespSec" element={<MainPageRS />} />
         <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
-        {/* <Route path="/archive" element={<ArchivePage />} /> */}
       </Route>
     );
   } else if (+typeUser === 3) {
@@ -76,13 +74,12 @@ function MainRoutes() {
         <Route path="/mainRespPred" element={<MainPagePred />} />
         <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
-        {/* <Route path="/archive" element={<ArchivePage />} /> */}
       </Route>
     );
   } else if (+typeUser === 4) {
     userRoutes = (
       <Route element={<MainLayouts />}>
-        <Route path="/mainPlaintiff" element={<MainPage />} />
+        <Route path="/mainPlaintiff" element={<MainPagePlaintiff />} />
         <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
         <Route path="/notifPlaintiff" element={<NotificationPage />} />
       </Route>

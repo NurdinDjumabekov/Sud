@@ -1,7 +1,7 @@
 import React from "react";
 import Selects from "../../Selects/Selects";
 import "./TargetPlaintiff.scss";
-import Requisites from "../../Requisites/Requisites";
+import Requisites from "../Requisites/Requisites";
 import Calculator from "../../Calculator/Calculator";
 import { useDispatch, useSelector } from "react-redux";
 import DataInput from "../DataInput/DataInput";

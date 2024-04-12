@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./ChoiceArbitrsPred.scss";
-import Selects from "../Selects/Selects";
+import Selects from "../../Selects/Selects";
 import { useSelector } from "react-redux";
 import debounce from "debounce";
-import userImg from "../../asstes/icons/plaintiff/fiz_face.svg";
+import userImg from "../../../asstes/icons/plaintiff/fiz_face.svg";
 
 const ChoiceArbitrsPred = () => {
   const { arbitrPred } = useSelector((state) => state.stateSlice);

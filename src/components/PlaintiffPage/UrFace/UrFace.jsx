@@ -116,10 +116,9 @@ const UrFace = ({ typerole }) => {
         })
       );
     }
-    dispatch(changeLookAddPlaintiff(0));
-    dispatch(clearADFF());
-    dispatch(clearADUF());
+    cancel();
   };
+
   const changeInput = (e) => {
     e.preventDefault();
 
@@ -149,6 +148,12 @@ const UrFace = ({ typerole }) => {
     } else {
       dispatch(changeADUF({ ...aduf, [name]: value }));
     }
+  };
+
+  const cancel = () => {
+    dispatch(changeLookAddPlaintiff(0));
+    dispatch(clearADFF());
+    dispatch(clearADUF());
   };
 
   React.useEffect(() => {
@@ -268,30 +273,7 @@ const UrFace = ({ typerole }) => {
             urgently={true}
           />
         </div>
-        {/* <div className="btnsTypeMain">
-          <div className="btnsType">
-            <span
-              className={aduf?.type === 1 ? "activeBtnsPlaintiff" : ""}
-              onClick={() => dispatch(changeADUF({ ...aduf, type: 1 }))}
-            >
-              Руководитель компании
-            </span>
-            <span
-              className={aduf?.type === 1 ? "" : "activeBtnsPlaintiff"}
-              onClick={() => dispatch(changeADUF({ ...aduf, type: 2 }))}
-            >
-              Адрес компании
-            </span>
-          </div>
-        </div>
-        /////////// */}
         <div className="threeInputs">
-          {/* <Selects
-            arr={selCountries}
-            initText={"Страна"}
-            keys={{ typeKey: aduf.country_ur, type: "country_ur" }}
-            type="aduf"
-          /> */}
           <Selects
             arr={selTypePosition}
             initText={"Должность в компании"}
@@ -466,11 +448,7 @@ const UrFace = ({ typerole }) => {
           <span
             style={{ width: "150px" }}
             className="saveBtn moreBtn"
-            onClick={() => {
-              dispatch(changeLookAddPlaintiff(0));
-              dispatch(clearADFF());
-              dispatch(clearADUF());
-            }}
+            onClick={cancel}
           >
             Отмена
           </span>

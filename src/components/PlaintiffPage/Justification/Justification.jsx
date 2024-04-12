@@ -1,5 +1,5 @@
 import React from "react";
-import ExampleBlock from "../../ExampleBlock/ExampleBlock";
+import ExampleBlock from "../ExampleBlock/ExampleBlock";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
