@@ -1,30 +1,22 @@
 import React, { useState } from "react";
 import "./MainPagePred.scss";
 import { useDispatch, useSelector } from "react-redux";
-import ConfirmStatus from "../../ConfirmStatus/ConfirmStatus";
 import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
-import { useNavigate } from "react-router-dom";
-import { editIsks } from "../../../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
-import {
-  changeLookDocs,
-  changeMainBtnList,
-} from "../../../store/reducers/stateSlice";
+import { changeMainBtnList } from "../../../store/reducers/stateSlice";
 ////// imgs
-import fullfiled from "../../../asstes/icons/goodSend.svg";
-import reject from "../../../asstes/icons/krestik.svg";
 import TimerRevers from "../../Timers/TimerRevers/TimerRevers";
 import ChoiceSecr from "../ChoiceSecr/ChoiceSecr";
 import { respSecrHeaders } from "../../../helpers/dataArr";
+import ActionsPred from "../ActionsPred/ActionsPred";
+import ConfirmStatusPred from "../ConfirmStatusPred/ConfirmStatusPred";
 
 export const MainPagePred = () => {
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { applicationList } = useSelector((state) => state.applicationsSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
@@ -44,35 +36,6 @@ export const MainPagePred = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  const editIsksFn = (id) => {
-    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
-  };
-
-  const lookIsks = (id, type) => {
-    setSendStatusIsk(true);
-    changeStatusIsks(id, type);
-    dispatch(
-      editIsks({
-        id,
-        tokenA,
-        applicationList,
-      })
-    );
-    dispatch(changeLookDocs(false)); /// для сброса cостояния просмтотра доков только у председателя
-  };
-
-  const changeStatusIsks = (id, status) => {
-    setSendStatusIsk(true);
-    setIsType({ type: status, id });
-  };
-
-  const statusMessages = {
-    2: "Отклонён ответственным секретарём",
-    3: "Принят председателем",
-    4: "Отклонён председателем",
-    5: "Ответчик уведомлён",
-  };
-
   return (
     <>
       <div className="mainTables">
@@ -82,7 +45,6 @@ export const MainPagePred = () => {
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
                 onClick={() => clickBtn(btn.id)}
-                style={ind === 0 ? { marginLeft: "0px" } : {}}
               >
                 {btn?.name} [{btn?.count || 0}]
               </button>
@@ -139,7 +101,6 @@ export const MainPagePred = () => {
                       </>
                     )}
                   </td>
-                  {/* ///////////////////////////////////// */}
                   <td className="table_isk_td">
                     {+row?.arbitr_fee !== 0 && (
                       <span>
@@ -160,51 +121,16 @@ export const MainPagePred = () => {
                       row?.arbitrs?.map((i) => <span>{i?.name}</span>)}
                   </td>
                   <td className="table_isk_td">
-                    <span>{row.secretary || <ChoiceSecr />}</span>
+                    <span>
+                      {row.secretary || <ChoiceSecr codeid={row?.codeid} />}
+                    </span>
                   </td>
                   <td className="table_isk_td">
-                    {+row?.isk_status === 0 || +row?.isk_status === 1 ? (
-                      <div className="statusIsks">
-                        <div className="statusIsks moreIsksStatus">
-                          <button onClick={() => editIsksFn(row?.codeid)}>
-                            Просмотреть
-                          </button>
-                        </div>
-                        <button onClick={() => lookIsks(row?.codeid, 3)}>
-                          <img src={fullfiled} alt="ok" />
-                        </button>
-                        <button onClick={() => lookIsks(row?.codeid, 4)}>
-                          <img src={reject} alt="no" />
-                        </button>
-                      </div>
-                    ) : (
-                      <>
-                        {statusMessages[row?.isk_status] && (
-                          <span
-                            style={{ padding: "0px 0px 0px 10px" }}
-                            className={
-                              +row?.isk_status === 3
-                                ? "colorStatusGreen"
-                                : +row?.isk_status === 2 ||
-                                  +row?.isk_status === 4
-                                ? "colorStatusRed"
-                                : ""
-                            }
-                            onClick={() => editIsksFn(row?.codeid)}
-                          >
-                            {statusMessages[row?.isk_status]}
-                          </span>
-                        )}
-                        {!statusMessages[row?.isk_status] && (
-                          <span
-                            style={{ padding: "0px 0px 0px 10px" }}
-                            onClick={() => editIsksFn(row?.codeid)}
-                          >
-                            Иск подан
-                          </span>
-                        )}
-                      </>
-                    )}
+                    <ActionsPred
+                      row={row}
+                      setSendStatusIsk={setSendStatusIsk}
+                      setIsType={setIsType}
+                    />
                   </td>
                   <td className="table_isk_td">
                     {+row?.status !== 0 && (
@@ -236,7 +162,7 @@ export const MainPagePred = () => {
         </div>
       </div>
       {/* //// модалки для принятия и отказа иска */}
-      <ConfirmStatus
+      <ConfirmStatusPred
         setSendStatusIsk={setSendStatusIsk}
         sendStatusIsk={sendStatusIsk}
         setIsType={setIsType}

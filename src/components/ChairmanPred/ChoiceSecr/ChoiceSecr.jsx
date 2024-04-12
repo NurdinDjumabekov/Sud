@@ -5,7 +5,7 @@ import Selects from "../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
 import { choiceSecr } from "../../../store/reducers/sendDocsSlice";
 
-const ChoiceSecr = () => {
+const ChoiceSecr = ({ codeid }) => {
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const { tokenA } = useSelector((state) => state.saveDataSlice);
@@ -16,9 +16,8 @@ const ChoiceSecr = () => {
 
   const send = () => {
     setModal(false);
-    dispatch(choiceSecr({ tokenA, typeSecretarDela }));
+    dispatch(choiceSecr({ tokenA, typeSecretarDela, code_isk: codeid }));
   };
-  // console.log(typeSecretarDela, "typeSecretarDela");
 
   return (
     <>

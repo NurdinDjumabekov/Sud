@@ -1,21 +1,21 @@
 import React, { useRef } from "react";
-import PdfObjection from "../PdfFile/PdfObjection/PdfObjection";
-import Modals from "../Modals/Modals";
+import PdfObjection from "../../PdfFile/PdfObjection/PdfObjection";
+import Modals from "../../Modals/Modals";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeObjectionPdfVeiw,
   clearMainBtnList,
-} from "../../store/reducers/stateSlice";
-import imgWarning from "../../asstes/images/warning.png";
+} from "../../../store/reducers/stateSlice";
+import imgWarning from "../../../asstes/images/warning.png";
 
-import "./ConfirmDocs.scss";
+import "./ConfirmStatusSS.scss";
 import {
   changeStatusOrg,
   sendDocsEveryIsks,
-} from "../../store/reducers/sendDocsSlice";
+} from "../../../store/reducers/sendDocsSlice";
 import { useNavigate } from "react-router-dom";
 
-const ConfirmDocs = (props) => {
+const ConfirmStatusSS = (props) => {
   const { setSendStatusIsk, sendStatusIsk, setIsType, istype } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,7 +55,6 @@ const ConfirmDocs = (props) => {
     dispatch(clearMainBtnList());
   };
 
-  //// objectionConfirmPdfVeiw delete
   return (
     <div className="blockModal moreStylePdf objectionPdf">
       <Modals openModal={sendStatusIsk} setOpenModal={() => setSendStatusIsk()}>
@@ -110,4 +109,4 @@ const ConfirmDocs = (props) => {
   );
 };
 
-export default ConfirmDocs;
+export default ConfirmStatusSS;

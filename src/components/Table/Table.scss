@@ -56,12 +56,14 @@ $paddingTableInner: 2px 10px;
     }
   }
   
-  .colorStatusGreen {
+  .statusGreen {
     color: #16bb16 !important;
+    padding: 0px 0px 0px 10px
   }
 
-   .colorStatusRed {
+   .statusRed {
     color: red !important;
+    padding: 0px 0px 0px 10px
   }
 
   .main_tabla_isk {

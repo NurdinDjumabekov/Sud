@@ -49,11 +49,11 @@ const initialState = {
       name: "Отказанные",
       bool: false,
     },
-    // {
-    //   id: 9,
-    //   name: "На переделку",
-    //   bool: false,
-    // },
+    {
+      id: 9,
+      name: "На доработке",
+      bool: false,
+    },
   ],
   ///// только для обыный пользователей
   lookAddPlaintiff: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
@@ -81,7 +81,6 @@ const initialState = {
   confirmActionReject: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
   //////////////////////////////////
   objectionPdfVeiw: false, /// для создания возражения ответчика
-  objectionConfirmPdfVeiw: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
   lookDocs: false, // для отображения файлов для просмотра только у председателя
   arbitrPred: 0, /// для выбора арбитра председателем
 };
@@ -140,6 +139,11 @@ const stateSlice = createSlice({
         {
           id: 8,
           name: "Отказанные",
+          bool: false,
+        },
+        {
+          id: 9,
+          name: "На доработке",
           bool: false,
         },
       ];
@@ -201,6 +205,12 @@ const stateSlice = createSlice({
           bool: state.mainBtnList[8]?.bool,
           count: action?.payload?.otclon_total || 0,
         },
+        {
+          id: 9,
+          name: "На доработке",
+          bool: state.mainBtnList[9]?.bool,
+          count: action?.payload?.otclon_total || 0,
+        },
       ];
     },
     changeLookAddPlaintiff: (state, action) => {
@@ -251,9 +261,6 @@ const stateSlice = createSlice({
     changeObjectionPdfVeiw: (state, action) => {
       state.objectionPdfVeiw = action?.payload;
     },
-    changeObjectionConfirm: (state, action) => {
-      state.objectionConfirmPdfVeiw = action?.payload;
-    },
     changeLookDocs: (state, action) => {
       state.lookDocs = action?.payload;
     },
@@ -282,7 +289,6 @@ export const {
   changeActionFullfilled,
   changeActionReject,
   changeObjectionPdfVeiw,
-  changeObjectionConfirm,
   changeLookDocs,
   changeArbitrPred,
 } = stateSlice.actions;

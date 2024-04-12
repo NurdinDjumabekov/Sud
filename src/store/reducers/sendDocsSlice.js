@@ -8,7 +8,7 @@ import {
 import { changeActionType } from "../../helpers/changeActionType";
 import { transformCreateData } from "../../helpers/transformCreateData";
 import { changeAlertText } from "./typesSlice";
-import { sortDataIsksCounts } from "./stateSlice";
+import { clearMainBtnList, sortDataIsksCounts } from "./stateSlice";
 import { calculateDates } from "../../helpers/addDate";
 import { followLink } from "../../helpers/followLink";
 
@@ -350,16 +350,18 @@ export const changeStatusOrg = createAsyncThunk(
 /// choiceSecr - выбор секретаря дела председателем
 export const choiceSecr = createAsyncThunk(
   "choiceSecr",
-  async function ({ tokenA, typeSecretarDela }, { dispatch, rejectWithValue }) {
+  async function (info, { dispatch, rejectWithValue }) {
+    const { tokenA, typeSecretarDela, code_isk } = info;
     try {
       const response = await axios({
         method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/ ***************************`,
-        data: { asdsa: typeSecretarDela },
+        url: `http://mttp-renaissance.333.kg/api/isks/set_isk_secretar`,
+        data: { code_isk, code_secretar: typeSecretarDela },
         headers: { Authorization: `Bearer ${tokenA}` },
       });
       if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList({ tokenA: tokenA, id: 0 }));
+        dispatch(toTakeIsksList({ tokenA, id: 0 }));
+        dispatch(clearMainBtnList())
       } else {
         throw Error(`Error: ${response.status}`);
       }

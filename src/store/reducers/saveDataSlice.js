@@ -10,7 +10,6 @@ const initialState = {
   typeUser: 0, /// типы пользователей
   checkEditPlaint: true, /// true - можно редактировать иск, false - нельзя редактировать иск
 };
-///   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
 const saveDataSlice = createSlice({
   name: "saveDataSlice",

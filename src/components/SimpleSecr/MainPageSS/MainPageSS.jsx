@@ -5,21 +5,14 @@ import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
 import { useNavigate } from "react-router-dom";
-import {
-  changeIdStatus,
-  changeLookChangeDeleteIsks,
-  changeLookChangeStatus,
-  changeMainBtnList,
-} from "../../../store/reducers/stateSlice";
+import { changeMainBtnList } from "../../../store/reducers/stateSlice";
 import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
-import ConfirmDocs from "../../ConfirmDocs/ConfirmDocs";
 ////// imgs
 
-import editImg from "../../../asstes/icons/editBtn.svg";
-import deleteImg from "../../../asstes/icons/deleteBtn.svg";
-import sendImg from "../../../asstes/icons/goodSend.svg";
 import { changeCheckEditPlaint } from "../../../store/reducers/saveDataSlice";
 import { simpleSecrHeaders } from "../../../helpers/dataArr";
+import ActionsSS from "../ActionsSS/ActionsSS";
+import ConfirmStatusSS from "../ConfirmStatusSS/ConfirmStatusSS";
 
 export const MainPageSS = () => {
   const dispatch = useDispatch();
@@ -55,6 +48,11 @@ export const MainPageSS = () => {
     }
   };
 
+  const checkDocs = (innerArr) => {
+    // Для проверки документов: если в документе нет возражения, то отображать кнопку возражения, иначе не отображать
+    return innerArr.some((i) => i.code_file_type === 17);
+  };
+
   const changeStatusIsks = (id, status) => {
     setSendStatusIsk(true);
     setIsType({ type: status, id });
@@ -70,34 +68,6 @@ export const MainPageSS = () => {
         applicationList,
       })
     );
-  };
-
-  const statusMessages = {
-    1: "Отправлено председателю",
-    2: "Отклонён ответственным секретарём",
-    3: "Принят председателем",
-    4: "Отклонён председателем",
-    5: "Ответчик уведомлён",
-  };
-
-  const checkDocs = (innerArr) => {
-    // Для проверки документов: если в документе нет возражения, то отображать кнопку возражения, иначе не отображать
-    return innerArr.some((i) => i.code_file_type === 17);
-  };
-
-  const changeStatus = (id) => {
-    dispatch(changeLookChangeStatus(true)); /// для вызова модалки изменения статуса иска
-    dispatch(changeIdStatus(id)); /// для отправки id иска
-  };
-
-  const editIsksFn = (id) => {
-    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
-    dispatch(changeCheckEditPlaint(true));
-  };
-
-  const deleteIsksFn = (id) => {
-    dispatch(changeLookChangeDeleteIsks(true));
-    dispatch(changeIdStatus(id));
   };
 
   return (
@@ -131,18 +101,18 @@ export const MainPageSS = () => {
                   key={index}
                   className={`${+index % 2 === 0 ? "colorWhite" : "colorGray"}`}
                 >
-                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
+                  <td className="table_isk_td">
                     <div>
                       <span>
                         {row?.isk_number ? `№ ${row?.isk_number}` : ""}
                       </span>
                     </div>
                   </td>
-                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
+                  <td className="table_isk_td">
                     <span>{row?.isk_date}</span>
                     <span>{row?.isk_time}</span>
                   </td>
-                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
+                  <td className="table_isk_td">
                     {row?.plaintiff?.length !== 0 && (
                       <>
                         {row.plaintiff.map((i, index) => (
@@ -154,7 +124,7 @@ export const MainPageSS = () => {
                       </>
                     )}
                   </td>
-                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
+                  <td className="table_isk_td">
                     {row?.defendant?.length !== 0 && (
                       <>
                         {row.defendant.map((i, index) => (
@@ -166,8 +136,7 @@ export const MainPageSS = () => {
                       </>
                     )}
                   </td>
-                  {/* ///////////////////////////////////// */}
-                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
+                  <td className="table_isk_td">
                     {+row?.arbitr_fee !== 0 && (
                       <span>
                         {row?.arbitr_fee}{" "}
@@ -175,60 +144,35 @@ export const MainPageSS = () => {
                       </span>
                     )}
                   </td>
-                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
+                  <td className="table_isk_td">
                     <span>
                       {+row?.reglament !== 0 && (
                         <>{searchNameSelect(selReglament, +row?.reglament)}</>
                       )}
                     </span>
                   </td>
-                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
+                  <td className="table_isk_td">
                     {row?.arbitrs?.length !== 0 &&
                       row?.arbitrs?.map((i) => <span>{i?.name}</span>)}
                   </td>
-                  <td className="table_isk_td" onClick={() => lookIsksFn(row)}>
+                  <td className="table_isk_td">
                     <span>{row.secretary || ""}</span>
                   </td>
                   <td className="table_isk_td">
-                    {row?.status === 0 ? (
-                      <div className="statusIsks">
-                        <button onClick={() => changeStatus(row?.codeid)}>
-                          {/* Подать */}
-                          <img src={sendImg} alt="sendImg" />
-                        </button>
-                        <button onClick={() => editIsksFn(row?.codeid)}>
-                          {/* Редактировать */}
-                          <img src={editImg} alt="sendImg" />
-                        </button>
-                        <button onClick={() => deleteIsksFn(row?.codeid)}>
-                          {/* Удалить */}
-                          <img src={deleteImg} alt="sendImg" />
-                        </button>
-                      </div>
-                    ) : (
-                      <>
-                        {statusMessages[row?.isk_status] && (
-                          <span
-                            style={{ padding: "0px 0px 0px 10px" }}
-                            className={
-                              +row?.isk_status === 1 || +row?.isk_status === 3
-                                ? "colorStatusGreen"
-                                : +row?.isk_status === 2 ||
-                                  +row?.isk_status === 4
-                                ? "colorStatusRed"
-                                : ""
-                            }
-                          >
-                            {statusMessages[row?.isk_status]}
-                          </span>
-                        )}
-                        {!statusMessages[row?.isk_status] && (
-                          <span className="colGreen">Иск подан</span>
-                        )}
-                      </>
-                    )}
+                    <ActionsSS
+                      row={row}
+                      setSendStatusIsk={setSendStatusIsk}
+                      setIsType={setIsType}
+                    />
                   </td>
                   <td className="table_isk_td">
+                    {/* {row?.status !== 0 && (
+                      <div className="statusIsks moreBtnStatus">
+                        <button onClick={() => lookIsks(row?.codeid, 1)}>
+                          Сформировать документ о принятии иска
+                        </button>
+                      </div>
+                    )} */}
                     {row?.status !== 0 && (
                       <>
                         {+row?.isk_status === 5 ? (
@@ -281,7 +225,7 @@ export const MainPageSS = () => {
         </div>
       </div>
       {/* //// модалки для принятия и отказа иска */}
-      <ConfirmDocs
+      <ConfirmStatusSS
         setSendStatusIsk={setSendStatusIsk}
         sendStatusIsk={sendStatusIsk}
         setIsType={setIsType}
