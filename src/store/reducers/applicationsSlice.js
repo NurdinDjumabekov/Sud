@@ -195,7 +195,7 @@ export const deleteEveryIsk = createAsyncThunk(
 export const sendDocsReject = createAsyncThunk(
   "sendDocsReject",
   async function (info, { dispatch, rejectWithValue }) {
-    console.log(info, "sendDocsReject");
+    // console.log(info, "sendDocsReject");
     try {
       const response = await axios({
         method: "POST",
@@ -420,6 +420,7 @@ const applicationsSlice = createSlice({
     },
   },
 });
+
 export const {
   addTodosPlaintiff,
   addTodosPlaintiffResper,

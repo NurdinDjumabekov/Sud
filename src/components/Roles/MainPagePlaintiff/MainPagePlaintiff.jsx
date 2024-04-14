@@ -2,25 +2,25 @@ import "./MainPagePlaintiff.scss";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
+import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
 import {
   changeIdStatus,
   changeLookChangeDeleteIsks,
   changeLookChangeStatus,
   changeMainBtnList,
-} from "../../store/reducers/stateSlice";
-import { searchNameSelect } from "../../helpers/searchNameSelect";
-import { editIsks } from "../../store/reducers/applicationsSlice";
+} from "../../../store/reducers/stateSlice";
+import { searchNameSelect } from "../../../helpers/searchNameSelect";
+import { editIsks } from "../../../store/reducers/applicationsSlice";
 
-import editImg from "../../asstes/icons/editBtn.svg";
-import deleteImg from "../../asstes/icons/deleteBtn.svg";
-import sendImg from "../../asstes/icons/goodSend.svg";
+import editImg from "../../../asstes/icons/editBtn.svg";
+import deleteImg from "../../../asstes/icons/deleteBtn.svg";
+import sendImg from "../../../asstes/icons/goodSend.svg";
 
-import { plaintiffHeaders } from "../../helpers/dataArr";
+import { plaintiffHeaders } from "../../../helpers/dataArr";
 
 //// componets
-import TimerRevers from "../../components/Timers/TimerRevers/TimerRevers";
-import LookPdfModal from "../../components/PdfFile/LookPdfModal/LookPdfModal";
+import TimerRevers from "../../../components/Timers/TimerRevers/TimerRevers";
+import LookPdfModal from "../../../components/PdfFile/LookPdfModal/LookPdfModal";
 
 const MainPagePlaintiff = () => {
   const dispatch = useDispatch();
@@ -134,14 +134,12 @@ const MainPagePlaintiff = () => {
                 </td>
                 {/* ///////////////////////////////////// */}
                 <td className="table_isk_td">
-                  <span>
-                    {+row?.arbitr_fee !== 0 && (
-                      <>
-                        {row?.arbitr_fee}{" "}
-                        {searchNameSelect(selCurrency, +row?.arbitr_curr)}
-                      </>
-                    )}
-                  </span>
+                  {+row?.arbitr_fee !== 0 && (
+                    <span>
+                      {row?.arbitr_fee}{" "}
+                      {searchNameSelect(selCurrency, +row?.arbitr_curr)}
+                    </span>
+                  )}
                 </td>
                 <td className="table_isk_td">
                   <span>
@@ -151,11 +149,8 @@ const MainPagePlaintiff = () => {
                   </span>
                 </td>
                 <td className="table_isk_td">
-                  {row?.arbitrs?.length === 0 ? (
-                    <span></span>
-                  ) : (
-                    row?.arbitrs?.map((i) => <span>{i?.name}</span>)
-                  )}
+                  {row?.arbitrs?.length !== 0 &&
+                    row?.arbitrs?.map((i) => <span>{i?.name}</span>)}
                 </td>
                 <td className="table_isk_td">
                   <span>{row.secretary || ""}</span>

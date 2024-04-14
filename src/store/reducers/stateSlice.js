@@ -76,6 +76,7 @@ const initialState = {
   /////////////////////////////
   confirmActionFullfilled: false, /// для прнятия иска ответствкным секретарём и для прнятия иска председателем
   confirmActionReject: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
+  confirmActionRedone: false, /// для отправки на доработку иска ответствкным секретарём
   //////////////////////////////////
   objectionPdfVeiw: false, /// для создания возражения ответчика
   lookDocs: false, // для отображения файлов для просмотра только у председателя
@@ -206,7 +207,7 @@ const stateSlice = createSlice({
           id: 9,
           name: "На доработке",
           bool: state.mainBtnList[9]?.bool,
-          count: action?.payload?.otclon_total || 0,
+          count: action?.payload?.alter_sec_total || 0,
         },
       ];
     },
@@ -233,12 +234,13 @@ const stateSlice = createSlice({
     changeLookChangeStatus: (state, action) => {
       state.lookChangeStatus = action.payload;
     },
-    changeLookChangeEditIsks: (state, action) => {
-      state.lookChangeEditIsks = action.payload;
-    },
     changeLookChangeDeleteIsks: (state, action) => {
       state.lookChangeDeleteIsks = action.payload;
     },
+    changeLookChangeRedoneIsks: (state, action) => {
+      state.lookChangeRedoneIsks = action.payload;
+    },
+
     changeIdStatus: (state, action) => {
       state.idStatus = action.payload;
     },
@@ -249,6 +251,10 @@ const stateSlice = createSlice({
     changeActionReject: (state, action) => {
       state.confirmActionReject = action?.payload;
     },
+    changeActionRedone: (state, action) => {
+      state.confirmActionRedone = action?.payload;
+    },
+
     /////////////////////////////////////////////////
     changeObjectionPdfVeiw: (state, action) => {
       state.objectionPdfVeiw = action?.payload;
@@ -272,12 +278,13 @@ export const {
   changeCalculatorType,
   changeTypePay,
   changeLookChangeStatus,
-  changeLookChangeEditIsks,
   changeLookChangeDeleteIsks,
+  changeLookChangeRedoneIsks,
   changeIdStatus,
   sortDataIsksCounts,
   changeActionFullfilled,
   changeActionReject,
+  changeActionRedone,
   changeObjectionPdfVeiw,
   changeLookDocs,
   changeArbitrPred,

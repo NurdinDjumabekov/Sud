@@ -65,7 +65,8 @@ const ClaimRequaire = () => {
     checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
 
   // console.log(data);
-  console.log(todosApplications);
+  // console.log(todosApplications);
+
   return (
     <div
       className={`${"plaintiFilling__container"} ${

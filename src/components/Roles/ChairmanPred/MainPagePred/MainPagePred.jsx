@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./MainPagePred.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { searchNameSelect } from "../../../helpers/searchNameSelect";
-import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
-import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
-import { changeMainBtnList } from "../../../store/reducers/stateSlice";
+import { searchNameSelect } from "../../../../helpers/searchNameSelect";
+import LookPdfModal from "../../../PdfFile/LookPdfModal/LookPdfModal";
+import { toTakeIsksList } from "../../../../store/reducers/sendDocsSlice";
+import { changeMainBtnList } from "../../../../store/reducers/stateSlice";
 ////// imgs
-import TimerRevers from "../../Timers/TimerRevers/TimerRevers";
+import TimerRevers from "../../../Timers/TimerRevers/TimerRevers";
 import ChoiceSecr from "../ChoiceSecr/ChoiceSecr";
-import { respSecrHeaders } from "../../../helpers/dataArr";
+import { respSecrHeaders } from "../../../../helpers/dataArr";
 import ActionsPred from "../ActionsPred/ActionsPred";
 import ConfirmStatusPred from "../ConfirmStatusPred/ConfirmStatusPred";
 

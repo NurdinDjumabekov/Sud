@@ -1,12 +1,12 @@
 import React from "react";
 import "./MainPageRS.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { searchNameSelect } from "../../../helpers/searchNameSelect";
-import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
-import { changeMainBtnList } from "../../../store/reducers/stateSlice";
-import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
-import TimerRevers from "../../Timers/TimerRevers/TimerRevers";
-import { respSecrHeaders } from "../../../helpers/dataArr";
+import { searchNameSelect } from "../../../../helpers/searchNameSelect";
+import LookPdfModal from "../../../PdfFile/LookPdfModal/LookPdfModal";
+import { changeMainBtnList } from "../../../../store/reducers/stateSlice";
+import { toTakeIsksList } from "../../../../store/reducers/sendDocsSlice";
+import TimerRevers from "../../../Timers/TimerRevers/TimerRevers";
+import { respSecrHeaders } from "../../../../helpers/dataArr";
 import ActionsRS from "../ActionsRS/ActionsRS";
 import { useState } from "react";
 import ConfirmStatusRS from "../ConfirmStatusRS/ConfirmStatusRS";

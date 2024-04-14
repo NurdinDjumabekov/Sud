@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 //// imgs
-import editImg from "../../../asstes/icons/editBtn.svg";
-import deleteImg from "../../../asstes/icons/deleteBtn.svg";
-import sendImg from "../../../asstes/icons/goodSend.svg";
+import editImg from "../../../../asstes/icons/editBtn.svg";
+import deleteImg from "../../../../asstes/icons/deleteBtn.svg";
+import sendImg from "../../../../asstes/icons/goodSend.svg";
 
 //// states
-import { changeStatusIsks } from "../../../store/reducers/sendDocsSlice";
-import { editIsks } from "../../../store/reducers/applicationsSlice";
+import { changeStatusIsks } from "../../../../store/reducers/sendDocsSlice";
+import { editIsks } from "../../../../store/reducers/applicationsSlice";
 import {
   changeIdStatus,
   changeLookChangeDeleteIsks,
   changeLookChangeStatus,
-} from "../../../store/reducers/stateSlice";
-import { changeCheckEditPlaint } from "../../../store/reducers/saveDataSlice";
+} from "../../../../store/reducers/stateSlice";
+import { changeCheckEditPlaint } from "../../../../store/reducers/saveDataSlice";
 
 const ActionsSS = (props) => {
   const { row, setSendStatusIsk, setIsType } = props;

@@ -1,18 +1,18 @@
 import React, { useRef } from "react";
-import PdfObjection from "../../PdfFile/PdfObjection/PdfObjection";
-import Modals from "../../Modals/Modals";
+import PdfObjection from "../../../PdfFile/PdfObjection/PdfObjection";
+import Modals from "../../../Modals/Modals";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeObjectionPdfVeiw,
   clearMainBtnList,
-} from "../../../store/reducers/stateSlice";
-import imgWarning from "../../../asstes/images/warning.png";
+} from "../../../../store/reducers/stateSlice";
+import imgWarning from "../../../../asstes/images/warning.png";
 
 import "./ConfirmStatusSS.scss";
 import {
   changeStatusOrg,
   sendDocsEveryIsks,
-} from "../../../store/reducers/sendDocsSlice";
+} from "../../../../store/reducers/sendDocsSlice";
 import { useNavigate } from "react-router-dom";
 
 const ConfirmStatusSS = (props) => {

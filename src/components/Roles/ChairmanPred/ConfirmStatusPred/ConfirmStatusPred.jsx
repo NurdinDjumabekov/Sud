@@ -8,24 +8,24 @@ import {
   changeActionFullfilled,
   changeActionReject,
   clearMainBtnList,
-} from "../../../store/reducers/stateSlice";
-import { changeAlertText } from "../../../store/reducers/typesSlice";
+} from "../../../../store/reducers/stateSlice";
+import { changeAlertText } from "../../../../store/reducers/typesSlice";
 import {
   changeTypeSecretarDela,
   toTakeSecretarList,
-} from "../../../store/reducers/selectsSlice";
-import { toTakeTypeTypeDocs } from "../../../store/reducers/applicationsSlice";
-import { changeStatusOrg } from "../../../store/reducers/sendDocsSlice";
+} from "../../../../store/reducers/selectsSlice";
+import { toTakeTypeTypeDocs } from "../../../../store/reducers/applicationsSlice";
+import { changeStatusOrg } from "../../../../store/reducers/sendDocsSlice";
 //// components
-import ApplicationFiles from "../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
+import ApplicationFiles from "../../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
 import ChoiceArbitrsPred from "../ChoiceArbitrsPred/ChoiceArbitrsPred";
-import PdfFileReject from "../../PdfFile/PdfFileReject/PdfFileReject";
-import PdfFulfilled from "../../PdfFile/PdfFulfilled/PdfFulfilled";
-import Modals from "../../Modals/Modals";
-import PdfFile from "../../PdfFile/PdfFile";
+import PdfFileReject from "../../../PdfFile/PdfFileReject/PdfFileReject";
+import PdfFulfilled from "../../../PdfFile/PdfFulfilled/PdfFulfilled";
+import Modals from "../../../Modals/Modals";
+import PdfFile from "../../../PdfFile/PdfFile";
 ///// imgs
-import imgWarning from "../../../asstes/images/warning.png";
-import Selects from "../../Selects/Selects";
+import imgWarning from "../../../../asstes/images/warning.png";
+import Selects from "../../../Selects/Selects";
 
 const ConfirmStatusPred = (props) => {
   const { setSendStatusIsk, sendStatusIsk, setIsType, istype } = props;

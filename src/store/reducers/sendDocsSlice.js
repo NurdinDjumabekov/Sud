@@ -30,21 +30,20 @@ export const toTakeIsksList = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        // console.log(response?.data, "response");
-        dispatch(
-          sortDataIsksCounts({
-            draft_count: response?.data?.draft_count,
-            isk_count: response?.data?.isk_count,
-            isk_draft_total: response?.data?.isk_draft_total,
-            otclon_pred_total: response?.data?.otclon_pred_total,
-            otclon_sec_total: response?.data?.otclon_sec_total,
-            prinat_pred_total: response?.data?.prinat_pred_total,
-            prinat_sec_total: response?.data?.prinat_sec_total,
-            otclon_total: response?.data?.otclon_total,
-            prinat_total: response?.data?.prinat_total,
-          })
-        );
-        return response?.data?.recordset;
+        const { recordset, ...totals } = response?.data;
+        // console.log(totals);
+        // draft_count,
+        // isk_count,
+        // isk_draft_total,
+        // otclon_pred_total,
+        // otclon_sec_total,
+        // prinat_pred_total,
+        // prinat_sec_total,
+        // otclon_total,
+        // prinat_total,
+        // alter_sec_total,
+        dispatch(sortDataIsksCounts(totals));
+        return recordset;
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -361,7 +360,7 @@ export const choiceSecr = createAsyncThunk(
       });
       if (response.status >= 200 && response.status < 300) {
         dispatch(toTakeIsksList({ tokenA, id: 0 }));
-        dispatch(clearMainBtnList())
+        dispatch(clearMainBtnList());
       } else {
         throw Error(`Error: ${response.status}`);
       }

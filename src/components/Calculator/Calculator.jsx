@@ -236,7 +236,11 @@ const Calculator = () => {
 
   return (
     <div className="calculator">
-      <div className={`${"calculator__count"} ${isCheckRole && "calculator_morePdf"}`}>
+      <div
+        className={`${"calculator__count"} ${
+          isCheckRole && "calculator_morePdf"
+        }`}
+      >
         <div>
           <p>Сумма иска в USD</p>
           <input

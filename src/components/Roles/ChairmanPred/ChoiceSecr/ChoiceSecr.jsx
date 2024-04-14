@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./ChoiceSecr.scss";
-import Modals from "../../Modals/Modals";
-import Selects from "../../Selects/Selects";
+import Modals from "../../../Modals/Modals";
+import Selects from "../../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
-import { choiceSecr } from "../../../store/reducers/sendDocsSlice";
+import { choiceSecr } from "../../../../store/reducers/sendDocsSlice";
 
 const ChoiceSecr = ({ codeid }) => {
   const [modal, setModal] = useState(false);

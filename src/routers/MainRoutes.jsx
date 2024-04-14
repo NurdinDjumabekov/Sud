@@ -9,10 +9,14 @@ import Alerts from "../components/Alerts/Alerts";
 import MoreInfo from "../components/MoreInfo/MoreInfo";
 import LayoutsRS from "../layouts/LayoutsRS/LayoutsRS";
 
+///// rolesPage
+import { MainPageSS } from "../components/Roles/SimpleSecr/MainPageSS/MainPageSS";
+import { MainPageRS } from "../components/Roles/ResponsibleSecr/MainPageRS/MainPageRS";
+import { MainPagePred } from "../components/Roles/ChairmanPred/MainPagePred/MainPagePred";
+import MainPagePlaintiff from "../components/Roles/MainPagePlaintiff/MainPagePlaintiff";
+
 //// для ответственного секретаря
-import { MainPageRS } from "../components/ResponsibleSecr/MainPageRS/MainPageRS";
 import LayoutsPred from "../layouts/LayoutsPred/LayoutsPred";
-import { MainPagePred } from "../components/ChairmanPred/MainPagePred/MainPagePred";
 import SignIn from "../pages/Login/SignIn";
 import {
   toTakeArbitrsList,
@@ -31,9 +35,7 @@ import {
   toTakeTypeValuta,
 } from "../store/reducers/selectsSlice";
 import LayoutsSS from "../layouts/LayoutsSS/LayoutsSS";
-import { MainPageSS } from "../components/SimpleSecr/MainPageSS/MainPageSS";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
-import MainPagePlaintiff from "../pages/MainPagePlaintiff/MainPagePlaintiff";
 
 function MainRoutes() {
   const dispatch = useDispatch();

@@ -1,21 +1,21 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { editIsks } from "../../../store/reducers/applicationsSlice";
-import { changeCheckEditPlaint } from "../../../store/reducers/saveDataSlice";
+import { editIsks } from "../../../../store/reducers/applicationsSlice";
+import { changeCheckEditPlaint } from "../../../../store/reducers/saveDataSlice";
 import {
   changeIdStatus,
   changeLookChangeDeleteIsks,
   changeLookChangeStatus,
-} from "../../../store/reducers/stateSlice";
+} from "../../../../store/reducers/stateSlice";
 
 ////// imgs
-import fullfiled from "../../../asstes/icons/goodSend.svg";
-import reject from "../../../asstes/icons/krestik.svg";
-import redone from "../../../asstes/images/redone.png";
-import editImg from "../../../asstes/icons/editBtn.svg";
-import deleteImg from "../../../asstes/icons/deleteBtn.svg";
-import sendImg from "../../../asstes/icons/goodSend.svg";
+import fullfiled from "../../../../asstes/icons/goodSend.svg";
+import reject from "../../../../asstes/icons/krestik.svg";
+import redone from "../../../../asstes/images/redone.png";
+import editImg from "../../../../asstes/icons/editBtn.svg";
+import deleteImg from "../../../../asstes/icons/deleteBtn.svg";
+import sendImg from "../../../../asstes/icons/goodSend.svg";
 
 const ActionsRS = (props) => {
   const { row, setSendStatusIsk, setIsType } = props;
@@ -107,9 +107,10 @@ const ActionsRS = (props) => {
                 <img src={reject} alt="no" />
                 {/* Отклонить  иск*/}
               </button>
-              {/* <button onClick={() => lookIsks(row?.codeid, 2)}>
-                <img src={redone} alt="redone" className="redone" />
-              </button> */}
+              <button onClick={() => openDataIsks(row?.codeid, 3)}>
+                {/* Отправить на доработку */}
+                <img src={redone} alt="redone" className="redoneImg" />
+              </button>
             </div>
           ) : (
             <>

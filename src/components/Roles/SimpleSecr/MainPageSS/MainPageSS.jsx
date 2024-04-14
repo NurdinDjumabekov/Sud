@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import "./MainPageSS.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { searchNameSelect } from "../../../helpers/searchNameSelect";
-import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
-import { editIsks } from "../../../store/reducers/applicationsSlice";
+import { searchNameSelect } from "../../../../helpers/searchNameSelect";
+import LookPdfModal from "../../../PdfFile/LookPdfModal/LookPdfModal";
+import { editIsks } from "../../../../store/reducers/applicationsSlice";
 import { useNavigate } from "react-router-dom";
-import { changeMainBtnList } from "../../../store/reducers/stateSlice";
-import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
+import { changeMainBtnList } from "../../../../store/reducers/stateSlice";
+import { toTakeIsksList } from "../../../../store/reducers/sendDocsSlice";
 ////// imgs
 
-import { changeCheckEditPlaint } from "../../../store/reducers/saveDataSlice";
-import { simpleSecrHeaders } from "../../../helpers/dataArr";
+import { changeCheckEditPlaint } from "../../../../store/reducers/saveDataSlice";
+import { simpleSecrHeaders } from "../../../../helpers/dataArr";
 import ActionsSS from "../ActionsSS/ActionsSS";
 import ConfirmStatusSS from "../ConfirmStatusSS/ConfirmStatusSS";
 
