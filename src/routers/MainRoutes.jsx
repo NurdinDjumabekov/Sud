@@ -106,7 +106,7 @@ function MainRoutes() {
     dispatch(toTakePrimPravo(tokenA));
     dispatch(toTakeReglament(tokenA));
     dispatch(toTakeLangArbit(tokenA));
-    dispatch(toTakeArbitrsList(tokenA));
+    dispatch(toTakeArbitrsList({ tokenA, search: "" }));
   }, [location.pathname]);
 
   return (

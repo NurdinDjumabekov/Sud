@@ -342,18 +342,17 @@ export const toTakeSecretarList = createAsyncThunk(
 ////toTakeSecretarList
 export const toTakeArbitrsList = createAsyncThunk(
   "toTakeArbitrsList",
-  async function (token, { dispatch, rejectWithValue }) {
+  async function ({ tokenA, search }, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
         method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/sp_arbitrs`,
+        url: `http://mttp-renaissance.333.kg/api/get/sp_arbitrs`, /// ${search && `?search=${search}`}
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${tokenA}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
         return response?.data?.data;
-        console.log(response);
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -541,15 +540,15 @@ const selectsSlice = createSlice({
     });
     ///// toTakeArbitrsList
     builder.addCase(toTakeArbitrsList.fulfilled, (state, action) => {
-      state.preloaderSel = false;
+      // state.preloaderSel = false;
       state.selArbitrs = action.payload;
     });
     builder.addCase(toTakeArbitrsList.rejected, (state, action) => {
       state.error = action.payload;
-      state.preloaderSel = false;
+      // state.preloaderSel = false;
     });
     builder.addCase(toTakeArbitrsList.pending, (state, action) => {
-      state.preloaderSel = true;
+      // state.preloaderSel = true;
     });
   },
   reducers: {

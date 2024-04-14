@@ -237,10 +237,6 @@ const stateSlice = createSlice({
     changeLookChangeDeleteIsks: (state, action) => {
       state.lookChangeDeleteIsks = action.payload;
     },
-    changeLookChangeRedoneIsks: (state, action) => {
-      state.lookChangeRedoneIsks = action.payload;
-    },
-
     changeIdStatus: (state, action) => {
       state.idStatus = action.payload;
     },
@@ -279,7 +275,6 @@ export const {
   changeTypePay,
   changeLookChangeStatus,
   changeLookChangeDeleteIsks,
-  changeLookChangeRedoneIsks,
   changeIdStatus,
   sortDataIsksCounts,
   changeActionFullfilled,
