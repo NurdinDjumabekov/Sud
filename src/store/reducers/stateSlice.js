@@ -55,7 +55,7 @@ const initialState = {
       bool: false,
     },
   ],
-  ///// только для обыный пользователей
+  ///// только для обычных пользователей
   lookAddPlaintiff: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
   //// targetPlint
   calculatorType: false,
