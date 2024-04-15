@@ -3,23 +3,19 @@ import "./MainPageSS.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { searchNameSelect } from "../../../../helpers/searchNameSelect";
 import LookPdfModal from "../../../PdfFile/LookPdfModal/LookPdfModal";
-import { editIsks } from "../../../../store/reducers/applicationsSlice";
-import { useNavigate } from "react-router-dom";
 import { changeMainBtnList } from "../../../../store/reducers/stateSlice";
 import { toTakeIsksList } from "../../../../store/reducers/sendDocsSlice";
 ////// imgs
 
-import { changeCheckEditPlaint } from "../../../../store/reducers/saveDataSlice";
 import { simpleSecrHeaders } from "../../../../helpers/dataArr";
 import ActionsSS from "../ActionsSS/ActionsSS";
 import ConfirmStatusSS from "../ConfirmStatusSS/ConfirmStatusSS";
+import ActionsStatusSS from "../ActionsStatusSS/ActionsStatusSS";
 
 export const MainPageSS = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { applicationList } = useSelector((state) => state.applicationsSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
   const { selCurrency, selReglament } = useSelector(
     (state) => state.selectsSlice
@@ -37,37 +33,6 @@ export const MainPageSS = () => {
     });
     dispatch(toTakeIsksList({ tokenA, id })); /// запрос для получения списка
     dispatch(changeMainBtnList(newList));
-  };
-
-  const lookIsksFn = (obj) => {
-    if (+obj.status === 1) {
-      dispatch(
-        editIsks({ id: obj?.codeid, tokenA, navigate, applicationList })
-      );
-      dispatch(changeCheckEditPlaint(false)); /// запрет на редактирование
-    }
-  };
-
-  const checkDocs = (innerArr) => {
-    // Для проверки документов: если в документе нет возражения, то отображать кнопку возражения, иначе не отображать
-    return innerArr.some((i) => i.code_file_type === 17);
-  };
-
-  const changeStatusIsks = (id, status) => {
-    setSendStatusIsk(true);
-    setIsType({ type: status, id });
-  };
-
-  const clickObjection = (id) => {
-    setSendStatusIsk(true);
-    changeStatusIsks(id, 5);
-    dispatch(
-      editIsks({
-        id,
-        tokenA,
-        applicationList,
-      })
-    );
   };
 
   return (
@@ -166,46 +131,11 @@ export const MainPageSS = () => {
                     />
                   </td>
                   <td className="table_isk_td">
-                    {/* {row?.status !== 0 && (
-                      <div className="statusIsks moreBtnStatus">
-                        <button onClick={() => lookIsks(row?.codeid, 1)}>
-                          Сформировать документ о принятии иска
-                        </button>
-                      </div>
-                    )} */}
-                    {row?.status !== 0 && (
-                      <>
-                        {+row?.isk_status === 5 ? (
-                          <div className="statusIsks moreBtnStatus">
-                            <button onClick={() => lookIsksFn(row)}>
-                              Просмотреть
-                            </button>
-                          </div>
-                        ) : (
-                          <>
-                            {row?.isk_status !== 0 && (
-                              <div className="statusIsks moreBtnStatus">
-                                {!checkDocs(row.files) && (
-                                  <button
-                                    onClick={() => clickObjection(row?.codeid)}
-                                  >
-                                    Возражение
-                                  </button>
-                                )}
-                                <button
-                                  onClick={() => {
-                                    setSendStatusIsk(true);
-                                    changeStatusIsks(row?.codeid, 6);
-                                  }}
-                                >
-                                  Уведомить ответчика
-                                </button>
-                              </div>
-                            )}
-                          </>
-                        )}
-                      </>
-                    )}
+                    <ActionsStatusSS
+                      row={row}
+                      setSendStatusIsk={setSendStatusIsk}
+                      setIsType={setIsType}
+                    />
                   </td>
                   <td className="table_isk_td">
                     <span className="documentBlock">

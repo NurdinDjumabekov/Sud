@@ -77,12 +77,7 @@ const ChoiceArbitrsPred = () => {
               } choiceArbitrs__list__every`}
             >
               <div className="innerArbitr">
-                {i?.photo ? (
-                  <img src={i?.photo} alt="!" />
-                ) : (
-                  // <img src={userImg} alt="user" />
-                  <img src={userImg} alt="user" />
-                )}
+                <img src={i?.photo || userImg} alt="" />
                 <p>{i?.name}</p>
               </div>
               <div className="moreInfo" onClick={() => moreInfo(i)}>
@@ -97,7 +92,7 @@ const ChoiceArbitrsPred = () => {
           <div className="moreMainData">
             <div className="logoArbitr">
               {/* <img src={dataModal?.photo || userImg} alt="" /> */}
-              <img src={userImg} alt="" />
+              {/* <img src={userImg} alt="" /> */}
             </div>
             <h5>{dataModal?.name}</h5>
           </div>

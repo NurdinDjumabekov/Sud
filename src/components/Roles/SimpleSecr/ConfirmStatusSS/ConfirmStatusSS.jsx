@@ -3,6 +3,8 @@ import PdfObjection from "../../../PdfFile/PdfObjection/PdfObjection";
 import Modals from "../../../Modals/Modals";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  changeActionFullfilled,
+  changeLookDocs,
   changeObjectionPdfVeiw,
   clearMainBtnList,
 } from "../../../../store/reducers/stateSlice";
@@ -14,14 +16,20 @@ import {
   sendDocsEveryIsks,
 } from "../../../../store/reducers/sendDocsSlice";
 import { useNavigate } from "react-router-dom";
+import ApplicationFiles from "../../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
+import PdfFile from "../../../PdfFile/PdfFile";
+import PdfFulfilled from "../../../PdfFile/PdfFulfilled/PdfFulfilled";
 
 const ConfirmStatusSS = (props) => {
   const { setSendStatusIsk, sendStatusIsk, setIsType, istype } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const editorRef = useRef(null);
+  const editorRefReject = useRef(null);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { objectionPdfVeiw } = useSelector((state) => state.stateSlice);
+  const { objectionPdfVeiw, lookDocs, confirmActionFullfilled } = useSelector(
+    (state) => state.stateSlice
+  );
 
   const sendObjection = () => {
     if (editorRef.current && editorRef.current.editor) {
@@ -55,9 +63,35 @@ const ConfirmStatusSS = (props) => {
     dispatch(clearMainBtnList());
   };
 
+  const closeAllModal = () => {
+    setSendStatusIsk(false);
+    setIsType({ ...istype, type: 0 });
+    dispatch(changeActionFullfilled(false));
+  };
+
+  const fulfilledIsk = (e) => {
+    e.preventDefault();
+    if (editorRef.current && editorRef.current.editor) {
+      const content = editorRef.current.editor.getContent();
+      dispatch(
+        changeStatusOrg({
+          id: istype.id,
+          tokenA,
+          isk_status: istype.type,
+          content,
+          type: 1000, /// chechchech
+          navigate,
+        })
+      );
+      dispatch(clearMainBtnList());
+      closeAllModal();
+    }
+  };
+
   return (
     <div className="blockModal moreStylePdf objectionPdf">
       <Modals openModal={sendStatusIsk} setOpenModal={() => setSendStatusIsk()}>
+        {/* //// фоормирование возражения */}
         {istype.type === 5 && (
           <>
             <div className="blockModal__inner obj__inner">
@@ -73,6 +107,8 @@ const ConfirmStatusSS = (props) => {
             </div>
           </>
         )}
+
+        {/* //// уведомить ответчика */}
         {istype.type === 6 && (
           <div className="modalchangeStatus">
             <div className="imgBlock">
@@ -85,11 +121,49 @@ const ConfirmStatusSS = (props) => {
             </div>
           </div>
         )}
+
+        {/* //// заполнить принятие искового заявления от секретаря дела */}
+        {istype.type === 7 && (
+          <>
+            <div className="choiceSecretard">
+              {lookDocs ? (
+                <button onClick={() => dispatch(changeLookDocs(false))}>
+                  Исковое заявление
+                </button>
+              ) : (
+                <button onClick={() => dispatch(changeLookDocs(true))}>
+                  Документы
+                </button>
+              )}
+            </div>
+            <div className="blockModal__inner">
+              {lookDocs ? (
+                <div className="lookDocsIsksPred">
+                  <ApplicationFiles />
+                </div>
+              ) : (
+                <PdfFile editorRef={editorRefReject} />
+              )}
+              <div className="plaintiFilling__container moreStyle">
+                <PdfFulfilled istype={istype} editorRef={editorRef} />
+              </div>
+            </div>
+            <div className="modalchangeStatus" style={{ height: "auto" }}>
+              <div className="btnsSendIsks">
+                <button onClick={() => dispatch(changeActionFullfilled(true))}>
+                  Отправить
+                </button>
+                <button onClick={closeAllModal}>Отмена</button>
+              </div>
+            </div>
+          </>
+        )}
       </Modals>
       <Modals
         openModal={objectionPdfVeiw}
         setOpenModal={() => dispatch(changeObjectionPdfVeiw())}
       >
+        {/* //// фоормирование возражения */}
         {istype.type === 5 && (
           <div className="modalchangeStatus">
             <div className="imgBlock">
@@ -104,6 +178,25 @@ const ConfirmStatusSS = (props) => {
             </div>
           </div>
         )}
+      </Modals>
+
+      <Modals
+        openModal={confirmActionFullfilled}
+        setOpenModal={() => dispatch(changeActionFullfilled())}
+      >
+        {/* //// заполнить принятие искового заявления от секретаря дела */}
+        <div className="modalchangeStatus">
+          <div className="imgBlock">
+            <img src={imgWarning} alt="send!" />
+          </div>
+          <h5>Отправить председателю? </h5>
+          <div className="btnsSendIsks">
+            <button onClick={(e) => fulfilledIsk(e)}>Да</button>
+            <button onClick={() => dispatch(changeActionFullfilled(false))}>
+              Нет
+            </button>
+          </div>
+        </div>
       </Modals>
     </div>
   );

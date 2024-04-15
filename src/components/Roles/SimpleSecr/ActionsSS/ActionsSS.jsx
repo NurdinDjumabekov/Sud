@@ -25,18 +25,6 @@ const ActionsSS = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const lookIsks = (id, type) => {
-    setSendStatusIsk(true);
-    changeStatusIsks(id, type);
-    dispatch(
-      editIsks({
-        id,
-        tokenA,
-        applicationList,
-      })
-    );
-  };
-
   const changeStatus = (id) => {
     dispatch(changeLookChangeStatus(true)); /// для вызова модалки изменения статуса иска
     dispatch(changeIdStatus(id)); /// для отправки id иска
