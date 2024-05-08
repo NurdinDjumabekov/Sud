@@ -5,7 +5,9 @@ import Selects from "../../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
 import { choiceSecr } from "../../../../store/reducers/sendDocsSlice";
 
-const ChoiceSecr = ({ codeid }) => {
+const ChoiceSecr = ({ item }) => {
+  const { codeid, isk_status } = item;
+  console.log(item, "item");
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const { tokenA } = useSelector((state) => state.saveDataSlice);
@@ -19,8 +21,13 @@ const ChoiceSecr = ({ codeid }) => {
     dispatch(choiceSecr({ tokenA, typeSecretarDela, code_isk: codeid }));
   };
 
+  if (isk_status === 2 || isk_status === 4 || isk_status === 6) {
+    //// отклонён пред. и ответ. секр
+    return <></>;
+  }
+
   return (
-    <>
+    <span>
       <button className="choiceBtn" onClick={() => setModal(true)}>
         Выбрать секретаря
       </button>
@@ -38,7 +45,7 @@ const ChoiceSecr = ({ codeid }) => {
           </button>
         </div>
       </Modals>
-    </>
+    </span>
   );
 };
 

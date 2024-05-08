@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "./PdfFile.scss";
 import { Editor } from "@tinymce/tinymce-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { searchIdCurrency } from "../../helpers/searchIdCurrency";
 import { searchNameSelect } from "../../helpers/searchNameSelect";
 import { addFilesList } from "../../helpers/addFilesList";
@@ -86,7 +86,7 @@ const PdfFile = ({ editorRef, isCheckRole }) => {
     setDate(formattedDate);
   }, []);
 
-  ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 87 - 131 строки
+  ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 89 - 131 строки
   const initialContent = `
     <div>
       <div>
@@ -257,8 +257,6 @@ const PdfFile = ({ editorRef, isCheckRole }) => {
     </div>
   `;
 
-  console.log(todosApplications?.name, "todosApplications");
-
   React.useEffect(() => {
     if (todosApplications.content === "") {
       setData(initialContent);
@@ -276,7 +274,8 @@ const PdfFile = ({ editorRef, isCheckRole }) => {
   }, [applicationList]);
 
   return (
-    <div className={`${"pdfFile"} ${isCheckRole && "pdfNone"}`}>
+    // <div className={`${"pdfFile"} ${isCheckRole && "pdfNone"}`}>
+    <div className={`${"pdfFile"}`}>
       <Editor
         apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
         initialValue={data || todosApplications.content}

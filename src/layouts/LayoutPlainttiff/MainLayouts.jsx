@@ -21,6 +21,7 @@ import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
 import { notificationCount } from "../../store/reducers/notificationSlice";
 import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
+import { changeCheckEditPlaint } from "../../store/reducers/saveDataSlice";
 
 const MainLayouts = () => {
   const navigate = useNavigate();
@@ -101,6 +102,7 @@ const MainLayouts = () => {
   const clickMenu = (page) => {
     navigate(page.path);
     setLookInnerPages(!lookInnerPages);
+    dispatch(changeCheckEditPlaint(true)); /// true - можно редактировать иск
   };
 
   const decodedToken = jwtDecode(tokenA);

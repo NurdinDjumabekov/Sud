@@ -27,12 +27,6 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
     (state) => state.saveDataSlice
   );
 
-  // const { typeUser, checkEditPlaint } = useSelector(
-  //   (state) => state.saveDataSlice
-  // );
-  // const isCheckRole =
-  // checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
-
   const saveData = () => {
     if (checkDataIsks(todosApplications)) {
       if (todosApplications.plaintiff?.length === 0) {
@@ -103,9 +97,6 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
     }
   }, []);
 
-  const isCheckRole =
-    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
-
   return (
     <>
       <div className="plaintiffData">
@@ -114,7 +105,8 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
             {btnList?.[indexComp]?.components}
           </React.Fragment>
           {lookAddPlaintiff === 0 && (
-            <PdfFile editorRef={editorRef} isCheckRole={isCheckRole} />
+            /// if открыты инпуты с физ и юр лицами, то я временно скрываю pdf файл
+            <PdfFile editorRef={editorRef} />
           )}
         </div>
       </div>

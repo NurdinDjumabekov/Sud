@@ -28,6 +28,11 @@ const initialState = {
       name: "Отклонённые председателем",
       bool: false,
     },
+    {
+      id: 9,
+      name: "На доработке ",
+      bool: false,
+    },
     //////// для истца
     {
       id: 5,
@@ -118,7 +123,12 @@ const stateSlice = createSlice({
           name: "Отклонённые председателем",
           bool: false,
         },
-        //////// для истца
+        {
+          id: 9,
+          name: "На доработке ",
+          bool: false,
+        },
+        ////// для истца
         {
           id: 5,
           name: "Все иски",
@@ -144,6 +154,12 @@ const stateSlice = createSlice({
           name: "На доработке",
           bool: false,
         },
+        /////////////////// для обычных секретарей
+        //  {
+        //   id: 10,
+        //   name: "Все иски",
+        //   bool: true,
+        // },
       ];
     },
     sortDataIsksCounts: (state, action) => {
@@ -178,37 +194,56 @@ const stateSlice = createSlice({
           bool: state.mainBtnList[4]?.bool,
           count: action?.payload?.otclon_pred_total || 0,
         },
+        {
+          id: 9,
+          name: "На доработке",
+          bool: state.mainBtnList[5]?.bool,
+          count: action?.payload?.na_dorabotke || 0,
+        },
         /////////////////////////
         {
           id: 5,
           name: "Все иски",
-          bool: state.mainBtnList[5]?.bool,
+          bool: state.mainBtnList[6]?.bool,
           count: action?.payload?.isk_draft_total || 0,
         },
         {
           id: 6,
           name: "Поданные",
-          bool: state.mainBtnList[6]?.bool,
+          bool: state.mainBtnList[7]?.bool,
           count: action?.payload?.isk_count || 0,
         },
         {
           id: 7,
           name: "Принятые",
-          bool: state.mainBtnList[7]?.bool,
+          bool: state.mainBtnList[8]?.bool,
           count: action?.payload?.prinat_total || 0,
         },
         {
           id: 8,
           name: "Отказанные",
-          bool: state.mainBtnList[8]?.bool,
+          bool: state.mainBtnList[9]?.bool,
           count: action?.payload?.otclon_total || 0,
         },
         {
           id: 9,
           name: "На доработке",
-          bool: state.mainBtnList[9]?.bool,
-          count: action?.payload?.alter_sec_total || 0,
+          bool: state.mainBtnList[10]?.bool,
+          count: action?.payload?.na_dorabotke || 0,
         },
+        /////////////////// для обычных секретарей
+        {
+          id: 0,
+          name: "Иски",
+          bool: state.mainBtnList[11]?.bool, // Сохраняю текущее значение bool
+          count: action?.payload?.isk_count || 0,
+        },
+        // {
+        //   id: 9,
+        //   name: "На доработке",
+        //   bool: state.mainBtnList[12]?.bool,
+        //   count: action?.payload?.na_dorabotke || 0,
+        // },
       ];
     },
     changeLookAddPlaintiff: (state, action) => {

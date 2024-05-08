@@ -13,10 +13,7 @@ import {
   changeLookDocs,
   clearMainBtnList,
 } from "../../../../store/reducers/stateSlice";
-import {
-  changeTypeSecretarDela,
-  toTakeSecretarList,
-} from "../../../../store/reducers/selectsSlice";
+import { toTakeSecretarList } from "../../../../store/reducers/selectsSlice";
 import { toTakeTypeTypeDocs } from "../../../../store/reducers/applicationsSlice";
 import { changeStatusOrg } from "../../../../store/reducers/sendDocsSlice";
 
@@ -39,17 +36,20 @@ const ConfirmStatusRS = (props) => {
   const editorRefReject = React.useRef(null);
   const navigate = useNavigate();
 
-  const {
-    confirmActionFullfilled,
-    confirmActionReject,
-    confirmActionRedone,
-    lookDocs,
-  } = useSelector((state) => state.stateSlice);
+  const { confirmActionRedone, lookDocs } = useSelector(
+    (state) => state.stateSlice
+  );
+
+  const { confirmActionFullfilled, confirmActionReject } = useSelector(
+    (state) => state.stateSlice
+  );
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+
+  const chechPdf = editorRef.current && editorRef.current.editor;
 
   const fulfilledIsk = (e) => {
     e.preventDefault();
-    if (editorRef.current && editorRef.current.editor) {
+    if (chechPdf) {
       const content = editorRef.current.editor.getContent();
       dispatch(
         changeStatusOrg({
@@ -68,7 +68,7 @@ const ConfirmStatusRS = (props) => {
 
   const rejectIsk = (e) => {
     e.preventDefault();
-    if (editorRef.current && editorRef.current.editor) {
+    if (chechPdf) {
       const content = editorRef.current.editor.getContent();
       dispatch(
         changeStatusOrg({
@@ -87,7 +87,7 @@ const ConfirmStatusRS = (props) => {
 
   const redoneIsk = (e) => {
     e.preventDefault();
-    if (editorRef.current && editorRef.current.editor) {
+    if (chechPdf) {
       const content = editorRef.current.editor.getContent();
       dispatch(
         changeStatusOrg({
@@ -95,7 +95,7 @@ const ConfirmStatusRS = (props) => {
           tokenA,
           isk_status: istype.type,
           content,
-          type: 13,
+          type: 18, //// отправить на доработку
           navigate,
         })
       );
@@ -195,7 +195,7 @@ const ConfirmStatusRS = (props) => {
               </div>
             </>
           )}
-          {istype.type === 3 && (
+          {istype.type === 6 && (
             <>
               <div className="blockModal__inner">
                 <PdfFile editorRef={editorRefReject} />
@@ -207,7 +207,7 @@ const ConfirmStatusRS = (props) => {
                 <div className="btnsSendIsks">
                   <button
                     onClick={() => dispatch(changeActionRedone(true))}
-                    className="rejectBtn"
+                    className="btnsSendIsks"
                   >
                     На доработку
                   </button>
@@ -256,7 +256,7 @@ const ConfirmStatusRS = (props) => {
             </div>
           </div>
         </Modals>
-        {/*  //////// отказ отв. секр */}
+        {/*  //////// на доработку отв. секр */}
         <Modals
           openModal={confirmActionRedone}
           setOpenModal={() => dispatch(changeActionRedone())}

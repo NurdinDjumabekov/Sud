@@ -14,16 +14,10 @@ const ActionsStatusSS = ({ row, setSendStatusIsk, setIsType }) => {
 
   const lookIsksFn = (obj) => {
     if (+obj.status === 1) {
-      dispatch(
-        editIsks({ id: obj?.codeid, tokenA, navigate, applicationList })
-      );
+      const send = { id: obj?.codeid, tokenA, navigate, applicationList };
+      dispatch(editIsks(send));
       dispatch(changeCheckEditPlaint(false)); /// запрет на редактирование
     }
-  };
-
-  const changeStatusIsks = (id, status) => {
-    setSendStatusIsk(true);
-    setIsType({ type: status, id });
   };
 
   const checkDocs = (innerArr) => {
@@ -34,52 +28,50 @@ const ActionsStatusSS = ({ row, setSendStatusIsk, setIsType }) => {
   const openDataIsks = (id, status) => {
     setSendStatusIsk(true);
     setIsType({ type: status, id });
-    dispatch(
-      editIsks({
-        id,
-        tokenA,
-        applicationList,
-      })
-    );
+    dispatch(editIsks({ id, tokenA, applicationList }));
   };
 
   const notNull = row?.status !== 0;
 
-  return (
-    <>
-      {row?.secretary && (
-        <div className="statusIsks moreBtnStatus">
-          <button onClick={() => openDataIsks(row?.codeid, 7)}>
-            Сформировать документ о принятии иска
-          </button>
-        </div>
-      )}
-      {notNull && (
-        <>
-          {+row?.isk_status === 5 ? (
-            <div className="statusIsks moreBtnStatus">
-              <button onClick={() => lookIsksFn(row)}>Просмотреть</button>
-            </div>
-          ) : (
-            <>
-              {row?.isk_status !== 0 && (
-                <div className="statusIsks moreBtnStatus">
-                  {!checkDocs(row.files) && (
-                    <button onClick={() => openDataIsks(row?.codeid, 5)}>
-                      Возражение
+  const darabotka = row?.isk_status === 6; //// if докумен на доработке
+
+  if (!darabotka) {
+    return (
+      <>
+        {row?.secretary && (
+          <div className="statusIsks moreBtnStatus">
+            <button onClick={() => openDataIsks(row?.codeid, 7)}>
+              Сформировать документ о принятии иска
+            </button>
+          </div>
+        )}
+        {notNull && (
+          <>
+            {+row?.isk_status === 5 ? (
+              <div className="statusIsks moreBtnStatus">
+                <button onClick={() => lookIsksFn(row)}>Просмотреть</button>
+              </div>
+            ) : (
+              <>
+                {row?.isk_status !== 0 && (
+                  <div className="statusIsks moreBtnStatus">
+                    {!checkDocs(row.files) && (
+                      <button onClick={() => openDataIsks(row?.codeid, 5)}>
+                        Возражение
+                      </button>
+                    )}
+                    <button onClick={() => openDataIsks(row?.codeid, 6)}>
+                      Уведомить ответчика
                     </button>
-                  )}
-                  <button onClick={() => openDataIsks(row?.codeid, 6)}>
-                    Уведомить ответчика
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-        </>
-      )}
-    </>
-  );
+                  </div>
+                )}
+              </>
+            )}
+          </>
+        )}
+      </>
+    );
+  }
 };
 
 export default ActionsStatusSS;

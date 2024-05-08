@@ -1,32 +1,47 @@
-import React, { useRef } from "react";
-import PdfObjection from "../../../PdfFile/PdfObjection/PdfObjection";
-import Modals from "../../../Modals/Modals";
-import { useDispatch, useSelector } from "react-redux";
+////////// states and fns
 import {
   changeActionFullfilled,
   changeLookDocs,
   changeObjectionPdfVeiw,
   clearMainBtnList,
 } from "../../../../store/reducers/stateSlice";
-import imgWarning from "../../../../asstes/images/warning.png";
 
-import "./ConfirmStatusSS.scss";
 import {
   changeStatusOrg,
   sendDocsEveryIsks,
 } from "../../../../store/reducers/sendDocsSlice";
-import { useNavigate } from "react-router-dom";
-import ApplicationFiles from "../../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
+
+//// pdfs
 import PdfFile from "../../../PdfFile/PdfFile";
 import PdfFulfilled from "../../../PdfFile/PdfFulfilled/PdfFulfilled";
 
+////// img
+import imgWarning from "../../../../asstes/images/warning.png";
+
+///// hooks
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useRef } from "react";
+
+///components
+import ApplicationFiles from "../../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
+import PdfObjection from "../../../PdfFile/PdfObjection/PdfObjection";
+import Modals from "../../../Modals/Modals";
+
+///scsss
+import "./ConfirmStatusSS.scss";
+
 const ConfirmStatusSS = (props) => {
   const { setSendStatusIsk, sendStatusIsk, setIsType, istype } = props;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const editorRef = useRef(null);
   const editorRefReject = useRef(null);
+
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+
   const { objectionPdfVeiw, lookDocs, confirmActionFullfilled } = useSelector(
     (state) => state.stateSlice
   );
@@ -52,12 +67,7 @@ const ConfirmStatusSS = (props) => {
 
   const changeStatus = () => {
     dispatch(
-      changeStatusOrg({
-        id: istype.id,
-        tokenA,
-        isk_status: 5,
-        navigate,
-      })
+      changeStatusOrg({ id: istype.id, tokenA, isk_status: 5, navigate })
     );
     setSendStatusIsk(false);
     dispatch(clearMainBtnList());
@@ -74,15 +84,31 @@ const ConfirmStatusSS = (props) => {
     if (editorRef.current && editorRef.current.editor) {
       const content = editorRef.current.editor.getContent();
       dispatch(
-        changeStatusOrg({
-          id: istype.id,
-          tokenA,
-          isk_status: istype.type,
+        sendDocsEveryIsks({
           content,
-          type: 1000, /// chechchech
+          id: istype.id,
+          type: 12,
           navigate,
+          tokenA,
         })
       );
+      console.log({
+        content,
+        id: istype.id,
+        type: 12,
+        navigate,
+        tokenA,
+      });
+      // dispatch(
+      //   changeStatusOrg({
+      //     id: istype.id,
+      //     tokenA,
+      //     isk_status: istype.type,
+      //     content,
+      //     type: 12,
+      //     navigate,
+      //   })
+      // );
       dispatch(clearMainBtnList());
       closeAllModal();
     }

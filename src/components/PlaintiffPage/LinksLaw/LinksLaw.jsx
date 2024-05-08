@@ -6,9 +6,6 @@ import { changeTodosApplications } from "../../../store/reducers/applicationsSli
 const LinksLaw = () => {
   const dispatch = useDispatch();
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { typeUser, checkEditPlaint } = useSelector(
-    (state) => state.saveDataSlice
-  );
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -23,15 +20,8 @@ const LinksLaw = () => {
     );
   };
 
-  const isCheckRole =
-    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
-
   return (
-    <div
-      className={`${"plaintiFilling__container"} ${
-        isCheckRole && "moreNonePdf"
-      }`}
-    >
+    <div className={`${"plaintiFilling__container"}`}>
       <div className="descriptionClaim">
         <ExampleBlock
           text={"Пример названия и описания иска должен быть таким-то"}

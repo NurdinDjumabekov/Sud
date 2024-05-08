@@ -129,8 +129,6 @@ const FizFace = ({ typerole }) => {
     }
   };
 
-  // console.log(todosApplications, "todosApplications");
-
   return (
     <div className="addPlaintiffFiz">
       <h3>

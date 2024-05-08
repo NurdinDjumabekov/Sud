@@ -15,12 +15,7 @@ const DataArrPlaintiff = ({ typerole }) => {
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf } = useSelector((state) => state.inputSlice);
-  const { typeUser, checkEditPlaint } = useSelector(
-    (state) => state.saveDataSlice
-  );
-
-  // console.log(lookAddPlaintiff, "lookAddPlaintiff");
-  // console.log(typerole, "typerole");
+  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
   const approvId = () => {
     dispatch(changeADFF({ ...adff, code_isk: todosApplications?.codeid }));
@@ -47,17 +42,10 @@ const DataArrPlaintiff = ({ typerole }) => {
     }
   };
 
-  const isCheckRole =
-    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
-
   return (
     <>
       {lookAddPlaintiff == 0 && (
-        <div
-          className={`${"mainTables"} ${"dataPlaintiff"} ${
-            isCheckRole && "dataPlaintiff_more"
-          }`}
-        >
+        <div className={`${"mainTables"} ${"dataPlaintiff"} `}>
           <ul className="btnsType add">
             {checkEditPlaint ? (
               <>

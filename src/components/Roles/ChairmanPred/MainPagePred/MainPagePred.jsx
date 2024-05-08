@@ -40,7 +40,7 @@ export const MainPagePred = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {mainBtnList?.slice(0, 5)?.map((btn, ind) => (
+          {mainBtnList?.slice(0, 6)?.map((btn, ind) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
@@ -121,9 +121,7 @@ export const MainPagePred = () => {
                       row?.arbitrs?.map((i) => <span>{i?.name}</span>)}
                   </td>
                   <td className="table_isk_td">
-                    <span>
-                      {row.secretary || <ChoiceSecr codeid={row?.codeid} />}
-                    </span>
+                    {row.secretary || <ChoiceSecr item={row} />}
                   </td>
                   <td className="table_isk_td">
                     <ActionsPred

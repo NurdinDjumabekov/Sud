@@ -31,17 +31,7 @@ export const toTakeIsksList = createAsyncThunk(
       });
       if (response.status >= 200 && response.status < 300) {
         const { recordset, ...totals } = response?.data;
-        // console.log(totals);
-        // draft_count,
-        // isk_count,
-        // isk_draft_total,
-        // otclon_pred_total,
-        // otclon_sec_total,
-        // prinat_pred_total,
-        // prinat_sec_total,
-        // otclon_total,
-        // prinat_total,
-        // alter_sec_total,
+        console.log(totals, "totals");
         dispatch(sortDataIsksCounts(totals));
         return recordset;
       } else {
@@ -164,27 +154,24 @@ export const sendEveryIsks = createAsyncThunk(
 // 12  Определение о принятии иска
 // 13, 14  Определение об отказе иска
 // 15   Исковое заявление
+
 export const sendDocsEveryIsks = createAsyncThunk(
   "sendDocsEveryIsks",
   async function (info, { dispatch, rejectWithValue }) {
+    const { content, tokenA } = info;
+    const data = { content, code_file: info?.type, code_isk: info?.id };
     try {
       const response = await axios({
         method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/crud/genereate-pdf`,
-        data: {
-          content: info?.content,
-          code_file: info?.type,
-          code_isk: info?.id,
-        },
-        headers: {
-          Authorization: `Bearer ${info.tokenA}`,
-        },
+        data,
+        headers: { Authorization: `Bearer ${tokenA}` },
       });
       if (response.status >= 200 && response.status < 300) {
         if (+info?.type === 17) {
           info?.navigate("/mainSimpSecr");
           setTimeout(() => {
-            dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 })); /// для обновления списка на главной странице
+            dispatch(toTakeIsksList({ tokenA, id: 0 })); /// для обновления списка на главной странице
           }, 1000);
         }
       } else {
@@ -291,47 +278,47 @@ export const changeStatusIsks = createAsyncThunk(
 export const changeStatusOrg = createAsyncThunk(
   "changeStatusOrg",
   async function (info, { dispatch, rejectWithValue }) {
-    // console.log(info, "info");
+    const { isk_status } = info;
     try {
       const response = await axios({
         method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/set_isk_status`,
         data: {
           code_isk: +info?.id,
-          isk_status: +info?.isk_status, ///  1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем, 4 Отклонённые председателем, 5 ответчик уведомлен
+          isk_status,
+          /// 1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем,
+          /// 4 Отклонённые председателем, 5 ответчик уведомлен, 6 - на доработку
           description: "", //// delete
           code_secretar: info?.idSecr || "",
         },
-        headers: {
-          Authorization: `Bearer ${info?.tokenA}`,
-        },
+        headers: { Authorization: `Bearer ${info?.tokenA}` },
       });
       if (response.status >= 200 && response.status < 300) {
-        if ([1, 2, 3, 4].includes(+info?.isk_status)) {
+        if ([1, 2, 3, 4, 6].includes(+isk_status)) {
           // 12  Определение о принятии иска
           // 13, 14  Определение об отказе иска
-          // 15   Исковое заявление
-          dispatch(
-            sendDocsEveryIsks({
-              content: info?.content,
-              id: +info?.id,
-              type: +info?.type,
-            }) /// для создания документа иска
-          );
+          // 15  Исковое заявление
+
+          const obj = { content: info?.content, type: +info?.type };
+          dispatch(sendDocsEveryIsks({ ...obj, id: +info?.id }));
+          /// для создания документа иска
+
           setTimeout(() => {
             dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-            if (+info?.isk_status === 1 || +info?.isk_status === 2) {
+            if (+isk_status === 1 || +isk_status === 2 || +isk_status === 6) {
               info?.navigate("/mainRespSec");
-            } else if (+info?.isk_status === 3 || +info?.isk_status === 4) {
+            } else if (+isk_status === 3 || +isk_status === 4) {
               info?.navigate("/mainRespPred");
             }
           }, 600);
-        } else if (+info?.isk_status === 1) {
-          setTimeout(() => {
-            dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-            info?.navigate("/mainRespSec");
-          }, 600);
-        } else if (+info?.isk_status === 5) {
+        }
+        //  else if (+info?.isk_status === 1) {
+        //   setTimeout(() => {
+        //     dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
+        //     info?.navigate("/mainRespSec");
+        //   }, 600);
+        // }
+        else if (+isk_status === 5) {
           setTimeout(() => {
             dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
             info?.navigate("/mainSimpSecr");

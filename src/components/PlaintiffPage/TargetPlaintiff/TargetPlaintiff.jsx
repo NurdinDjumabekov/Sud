@@ -32,15 +32,8 @@ const TargetPlaintiff = () => {
     );
   };
 
-  const isCheckRole =
-    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
-
   return (
-    <div
-      className={`${"plaintiFilling__container"} ${
-        isCheckRole && "moreNonePdf"
-      }`}
-    >
+    <div className={`${"plaintiFilling__container"} `}>
       <div className="addPlaintiff">
         <form className="targetPlaintiff">
           {/* <div className="twoInputs">

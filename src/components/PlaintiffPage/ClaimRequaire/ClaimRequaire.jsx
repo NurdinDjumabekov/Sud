@@ -61,18 +61,8 @@ const ClaimRequaire = () => {
     );
   };
 
-  const isCheckRole =
-    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
-
-  // console.log(data);
-  // console.log(todosApplications);
-
   return (
-    <div
-      className={`${"plaintiFilling__container"} ${
-        isCheckRole && "moreNonePdf"
-      }`}
-    >
+    <div className={`${"plaintiFilling__container"}`}>
       <div className="descriptionClaim">
         <ExampleBlock
           text={"Пример названия и описания иска должен быть таким-то"}

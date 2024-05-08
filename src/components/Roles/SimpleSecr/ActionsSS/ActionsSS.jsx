@@ -8,7 +8,6 @@ import deleteImg from "../../../../asstes/icons/deleteBtn.svg";
 import sendImg from "../../../../asstes/icons/goodSend.svg";
 
 //// states
-import { changeStatusIsks } from "../../../../store/reducers/sendDocsSlice";
 import { editIsks } from "../../../../store/reducers/applicationsSlice";
 import {
   changeIdStatus,
@@ -18,7 +17,7 @@ import {
 import { changeCheckEditPlaint } from "../../../../store/reducers/saveDataSlice";
 
 const ActionsSS = (props) => {
-  const { row, setSendStatusIsk, setIsType } = props;
+  const { row } = props;
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
 
@@ -41,20 +40,22 @@ const ActionsSS = (props) => {
   };
 
   const statusMessages = {
-    1: "Отправлено председателю",
-    2: "Отклонён ответственным секретарём",
-    3: "Принят председателем",
-    4: "Отклонён председателем",
-    5: "Ответчик уведомлён",
+    0: { text: "Иск подан", colorClass: "green" },
+    1: { text: "Отправлено председателю", colorClass: "green" },
+    2: { text: "Отклонён ответственным секретарём", colorClass: "red" },
+    3: { text: "Принят председателем", colorClass: "green" },
+    4: { text: "Отклонён председателем", colorClass: "red" },
+    5: { text: "Ответчик уведомлён", colorClass: "green" },
+    6: { text: "Отправлено на доработку", colorClass: "red" },
   };
 
-  const greenColor = +row?.isk_status === 1 || +row?.isk_status === 3;
+  const status = statusMessages?.[+row?.isk_status];
 
-  const redColor = +row?.isk_status === 2 || +row?.isk_status === 4;
+  const darabotka = row?.isk_status === 6; //// if докумен на доработке
 
   return (
     <>
-      {row?.status === 0 ? (
+      {row?.status === 0 || darabotka ? (
         <div className="statusIsks">
           <button onClick={() => changeStatus(row?.codeid)}>
             {/* Подать */}
@@ -70,25 +71,9 @@ const ActionsSS = (props) => {
           </button>
         </div>
       ) : (
-        <>
-          {statusMessages[row?.isk_status] && (
-            <span
-              style={{ padding: "0px 0px 0px 10px" }}
-              className={
-                greenColor
-                  ? "colorStatusGreen"
-                  : redColor
-                  ? "colorStatusRed"
-                  : ""
-              }
-            >
-              {statusMessages[row?.isk_status]}
-            </span>
-          )}
-          {!statusMessages[row?.isk_status] && (
-            <span className="colGreen">Иск подан</span>
-          )}
-        </>
+        <span style={{ paddingLeft: "10px", color: status?.colorClass }}>
+          {status ? status.text : "..."}
+        </span>
       )}
     </>
   );

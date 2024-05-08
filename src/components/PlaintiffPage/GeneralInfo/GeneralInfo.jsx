@@ -9,21 +9,11 @@ const GeneralInfo = () => {
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selHarSpora, selPrimPravo, selReglament, selLangArbitr } =
     useSelector((state) => state.selectsSlice);
-  const { typeUser, checkEditPlaint } = useSelector(
-    (state) => state.saveDataSlice
-  );
 
   const dispatch = useDispatch();
 
-  const isCheckRole =
-    checkEditPlaint === true && (+typeUser === 1 || +typeUser === 2);
-
   return (
-    <div
-      className={`${"plaintiFilling__container"} ${
-        isCheckRole && "moreNonePdf"
-      }`}
-    >
+    <div className={`${"plaintiFilling__container"} `}>
       <div className="generalInfo">
         <form>
           <div className="blockSelects">

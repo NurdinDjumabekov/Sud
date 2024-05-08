@@ -38,13 +38,7 @@ const ActionsRS = (props) => {
     // для принятия или отклонения иска
     setSendStatusIsk(true);
     setIsType({ type: status, id });
-    dispatch(
-      editIsks({
-        id,
-        tokenA,
-        applicationList,
-      })
-    );
+    dispatch(editIsks({ id, tokenA, applicationList }));
   };
 
   const changeStatus = (id) => {
@@ -107,7 +101,7 @@ const ActionsRS = (props) => {
                 <img src={reject} alt="no" />
                 {/* Отклонить  иск*/}
               </button>
-              <button onClick={() => openDataIsks(row?.codeid, 3)}>
+              <button onClick={() => openDataIsks(row?.codeid, 6)}>
                 {/* Отправить на доработку */}
                 <img src={redone} alt="redone" className="redoneImg" />
               </button>

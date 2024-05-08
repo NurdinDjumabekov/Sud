@@ -39,7 +39,7 @@ export const MainPageSS = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {mainBtnList?.slice(0, 1)?.map((btn, ind) => (
+          {mainBtnList?.slice(11, 13)?.map((btn, ind) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}

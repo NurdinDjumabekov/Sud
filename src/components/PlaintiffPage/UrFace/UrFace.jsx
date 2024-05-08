@@ -25,6 +25,7 @@ const UrFace = ({ typerole }) => {
   const { tokenA, checkEditPlaint } = useSelector(
     (state) => state.saveDataSlice
   );
+
   const {
     selCountries,
     selDistrict,
@@ -81,13 +82,8 @@ const UrFace = ({ typerole }) => {
   };
 
   const alertFN = (text) => {
-    dispatch(
-      changeAlertText({
-        text: text,
-        backColor: "#f9fafd",
-        state: true,
-      })
-    );
+    const obj = { text: text, backColor: "#f9fafd", state: true };
+    dispatch(changeAlertText(obj));
   };
 
   const checkData = () => {
