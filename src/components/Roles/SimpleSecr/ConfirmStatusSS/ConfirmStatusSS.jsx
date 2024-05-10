@@ -83,32 +83,8 @@ const ConfirmStatusSS = (props) => {
     e.preventDefault();
     if (editorRef.current && editorRef.current.editor) {
       const content = editorRef.current.editor.getContent();
-      dispatch(
-        sendDocsEveryIsks({
-          content,
-          id: istype.id,
-          type: 12,
-          navigate,
-          tokenA,
-        })
-      );
-      console.log({
-        content,
-        id: istype.id,
-        type: 12,
-        navigate,
-        tokenA,
-      });
-      // dispatch(
-      //   changeStatusOrg({
-      //     id: istype.id,
-      //     tokenA,
-      //     isk_status: istype.type,
-      //     content,
-      //     type: 12,
-      //     navigate,
-      //   })
-      // );
+      dispatch(sendDocsEveryIsks({ content, type: 12, id: istype.id }));
+      /// для создания документа иска
       dispatch(clearMainBtnList());
       closeAllModal();
     }
@@ -185,6 +161,7 @@ const ConfirmStatusSS = (props) => {
           </>
         )}
       </Modals>
+
       <Modals
         openModal={objectionPdfVeiw}
         setOpenModal={() => dispatch(changeObjectionPdfVeiw())}

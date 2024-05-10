@@ -59,6 +59,22 @@ const initialState = {
       name: "На доработке",
       bool: false,
     },
+    ///////////////// для обычных секретарей
+    {
+      id: 0,
+      name: "Все иски",
+      bool: true,
+    },
+    {
+      id: 9,
+      name: "На доработке",
+      bool: false,
+    },
+    {
+      id: 10,
+      name: "Назначенные председателем",
+      bool: false,
+    },
   ],
   ///// только для обычных пользователей
   lookAddPlaintiff: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
@@ -154,12 +170,22 @@ const stateSlice = createSlice({
           name: "На доработке",
           bool: false,
         },
-        /////////////////// для обычных секретарей
-        //  {
-        //   id: 10,
-        //   name: "Все иски",
-        //   bool: true,
-        // },
+        ///////////////// для обычных секретарей
+        {
+          id: 0,
+          name: "Все иски",
+          bool: true,
+        },
+        {
+          id: 9,
+          name: "На доработке",
+          bool: false,
+        },
+        {
+          id: 10,
+          name: "Назначенные председателем",
+          bool: false,
+        },
       ];
     },
     sortDataIsksCounts: (state, action) => {
@@ -238,12 +264,18 @@ const stateSlice = createSlice({
           bool: state.mainBtnList[11]?.bool, // Сохраняю текущее значение bool
           count: action?.payload?.isk_count || 0,
         },
-        // {
-        //   id: 9,
-        //   name: "На доработке",
-        //   bool: state.mainBtnList[12]?.bool,
-        //   count: action?.payload?.na_dorabotke || 0,
-        // },
+        {
+          id: 9,
+          name: "На доработке",
+          bool: state.mainBtnList[12]?.bool,
+          count: action?.payload?.na_dorabotke || 0,
+        },
+        {
+          id: 10,
+          name: "Назначенные председателем",
+          bool: state.mainBtnList[13]?.bool,
+          count: action?.payload?.secretar_isk || 0,
+        },
       ];
     },
     changeLookAddPlaintiff: (state, action) => {

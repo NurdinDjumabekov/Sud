@@ -39,14 +39,14 @@ export const MainPageSS = () => {
     <>
       <div className="mainTables">
         <ul className="choice__plaintiff">
-          {mainBtnList?.slice(11, 13)?.map((btn, ind) => (
+          {mainBtnList?.slice(11, 14)?.map((btn, ind) => (
             <li key={btn.id}>
               <button
                 className={btn?.bool ? "activeBtnsPlaintiff" : ""}
-                onClick={() => clickBtn(0)}
+                onClick={() => clickBtn(btn?.id)}
                 style={ind === 0 ? { margin: "0px", padding: "0px 30px" } : {}}
               >
-                {btn?.name} [{listTodos?.length || 0}]
+                {btn?.name} [{btn?.count || 0}]
               </button>
             </li>
           ))}

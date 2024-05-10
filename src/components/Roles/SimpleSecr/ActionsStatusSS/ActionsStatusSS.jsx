@@ -35,10 +35,13 @@ const ActionsStatusSS = ({ row, setSendStatusIsk, setIsType }) => {
 
   const darabotka = row?.isk_status === 6; //// if докумен на доработке
 
+  const checkIskAccept = notNull && row?.secretary;
+
   if (!darabotka) {
     return (
       <>
-        {row?.secretary && (
+        {checkIskAccept && row?.isk_status !== 3 && (
+          /// if секретарь есть (назначен)
           <div className="statusIsks moreBtnStatus">
             <button onClick={() => openDataIsks(row?.codeid, 7)}>
               Сформировать документ о принятии иска
@@ -53,7 +56,8 @@ const ActionsStatusSS = ({ row, setSendStatusIsk, setIsType }) => {
               </div>
             ) : (
               <>
-                {row?.isk_status !== 0 && (
+                {/* //// if секретарь есть (назначен) и иск принят пред - лем */}
+                {row?.secretary && +row?.isk_status === 3 && (
                   <div className="statusIsks moreBtnStatus">
                     {!checkDocs(row.files) && (
                       <button onClick={() => openDataIsks(row?.codeid, 5)}>

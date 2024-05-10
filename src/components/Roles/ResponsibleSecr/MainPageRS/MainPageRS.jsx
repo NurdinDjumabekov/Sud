@@ -1,4 +1,3 @@
-import React from "react";
 import "./MainPageRS.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { searchNameSelect } from "../../../../helpers/searchNameSelect";
@@ -17,7 +16,8 @@ export const MainPageRS = () => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
 
   const [sendStatusIsk, setSendStatusIsk] = useState(false);
-  const [istype, setIsType] = useState({ type: 0, id: 0 }); ///// 1- подтвердить, 2 - отклонить
+  const [istype, setIsType] = useState({ type: 0, id: 0 });
+  ///// 1- подтвердить, 2 - отклонить
 
   const { mainBtnList } = useSelector((state) => state.stateSlice);
   const { selCurrency, selReglament } = useSelector(

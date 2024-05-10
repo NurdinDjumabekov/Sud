@@ -264,6 +264,7 @@ export const changeStatusIsks = createAsyncThunk(
       });
       if (response.status >= 200 && response.status < 300) {
         dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
+        dispatch(clearMainBtnList());
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -303,22 +304,15 @@ export const changeStatusOrg = createAsyncThunk(
           dispatch(sendDocsEveryIsks({ ...obj, id: +info?.id }));
           /// для создания документа иска
 
-          setTimeout(() => {
-            dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-            if (+isk_status === 1 || +isk_status === 2 || +isk_status === 6) {
-              info?.navigate("/mainRespSec");
-            } else if (+isk_status === 3 || +isk_status === 4) {
-              info?.navigate("/mainRespPred");
-            }
-          }, 600);
-        }
-        //  else if (+info?.isk_status === 1) {
-        //   setTimeout(() => {
-        //     dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-        //     info?.navigate("/mainRespSec");
-        //   }, 600);
-        // }
-        else if (+isk_status === 5) {
+          dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
+          // setTimeout(() => {
+          //   if (+isk_status === 1 || +isk_status === 2) {
+          //     info?.navigate("/mainRespSec");
+          //   } else if (+isk_status === 3 || +isk_status === 4) {
+          //     info?.navigate("/mainRespPred");
+          //   }
+          // }, 600);
+        } else if (+isk_status === 5) {
           setTimeout(() => {
             dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
             info?.navigate("/mainSimpSecr");

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 ///// states
 import {
   changeActionFullfilled,
+  changeActionRedone,
   changeActionReject,
   clearMainBtnList,
 } from "../../../../store/reducers/stateSlice";
@@ -26,6 +27,7 @@ import PdfFile from "../../../PdfFile/PdfFile";
 ///// imgs
 import imgWarning from "../../../../asstes/images/warning.png";
 import Selects from "../../../Selects/Selects";
+import PdfFileRedone from "../../../PdfFile/PdfFileRedone/PdfFileRedone";
 
 const ConfirmStatusPred = (props) => {
   const { setSendStatusIsk, sendStatusIsk, setIsType, istype } = props;
@@ -34,9 +36,8 @@ const ConfirmStatusPred = (props) => {
   const editorRefReject = useRef(null);
   const navigate = useNavigate();
 
-  const { confirmActionFullfilled, confirmActionReject } = useSelector(
-    (state) => state.stateSlice
-  );
+  const { confirmActionFullfilled, confirmActionReject, confirmActionRedone } =
+    useSelector((state) => state.stateSlice);
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { typeSecretarDela, selSecretarDela } = useSelector(
@@ -85,6 +86,28 @@ const ConfirmStatusPred = (props) => {
     }
     closeAllModal();
     dispatch(changeTypeSecretarDela(0)); /// обнуляю секретаря дела
+  };
+
+  const redoneIsk = (e) => {
+    e.preventDefault();
+    if (editorRef.current && editorRef.current.editor) {
+      const content = editorRef.current.editor.getContent();
+      dispatch(
+        changeStatusOrg({
+          id: istype.id,
+          tokenA,
+          isk_status: istype.type,
+          content,
+          type: 18, //// отправить на доработку
+          navigate,
+        })
+      );
+
+      dispatch(clearMainBtnList());
+      closeAllModal();
+      dispatch(changeTypeSecretarDela(0)); /// обнуляю секретаря дела
+      dispatch(changeActionRedone(false));
+    }
   };
 
   const closeAllModal = () => {
@@ -224,6 +247,30 @@ const ConfirmStatusPred = (props) => {
               </div>
             </>
           )}
+          {istype.type === 6 && (
+            /// для отправки на доработку от председателя
+            <>
+              <div className="blockModal__inner">
+                <PdfFile editorRef={editorRefReject} />
+                <div className="plaintiFilling__container moreStyle">
+                  <PdfFileRedone istype={istype} editorRef={editorRef} />
+                </div>
+              </div>
+              <div className="modalchangeStatus" style={{ height: "auto" }}>
+                <div className="btnsSendIsks">
+                  <button
+                    onClick={() => dispatch(changeActionRedone(true))}
+                    className="btnsSendIsks"
+                  >
+                    На доработку
+                  </button>
+                  <button onClick={() => setSendStatusIsk(false)}>
+                    Отмена
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </Modals>
       </div>
       <div className="blockModal moreStylePdf noneKrestic">
@@ -268,6 +315,25 @@ const ConfirmStatusPred = (props) => {
               </div>
             </div>
           )}
+        </Modals>
+
+        {/*  //////// на доработку отв. секр */}
+        <Modals
+          openModal={confirmActionRedone}
+          setOpenModal={() => dispatch(changeActionRedone())}
+        >
+          <div className="modalchangeStatus">
+            <div className="imgBlock">
+              <img src={imgWarning} alt="send!" />
+            </div>
+            <h5>Отправить на доработку?</h5>
+            <div className="btnsSendIsks">
+              <button onClick={(e) => redoneIsk(e)}>Да</button>
+              <button onClick={() => dispatch(changeActionRedone(false))}>
+                нет
+              </button>
+            </div>
+          </div>
         </Modals>
       </div>
     </>

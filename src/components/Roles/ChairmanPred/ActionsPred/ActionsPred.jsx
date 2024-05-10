@@ -8,6 +8,7 @@ import { changeCheckEditPlaint } from "../../../../store/reducers/saveDataSlice"
 ///// imgs
 import fullfiled from "../../../../asstes/icons/goodSend.svg";
 import reject from "../../../../asstes/icons/krestik.svg";
+import redone from "../../../../asstes/images/redone.png";
 
 const ActionsPred = (props) => {
   const { row, setSendStatusIsk, setIsType } = props;
@@ -61,6 +62,10 @@ const ActionsPred = (props) => {
           </button>
           <button onClick={() => lookIsks(row?.codeid, 4)}>
             <img src={reject} alt="no" />
+          </button>{" "}
+          <button onClick={() => lookIsks(row?.codeid, 6)}>
+            {/* Отправить на доработку */}
+            <img src={redone} alt="redone" className="redoneImg" />
           </button>
         </div>
       ) : (

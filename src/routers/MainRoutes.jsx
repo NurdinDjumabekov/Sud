@@ -46,8 +46,6 @@ function MainRoutes() {
   const { loadingAuth } = useSelector((state) => state.authSlice);
   const { typeUser } = useSelector((state) => state.saveDataSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  // const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  // console.log(todosApplications, "todosApplications");
 
   // 1  Секретарь
   // 2  Ответственный секретарь
