@@ -6,7 +6,7 @@ import { searchIdCurrency } from "../../helpers/searchIdCurrency";
 import { searchNameSelect } from "../../helpers/searchNameSelect";
 import { addFilesList } from "../../helpers/addFilesList";
 
-const PdfFile = ({ editorRef, isCheckRole }) => {
+const PdfFile = ({ editorRef }) => {
   const { selCurrency, selCountries, selRegions, selDistrict } = useSelector(
     (state) => state.selectsSlice
   );
@@ -63,14 +63,16 @@ const PdfFile = ({ editorRef, isCheckRole }) => {
   };
 
   const transformClaim = (arr) => {
-    let allText = `<div style="font-weight: 500; font-size: 16px;">`;
-    for (const [index, item] of arr?.entries()) {
-      allText += `<p style="font-size: 18px; text-indent: 40px;">
-                    ${index + 1}. ${item.claimText}
-                  </p>`;
-    }
-    allText += "</div>";
-    return allText;
+    const content = arr
+      ?.map(
+        (item, index) =>
+          `<p style="font-size: 18px; text-indent: 40px;">
+        ${index + 1}. ${item?.claimText}
+      </p>`
+      )
+      .join("");
+
+    return `<div style="font-weight: 500; font-size: 16px;">${content}</div>`;
   };
 
   React.useEffect(() => {
@@ -256,6 +258,8 @@ const PdfFile = ({ editorRef, isCheckRole }) => {
         ${signaturePlaintiff(todosApplications?.plaintiff)}
     </div>
   `;
+
+  console.log(todosApplications, "todosApplications");
 
   React.useEffect(() => {
     if (todosApplications.content === "") {

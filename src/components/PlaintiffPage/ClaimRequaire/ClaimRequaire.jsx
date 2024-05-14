@@ -80,7 +80,7 @@ const ClaimRequaire = () => {
                 <p>
                   <span>{index + 1}.</span> {obj?.claimText}
                 </p>
-                <button onClick={() => removeTodoClaim(obj.number)}>
+                <button onClick={() => removeTodoClaim(obj?.number)}>
                   <img src={del} alt="del" />
                 </button>
               </div>
