@@ -7,7 +7,6 @@ import { choiceSecr } from "../../../../store/reducers/sendDocsSlice";
 
 const ChoiceSecr = ({ item }) => {
   const { codeid, isk_status } = item;
-  console.log(item, "item");
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const { tokenA } = useSelector((state) => state.saveDataSlice);

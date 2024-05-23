@@ -31,7 +31,6 @@ export const toTakeIsksList = createAsyncThunk(
       });
       if (response.status >= 200 && response.status < 300) {
         const { recordset, ...totals } = response?.data;
-        console.log(totals, "totals");
         dispatch(sortDataIsksCounts(totals));
         return recordset;
       } else {
@@ -168,11 +167,10 @@ export const sendDocsEveryIsks = createAsyncThunk(
         headers: { Authorization: `Bearer ${tokenA}` },
       });
       if (response.status >= 200 && response.status < 300) {
-        if (+info?.type === 17) {
+        console.log(info?.type, "info?.type");
+        if (info?.type == 17 || info?.type == 12) {
           info?.navigate("/mainSimpSecr");
-          setTimeout(() => {
-            dispatch(toTakeIsksList({ tokenA, id: 0 })); /// для обновления списка на главной странице
-          }, 1000);
+          dispatch(toTakeIsksList({ tokenA, id: 0 })); /// для обновления списка на главной странице
         }
       } else {
         throw Error(`Error: ${response.status}`);

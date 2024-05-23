@@ -1,26 +1,31 @@
-import "./MainPagePlaintiff.scss";
+/////// hooks
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+//////// states
 import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
-import {
-  changeIdStatus,
-  changeLookChangeDeleteIsks,
-  changeLookChangeStatus,
-  changeMainBtnList,
-} from "../../../store/reducers/stateSlice";
-import { searchNameSelect } from "../../../helpers/searchNameSelect";
+import { changeIdStatus } from "../../../store/reducers/stateSlice";
+import { changeLookChangeDeleteIsks } from "../../../store/reducers/stateSlice";
+import { changeLookChangeStatus } from "../../../store/reducers/stateSlice";
+import { changeMainBtnList } from "../../../store/reducers/stateSlice";
 import { editIsks } from "../../../store/reducers/applicationsSlice";
 
+////// imgs
 import editImg from "../../../asstes/icons/editBtn.svg";
 import deleteImg from "../../../asstes/icons/deleteBtn.svg";
 import sendImg from "../../../asstes/icons/goodSend.svg";
 
+//////helpers
 import { plaintiffHeaders } from "../../../helpers/dataArr";
+import { searchNameSelect } from "../../../helpers/searchNameSelect";
 
 //// componets
 import TimerRevers from "../../../components/Timers/TimerRevers/TimerRevers";
 import LookPdfModal from "../../../components/PdfFile/LookPdfModal/LookPdfModal";
+
+////// style
+import "./MainPagePlaintiff.scss";
 
 const MainPagePlaintiff = () => {
   const dispatch = useDispatch();
@@ -70,7 +75,7 @@ const MainPagePlaintiff = () => {
   return (
     <div className="mainTables">
       <ul className="choice__plaintiff">
-        {mainBtnList?.slice(5, 10)?.map((btn) => (
+        {mainBtnList?.slice(6, 11)?.map((btn) => (
           <li key={btn.id}>
             <button
               className={btn?.bool ? "activeBtnsPlaintiff" : ""}
@@ -163,7 +168,7 @@ const MainPagePlaintiff = () => {
                   )}
                 </td>
                 <td className="table_isk_td">
-                  {+row?.status === 0 ? (
+                  {row?.status == 0 || row?.isk_status == 6 ? (
                     <div className="statusIsks">
                       <button onClick={() => changeStatus(row?.codeid)}>
                         {/* Подать */}

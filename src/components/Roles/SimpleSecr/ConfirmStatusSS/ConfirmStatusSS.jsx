@@ -85,7 +85,6 @@ const ConfirmStatusSS = (props) => {
       const content = editorRef.current.editor.getContent();
       dispatch(sendDocsEveryIsks({ content, type: 12, id: istype.id }));
       /// для создания документа иска
-      dispatch(clearMainBtnList());
       closeAllModal();
     }
   };

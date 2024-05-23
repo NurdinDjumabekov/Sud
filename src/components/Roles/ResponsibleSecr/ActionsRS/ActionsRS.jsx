@@ -67,11 +67,11 @@ const ActionsRS = (props) => {
 
   const redColor = +row?.isk_status === 2 || +row?.isk_status === 4;
 
-  const checkSecr = row?.code_sec_create_type === 1;
+  const checkSecr = row?.code_sec_create_type == 1;
   ///// if code_sec_create_type === 1
   ///// (ответ. секр создал иск, он не может свой же иск на доработку отправить)
-  // console.log(checkSecr);
 
+  // console.log(checkSecr, "checkSecr");
   return (
     <>
       {row?.status === 0 ? (
@@ -105,13 +105,12 @@ const ActionsRS = (props) => {
                 <img src={reject} alt="no" />
                 {/* Отклонить  иск*/}
               </button>
-
-              {checkSecr && (
-                <button onClick={() => openDataIsks(row?.codeid, 6)}>
-                  {/* Отправить на доработку */}
-                  <img src={redone} alt="redone" className="redoneImg" />
-                </button>
-              )}
+              {/* {checkSecr && (
+              )} */}
+              <button onClick={() => openDataIsks(row?.codeid, 6)}>
+                {/* Отправить на доработку */}
+                <img src={redone} alt="redone" className="redoneImg" />
+              </button>
             </div>
           ) : (
             <>
