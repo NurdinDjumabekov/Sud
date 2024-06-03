@@ -142,11 +142,6 @@ function LayoutsRS() {
             >
               <div>
                 <img
-                  style={
-                    page.id === 4 || page.id === 6
-                      ? { width: "20px", height: "20px" }
-                      : {}
-                  }
                   src={page.bool ? page.iconWhite : page.icon}
                   alt="иконка"
                   className="imgIcon"

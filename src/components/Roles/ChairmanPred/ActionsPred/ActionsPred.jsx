@@ -62,7 +62,7 @@ const ActionsPred = (props) => {
           </button>
           <button onClick={() => lookIsks(row?.codeid, 4)}>
             <img src={reject} alt="no" />
-          </button>{" "}
+          </button>
           <button onClick={() => lookIsks(row?.codeid, 6)}>
             {/* Отправить на доработку */}
             <img src={redone} alt="redone" className="redoneImg" />

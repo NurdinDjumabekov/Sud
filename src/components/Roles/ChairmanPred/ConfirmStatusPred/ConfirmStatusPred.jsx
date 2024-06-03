@@ -1,13 +1,18 @@
 import "./ConfirmStatusPred.scss";
+
 /// hooks
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 ///// states
 import {
   changeActionFullfilled,
+  changeActionOtvod,
   changeActionRedone,
   changeActionReject,
+  changeActionStop,
+  changeArbitrPred,
   clearMainBtnList,
 } from "../../../../store/reducers/stateSlice";
 import { changeAlertText } from "../../../../store/reducers/typesSlice";
@@ -17,6 +22,7 @@ import {
 } from "../../../../store/reducers/selectsSlice";
 import { toTakeTypeTypeDocs } from "../../../../store/reducers/applicationsSlice";
 import { changeStatusOrg } from "../../../../store/reducers/sendDocsSlice";
+
 //// components
 import ApplicationFiles from "../../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
 import ChoiceArbitrsPred from "../ChoiceArbitrsPred/ChoiceArbitrsPred";
@@ -24,10 +30,13 @@ import PdfFileReject from "../../../PdfFile/PdfFileReject/PdfFileReject";
 import PdfFulfilled from "../../../PdfFile/PdfFulfilled/PdfFulfilled";
 import Modals from "../../../Modals/Modals";
 import PdfFile from "../../../PdfFile/PdfFile";
+
 ///// imgs
 import imgWarning from "../../../../asstes/images/warning.png";
 import Selects from "../../../Selects/Selects";
 import PdfFileRedone from "../../../PdfFile/PdfFileRedone/PdfFileRedone";
+import PdfFileOtvodArbitr from "../../../PdfFile/PdfFileOtvodArbitr/PdfFileOtvodArbitr";
+import PdfFileStopIsks from "../../../PdfFile/PdfFileStopIsks/PdfFileStopIsks";
 
 const ConfirmStatusPred = (props) => {
   const { setSendStatusIsk, sendStatusIsk, setIsType, istype } = props;
@@ -36,8 +45,13 @@ const ConfirmStatusPred = (props) => {
   const editorRefReject = useRef(null);
   const navigate = useNavigate();
 
-  const { confirmActionFullfilled, confirmActionReject, confirmActionRedone } =
-    useSelector((state) => state.stateSlice);
+  const {
+    confirmActionFullfilled,
+    confirmActionReject,
+    confirmActionRedone,
+    confirmActionOtvod,
+    confirmActionStop,
+  } = useSelector((state) => state.stateSlice);
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { typeSecretarDela, selSecretarDela } = useSelector(
@@ -110,6 +124,49 @@ const ConfirmStatusPred = (props) => {
     }
   };
 
+  const otvodArbitr = (e) => {
+    e.preventDefault();
+    // if (editorRef.current && editorRef.current.editor) {
+    //   const content = editorRef.current.editor.getContent();
+    //   dispatch(
+    //     changeStatusOrg({
+    //       id: istype.id,
+    //       tokenA,
+    //       isk_status: istype.type,
+    //       content,
+    //       type: 18, //// отправить на доработку
+    //       navigate,
+    //     })
+    //   );
+
+    dispatch(clearMainBtnList());
+    closeAllModal();
+    dispatch(changeArbitrPred(0)); /// обнуляю выборку арбитра
+    dispatch(changeActionOtvod(false));
+    // }
+  };
+
+  const stopIsks = (e) => {
+    e.preventDefault();
+    // if (editorRef.current && editorRef.current.editor) {
+    //   const content = editorRef.current.editor.getContent();
+    //   dispatch(
+    //     changeStatusOrg({
+    //       id: istype.id,
+    //       tokenA,
+    //       isk_status: istype.type,
+    //       content,
+    //       type: 18, //// отправить на доработку
+    //       navigate,
+    //     })
+    //   );
+
+    dispatch(clearMainBtnList());
+    closeAllModal();
+    dispatch(changeActionStop(false));
+    // }
+  };
+
   const closeAllModal = () => {
     dispatch(changeActionFullfilled(false));
     dispatch(changeActionReject(false));
@@ -133,6 +190,7 @@ const ConfirmStatusPred = (props) => {
 
   React.useEffect(() => {
     dispatch(toTakeSecretarList(tokenA));
+
     return () => {
       setIsType({ type: 0, id: 0 });
     };
@@ -161,7 +219,6 @@ const ConfirmStatusPred = (props) => {
         </div>
       ),
     },
-    { id: 3, name: "Арбитры", bool: false, comp: <ChoiceArbitrsPred /> },
   ]);
 
   const clickType = (id) => {
@@ -185,15 +242,9 @@ const ConfirmStatusPred = (props) => {
           setOpenModal={() => setSendStatusIsk()}
         >
           {istype.type === 3 && (
+            ////// принять исковое заявление
             <>
               <div className="choiceSecretard">
-                <Selects
-                  arr={selSecretarDela}
-                  initText={"Выберите секретаря дела"}
-                  keys={{ typeKey: typeSecretarDela, type: "typeSecretarDela" }}
-                  type="secr"
-                  urgently={false}
-                />
                 {listBtns?.map((btn) => (
                   <button
                     key={btn?.id}
@@ -225,6 +276,7 @@ const ConfirmStatusPred = (props) => {
             </>
           )}
           {istype.type === 4 && (
+            ////// отклонить исковое заявление
             <>
               <div className="blockModal__inner">
                 <PdfFile editorRef={editorRefReject} />
@@ -263,6 +315,54 @@ const ConfirmStatusPred = (props) => {
                     className="btnsSendIsks"
                   >
                     На доработку
+                  </button>
+                  <button onClick={() => setSendStatusIsk(false)}>
+                    Отмена
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+          {istype.type === 7 && (
+            /// для отвода арбитра
+            <>
+              <div className="blockModal__inner">
+                <PdfFile editorRef={editorRefReject} />
+                <div className="plaintiFilling__container moreStyle">
+                  <PdfFileOtvodArbitr istype={istype} editorRef={editorRef} />
+                </div>
+              </div>
+              <div className="modalchangeStatus" style={{ height: "auto" }}>
+                <div className="btnsSendIsks">
+                  <button
+                    onClick={() => dispatch(changeActionOtvod(true))}
+                    className="btnsSendIsks moreActionBtn"
+                  >
+                    Отвод арбитру
+                  </button>
+                  <button onClick={() => setSendStatusIsk(false)}>
+                    Отмена
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+          {istype.type === 8 && (
+            /// для прекращения искового дела
+            <>
+              <div className="blockModal__inner">
+                <PdfFile editorRef={editorRefReject} />
+                <div className="plaintiFilling__container moreStyle">
+                  <PdfFileStopIsks istype={istype} editorRef={editorRef} />
+                </div>
+              </div>
+              <div className="modalchangeStatus" style={{ height: "auto" }}>
+                <div className="btnsSendIsks">
+                  <button
+                    onClick={() => dispatch(changeActionStop(true))}
+                    className="btnsSendIsks"
+                  >
+                    Прекратить
                   </button>
                   <button onClick={() => setSendStatusIsk(false)}>
                     Отмена
@@ -327,9 +427,49 @@ const ConfirmStatusPred = (props) => {
               <img src={imgWarning} alt="send!" />
             </div>
             <h5>Отправить на доработку?</h5>
+
             <div className="btnsSendIsks">
               <button onClick={(e) => redoneIsk(e)}>Да</button>
               <button onClick={() => dispatch(changeActionRedone(false))}>
+                нет
+              </button>
+            </div>
+          </div>
+        </Modals>
+
+        {/*  //////// отвод арбитру от председателя */}
+        <Modals
+          openModal={confirmActionOtvod}
+          setOpenModal={() => dispatch(changeActionOtvod())}
+        >
+          <div className="modalchangeStatus">
+            <div className="imgBlock">
+              <img src={imgWarning} alt="send!" />
+            </div>
+            <h5>Подтвердить отвод?</h5>
+
+            <div className="btnsSendIsks">
+              <button onClick={(e) => otvodArbitr(e)}>Да</button>
+              <button onClick={() => dispatch(changeActionOtvod(false))}>
+                нет
+              </button>
+            </div>
+          </div>
+        </Modals>
+
+        {/*  //////// прекрашение искового дела */}
+        <Modals
+          openModal={confirmActionStop}
+          setOpenModal={() => dispatch(changeActionStop())}
+        >
+          <div className="modalchangeStatus">
+            <div className="imgBlock">
+              <img src={imgWarning} alt="send!" />
+            </div>
+            <h5> Прекратить исковое дело?</h5>
+            <div className="btnsSendIsks">
+              <button onClick={(e) => stopIsks(e)}>Да</button>
+              <button onClick={() => dispatch(changeActionStop(false))}>
                 нет
               </button>
             </div>

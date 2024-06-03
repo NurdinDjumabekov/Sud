@@ -106,7 +106,7 @@ const MainPagePlaintiff = () => {
               >
                 <td className="table_isk_td">
                   <div>
-                    <span>{row?.isk_number && `№ ${row.isk_number}`}</span>
+                    <span>{row?.isk_number && `№ ${row?.isk_number}`}</span>
                   </div>
                 </td>
                 <td className="table_isk_td">
@@ -198,7 +198,7 @@ const MainPagePlaintiff = () => {
                               : ""
                           }
                         >
-                          {statusMessages[row?.isk_status]}
+                          {statusMessages?.[row?.isk_status]}
                         </span>
                       )}
                       {!statusMessages[row?.isk_status] && (

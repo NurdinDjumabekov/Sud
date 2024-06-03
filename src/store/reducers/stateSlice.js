@@ -98,6 +98,8 @@ const initialState = {
   confirmActionFullfilled: false, /// для прнятия иска ответствкным секретарём и для прнятия иска председателем
   confirmActionReject: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
   confirmActionRedone: false, /// для отправки на доработку иска ответствкным секретарём
+  confirmActionOtvod: false, /// для отвода арбитру от председателя
+  confirmActionStop: false, /// для прекращения дела от председателя
   //////////////////////////////////
   objectionPdfVeiw: false, /// для создания возражения ответчика
   lookDocs: false, // для отображения файлов для просмотра только у председателя
@@ -318,6 +320,14 @@ const stateSlice = createSlice({
       state.confirmActionRedone = action?.payload;
     },
 
+    changeActionOtvod: (state, action) => {
+      state.confirmActionOtvod = action?.payload;
+    },
+
+    changeActionStop: (state, action) => {
+      state.confirmActionStop = action?.payload;
+    },
+
     /////////////////////////////////////////////////
     changeObjectionPdfVeiw: (state, action) => {
       state.objectionPdfVeiw = action?.payload;
@@ -347,6 +357,8 @@ export const {
   changeActionFullfilled,
   changeActionReject,
   changeActionRedone,
+  changeActionOtvod,
+  changeActionStop,
   changeObjectionPdfVeiw,
   changeLookDocs,
   changeArbitrPred,

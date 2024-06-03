@@ -1,16 +1,28 @@
+////hooks
 import React, { useState } from "react";
-import "./MainPagePred.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { searchNameSelect } from "../../../../helpers/searchNameSelect";
-import LookPdfModal from "../../../PdfFile/LookPdfModal/LookPdfModal";
+
+///style
+import "./MainPagePred.scss";
+
+////fns
 import { toTakeIsksList } from "../../../../store/reducers/sendDocsSlice";
-import { changeMainBtnList } from "../../../../store/reducers/stateSlice";
-////// imgs
-import TimerRevers from "../../../Timers/TimerRevers/TimerRevers";
-import ChoiceSecr from "../ChoiceSecr/ChoiceSecr";
-import { respSecrHeaders } from "../../../../helpers/dataArr";
+import {
+  changeLookDocs,
+  changeMainBtnList,
+} from "../../../../store/reducers/stateSlice";
+
+////components
 import ActionsPred from "../ActionsPred/ActionsPred";
 import ConfirmStatusPred from "../ConfirmStatusPred/ConfirmStatusPred";
+import MainTableData from "../../All/MainTableData/MainTableData";
+import TimerRevers from "../../../Timers/TimerRevers/TimerRevers";
+import ChoiceSecr from "../ChoiceSecr/ChoiceSecr";
+import LookPdfModal from "../../../PdfFile/LookPdfModal/LookPdfModal";
+
+////// helpers
+import { predHeaders } from "../../../../helpers/dataArr";
+import { editIsks } from "../../../../store/reducers/applicationsSlice";
 
 export const MainPagePred = () => {
   const dispatch = useDispatch();
@@ -18,9 +30,7 @@ export const MainPagePred = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
-  const { selCurrency, selReglament } = useSelector(
-    (state) => state.selectsSlice
-  );
+  const { applicationList } = useSelector((state) => state.applicationsSlice);
 
   const [sendStatusIsk, setSendStatusIsk] = useState(false);
   const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
@@ -36,9 +46,19 @@ export const MainPagePred = () => {
     dispatch(changeMainBtnList(newList));
   };
 
+  const lookIsks = (id, type) => {
+    setSendStatusIsk(true);
+    setIsType({ type, id });
+
+    const obj = { id, tokenA, applicationList };
+
+    dispatch(editIsks(obj));
+    dispatch(changeLookDocs(false)); /// для сброса cостояния просмтотра доков только у председателя
+  };
+
   return (
     <>
-      <div className="mainTables">
+      <div className="mainTables predTable">
         <ul className="choice__plaintiff">
           {mainBtnList?.slice(0, 6)?.map((btn, ind) => (
             <li key={btn.id}>
@@ -55,7 +75,7 @@ export const MainPagePred = () => {
           <table className="table_isk">
             <thead>
               <tr>
-                {respSecrHeaders?.map((i) => (
+                {predHeaders?.map((i) => (
                   <th key={i} className="table_isk_th">
                     {i}
                   </th>
@@ -68,58 +88,8 @@ export const MainPagePred = () => {
                   key={index}
                   className={`${+index % 2 === 0 ? "colorWhite" : "colorGray"}`}
                 >
-                  <td className="table_isk_td">
-                    <span className="span_teble">
-                      {row?.isk_number ? `№ ${row?.isk_number}` : ""}
-                    </span>
-                  </td>
-                  <td className="table_isk_td">
-                    <span>{row?.isk_date}</span>
-                    <span>{row?.isk_time}</span>
-                  </td>
-                  <td className="table_isk_td">
-                    {row?.plaintiff?.length !== 0 && (
-                      <>
-                        {row.plaintiff.map((i, index) => (
-                          <span key={index}>
-                            {i.name}
-                            {index !== row.plaintiff.length - 1 && ","}
-                          </span>
-                        ))}
-                      </>
-                    )}
-                  </td>
-                  <td className="table_isk_td">
-                    {row?.defendant?.length !== 0 && (
-                      <>
-                        {row.defendant.map((i, index) => (
-                          <span key={index}>
-                            {i.name}
-                            {index !== row.defendant.length - 1 && ","}
-                          </span>
-                        ))}
-                      </>
-                    )}
-                  </td>
-                  <td className="table_isk_td">
-                    {+row?.arbitr_fee !== 0 && (
-                      <span>
-                        {row?.arbitr_fee}{" "}
-                        {searchNameSelect(selCurrency, +row?.arbitr_curr)}
-                      </span>
-                    )}
-                  </td>
-                  <td className="table_isk_td">
-                    {+row?.reglament !== 0 && (
-                      <span>
-                        {searchNameSelect(selReglament, +row?.reglament)}
-                      </span>
-                    )}
-                  </td>
-                  <td className="table_isk_td">
-                    {row?.arbitrs?.length !== 0 &&
-                      row?.arbitrs?.map((i) => <span>{i?.name}</span>)}
-                  </td>
+                  <MainTableData row={row} />
+
                   <td className="table_isk_td">
                     {row.secretary || <ChoiceSecr item={row} />}
                   </td>
@@ -152,6 +122,18 @@ export const MainPagePred = () => {
                         </div>
                       )}
                     </span>
+                  </td>
+                  <td className="table_isk_td">
+                    <button className="proceduresButton">...</button>
+                    <div className="otherActions">
+                      <button onClick={() => lookIsks(row?.codeid, 7)}>
+                        Отвод арбитра
+                      </button>
+                      <button onClick={() => lookIsks(row?.codeid, 8)}>
+                        Прекратить исковое дело
+                      </button>
+                      <button>Продлить сроки искового дела</button>
+                    </div>
                   </td>
                 </tr>
               ))}

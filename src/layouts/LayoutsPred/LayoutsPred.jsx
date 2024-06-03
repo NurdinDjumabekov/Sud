@@ -1,5 +1,9 @@
+////hooks
 import React, { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+////components
 import LogOut from "../../components/LogOut/LogOut";
 import "./LayoutsPred.scss";
 import { jwtDecode } from "jwt-decode";
@@ -7,31 +11,27 @@ import { jwtDecode } from "jwt-decode";
 ////// imgsBlack
 import myIski from "../../asstes/icons/IconPage/me_iski.svg";
 import notif from "../../asstes/icons/IconPage/notification.svg";
-import create from "../../asstes/icons/IconPage/create.svg";
-import meetingsPlaintiff from "../../asstes/icons/IconPage/calendar.svg";
-import calTodoPlaintiff from "../../asstes/icons/IconPage/calendar2.svg";
-import archive from "../../asstes/icons/IconPage/archive.svg";
 import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
 
 ////// imgsWhite
 import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
 import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
-import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
-import meetingsPlaintiffWhite from "../../asstes/icons/IconPageWhite/calendar.svg";
-import calTodoPlaintiffWhite from "../../asstes/icons/IconPageWhite/calendar2.svg";
-import archiveWhite from "../../asstes/icons/IconPageWhite/archive.svg";
 
 import logo from "../../asstes/images/logo.png";
-import { useDispatch, useSelector } from "react-redux";
+
+///////fns
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
-import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
 import { notificationCount } from "../../store/reducers/notificationSlice";
+
+///////helpers
+import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
 
 function LayoutsPred() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
   const [lookInnerPages, setLookInnerPages] = useState(false);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { notifCount } = useSelector((state) => state.notificationSlice);
@@ -89,25 +89,14 @@ function LayoutsPred() {
   ]);
 
   React.useEffect(() => {
-    const newPage = pages.map((i) => {
-      if (i.path === location.pathname) {
-        return {
-          ...i,
-          bool: true,
-        };
-      } else {
-        return {
-          ...i,
-          bool: false,
-        };
-      }
-    });
+    const newPage = pages.map((i) => ({
+      ...i,
+      bool: i.path === location.pathname,
+    }));
+
     setPages(newPage);
-    if (location.pathname === "/mainPlaintiff") {
-      setLookInnerPages(true);
-    } else {
-      setLookInnerPages(false);
-    }
+
+    setLookInnerPages(location.pathname == "/mainPlaintiff");
   }, [location.pathname]);
 
   React.useEffect(() => {
@@ -116,7 +105,14 @@ function LayoutsPred() {
     dispatch(notificationCount(tokenA));
   }, []);
 
+  const clickMenu = (path) => {
+    navigate(path);
+    setLookInnerPages(!lookInnerPages);
+  };
+
   const decodedToken = jwtDecode(tokenA);
+
+  const checkPage = location.pathname === "/plaintiffCreate";
 
   return (
     <div className="plaintiffBlock">
@@ -127,12 +123,7 @@ function LayoutsPred() {
         <p className="moreInfoMenu">{decodedToken?.name}</p>
         <div className="mainUser">
           <button>
-            <img
-              src={faceImg}
-              alt="иконка"
-              className="imgIcon"
-              style={{ width: "23px", height: "23px" }}
-            />
+            <img src={faceImg} alt="иконка" className="imgIcon imgIconMore" />
             <span>{shortenToTwoWords(decodedToken?.fio)}</span>
           </button>
         </div>
@@ -140,29 +131,19 @@ function LayoutsPred() {
         {pages?.map((page) => (
           <div key={page.id}>
             <button
-              onClick={() => {
-                navigate(page.path);
-                setLookInnerPages(!lookInnerPages);
-              }}
-              className={page.bool ? "activePage" : ""}
+              onClick={() => clickMenu(page?.path)}
+              className={page.bool && "activePage"}
             >
               <div>
                 <img
-                  style={
-                    page.id === 4 || page.id === 6
-                      ? { width: "20px", height: "20px" }
-                      : {}
-                  }
                   src={page.bool ? page.iconWhite : page.icon}
                   alt="иконка"
                   className="imgIcon"
                 />
                 <p>
                   {page.name}
-                  {page?.count ? (
+                  {page?.count && (
                     <button className="notifNums">{notifCount || 0}</button>
-                  ) : (
-                    ""
                   )}
                 </p>
               </div>
@@ -171,14 +152,7 @@ function LayoutsPred() {
         ))}
         <LogOut />
       </div>
-      <div
-        className="plaintiffBlock__content"
-        style={
-          location.pathname === "/plaintiffCreate"
-            ? { alignItems: "start", marginTop: "20px" }
-            : {}
-        }
-      >
+      <div className={`plaintiffBlock__content ${checkPage && "activePage"}`}>
         <Outlet />
       </div>
     </div>

@@ -1,28 +1,24 @@
 import React, { useState } from "react";
 import "./ChoiceArbitrsPred.scss";
-import Selects from "../../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "debounce";
 import userImg from "../../../../asstes/icons/plaintiff/fiz_face.svg";
-import Modals from "../../../Modals/Modals";
-import { searchNameSelect } from "../../../../helpers/searchNameSelect";
 import { changeArbitrPred } from "../../../../store/reducers/stateSlice";
 import { toTakeArbitrsList } from "../../../../store/reducers/selectsSlice";
 
-const ChoiceArbitrsPred = () => {
+const ChoiceArbitrsPred = (props) => {
+  const { setDataModalArbitr, setModalArbitrs } = props;
+  const { sendArbitrs } = props;
+
   const dispatch = useDispatch();
+
   const { arbitrPred } = useSelector((state) => state.stateSlice);
+
   const { selArbitrs } = useSelector((state) => state.selectsSlice);
+
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { selCountries, selRegions } = useSelector(
-    (state) => state.selectsSlice
-  );
-  const [modalState, setModalState] = useState(false);
-  const [dataModal, setDataModal] = useState({});
 
   const [serach, setSearch] = useState("");
-  // console.log(selArbitrs, "selArbitrs");
-  // console.log(arbitrPred, "arbitrPred");
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -36,9 +32,8 @@ const ChoiceArbitrsPred = () => {
   }, 300);
 
   const moreInfo = (obj) => {
-    // console.log(obj);
-    setDataModal(obj);
-    setModalState(true);
+    setDataModalArbitr(obj);
+    setModalArbitrs(true);
   };
 
   const clickArbitr = (codeid) => {
@@ -60,12 +55,6 @@ const ChoiceArbitrsPred = () => {
               value={serach}
             />
           </div>
-          {/* <Selects
-          arr={selArbitrs}
-          initText={"Сортировка по странам"}
-          keys={{ typeKey: arbitrPred, type: "arbitrPred" }}
-          type="arbitrPred"
-        /> */}
         </div>
         <div className="choiceArbitrs__list">
           {selArbitrs?.map((i) => (
@@ -73,7 +62,7 @@ const ChoiceArbitrsPred = () => {
               key={i?.codeid}
               onClick={() => clickArbitr(i?.codeid)}
               className={`${
-                arbitrPred === i?.codeid && "activeArbitr"
+                arbitrPred == i?.codeid && "activeArbitr"
               } choiceArbitrs__list__every`}
             >
               <div className="innerArbitr">
@@ -86,37 +75,12 @@ const ChoiceArbitrsPred = () => {
             </div>
           ))}
         </div>
+        {arbitrPred !== 0 && (
+          <button className="choiceArbitrsBtn" onClick={sendArbitrs}>
+            Выбрать
+          </button>
+        )}
       </div>
-      <Modals openModal={modalState} setOpenModal={() => setModalState()}>
-        <div className="moreInfoArbitrs">
-          <div className="moreMainData">
-            <div className="logoArbitr">
-              {/* <img src={dataModal?.photo || userImg} alt="" /> */}
-              {/* <img src={userImg} alt="" /> */}
-            </div>
-            <h5>{dataModal?.name}</h5>
-          </div>
-          <div className="moreOtherInfo">
-            <h6>{dataModal?.description}</h6>
-            <div>
-              <span>Образование:</span>
-              <p>{dataModal?.education}</p>
-            </div>
-            <div>
-              <span>Специализация:</span>
-              <p>{dataModal?.spec}</p>
-            </div>
-            <div>
-              <span>Языки:</span>
-              <p>{dataModal?.language}</p>
-            </div>
-            <div>
-              {/* <span>Страна:</span> */}
-              {/* <p>{searchNameSelect(selCountries, +dataModal.gorod)}</p> */}
-            </div>
-          </div>
-        </div>
-      </Modals>
     </>
   );
 };
