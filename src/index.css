@@ -33,10 +33,7 @@ button {
 .plaintiFilling__container {
   border-radius: 10px;
   padding: 5px 0px;
-  /* max-width: 1000px; */
   width: 50%;
-  /* min-width: 600px; */
-  /* position: relative; */
   height: 86vh;
 }
 
@@ -56,4 +53,12 @@ button {
   font-size: 22px;
   font-weight: 600;
   margin: 0 0 0 5px;
+}
+
+.colorStatusGreen {
+  color: green;
+}
+
+.colorStatusRed {
+  color: red !important;
 }

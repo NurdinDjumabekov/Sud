@@ -1,8 +1,12 @@
-import React from "react";
-import "./style.scss";
-import { searchNameSelect } from "../../../../helpers/searchNameSelect";
+////hooks
 import { useSelector } from "react-redux";
-import ChoiceReglament from "../../ChairmanPred/ChoiceReglament/ChoiceReglament";
+import React from "react";
+
+////style
+import "./style.scss";
+
+////helpers
+import { searchNameSelect } from "../../../../helpers/searchNameSelect";
 
 const MainTableData = ({ row }) => {
   const { selCurrency } = useSelector((state) => state.selectsSlice);
@@ -33,7 +37,7 @@ const MainTableData = ({ row }) => {
       <td className="table_isk_td">
         {row?.defendant?.length !== 0 && (
           <>
-            {row?.defendant.map((i, index) => (
+            {row?.defendant?.map((i, index) => (
               <span key={index}>
                 {i.name}
                 {index !== row.defendant.length - 1 && ","}
@@ -46,10 +50,10 @@ const MainTableData = ({ row }) => {
         {+row?.arbitr_fee !== 0 && (
           <span>
             {row?.arbitr_fee} {searchNameSelect(selCurrency, +row?.arbitr_curr)}
+            {/* //  сумма и валюта/// */}
           </span>
         )}
       </td>
-      <ChoiceReglament row={row} />
     </>
   );
 };

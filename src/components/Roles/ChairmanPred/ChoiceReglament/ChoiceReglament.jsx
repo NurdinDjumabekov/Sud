@@ -37,7 +37,9 @@ const ChoiceReglament = ({ row }) => {
     dispatch(choiceArbitrsFN({ tokenA, arbitrPred, code_isk: codeid }));
   };
 
-  const checkArbitrs = row?.arbitrs?.length === 0;
+  const checkArbitrs = row?.arbitrs?.length === 0; /// if арбитров нет
+
+  const checkStatus = row?.isk_status !== 4; /// if иск не отклонен предмедателем
 
   return (
     <>
@@ -48,7 +50,7 @@ const ChoiceReglament = ({ row }) => {
       </td>
 
       <td className="table_isk_td">
-        {checkArbitrs ? (
+        {checkArbitrs && checkStatus ? (
           <span>
             <button className="choiceBtn" onClick={() => setModal(true)}>
               Выбрать арбитров
@@ -62,7 +64,9 @@ const ChoiceReglament = ({ row }) => {
             </Modals>
           </span>
         ) : (
-          row?.arbitrs?.map((i) => <span>{i?.name}</span>)
+          row?.arbitrs?.map((i, index) => (
+            <span key={index}>{i?.fio_arbitr}</span>
+          ))
         )}
       </td>
 

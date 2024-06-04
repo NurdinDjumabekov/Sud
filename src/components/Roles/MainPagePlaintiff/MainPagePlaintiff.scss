@@ -305,7 +305,7 @@ $paddingTableInner: 2px 10px;
 
     .table_isk_td:nth-child(7),
     .table_isk_th:nth-child(7) {
-      width: 120px;
+      max-width: 170px;
     }
 
     .table_isk_td:nth-child(8),

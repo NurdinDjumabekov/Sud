@@ -7,10 +7,7 @@ import "./MainPagePred.scss";
 
 ////fns
 import { toTakeIsksList } from "../../../../store/reducers/sendDocsSlice";
-import {
-  changeLookDocs,
-  changeMainBtnList,
-} from "../../../../store/reducers/stateSlice";
+import { changeMainBtnList } from "../../../../store/reducers/stateSlice";
 
 ////components
 import ActionsPred from "../ActionsPred/ActionsPred";
@@ -22,7 +19,8 @@ import LookPdfModal from "../../../PdfFile/LookPdfModal/LookPdfModal";
 
 ////// helpers
 import { predHeaders } from "../../../../helpers/dataArr";
-import { editIsks } from "../../../../store/reducers/applicationsSlice";
+import OtherActionsPred from "../OtherActionsPred/OtherActionsPred";
+import ChoiceReglament from "../ChoiceReglament/ChoiceReglament";
 
 export const MainPagePred = () => {
   const dispatch = useDispatch();
@@ -30,7 +28,6 @@ export const MainPagePred = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
-  const { applicationList } = useSelector((state) => state.applicationsSlice);
 
   const [sendStatusIsk, setSendStatusIsk] = useState(false);
   const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить
@@ -46,15 +43,7 @@ export const MainPagePred = () => {
     dispatch(changeMainBtnList(newList));
   };
 
-  const lookIsks = (id, type) => {
-    setSendStatusIsk(true);
-    setIsType({ type, id });
-
-    const obj = { id, tokenA, applicationList };
-
-    dispatch(editIsks(obj));
-    dispatch(changeLookDocs(false)); /// для сброса cостояния просмтотра доков только у председателя
-  };
+  console.log(listTodos, "listTodos");
 
   return (
     <>
@@ -75,9 +64,9 @@ export const MainPagePred = () => {
           <table className="table_isk">
             <thead>
               <tr>
-                {predHeaders?.map((i) => (
-                  <th key={i} className="table_isk_th">
-                    {i}
+                {predHeaders?.map((title, index) => (
+                  <th key={index} className="table_isk_th">
+                    {title}
                   </th>
                 ))}
               </tr>
@@ -89,6 +78,8 @@ export const MainPagePred = () => {
                   className={`${+index % 2 === 0 ? "colorWhite" : "colorGray"}`}
                 >
                   <MainTableData row={row} />
+
+                  <ChoiceReglament row={row} />
 
                   <td className="table_isk_td">
                     {row.secretary || <ChoiceSecr item={row} />}
@@ -123,18 +114,11 @@ export const MainPagePred = () => {
                       )}
                     </span>
                   </td>
-                  <td className="table_isk_td">
-                    <button className="proceduresButton">...</button>
-                    <div className="otherActions">
-                      <button onClick={() => lookIsks(row?.codeid, 7)}>
-                        Отвод арбитра
-                      </button>
-                      <button onClick={() => lookIsks(row?.codeid, 8)}>
-                        Прекратить исковое дело
-                      </button>
-                      <button>Продлить сроки искового дела</button>
-                    </div>
-                  </td>
+                  <OtherActionsPred
+                    row={row}
+                    setSendStatusIsk={setSendStatusIsk}
+                    setIsType={setIsType}
+                  />
                 </tr>
               ))}
             </tbody>

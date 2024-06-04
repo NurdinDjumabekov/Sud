@@ -352,13 +352,13 @@ export const choiceSecr = createAsyncThunk(
 /// choiceArbitrsFN - выбор арбитров председателем
 export const choiceArbitrsFN = createAsyncThunk(
   "choiceArbitrsFN",
-  async function (info, { dispatch, rejectWithValue }) {
-    const { tokenA, arbitrPred, code_isk } = info;
+  async function (props, { dispatch, rejectWithValue }) {
+    const { tokenA, arbitrPred, code_isk } = props;
     try {
       const response = await axios({
         method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/set_isk_secretar`,
-        data: { code_isk, code_secretar: arbitrPred },
+        url: `http://mttp-renaissance.333.kg/api/isks/set_isk_arbitrs`,
+        data: { code_isk, code_arbitr: arbitrPred },
         headers: { Authorization: `Bearer ${tokenA}` },
       });
       if (response.status >= 200 && response.status < 300) {

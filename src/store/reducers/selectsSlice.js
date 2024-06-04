@@ -346,7 +346,9 @@ export const toTakeArbitrsList = createAsyncThunk(
     try {
       const response = await axios({
         method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/sp_arbitrs`, /// ${search && `?search=${search}`}
+        url: `http://mttp-renaissance.333.kg/api/get/sp_arbitrs${
+          search && `?search=${search}`
+        }`,
         headers: {
           Authorization: `Bearer ${tokenA}`,
         },

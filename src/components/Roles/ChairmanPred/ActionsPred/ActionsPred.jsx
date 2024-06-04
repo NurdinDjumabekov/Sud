@@ -1,6 +1,9 @@
+////hooks
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+////fns
 import { editIsks } from "../../../../store/reducers/applicationsSlice";
 import { changeLookDocs } from "../../../../store/reducers/stateSlice";
 import { changeCheckEditPlaint } from "../../../../store/reducers/saveDataSlice";
@@ -50,6 +53,14 @@ const ActionsPred = (props) => {
     5: "Ответчик уведомлён",
   };
 
+  const statusStyle = {
+    3: "colorStatusGreen",
+    2: "colorStatusRed",
+    4: "colorStatusRed",
+    1: "colorStatusGreen",
+    5: "colorStatusGreen",
+  };
+
   return (
     <>
       {+row?.isk_status === 0 || +row?.isk_status === 1 ? (
@@ -73,19 +84,12 @@ const ActionsPred = (props) => {
           {statusMessages[row?.isk_status] ? (
             <span
               style={{ padding: "0px 0px 0px 10px" }}
-              className={
-                +row?.isk_status === 3
-                  ? "colorStatusGreen"
-                  : +row?.isk_status === 2 || +row?.isk_status === 4
-                  ? "colorStatusRed"
-                  : ""
-              }
-              onClick={() => editIsksFn(row?.codeid)}
+              className={`${statusStyle?.[+row?.isk_status]}`}
             >
-              {statusMessages[row?.isk_status]}
+              {statusMessages?.[row?.isk_status]}
             </span>
           ) : (
-            <span onClick={() => editIsksFn(row?.codeid)}>Иск подан</span>
+            <span>Иск подан</span>
           )}
         </>
       )}
