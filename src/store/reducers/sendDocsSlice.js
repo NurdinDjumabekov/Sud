@@ -159,6 +159,7 @@ export const sendDocsEveryIsks = createAsyncThunk(
   async function (info, { dispatch, rejectWithValue }) {
     const { content, tokenA } = info;
     const data = { content, code_file: info?.type, code_isk: info?.id };
+    console.log(data, "data");
     try {
       const response = await axios({
         method: "POST",
@@ -167,7 +168,6 @@ export const sendDocsEveryIsks = createAsyncThunk(
         headers: { Authorization: `Bearer ${tokenA}` },
       });
       if (response.status >= 200 && response.status < 300) {
-        console.log(info?.type, "info?.type");
         if (info?.type == 17 || info?.type == 12) {
           info?.navigate("/mainSimpSecr");
           dispatch(toTakeIsksList({ tokenA, id: 0 })); /// для обновления списка на главной странице

@@ -9,6 +9,7 @@ import { respSecrHeaders } from "../../../../helpers/dataArr";
 import ActionsRS from "../ActionsRS/ActionsRS";
 import { useState } from "react";
 import ConfirmStatusRS from "../ConfirmStatusRS/ConfirmStatusRS";
+import MainTableData from "../../All/MainTableData/MainTableData";
 
 export const MainPageRS = () => {
   const dispatch = useDispatch();
@@ -68,50 +69,8 @@ export const MainPageRS = () => {
                 key={index}
                 className={`${+index % 2 === 0 ? "colorWhite" : "colorGray"}`}
               >
-                <td className="table_isk_td">
-                  <div>
-                    <span className="span_teble">
-                      <span>{row?.isk_number && `№ ${row.isk_number}`}</span>
-                    </span>
-                  </div>
-                </td>
-                <td className="table_isk_td">
-                  <span>{row?.isk_date}</span>
-                  <span>{row?.isk_time}</span>
-                </td>
-                <td className="table_isk_td">
-                  {row?.plaintiff?.length !== 0 && (
-                    <>
-                      {row.plaintiff.map((i, index) => (
-                        <span key={index}>
-                          {i.name}
-                          {index !== row.plaintiff.length - 1 && ","}
-                        </span>
-                      ))}
-                    </>
-                  )}
-                </td>
-                <td className="table_isk_td">
-                  {row?.defendant?.length !== 0 && (
-                    <>
-                      {row?.defendant?.map((i, index) => (
-                        <span key={index}>
-                          {i.name}
-                          {index !== row.defendant.length - 1 && ","}
-                        </span>
-                      ))}
-                    </>
-                  )}
-                </td>
-                {/* ///////////////////////////////////// */}
-                <td className="table_isk_td">
-                  {+row?.arbitr_fee !== 0 && (
-                    <span>
-                      {row?.arbitr_fee}{" "}
-                      {searchNameSelect(selCurrency, +row?.arbitr_curr)}
-                    </span>
-                  )}
-                </td>
+                <MainTableData row={row} />
+
                 <td className="table_isk_td">
                   {+row?.reglament !== 0 && (
                     <span>
@@ -122,8 +81,11 @@ export const MainPageRS = () => {
                 <td className="table_isk_td">
                   {row?.arbitrs?.length !== 0 && (
                     <>
-                      {row?.arbitrs?.map((i) => (
-                        <span>{i?.name}</span>
+                      {row?.arbitrs?.map((i, index) => (
+                        <span>
+                          {i?.name}
+                          {index !== row.arbitrs?.length - 1 && ","}
+                        </span>
                       ))}
                     </>
                   )}

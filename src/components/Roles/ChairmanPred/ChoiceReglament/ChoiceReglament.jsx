@@ -65,7 +65,10 @@ const ChoiceReglament = ({ row }) => {
           </span>
         ) : (
           row?.arbitrs?.map((i, index) => (
-            <span key={index}>{i?.fio_arbitr}</span>
+            <span key={index}>
+              {i?.fio_arbitr}
+              {index !== row.arbitrs.length - 1 && ","}
+            </span>
           ))
         )}
       </td>

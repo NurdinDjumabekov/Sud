@@ -40,7 +40,7 @@ const MainTableData = ({ row }) => {
             {row?.defendant?.map((i, index) => (
               <span key={index}>
                 {i.name}
-                {index !== row.defendant.length - 1 && ","}
+                {index !== row?.defendant?.length - 1 && ","}
               </span>
             ))}
           </>

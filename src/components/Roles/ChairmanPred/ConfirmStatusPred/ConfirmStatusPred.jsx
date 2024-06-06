@@ -21,7 +21,10 @@ import {
   toTakeSecretarList,
 } from "../../../../store/reducers/selectsSlice";
 import { toTakeTypeTypeDocs } from "../../../../store/reducers/applicationsSlice";
-import { changeStatusOrg } from "../../../../store/reducers/sendDocsSlice";
+import {
+  changeStatusOrg,
+  sendDocsEveryIsks,
+} from "../../../../store/reducers/sendDocsSlice";
 
 //// components
 import ApplicationFiles from "../../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
@@ -126,24 +129,20 @@ const ConfirmStatusPred = (props) => {
 
   const otvodArbitr = (e) => {
     e.preventDefault();
-    // if (editorRef.current && editorRef.current.editor) {
-    //   const content = editorRef.current.editor.getContent();
-    //   dispatch(
-    //     changeStatusOrg({
-    //       id: istype.id,
-    //       tokenA,
-    //       isk_status: istype.type,
-    //       content,
-    //       type: 18, //// отправить на доработку
-    //       navigate,
-    //     })
-    //   );
+    if (editorRef.current && editorRef.current.editor) {
+      const content = editorRef.current.editor.getContent();
 
-    dispatch(clearMainBtnList());
-    closeAllModal();
-    dispatch(changeArbitrPred(0)); /// обнуляю выборку арбитра
-    dispatch(changeActionOtvod(false));
-    // }
+      const obj = { content, type: 22, id: istype?.id, tokenA };
+      dispatch(sendDocsEveryIsks(obj));
+      /// для создания документа отвода
+      closeAllModal();
+      dispatch(changeActionOtvod(false));
+
+      setTimeout(() => {
+        dispatch(clearMainBtnList());
+        dispatch(changeArbitrPred(0)); /// обнуляю выборку арбитра
+      }, 500);
+    }
   };
 
   const stopIsks = (e) => {
@@ -338,7 +337,7 @@ const ConfirmStatusPred = (props) => {
                     onClick={() => dispatch(changeActionOtvod(true))}
                     className="btnsSendIsks moreActionBtn"
                   >
-                    Отвод арбитру
+                    Отвод арбитра
                   </button>
                   <button onClick={() => setSendStatusIsk(false)}>
                     Отмена

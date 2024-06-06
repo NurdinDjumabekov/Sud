@@ -62,3 +62,12 @@ button {
 .colorStatusRed {
   color: red !important;
 }
+
+@keyframes modal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
