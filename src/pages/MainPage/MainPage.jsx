@@ -1,5 +1,4 @@
 /////// hooks
-import React from "react";
 import { useSelector } from "react-redux";
 
 ////// helpers
@@ -17,6 +16,7 @@ import Arbitrs from "../../components/MainPage/Arbitrs/Arbitrs";
 import AllStatus from "../../components/MainPage/AllStatus/AllStatus";
 import TypeActionsUsers from "../../components/MainPage/ActionsUsers/TypeActionsUsers";
 import MoreInfo from "../../components/MoreInfo/MoreInfo";
+import ConfirmRespSecr from "../../components/MainPage/ActionsUsers/ConfirmStatusIsks/ConfirmRespSecr/ConfirmRespSecr";
 
 const MainPage = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
@@ -70,6 +70,8 @@ const MainPage = () => {
 
       {/* ///// модалки для подтверждения и удаления */}
       <MoreInfo />
+      {/* //// для ответ. секретаря */}
+      <ConfirmRespSecr />
     </>
   );
 };

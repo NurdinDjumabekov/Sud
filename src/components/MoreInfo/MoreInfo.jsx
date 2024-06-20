@@ -19,6 +19,8 @@ import "./MoreInfo.scss";
 import imgWarning from "../../asstes/images/warning.png";
 
 const MoreInfo = () => {
+  //////////////////////   для подтверждения и удаления иска
+
   const dispatch = useDispatch();
 
   const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
@@ -28,9 +30,7 @@ const MoreInfo = () => {
   );
 
   React.useEffect(() => {
-    return () => {
-      dispatch(changeIdStatus(0));
-    };
+    return () => dispatch(changeIdStatus(0));
   }, []);
 
   const confirmIsk = () => {

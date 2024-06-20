@@ -24,7 +24,7 @@ export default function SignIn() {
 
   const sendLogIn = (e) => {
     e.preventDefault();
-    dispatch(authLogin({ dataLogin: login, navigate }));
+    dispatch(authLogin({ data: login, navigate }));
     ////// логинизация
   };
 

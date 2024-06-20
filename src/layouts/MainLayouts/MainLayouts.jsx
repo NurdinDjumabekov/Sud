@@ -17,7 +17,6 @@ import logo from "../../asstes/images/logo.png";
 
 ///// store
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
-import { toTakeIsksList } from "../../store/reducers/sendDocsSlice";
 import { notificationCount } from "../../store/reducers/notificationSlice";
 import { changeActivePage } from "../../store/reducers/typesSlice";
 
@@ -41,7 +40,6 @@ const MainLayouts = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    dispatch(toTakeIsksList({ tokenA, id: "5" }));
     dispatch(toTakeTypeTypeDocs(tokenA));
     dispatch(notificationCount(tokenA));
   }, []);

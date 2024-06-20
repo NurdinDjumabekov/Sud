@@ -11,11 +11,7 @@ import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
 
 const initialState = {
   plaintiffType: 1, //// check check
-  alertText: {
-    text: "",
-    backColor: "",
-    state: false,
-  },
+  alertText: { text: "", backColor: "", state: false },
 
   pages: [
     {
@@ -62,11 +58,7 @@ const typesSlice = createSlice({
 
     changeActivePage: (state, action) => {
       const { path } = action.payload;
-      console.log(path, "path");
-      state.pages = state.pages?.map((page) => ({
-        ...page,
-        bool: path == page?.path,
-      }));
+      state.pages = state.pages?.map((i) => ({ ...i, bool: path == i?.path }));
     },
   },
 });

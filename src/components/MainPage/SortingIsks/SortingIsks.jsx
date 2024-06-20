@@ -8,11 +8,12 @@ import "./style.scss";
 ///// fns
 import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
 import { changeMainBtnList } from "../../../store/reducers/stateSlice";
+import { useEffect } from "react";
 
 const SortingIsks = () => {
   const dispatch = useDispatch();
 
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
 
   const { mainBtnList } = useSelector((state) => state.stateSlice);
 
@@ -23,20 +24,39 @@ const SortingIsks = () => {
     dispatch(toTakeIsksList({ tokenA, id })); /// запрос для получения списка
   };
 
+  const typeSort = {
+    1: { start: 12, end: 15 },
+    2: { start: 0, end: 6 },
+    3: { start: 0, end: 6 },
+    4: { start: 6, end: 11 },
+  };
+
+  useEffect(() => {
+    dispatch(toTakeIsksList({ tokenA, id: typeSort?.[typeUser]?.start }));
+  }, []);
+
   return (
     <ul className="choice__plaintiff">
-      {mainBtnList?.slice(6, 11)?.map((btn) => (
-        <li key={btn.id}>
-          <button
-            className={btn?.bool ? "activeChoice" : ""}
-            onClick={() => clickBtn(btn.id)}
-          >
-            {btn.name} [{btn?.count}]
-          </button>
-        </li>
-      ))}
+      {mainBtnList
+        ?.slice(typeSort?.[typeUser]?.start, typeSort?.[typeUser]?.end)
+        ?.map((btn) => (
+          <li key={btn.id}>
+            <button
+              className={btn?.bool ? "activeChoice" : ""}
+              onClick={() => clickBtn(btn.id)}
+            >
+              {btn.name} [{btn?.count}]
+            </button>
+          </li>
+        ))}
     </ul>
   );
 };
 
 export default SortingIsks;
+
+// typeUser
+// 1  Секретарь
+// 2  Ответственный секретарь
+// 3  Председатель
+// 4  Истец

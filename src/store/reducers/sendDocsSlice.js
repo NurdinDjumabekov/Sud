@@ -219,22 +219,18 @@ export const createEveryIsk = createAsyncThunk(
 /// deleteIsks - удаление исков
 export const deleteIsks = createAsyncThunk(
   "deleteIsks",
-  async function (info, { dispatch, rejectWithValue }) {
+  async function ({ codeid, tokenA }, { dispatch, rejectWithValue }) {
     try {
       const response = await axios({
         method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/crud`,
-        data: {
-          action_type: 3,
-          codeid: +info?.codeid,
-        },
-        headers: {
-          Authorization: `Bearer ${info?.tokenA}`,
-        },
+        data: { action_type: 3, codeid },
+        headers: { Authorization: `Bearer ${tokenA}` },
       });
       if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-        return +info?.codeid;
+        dispatch(toTakeIsksList({ tokenA, id: 0 }));
+
+        return codeid;
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -274,8 +270,8 @@ export const changeStatusIsks = createAsyncThunk(
 
 /// changeStatusIsks - изменения статуса иска организацией(принят председателем,
 /// отклонён ответ.секретарём ....)
-export const changeStatusOrg = createAsyncThunk(
-  "changeStatusOrg",
+export const changeStatusDocs = createAsyncThunk(
+  "changeStatusDocs",
   async function (info, { dispatch, rejectWithValue }) {
     const { isk_status } = info;
     try {
@@ -440,15 +436,15 @@ const sendDocsSlice = createSlice({
     builder.addCase(deleteIsks.pending, (state, action) => {
       state.preloader = true;
     });
-    ////// changeStatusOrg
-    builder.addCase(changeStatusOrg.fulfilled, (state, action) => {
+    ////// changeStatusDocs
+    builder.addCase(changeStatusDocs.fulfilled, (state, action) => {
       state.preloader = false;
     });
-    builder.addCase(changeStatusOrg.rejected, (state, action) => {
+    builder.addCase(changeStatusDocs.rejected, (state, action) => {
       state.error = action.payload;
       state.preloader = false;
     });
-    builder.addCase(changeStatusOrg.pending, (state, action) => {
+    builder.addCase(changeStatusDocs.pending, (state, action) => {
       state.preloader = true;
     });
   },

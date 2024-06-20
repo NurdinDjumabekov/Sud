@@ -1,0 +1,168 @@
+.statusPlaintiff {
+    padding: 0 0 0 10px;
+}
+
+.mainTables {
+    .lookIsk {
+        button {
+            padding: 11px 13px !important;
+        }
+    }
+}
+.redoneImg {
+    height: 16px !important;
+    width: 18px !important;
+    margin: 5px 0;
+}
+
+//// check 
+.blockModal {
+    &__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 1200px;
+      width: 2000px;
+      max-width: 2000px;
+      position: relative;
+    }
+    
+    .moreStyle {
+      background: #f9fafd;
+      margin: 0px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 92% !important;
+      height: 90vh;
+      padding: 0;
+    }
+    
+    .choiceSecretard {
+      height: 40px;
+      width: 95%;
+      margin: -20px 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      h5 {
+         display: none;
+      }
+      button {
+        padding: 8px 12px;
+        border-radius: 5px;
+        min-width: 150px;
+        background: #fff;
+        box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+        color: #4d5969;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: "Montserrat", sans-serif;
+      }
+      .activeBtnn {
+        background: #f9fafd;
+      }
+    }
+  
+    .moreActionBtn {
+      width: 180px !important;
+    }
+}
+  
+  .moreStylePdf {
+    .pdfFile {
+      width: 90% !important;
+      height: 90vh;
+    }
+  }
+
+  .rejectBtn {
+    width: 170px !important;
+    background: red !important ;
+    color: #fff;
+  }
+
+  .noneKrestic {
+    .krest {
+      display: none !important;
+    }
+  }
+
+  .noEditDoctLoading {
+    width: 90%;
+
+    .plaintiFilling__container {
+      width: 100%;
+    }
+
+    h5 {
+      text-align: left !important;
+    }
+
+    .file-item {
+
+      > button {
+        display: none !important;
+      }
+    }
+
+    .modal__shadow  {
+      position: fixed !important;
+    }
+
+    .modal__inner {
+      top: 45%;
+    }
+  }
+
+.pdfFileReject {
+    max-width: 100%;
+    min-width: 100%;
+    align-items: center;
+    height: 92vh;
+
+    .tox .tox-statusbar__path {
+      display: none !important;
+    }
+
+    .tox .tox-statusbar__text-container{
+      display: none !important;
+    }
+
+    > div:nth-child(2) {
+      > div:nth-child(1) {
+        > div:nth-child(1) {
+          > div:nth-child(1) {
+            button:nth-child(1) {
+              width: 1px !important;
+              cursor: pointer;
+            }
+            button:nth-child(1):after {
+                content: '';
+                position: absolute;
+                padding: 8px 18px;
+                height: 18px;
+                top: 7px;
+                left: 5px;
+                color: #4d5969;
+                font-size: 16px;
+                font-weight: 600;
+                font-family: 'Montserrat', sans-serif;
+                text-align: center;
+                background-image: url("../../../asstes/images/pdfFile.png");
+                margin: 0 0 0 5px;
+                background-repeat: no-repeat;  
+                width: 0px;
+            }
+            button:not(:first-child) {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  
+  

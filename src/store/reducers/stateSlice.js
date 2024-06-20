@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   mainBtnList: [
-    //////// для ответ. секр и председателя
+    //////// для ответ. секр и председателя 1 - 6
     { id: 0, name: "Иски", bool: true },
     { id: 1, name: "Принятые ответственным секретарём", bool: false },
     { id: 2, name: "Отклонённые ответственным секретарём", bool: false },
@@ -10,18 +10,22 @@ const initialState = {
     { id: 4, name: "Отклонённые председателем", bool: false },
     { id: 9, name: "На доработке ", bool: false },
 
-    //////// для истца
+    //////// для истца 6 - 11
     { id: 5, name: "Все иски", bool: true },
     { id: 6, name: "Поданные", bool: false },
     { id: 7, name: "Принятые", bool: false },
     { id: 8, name: "Отказанные", bool: false },
     { id: 9, name: "На доработке", bool: false },
 
-    ///////////////// для обычных секретарей
+    ///////////////// для обычных секретарей 12 - 15
     { id: 0, name: "Все иски", bool: true },
     { id: 9, name: "На доработке", bool: false },
     { id: 10, name: "Назначенные председателем", bool: false },
   ],
+
+  confirmStatus: { status: 0, id: 0 }, /////// для открытия модалки и хранения id со статусом иска
+
+  /////new
 
   ///// только для обычных пользователей
   lookAddPlaintiff: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
@@ -46,7 +50,6 @@ const initialState = {
   idStatus: 0, /// для просмотра модалки изменения статуса(id)
 
   /////////////////////////////
-  confirmActionFullfilled: false, /// для прнятия иска ответствкным секретарём и для прнятия иска председателем
 
   confirmActionReject: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
 
@@ -58,8 +61,6 @@ const initialState = {
   //////////////////////////////////
 
   objectionPdfVeiw: false, /// для создания возражения ответчика
-
-  lookDocs: false, // для отображения файлов для просмотра только у председателя
 
   arbitrPred: 0, /// для выбора арбитра председателем
 };
@@ -184,21 +185,31 @@ const stateSlice = createSlice({
         },
       ];
     },
+
+    confirmStatusFN: (state, action) => {
+      state.confirmStatus = action.payload;
+    },
+
     changeLookAddPlaintiff: (state, action) => {
       state.lookAddPlaintiff = action.payload;
     },
+
     changeCalculatorState: (state, action) => {
       state.calculatorState = action.payload;
     },
+
     changeSumIsk: (state, action) => {
       state.sumIsk = action.payload;
     },
+
     changeResult: (state, action) => {
       state.resultSumIsk = action.payload;
     },
+
     changeCalculatorType: (state, action) => {
       state.calculatorType = action.payload;
     },
+
     changeTypePay: (state, action) => {
       state.typePay = action.payload;
     },
@@ -207,19 +218,20 @@ const stateSlice = createSlice({
     changeLookChangeStatus: (state, action) => {
       state.lookChangeStatus = action.payload;
     },
+
     changeLookChangeDeleteIsks: (state, action) => {
       state.lookChangeDeleteIsks = action.payload;
     },
+
     changeIdStatus: (state, action) => {
       state.idStatus = action.payload;
     },
     /////////////////////////////////////////////////
-    changeActionFullfilled: (state, action) => {
-      state.confirmActionFullfilled = action?.payload;
-    },
+
     changeActionReject: (state, action) => {
       state.confirmActionReject = action?.payload;
     },
+
     changeActionRedone: (state, action) => {
       state.confirmActionRedone = action?.payload;
     },
@@ -236,9 +248,7 @@ const stateSlice = createSlice({
     changeObjectionPdfVeiw: (state, action) => {
       state.objectionPdfVeiw = action?.payload;
     },
-    changeLookDocs: (state, action) => {
-      state.lookDocs = action?.payload;
-    },
+
     changeArbitrPred: (state, action) => {
       state.arbitrPred = action?.payload;
     },
@@ -248,6 +258,8 @@ const stateSlice = createSlice({
 export const {
   changeMainBtnList,
   clearMainBtnList,
+  sortDataIsksCounts,
+  confirmStatusFN,
   changeLookAddPlaintiff,
   changeCalculatorState,
   changeSumIsk,
@@ -257,14 +269,11 @@ export const {
   changeLookChangeStatus,
   changeLookChangeDeleteIsks,
   changeIdStatus,
-  sortDataIsksCounts,
-  changeActionFullfilled,
   changeActionReject,
   changeActionRedone,
   changeActionOtvod,
   changeActionStop,
   changeObjectionPdfVeiw,
-  changeLookDocs,
   changeArbitrPred,
 } = stateSlice.actions;
 

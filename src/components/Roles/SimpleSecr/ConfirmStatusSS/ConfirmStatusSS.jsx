@@ -7,7 +7,7 @@ import {
 } from "../../../../store/reducers/stateSlice";
 
 import {
-  changeStatusOrg,
+  changeStatusDocs,
   sendDocsEveryIsks,
 } from "../../../../store/reducers/sendDocsSlice";
 
@@ -67,7 +67,7 @@ const ConfirmStatusSS = (props) => {
 
   const changeStatus = () => {
     dispatch(
-      changeStatusOrg({ id: istype.id, tokenA, isk_status: 5, navigate })
+      changeStatusDocs({ id: istype.id, tokenA, isk_status: 5, navigate })
     );
     setSendStatusIsk(false);
     dispatch(clearMainBtnList());

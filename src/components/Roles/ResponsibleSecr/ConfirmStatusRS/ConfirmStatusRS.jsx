@@ -15,7 +15,7 @@ import {
 } from "../../../../store/reducers/stateSlice";
 import { toTakeSecretarList } from "../../../../store/reducers/selectsSlice";
 import { toTakeTypeTypeDocs } from "../../../../store/reducers/applicationsSlice";
-import { changeStatusOrg } from "../../../../store/reducers/sendDocsSlice";
+import { changeStatusDocs } from "../../../../store/reducers/sendDocsSlice";
 
 //// components
 import ApplicationFiles from "../../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
@@ -43,6 +43,7 @@ const ConfirmStatusRS = (props) => {
   const { confirmActionFullfilled, confirmActionReject } = useSelector(
     (state) => state.stateSlice
   );
+
   const { tokenA } = useSelector((state) => state.saveDataSlice);
 
   const chechPdf = editorRef.current && editorRef.current.editor;
@@ -52,7 +53,7 @@ const ConfirmStatusRS = (props) => {
     if (chechPdf) {
       const content = editorRef.current.editor.getContent();
       dispatch(
-        changeStatusOrg({
+        changeStatusDocs({
           id: istype.id,
           tokenA,
           isk_status: istype.type,
@@ -71,7 +72,7 @@ const ConfirmStatusRS = (props) => {
     if (chechPdf) {
       const content = editorRef.current.editor.getContent();
       dispatch(
-        changeStatusOrg({
+        changeStatusDocs({
           id: istype.id,
           tokenA,
           isk_status: istype.type,
@@ -90,7 +91,7 @@ const ConfirmStatusRS = (props) => {
     if (chechPdf) {
       const content = editorRef.current.editor.getContent();
       dispatch(
-        changeStatusOrg({
+        changeStatusDocs({
           id: istype.id,
           tokenA,
           isk_status: istype.type,
@@ -137,64 +138,6 @@ const ConfirmStatusRS = (props) => {
           openModal={sendStatusIsk}
           setOpenModal={() => setSendStatusIsk()}
         >
-          {istype.type === 1 && (
-            <>
-              <div className="choiceSecretard">
-                {lookDocs ? (
-                  <button onClick={() => dispatch(changeLookDocs(false))}>
-                    Исковое заявление
-                  </button>
-                ) : (
-                  <button onClick={() => dispatch(changeLookDocs(true))}>
-                    Документы
-                  </button>
-                )}
-              </div>
-              <div className="blockModal__inner">
-                {lookDocs ? (
-                  <div className="lookDocsIsksPred">
-                    <ApplicationFiles />
-                  </div>
-                ) : (
-                  <PdfFile editorRef={editorRefReject} />
-                )}
-                <div className="plaintiFilling__container moreStyle">
-                  <PdfFulfilled istype={istype} editorRef={editorRef} />
-                </div>
-              </div>
-              <div className="modalchangeStatus" style={{ height: "auto" }}>
-                <div className="btnsSendIsks">
-                  <button
-                    onClick={() => dispatch(changeActionFullfilled(true))}
-                  >
-                    Принять
-                  </button>
-                  <button onClick={closeRSPdf}>Отмена</button>
-                </div>
-              </div>
-            </>
-          )}
-          {istype.type === 2 && (
-            <>
-              <div className="blockModal__inner">
-                <PdfFile editorRef={editorRefReject} />
-                <div className="plaintiFilling__container moreStyle">
-                  <PdfFileReject istype={istype} editorRef={editorRef} />
-                </div>
-              </div>
-              <div className="modalchangeStatus" style={{ height: "auto" }}>
-                <div className="btnsSendIsks">
-                  <button
-                    onClick={() => dispatch(changeActionReject(true))}
-                    className="rejectBtn"
-                  >
-                    Отклонить
-                  </button>
-                  <button onClick={closeRSPdf}>Отмена</button>
-                </div>
-              </div>
-            </>
-          )}
           {istype.type === 6 && (
             <>
               <div className="blockModal__inner">
@@ -220,42 +163,6 @@ const ConfirmStatusRS = (props) => {
       </div>
       {/* ////////// только для подтверждения иска  */}
       <div className="blockModal moreStylePdf noneKrestic">
-        {/* ///// принять ответ. секр */}
-        <Modals
-          openModal={confirmActionFullfilled}
-          setOpenModal={() => dispatch(changeActionFullfilled())}
-        >
-          <div className="modalchangeStatus">
-            <div className="imgBlock">
-              <img src={imgWarning} alt="send!" />
-            </div>
-            <h5>Принять иск?</h5>
-            <div className="btnsSendIsks">
-              <button onClick={(e) => fulfilledIsk(e)}>Да</button>
-              <button onClick={() => dispatch(changeActionFullfilled(false))}>
-                Нет
-              </button>
-            </div>
-          </div>
-        </Modals>
-        {/* //////// отказ отв. секр */}
-        <Modals
-          openModal={confirmActionReject}
-          setOpenModal={() => dispatch(changeActionReject())}
-        >
-          <div className="modalchangeStatus">
-            <div className="imgBlock">
-              <img src={imgWarning} alt="send!" />
-            </div>
-            <h5>Отказать в иске?</h5>
-            <div className="btnsSendIsks">
-              <button onClick={(e) => rejectIsk(e)}>Да</button>
-              <button onClick={() => dispatch(changeActionReject(false))}>
-                нет
-              </button>
-            </div>
-          </div>
-        </Modals>
         {/*  //////// на доработку отв. секр */}
         <Modals
           openModal={confirmActionRedone}

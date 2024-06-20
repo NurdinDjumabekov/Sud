@@ -15,7 +15,7 @@ import { changeLookChangeStatus } from "../../../../store/reducers/stateSlice";
 import { editIsks } from "../../../../store/reducers/applicationsSlice";
 
 ////style
-import "./style.scss";
+import "../style.scss";
 
 const ActionPlaintiff = ({ row }) => {
   const dispatch = useDispatch();

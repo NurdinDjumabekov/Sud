@@ -22,7 +22,7 @@ import {
 } from "../../../../store/reducers/selectsSlice";
 import { toTakeTypeTypeDocs } from "../../../../store/reducers/applicationsSlice";
 import {
-  changeStatusOrg,
+  changeStatusDocs,
   sendDocsEveryIsks,
 } from "../../../../store/reducers/sendDocsSlice";
 
@@ -67,7 +67,7 @@ const ConfirmStatusPred = (props) => {
       const content = editorRef.current.editor.getContent();
       // console.log(content, "content");
       dispatch(
-        changeStatusOrg({
+        changeStatusDocs({
           id: istype.id,
           tokenA,
           isk_status: istype.type,
@@ -89,7 +89,7 @@ const ConfirmStatusPred = (props) => {
     if (editorRef.current && editorRef.current.editor) {
       const content = editorRef.current.editor.getContent();
       dispatch(
-        changeStatusOrg({
+        changeStatusDocs({
           id: istype.id,
           tokenA,
           isk_status: istype.type,
@@ -110,7 +110,7 @@ const ConfirmStatusPred = (props) => {
     if (editorRef.current && editorRef.current.editor) {
       const content = editorRef.current.editor.getContent();
       dispatch(
-        changeStatusOrg({
+        changeStatusDocs({
           id: istype.id,
           tokenA,
           isk_status: istype.type,
@@ -150,7 +150,7 @@ const ConfirmStatusPred = (props) => {
     // if (editorRef.current && editorRef.current.editor) {
     //   const content = editorRef.current.editor.getContent();
     //   dispatch(
-    //     changeStatusOrg({
+    //     changeStatusDocs({
     //       id: istype.id,
     //       tokenA,
     //       isk_status: istype.type,
