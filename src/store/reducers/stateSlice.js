@@ -3,106 +3,64 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mainBtnList: [
     //////// для ответ. секр и председателя
-    {
-      id: 0,
-      name: "Иски",
-      bool: true,
-    },
-    {
-      id: 1,
-      name: "Принятые ответственным секретарём",
-      bool: false,
-    },
-    {
-      id: 2,
-      name: "Отклонённые ответственным секретарём",
-      bool: false,
-    },
-    {
-      id: 3,
-      name: "Принятые председателем",
-      bool: false,
-    },
-    {
-      id: 4,
-      name: "Отклонённые председателем",
-      bool: false,
-    },
-    {
-      id: 9,
-      name: "На доработке ",
-      bool: false,
-    },
+    { id: 0, name: "Иски", bool: true },
+    { id: 1, name: "Принятые ответственным секретарём", bool: false },
+    { id: 2, name: "Отклонённые ответственным секретарём", bool: false },
+    { id: 3, name: "Принятые председателем", bool: false },
+    { id: 4, name: "Отклонённые председателем", bool: false },
+    { id: 9, name: "На доработке ", bool: false },
+
     //////// для истца
-    {
-      id: 5,
-      name: "Все иски",
-      bool: true,
-    },
-    {
-      id: 6,
-      name: "Поданные",
-      bool: false,
-    },
-    {
-      id: 7,
-      name: "Принятые",
-      bool: false,
-    },
-    {
-      id: 8,
-      name: "Отказанные",
-      bool: false,
-    },
-    {
-      id: 9,
-      name: "На доработке",
-      bool: false,
-    },
+    { id: 5, name: "Все иски", bool: true },
+    { id: 6, name: "Поданные", bool: false },
+    { id: 7, name: "Принятые", bool: false },
+    { id: 8, name: "Отказанные", bool: false },
+    { id: 9, name: "На доработке", bool: false },
+
     ///////////////// для обычных секретарей
-    {
-      id: 0,
-      name: "Все иски",
-      bool: true,
-    },
-    {
-      id: 9,
-      name: "На доработке",
-      bool: false,
-    },
-    {
-      id: 10,
-      name: "Назначенные председателем",
-      bool: false,
-    },
+    { id: 0, name: "Все иски", bool: true },
+    { id: 9, name: "На доработке", bool: false },
+    { id: 10, name: "Назначенные председателем", bool: false },
   ],
+
   ///// только для обычных пользователей
   lookAddPlaintiff: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
+
   //// targetPlint
   calculatorType: false,
-  calculatorState: false,
-  typePay: 1, //// => typeCountSum
-  sumIsk: "",
-  resultSumIsk: {
-    num1: 0,
-    num2: 0,
-    num3: 0,
-    num4: 0,
-  },
 
-  lookChangeStatus: false, /// для просмотра модалки изменения статуса у истца
+  calculatorState: false,
+
+  typePay: 1, //// => typeCountSum
+
+  sumIsk: "",
+
+  resultSumIsk: { num1: 0, num2: 0, num3: 0, num4: 0 },
+
+  lookChangeStatus: false, /// для просмотра модалки подтверждения статуса у истца
+
   lookChangeEditIsks: false, /// для изменения иска у истца
+
   lookChangeDeleteIsks: false, /// для удаления иска у истца
+
   idStatus: 0, /// для просмотра модалки изменения статуса(id)
+
   /////////////////////////////
   confirmActionFullfilled: false, /// для прнятия иска ответствкным секретарём и для прнятия иска председателем
+
   confirmActionReject: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
+
   confirmActionRedone: false, /// для отправки на доработку иска ответствкным секретарём
+
   confirmActionOtvod: false, /// для отвода арбитру от председателя
+
   confirmActionStop: false, /// для прекращения дела от председателя
   //////////////////////////////////
+
   objectionPdfVeiw: false, /// для создания возражения ответчика
+
   lookDocs: false, // для отображения файлов для просмотра только у председателя
+
   arbitrPred: 0, /// для выбора арбитра председателем
 };
 
@@ -116,78 +74,24 @@ const stateSlice = createSlice({
     clearMainBtnList: (state, action) => {
       state.mainBtnList = [
         //////// для ответ. секр и председателя
-        {
-          id: 0,
-          name: "Иски",
-          bool: true,
-        },
-        {
-          id: 1,
-          name: "Принятые ответственным секретарём",
-          bool: false,
-        },
-        {
-          id: 2,
-          name: "Отклонённые ответственным секретарём",
-          bool: false,
-        },
-        {
-          id: 3,
-          name: "Принятые председателем",
-          bool: false,
-        },
-        {
-          id: 4,
-          name: "Отклонённые председателем",
-          bool: false,
-        },
-        {
-          id: 9,
-          name: "На доработке ",
-          bool: false,
-        },
-        ////// для истца
-        {
-          id: 5,
-          name: "Все иски",
-          bool: true,
-        },
-        {
-          id: 6,
-          name: "Поданные",
-          bool: false,
-        },
-        {
-          id: 7,
-          name: "Принятые",
-          bool: false,
-        },
-        {
-          id: 8,
-          name: "Отказанные",
-          bool: false,
-        },
-        {
-          id: 9,
-          name: "На доработке",
-          bool: false,
-        },
+        { id: 0, name: "Иски", bool: true },
+        { id: 1, name: "Принятые ответственным секретарём", bool: false },
+        { id: 2, name: "Отклонённые ответственным секретарём", bool: false },
+        { id: 3, name: "Принятые председателем", bool: false },
+        { id: 4, name: "Отклонённые председателем", bool: false },
+        { id: 9, name: "На доработке ", bool: false },
+
+        //////// для истца
+        { id: 5, name: "Все иски", bool: true },
+        { id: 6, name: "Поданные", bool: false },
+        { id: 7, name: "Принятые", bool: false },
+        { id: 8, name: "Отказанные", bool: false },
+        { id: 9, name: "На доработке", bool: false },
+
         ///////////////// для обычных секретарей
-        {
-          id: 0,
-          name: "Все иски",
-          bool: true,
-        },
-        {
-          id: 9,
-          name: "На доработке",
-          bool: false,
-        },
-        {
-          id: 10,
-          name: "Назначенные председателем",
-          bool: false,
-        },
+        { id: 0, name: "Все иски", bool: true },
+        { id: 9, name: "На доработке", bool: false },
+        { id: 10, name: "Назначенные председателем", bool: false },
       ];
     },
     sortDataIsksCounts: (state, action) => {

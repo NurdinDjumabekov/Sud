@@ -1,11 +1,9 @@
 import MainRoutes from "./routers/MainRoutes";
 
-function App() {
-  return (
-    <div className="mainBlock">
-      <MainRoutes />
-    </div>
-  );
-}
+import React from "react";
+
+const App = () => {
+  return <MainRoutes />;
+};
 
 export default App;

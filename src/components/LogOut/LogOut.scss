@@ -3,21 +3,25 @@
   bottom: 30px;
   left: 0px;
   padding: 15px 20px !important;
-  background: #fff;
   display: flex;
   align-items: center;
-  justify-content: start;
-  > img {
+  width: 100%;
+  gap: 10px;
+  background: transparent;
+
+  img {
     width: 24px;
     height: 24px;
   }
-  > p {
-    display: block !important;
-    line-height: 19px !important;
-    font-size: 14px !important;
-    color: #000 !important;
-    width: 120px !important;
+
+  p {
+    color: #5e6e82 !important;
     text-align: left !important;
+    line-height: 22px !important;
+    width: 100% !important;
+    position: relative !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
   }
   
 }

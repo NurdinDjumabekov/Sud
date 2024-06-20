@@ -54,11 +54,11 @@ const ActionsPred = (props) => {
   };
 
   const statusStyle = {
-    3: "colorStatusGreen",
-    2: "colorStatusRed",
-    4: "colorStatusRed",
-    1: "colorStatusGreen",
-    5: "colorStatusGreen",
+    3: "greenStatus",
+    2: "redStatus",
+    4: "redStatus",
+    1: "greenStatus",
+    5: "greenStatus",
   };
 
   return (

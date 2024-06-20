@@ -21,14 +21,14 @@ import { plaintiffHeaders } from "../../../helpers/dataArr";
 import { searchNameSelect } from "../../../helpers/searchNameSelect";
 
 //// componets
-import TimerRevers from "../../../components/Timers/TimerRevers/TimerRevers";
-import LookPdfModal from "../../../components/PdfFile/LookPdfModal/LookPdfModal";
+import TimerRevers from "../../Timers/TimerRevers/TimerRevers";
+import LookPdfModal from "../../PdfFile/LookPdfModal/LookPdfModal";
 
 ////// style
-import "./MainPagePlaintiff.scss";
+import "./MainPage.scss";
 import MainTableData from "../All/MainTableData/MainTableData";
 
-const MainPagePlaintiff = () => {
+const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -157,9 +157,9 @@ const MainPagePlaintiff = () => {
                             +row?.isk_status === 3 ||
                             +row?.isk_status === 5 ||
                             +row?.isk_status === 1
-                              ? "colorStatusGreen"
+                              ? "greenStatus"
                               : +row?.isk_status === 2 || +row?.isk_status === 4
-                              ? "colorStatusRed"
+                              ? "redStatus"
                               : ""
                           }
                         >
@@ -205,4 +205,4 @@ const MainPagePlaintiff = () => {
   );
 };
 
-export default MainPagePlaintiff;
+export default MainPage;

@@ -8,9 +8,6 @@
   font-weight: 500;
   font-family: 'Montserrat', sans-serif;
 }
-.mainBlock,html {
-  background: #f9fafd;
-}
 
 li {
   list-style: none;
@@ -23,27 +20,20 @@ a {
 button {
   border: none;
   cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
 }
-
 
 .activeBtns {
   background-color: #4650dd !important;
   color: #fff !important;
 }
-.plaintiFilling__container {
-  border-radius: 10px;
-  padding: 5px 0px;
-  width: 50%;
-  height: 86vh;
-}
-
-.moreNonePdf {
-  width: 90% !important;
-}
 
 .noneData {
   display: none;
 }
+
 .viewData {
   display: block;
 }
@@ -55,15 +45,15 @@ button {
   margin: 0 0 0 5px;
 }
 
-.colorStatusGreen {
+.greenStatus {
   color: green;
 }
 
-.colorStatusRed {
+.redStatus {
   color: red !important;
 }
 
-@keyframes modal {
+@keyframes animation {
   from {
     opacity: 0;
   }

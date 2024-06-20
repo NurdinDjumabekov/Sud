@@ -1,24 +1,31 @@
-import React, { useState } from "react";
-
+/////style
 import "./SingIn.scss";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { authLogin } from "../../store/reducers/authSlice";
+
+//// helpers
 import CLOUDS from "vanta/src/vanta.net";
+
+////hooks
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+
+////img
 import logo from "../../asstes/images/logo2.png";
 
+////fns
+import { authLogin } from "../../store/reducers/authSlice";
+
 export default function SignIn() {
-  const [login, setLogin] = useState({
-    email: "",
-    password: "",
-  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [login, setLogin] = useState({ email: "", password: "" });
 
   const sendLogIn = (e) => {
     e.preventDefault();
     dispatch(authLogin({ dataLogin: login, navigate }));
+    ////// логинизация
   };
 
   const changeInput = (e) => {
@@ -38,60 +45,51 @@ export default function SignIn() {
       minHeight: 200.0,
       minWidth: 200.0,
       scale: 1.0,
-      color: 0x89d8fc,
       scaleMobile: 1.0,
-      points: 20.0,
-      maxDistance: 17.0,
-      spacing: 16.0,
+      color: 0x3f53ff,
+      backgroundColor: 0x200d41,
     });
-    localStorage.clear();
   }, []);
 
   return (
     <div className="vantaMain" id="vanta">
-      <section>
-        <div className="mainLogIn">
-          <div className="form-box">
-            <div className="form-value">
-              <form onSubmit={sendLogIn}>
-                <div className="blockLogo">
-                  <img src={logo} alt="logo" />
-                </div>
-                {/* <h2>Вход</h2> */}
-                <div className="inputbox">
-                  <input
-                    type="email"
-                    id="inputLogin"
-                    required
-                    placeholder="Email"
-                    name="email"
-                    onChange={changeInput}
-                    value={login.email}
-                  />
-                </div>
-                <div className="inputbox">
-                  <input
-                    type="password"
-                    required
-                    placeholder="Пароль"
-                    name="password"
-                    onChange={changeInput}
-                    value={login.password}
-                  />
-                </div>
-                <button className="login_enter" type="submit">
-                  Войти
-                </button>
-                <div className="register">
-                  <p>
-                    <a href="#">Зарегистрироваться</a>
-                  </p>
-                </div>
-              </form>
-            </div>
-          </div>
+      <form onSubmit={sendLogIn}>
+        <div className="blockLogo">
+          <img src={logo} alt="logo" />
         </div>
-      </section>
+
+        <div className="inputBlock">
+          <i className="fas fa-user"></i>
+          <input
+            type="email"
+            id="inputLogin"
+            required
+            placeholder="Email"
+            name="email"
+            onChange={changeInput}
+            value={login.email}
+          />
+        </div>
+
+        <div className="inputBlock">
+          <i className="fas fa-lock"></i>
+          <input
+            type="password"
+            required
+            placeholder="Пароль"
+            name="password"
+            onChange={changeInput}
+            value={login.password}
+          />
+        </div>
+
+        <button className="actionBtn" type="submit">
+          Войти
+        </button>
+        <div className="register">
+          <p>Зарегистрироваться</p>
+        </div>
+      </form>
     </div>
   );
 }

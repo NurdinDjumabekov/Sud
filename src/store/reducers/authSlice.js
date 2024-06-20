@@ -5,7 +5,7 @@ import { changeTokenA, changeTypeUser } from "./saveDataSlice";
 
 const initialState = {
   listTodos: [],
-  loadingAuth: false,
+  preloaderAuth: false,
 };
 
 export const authLogin = createAsyncThunk(
@@ -43,24 +43,24 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     ///// authLogin
     builder.addCase(authLogin.fulfilled, (state, action) => {
-      state.loadingAuth = false;
-      // state.allDataFood = action.payload;
-      if (+action.payload?.type_user === 4) {
-        action?.payload?.navigate("/mainPlaintiff");
-      } else if (+action.payload?.type_user === 3) {
-        action?.payload?.navigate("/mainRespPred");
-      } else if (+action.payload?.type_user === 2) {
-        action?.payload?.navigate("/mainRespSec");
-      } else if (+action.payload?.type_user === 1) {
-        action?.payload?.navigate("/mainSimpSecr");
-      }
+      state.preloaderAuth = false;
+      action?.payload?.navigate("/main");
+      // if (+action.payload?.type_user === 4) {
+      //   action?.payload?.navigate("/mainPlaintiff");
+      // } else if (+action.payload?.type_user === 3) {
+      //   action?.payload?.navigate("/mainRespPred");
+      // } else if (+action.payload?.type_user === 2) {
+      //   action?.payload?.navigate("/mainRespSec");
+      // } else if (+action.payload?.type_user === 1) {
+      //   action?.payload?.navigate("/mainSimpSecr");
+      // }
     });
     builder.addCase(authLogin.rejected, (state, action) => {
       state.error = action.payload;
-      state.loadingAuth = false;
+      state.preloaderAuth = false;
     });
     builder.addCase(authLogin.pending, (state, action) => {
-      state.loadingAuth = true;
+      state.preloaderAuth = true;
     });
   },
 });

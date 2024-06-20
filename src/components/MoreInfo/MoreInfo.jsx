@@ -1,20 +1,26 @@
+////// hooks
 import React from "react";
-import {
-  changeIdStatus,
-  changeLookChangeStatus,
-  changeLookChangeDeleteIsks,
-} from "../../store/reducers/stateSlice";
 import { useDispatch, useSelector } from "react-redux";
+
+////// fns
+import { changeIdStatus } from "../../store/reducers/stateSlice";
+import { changeLookChangeStatus } from "../../store/reducers/stateSlice";
+import { changeLookChangeDeleteIsks } from "../../store/reducers/stateSlice";
+import { changeStatusIsks } from "../../store/reducers/sendDocsSlice";
+import { deleteIsks } from "../../store/reducers/sendDocsSlice";
+
+/////// components
 import Modals from "../Modals/Modals";
+
+//////// styles
 import "./MoreInfo.scss";
+
+/////imgs
 import imgWarning from "../../asstes/images/warning.png";
-import {
-  changeStatusIsks,
-  deleteIsks,
-} from "../../store/reducers/sendDocsSlice";
 
 const MoreInfo = () => {
   const dispatch = useDispatch();
+
   const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
 
   const { lookChangeStatus, lookChangeDeleteIsks, idStatus } = useSelector(
@@ -26,6 +32,26 @@ const MoreInfo = () => {
       dispatch(changeIdStatus(0));
     };
   }, []);
+
+  const confirmIsk = () => {
+    /////  подтверждения иска
+    dispatch(changeStatusIsks({ idStatus, tokenA }));
+    dispatch(changeLookChangeStatus(false));
+  };
+
+  const deleteIsk = () => {
+    /////  удаление иска
+    dispatch(deleteIsks({ codeid: idStatus, tokenA }));
+    dispatch(changeLookChangeDeleteIsks(false));
+  };
+
+  const closeModal = () => {
+    dispatch(changeLookChangeStatus(false));
+    dispatch(changeLookChangeDeleteIsks(false));
+    ///// закрыьте попапов подттверждения
+  };
+
+  const checkWhoCreateIsks = typeUser == 1 || typeUser == 2;
 
   return (
     <div className="blockModal noneKrest">
@@ -39,23 +65,15 @@ const MoreInfo = () => {
             <img src={imgWarning} alt="send!" />
           </div>
           <h5>
-            {+typeUser === 1 || 2 ? "Подтвердить подачу иска?" : "Подать иск?"}
+            {checkWhoCreateIsks ? "Подтвердить подачу иска?" : "Подать иск?"}
           </h5>
           <div className="btnsSendIsks">
-            <button
-              onClick={() => {
-                dispatch(changeStatusIsks({ idStatus, tokenA }));
-                dispatch(changeLookChangeStatus(false));
-              }}
-            >
-              Да
-            </button>
-            <button onClick={() => dispatch(changeLookChangeStatus(false))}>
-              нет
-            </button>
+            <button onClick={confirmIsk}>Да</button>
+            <button onClick={closeModal}>нет</button>
           </div>
         </div>
       </Modals>
+
       {/* ////// для удаления иска */}
       <Modals
         openModal={lookChangeDeleteIsks}
@@ -66,19 +84,9 @@ const MoreInfo = () => {
             <img src={imgWarning} alt="send!" />
           </div>
           <h5>Удалить иск?</h5>
-          <div className="btnsSendIsks">
-            <button
-              onClick={() => {
-                dispatch(deleteIsks({ codeid: idStatus, tokenA }));
-                dispatch(changeLookChangeDeleteIsks(false));
-              }}
-              style={{ background: "red" }}
-            >
-              Да
-            </button>
-            <button onClick={() => dispatch(changeLookChangeDeleteIsks(false))}>
-              нет
-            </button>
+          <div className="btnsSendIsks delBtn">
+            <button onClick={deleteIsk}>Да</button>
+            <button onClick={closeModal}>нет</button>
           </div>
         </div>
       </Modals>

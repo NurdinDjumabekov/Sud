@@ -13,12 +13,6 @@ export const typeCountSum = [
   { codeid: 2, name: "спор неимущественного характера" },
 ];
 
-// export const typeSecretar = [
-//   { codeid: 0, name: "Секретарь дела выбран" },
-//   { codeid: 1, name: "Джумабеков Нурдин" },
-//   { codeid: 2, name: "Садирдинов Руслан" },
-// ];
-
 export const typeArbitrs = [
   { codeid: 0, name: "арбитр дела выбран" },
   { codeid: 1, name: "Джумабеков Нурдин" },
@@ -38,7 +32,7 @@ export const plaintiffHeaders = [
   "Арбитры",
   "Секретарь",
   "Статус",
-  "Действие",
+  "Действия",
   "На рассмотрении",
   "Документы",
 ];

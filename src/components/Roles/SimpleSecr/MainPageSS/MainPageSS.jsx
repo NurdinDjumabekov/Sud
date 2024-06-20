@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./MainPageSS.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { searchNameSelect } from "../../../../helpers/searchNameSelect";
-import LookPdfModal from "../../../PdfFile/LookPdfModal/LookPdfModal";
+import LookPdfModal from "../../../MainPage/LookPdfModal/LookPdfModal";
 import { changeMainBtnList } from "../../../../store/reducers/stateSlice";
 import { toTakeIsksList } from "../../../../store/reducers/sendDocsSlice";
 ////// imgs
@@ -11,16 +11,14 @@ import { simpleSecrHeaders } from "../../../../helpers/dataArr";
 import ActionsSS from "../ActionsSS/ActionsSS";
 import ConfirmStatusSS from "../ConfirmStatusSS/ConfirmStatusSS";
 import ActionsStatusSS from "../ActionsStatusSS/ActionsStatusSS";
-import MainTableData from "../../All/MainTableData/MainTableData";
+import MainTableData from "../../../MainPage/MainTableData/MainTableData";
 
 export const MainPageSS = () => {
   const dispatch = useDispatch();
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { mainBtnList } = useSelector((state) => state.stateSlice);
-  const { selCurrency, selReglament } = useSelector(
-    (state) => state.selectsSlice
-  );
+  const { selReglament } = useSelector((state) => state.selectsSlice);
 
   const [sendStatusIsk, setSendStatusIsk] = useState(false);
   const [istype, setIsType] = useState({ type: 0, id: 0 }); // 1- подтвердить, 2 - отклонить

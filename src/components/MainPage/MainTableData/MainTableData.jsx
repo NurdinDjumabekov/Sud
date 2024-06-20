@@ -6,23 +6,23 @@ import React from "react";
 import "./style.scss";
 
 ////helpers
-import { searchNameSelect } from "../../../../helpers/searchNameSelect";
+import { searchNameSelect } from "../../../helpers/searchNameSelect";
 
 const MainTableData = ({ row }) => {
   const { selCurrency } = useSelector((state) => state.selectsSlice);
 
   return (
     <>
-      <td className="table_isk_td">
+      <td className="num">
         <span className="span_teble">
           {row?.isk_number ? `№ ${row?.isk_number}` : ""}
         </span>
       </td>
-      <td className="table_isk_td">
+      <td className="date">
         <span>{row?.isk_date}</span>
         <span>{row?.isk_time}</span>
       </td>
-      <td className="table_isk_td">
+      <td className="plaintiffTable">
         {row?.plaintiff?.length !== 0 && (
           <>
             {row.plaintiff.map((i, index) => (
@@ -34,7 +34,7 @@ const MainTableData = ({ row }) => {
           </>
         )}
       </td>
-      <td className="table_isk_td">
+      <td className="defendant">
         {row?.defendant?.length !== 0 && (
           <>
             {row?.defendant?.map((i, index) => (
@@ -46,7 +46,7 @@ const MainTableData = ({ row }) => {
           </>
         )}
       </td>
-      <td className="table_isk_td">
+      <td className="arbitrs">
         {+row?.arbitr_fee !== 0 && (
           <span>
             {row?.arbitr_fee} {searchNameSelect(selCurrency, +row?.arbitr_curr)}

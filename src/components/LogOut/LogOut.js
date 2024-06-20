@@ -13,14 +13,10 @@ const LogOut = () => {
   };
 
   return (
-    <div>
-      <button className="logout" onClick={logOut}>
-        <div>
-          <img src={logOutImg} alt="х" />
-          <p>Выход</p>
-        </div>
-      </button>
-    </div>
+    <button className="logout" onClick={logOut}>
+      <img src={logOutImg} alt="х" />
+      <p>Выход</p>
+    </button>
   );
 };
 

@@ -89,6 +89,7 @@ const inputSlice = createSlice({
     changeADFF: (state, action) => {
       state.adff = action.payload;
     },
+
     clearADFF: (state, action) => {
       state.adff = {
         action_type: 1,
@@ -125,10 +126,12 @@ const inputSlice = createSlice({
         typeFace: 1,
       };
     },
+
     //// addPlaintiffUrFace
     changeADUF: (state, action) => {
       state.aduf = action.payload;
     },
+
     clearADUF: (state, action) => {
       state.aduf = {
         action_type: 1,
@@ -164,10 +167,12 @@ const inputSlice = createSlice({
         ur_face_type: 1, // 1-plaintiff, 2-defendan
       };
     },
+
     ////////////////////////
     changeTypeFace: (state, action) => {
       state.typeFace = action.payload;
     },
+    
     changeDocsIsks: (state, action) => {
       state.docsIsks = action.payload;
     },

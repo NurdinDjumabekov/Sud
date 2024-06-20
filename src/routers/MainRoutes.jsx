@@ -1,23 +1,20 @@
+////hooks
 import React from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import PlaintiffPage from "../pages/PlaintiffPage/PlaintiffPage";
-import MainLayouts from "../layouts/LayoutPlainttiff/MainLayouts";
-import NotificationPage from "../pages/NotificationPage/NotificationPage";
-import { Preloader } from "../components/Preloader/Preloader";
 import { useDispatch, useSelector } from "react-redux";
-import Alerts from "../components/Alerts/Alerts";
-import MoreInfo from "../components/MoreInfo/MoreInfo";
-import LayoutsRS from "../layouts/LayoutsRS/LayoutsRS";
 
-///// rolesPage
-import { MainPageSS } from "../components/Roles/SimpleSecr/MainPageSS/MainPageSS";
-import { MainPageRS } from "../components/Roles/ResponsibleSecr/MainPageRS/MainPageRS";
-import { MainPagePred } from "../components/Roles/ChairmanPred/MainPagePred/MainPagePred";
-import MainPagePlaintiff from "../components/Roles/MainPagePlaintiff/MainPagePlaintiff";
-
-//// для ответственного секретаря
-import LayoutsPred from "../layouts/LayoutsPred/LayoutsPred";
+//// pages
+import PlaintiffPage from "../pages/PlaintiffPage/PlaintiffPage";
+import NotificationPage from "../pages/NotificationPage/NotificationPage";
 import SignIn from "../pages/Login/SignIn";
+import NotFoundPage from "../pages/NotFound/NotFoundPage";
+import MainLayouts from "../layouts/MainLayouts/MainLayouts";
+
+//// components
+import { Preloader } from "../components/Preloader/Preloader";
+import Alerts from "../components/Alerts/Alerts";
+
+////fns
 import {
   toTakeArbitrsList,
   toTakeCountries,
@@ -34,57 +31,14 @@ import {
   toTakeTypePosition,
   toTakeTypeValuta,
 } from "../store/reducers/selectsSlice";
-import LayoutsSS from "../layouts/LayoutsSS/LayoutsSS";
-import NotFoundPage from "../pages/NotFound/NotFoundPage";
+import MainPage from "../pages/MainPage/MainPage";
 
-function MainRoutes() {
+const MainRoutes = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { preloader } = useSelector((state) => state.sendDocsSlice);
-  const { preloaderSel } = useSelector((state) => state.selectsSlice);
-  const { loadingAuth } = useSelector((state) => state.authSlice);
-  const { typeUser } = useSelector((state) => state.saveDataSlice);
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
 
-  // 1  Секретарь
-  // 2  Ответственный секретарь
-  // 3  Председатель
-  // 4  Истец
-  let userRoutes;
-  if (+typeUser === 1) {
-    userRoutes = (
-      <Route element={<LayoutsSS />}>
-        <Route path="/mainSimpSecr" element={<MainPageSS />} />
-        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
-        <Route path="/notifPlaintiff" element={<NotificationPage />} />
-      </Route>
-    );
-  } else if (+typeUser === 2) {
-    userRoutes = (
-      <Route element={<LayoutsRS />}>
-        <Route path="/mainRespSec" element={<MainPageRS />} />
-        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
-        <Route path="/notifPlaintiff" element={<NotificationPage />} />
-      </Route>
-    );
-  } else if (+typeUser === 3) {
-    userRoutes = (
-      <Route element={<LayoutsPred />}>
-        <Route path="/mainRespPred" element={<MainPagePred />} />
-        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
-        <Route path="/notifPlaintiff" element={<NotificationPage />} />
-      </Route>
-    );
-  } else if (+typeUser === 4) {
-    userRoutes = (
-      <Route element={<MainLayouts />}>
-        <Route path="/mainPlaintiff" element={<MainPagePlaintiff />} />
-        <Route path="/plaintiffCreate" element={<PlaintiffPage />} />
-        <Route path="/notifPlaintiff" element={<NotificationPage />} />
-      </Route>
-    );
-  }
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
 
   React.useEffect(() => {
     if (tokenA === "" || !tokenA) {
@@ -111,16 +65,23 @@ function MainRoutes() {
     <>
       <Routes>
         <Route path="/" element={<SignIn />} />
-        {userRoutes}
+        <Route element={<MainLayouts />}>
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/create_isk" element={<PlaintiffPage />} />
+          <Route path="/notif_user" element={<NotificationPage />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <MoreInfo />
-      {preloader && <Preloader />}
-      {preloaderSel && <Preloader />}
-      {loadingAuth && <Preloader />}
       <Alerts />
+      <Preloader />
     </>
   );
-}
+};
 
 export default MainRoutes;
+
+// typeUser
+// 1  Секретарь
+// 2  Ответственный секретарь
+// 3  Председатель
+// 4  Истец

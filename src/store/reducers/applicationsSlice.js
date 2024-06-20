@@ -47,8 +47,10 @@ const initialState = {
     contentPred: "", /// для html разметки(для председателя)
     //////////////////
   },
+
   //// массив дел
   applicationList: [], // для сохранения файлов
+
   preloaderDocs: false,
 };
 

@@ -6,6 +6,7 @@ import pdfImg from "../../../asstes/images/pdfFile.png";
 
 const LookPdfModal = ({ pdf }) => {
   const [lookPdf, setLookPdf] = useState(false);
+
   return (
     <div className="lookPdfModal">
       <div className="lookPdfModal__inner" onClick={() => setLookPdf(true)}>

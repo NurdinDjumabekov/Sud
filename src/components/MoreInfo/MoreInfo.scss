@@ -1,20 +1,23 @@
 .blockModal {
+
     .table_isk {
         width: 100%;
         display: table;
         margin: 20px 0 0 0 ;
         width: 600px;
         background: #fff;
+
         > thead {
+
           .table_isk_th {
             padding: 15px 20px;
-            // background: rgb(237, 242, 249);
             background: rgb(211 228 251);
             text-align: left !important;
           }
         }
     
         tbody {
+
           tr {
             height: 70px;
             cursor: pointer;
@@ -53,10 +56,8 @@
               font-size: 16px !important;
             }
           }
-    
-         
         }
-    
+
         &::-webkit-scrollbar {
           width: 5px;
         }
@@ -73,17 +74,19 @@
         width: 450px;
         margin: 10px auto 10px;
         padding: 0 30px;
-        // background: red;
         height: 230px;
+
         .imgBlock {
             width: 60px;
             height: 60px;
             margin: 0 auto 20px;
+
             > img {
                 width: 100%;
                 height: 100%;
             }
         }
+
         h5, p{
           color: #222;
           line-height: 28px;
@@ -93,9 +96,11 @@
           font-size: 28px;
           text-align: center;
         }
+
         h5 {
           margin: 20px 0px 40px 0px;
         }
+
         p {
           line-height: 20px;
           position: relative;
@@ -104,33 +109,44 @@
           font-size: 18px;
           margin: 15px 0 35px;
         }
+
         .btnsSendIsks {
-            // background: red;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+          width: 100%;
             
             button {
-                height: 40px;
-                width: 150px;
-                border-radius: 6px;
-                background: #fff;
-                border: 1px solid #9994948a;
-                font-weight: 600;
-                font-family: "Montserrat", sans-serif;
-                font-size: 18px;
+              height: 40px;
+              width: 150px;
+              border-radius: 6px;
+              background: #fff;
+              border: 1px solid #9994948a;
+              font-weight: 600;
+              font-family: "Montserrat", sans-serif;
+              font-size: 18px;
             }
+
             button:nth-child(1){
-                background: green;
-                color: #fff;
+              background: green;
+              color: #fff;
             }
+        }
+
+        .delBtn {
+
+          button:nth-child(1){
+            background: red !important;
+          }
         }
     }
 }
+
 .noneKrest {
-    .krest {
-      display: none;
-    }
+
+  .krest {
+    display: none;
   }
+
+}
