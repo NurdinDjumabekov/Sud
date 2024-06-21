@@ -49,8 +49,7 @@ const MainLayouts = () => {
   const decodedToken = jwtDecode(tokenA);
 
   const allPage = pages?.filter((i) => !(typeUser == 3 && i.id === 2));
-
-  console.log(allPage, "allPage");
+  ///// для председателя, убираю страницу создания иска
 
   return (
     <div className="plaintiffBlock">
