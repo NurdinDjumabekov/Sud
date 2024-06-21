@@ -12,7 +12,10 @@ import reject from "../../../../asstes/icons/krestik.svg";
 import redone from "../../../../asstes/images/redone.png";
 
 ////fns
-import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
+import {
+  confirmStatusFN,
+  editFileDocsFN,
+} from "../../../../store/reducers/stateSlice";
 import { changeIdStatus } from "../../../../store/reducers/stateSlice";
 import { changeLookChangeDeleteIsks } from "../../../../store/reducers/stateSlice";
 import { changeLookChangeStatus } from "../../../../store/reducers/stateSlice";
@@ -49,6 +52,8 @@ const ActionRespSecr = ({ row }) => {
     // для принятия, отклонения и отпарвки на доработку иска
     dispatch(confirmStatusFN({ id, status }));
     dispatch(editIsks({ id, tokenA, applicationList }));
+
+    dispatch(editFileDocsFN(true)); ///// запрещаю добавлять документы ответ. секретарю
   };
 
   const lookIsks = (obj) => {
@@ -74,57 +79,55 @@ const ActionRespSecr = ({ row }) => {
   const iskActive = row?.isk_status == 0;
 
   return (
-    <>
-      <td className="typeUser">
-        {activeIsks ? (
-          <div className="statusIsks">
-            <button onClick={() => changeStatus(row?.codeid)}>
-              {/* Подать */}
-              <img src={sendImg} alt="sendImg" />
-            </button>
-            <button onClick={() => changeIsk(row?.codeid)}>
-              {/* Редактировать */}
-              <img src={editImg} alt="sendImg" />
-            </button>
-            <button onClick={() => deleteIsksFn(row?.codeid)}>
-              {/* Удалить */}
-              <img src={deleteImg} alt="sendImg" />
-            </button>
-          </div>
-        ) : (
-          <>
-            {iskActive ? (
-              <div className="statusIsks">
-                <div className="statusIsks lookIsk">
-                  <button onClick={() => lookIsks(row)}>Просмотреть</button>
-                  {/* Просмотреть */}
-                </div>
-                <button onClick={() => openModalChangeStatus(row?.codeid, 1)}>
-                  <img src={fullfiled} alt="ok" />
-                  {/* Принять  иск*/}
-                </button>
-                <button onClick={() => openModalChangeStatus(row?.codeid, 2)}>
-                  <img src={reject} alt="no" />
-                  {/* Отклонить  иск*/}
-                </button>
-                <button onClick={() => openModalChangeStatus(row?.codeid, 6)}>
-                  {/* Отправить на доработку */}
-                  <img src={redone} alt="redone" className="redoneImg" />
-                </button>
+    <td className="typeUser">
+      {activeIsks ? (
+        <div className="statusIsks">
+          <button onClick={() => changeStatus(row?.codeid)}>
+            {/* Подать */}
+            <img src={sendImg} alt="sendImg" />
+          </button>
+          <button onClick={() => changeIsk(row?.codeid)}>
+            {/* Редактировать */}
+            <img src={editImg} alt="sendImg" />
+          </button>
+          <button onClick={() => deleteIsksFn(row?.codeid)}>
+            {/* Удалить */}
+            <img src={deleteImg} alt="sendImg" />
+          </button>
+        </div>
+      ) : (
+        <>
+          {iskActive ? (
+            <div className="statusIsks">
+              <div className="statusIsks lookIsk">
+                <button onClick={() => lookIsks(row)}>Просмотреть</button>
+                {/* Просмотреть */}
               </div>
-            ) : (
-              <div className="statusPlaintiff">
-                {statusMessages[row?.isk_status] && (
-                  <span className={statusMessages?.[+row?.isk_status]?.color}>
-                    {statusMessages?.[row?.isk_status]?.text || ""}
-                  </span>
-                )}
-              </div>
-            )}
-          </>
-        )}
-      </td>
-    </>
+              <button onClick={() => openModalChangeStatus(row?.codeid, 1)}>
+                <img src={fullfiled} alt="ok" />
+                {/* Принять  иск*/}
+              </button>
+              <button onClick={() => openModalChangeStatus(row?.codeid, 2)}>
+                <img src={reject} alt="no" />
+                {/* Отклонить  иск*/}
+              </button>
+              <button onClick={() => openModalChangeStatus(row?.codeid, 6)}>
+                {/* Отправить на доработку */}
+                <img src={redone} alt="redone" className="redoneImg" />
+              </button>
+            </div>
+          ) : (
+            <div className="statusPlaintiff">
+              {statusMessages[row?.isk_status] && (
+                <span className={statusMessages?.[+row?.isk_status]?.color}>
+                  {statusMessages?.[row?.isk_status]?.text || ""}
+                </span>
+              )}
+            </div>
+          )}
+        </>
+      )}
+    </td>
   );
 };
 

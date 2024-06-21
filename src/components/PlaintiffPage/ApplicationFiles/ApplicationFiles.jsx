@@ -1,23 +1,34 @@
+////// hooks
 import React, { useState } from "react";
-import "./ApplicationFiles.scss";
-import krestik from "../../../asstes/icons/krestik.svg";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteDocsIsks,
-  sendDocsIsks,
-} from "../../../store/reducers/applicationsSlice";
+
+/////// style
+import "./ApplicationFiles.scss";
+
+/////// imgs
+import krestik from "../../../asstes/icons/krestik.svg";
+
+////// fns
+import { deleteDocsIsks } from "../../../store/reducers/applicationsSlice";
+import { sendDocsIsks } from "../../../store/reducers/applicationsSlice";
+
+////// componets
 import LookDocs from "../../PdfFile/LookDocs/LookDocs";
 import PdfOpis from "../../PdfFile/PdfOpis/PdfOpis";
 
 const ApplicationFiles = () => {
   const dispatch = useDispatch();
   const [lookOpis, setLookOpis] = useState(false);
+
   const { todosApplications, applicationList } = useSelector(
     (state) => state.applicationsSlice
   );
+
   const { tokenA, checkEditPlaint } = useSelector(
     (state) => state.saveDataSlice
   );
+
+  const { editFileDocs } = useSelector((state) => state.saveDataSlice);
 
   const handleFileChange = (id, e) => {
     const newFiles = Array.from(e.target.files);
@@ -50,7 +61,13 @@ const ApplicationFiles = () => {
 
   const handleButtonClick = (id) => {
     const fileInput = document.getElementById(`fileInput-${id}`);
-    fileInput.click();
+    fileInput?.click();
+  };
+
+  const deleteDocs = (file) => {
+    const { codeid } = todosApplications;
+    const send = { file: file?.codeid_file, tokenA, code_isk: codeid };
+    dispatch(deleteDocsIsks(send));
   };
 
   return (
@@ -58,8 +75,8 @@ const ApplicationFiles = () => {
       <div className="plaintiFilling__container">
         <div className="applicationFiles">
           <h5>Документы</h5>
-          {applicationList.map((docs) => (
-            <div key={+docs?.codeid} className="applicationFiles__inner">
+          {applicationList?.map((docs) => (
+            <div key={docs?.codeid} className="applicationFiles__inner">
               <div
                 className="clickInputFile"
                 onClick={() => handleButtonClick(docs?.codeid)}
@@ -70,33 +87,19 @@ const ApplicationFiles = () => {
                   onChange={(e) => handleFileChange(docs?.codeid, e)}
                   style={{ display: "none" }}
                   multiple
-                  disabled={checkEditPlaint ? false : true}
+                  disabled={editFileDocs ? false : true}
                 />
                 <button>Добавить</button>
                 <span>
-                  {docs?.name}{" "}
-                  <b className="required" style={{ fontSize: "22px" }}>
-                    *
-                  </b>
+                  {docs?.name} <b className="required req">*</b>
                 </span>
               </div>
               <div className="filesBlock">
                 {docs?.arrDocs.map((file) => (
                   <div key={+file?.codeid_file} className="file-item">
-                    {/* <span >{file.name}</span> */}
                     <LookDocs file={file} key={file?.codeid_file} />
                     {checkEditPlaint && (
-                      <button
-                        onClick={() => {
-                          dispatch(
-                            deleteDocsIsks({
-                              file: file?.codeid_file,
-                              tokenA,
-                              code_isk: todosApplications.codeid,
-                            })
-                          );
-                        }}
-                      >
+                      <button onClick={() => deleteDocs(file)}>
                         <img src={krestik} alt="x" />
                       </button>
                     )}

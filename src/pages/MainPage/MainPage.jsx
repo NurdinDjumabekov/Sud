@@ -17,6 +17,7 @@ import AllStatus from "../../components/MainPage/AllStatus/AllStatus";
 import TypeActionsUsers from "../../components/MainPage/ActionsUsers/TypeActionsUsers";
 import MoreInfo from "../../components/MoreInfo/MoreInfo";
 import ConfirmRespSecr from "../../components/MainPage/ActionsUsers/ConfirmStatusIsks/ConfirmRespSecr/ConfirmRespSecr";
+import ConfirmPred from "../../components/MainPage/ActionsUsers/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
 
 const MainPage = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
@@ -72,6 +73,7 @@ const MainPage = () => {
       <MoreInfo />
       {/* //// для ответ. секретаря */}
       <ConfirmRespSecr />
+      <ConfirmPred />
     </>
   );
 };

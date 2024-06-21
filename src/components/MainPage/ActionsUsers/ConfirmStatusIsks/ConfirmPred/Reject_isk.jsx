@@ -1,5 +1,5 @@
 ///// hooks
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
@@ -8,6 +8,7 @@ import { useRef } from "react";
 import "../../style.scss";
 
 ////// fns
+import { changeLookDocs } from "../../../../../store/reducers/stateSlice";
 import { confirmStatusFN } from "../../../../../store/reducers/stateSlice";
 import { changeStatusDocs } from "../../../../../store/reducers/sendDocsSlice";
 
@@ -20,28 +21,28 @@ import Modals from "../../../../Modals/Modals";
 ///// imgs
 import imgWarning from "../../../../../asstes/images/warning.png";
 import { useState } from "react";
+import PdfFileReject from "../../../../PdfFile/PdfFileReject/PdfFileReject";
 
-const Fullfilled_isk = () => {
+const Reject_isk = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const editorRef = useRef(null);
+  const editorRefReject = useRef(null);
 
   const [confirmAction, setConfirmAction] = useState(false);
-  const [lookDocs, setLookDocs] = useState(false); ///// для просмотра документов
 
   const { confirmStatus } = useSelector((state) => state.stateSlice);
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
 
-  const fulfilledIsk = () => {
+  const rejectIsk = () => {
     const { id, status } = confirmStatus;
-    if (editorRef.current && editorRef.current.editor) {
-      const content = editorRef.current.editor.getContent();
+    if (editorRefReject.current && editorRefReject.current.editor) {
+      const content = editorRefReject.current.editor.getContent();
 
       const send = { id, tokenA, isk_status: status, content, navigate };
 
-      dispatch(changeStatusDocs({ ...send, type: 12 }));
-      /// 12 - принятие иска ответственным секретарём
+      dispatch(changeStatusDocs({ ...send, type: 13 }));
+      /// 13 - отклонение иска ответственным секретарём
 
       // dispatch(clearMainBtnList());
       closeAllModal();
@@ -54,50 +55,39 @@ const Fullfilled_isk = () => {
     //// закрываю обе модалки
   };
 
-  if (confirmStatus?.status == 1) {
+  if (confirmStatus?.status == 2) {
     return (
       <>
-        {/* ///// открытие документа приняти  я иска  */}
+        {/* ///// открытие документа принятия иска  */}
         <>
-          <div className="choiceSecretard">
-            {lookDocs ? (
-              <button onClick={() => setLookDocs(false)}>
-                Исковое заявление
-              </button>
-            ) : (
-              <button onClick={() => setLookDocs(true)}>Документы</button>
-            )}
-          </div>
-          <div className="blockModal__inner haveDocs">
-            {lookDocs ? (
-              <div className="noEditDoctLoading">
-                <ApplicationFiles />
-              </div>
-            ) : (
-              <PdfFile editorRef={editorRef} />
-            )}
+          <div className="blockModal__inner">
+            <PdfFile editorRef={editorRefReject} />
             <div className="plaintiFilling__container moreStyle">
-              <PdfFulfilled editorRef={editorRef} />
+              <PdfFileReject editorRef={editorRefReject} />
             </div>
           </div>
           <div className="modalchangeStatus" style={{ height: "auto" }}>
             <div className="btnsSendIsks">
-              <button onClick={() => setConfirmAction(true)}>Принять</button>
+              <button
+                onClick={() => setConfirmAction(true)}
+                className="rejectBtn"
+              >
+                Отклонить
+              </button>
               <button onClick={closeAllModal}>Отмена</button>
             </div>
           </div>
         </>
-
         {/* ///// подверждение документа принятия иска  */}
         <Modals openModal={confirmAction} setOpenModal={setConfirmAction}>
           <div className="modalchangeStatus">
             <div className="imgBlock">
               <img src={imgWarning} alt="send!" />
             </div>
-            <h5>Принять иск?</h5>
+            <h5>Отказать в иске?</h5>
             <div className="btnsSendIsks">
-              <button onClick={fulfilledIsk}>Да</button>
-              <button onClick={() => setConfirmAction(false)}>Нет</button>
+              <button onClick={(e) => rejectIsk(e)}>Да</button>
+              <button onClick={() => setConfirmAction(false)}>нет</button>
             </div>
           </div>
         </Modals>
@@ -106,4 +96,4 @@ const Fullfilled_isk = () => {
   }
 };
 
-export default Fullfilled_isk;
+export default Reject_isk;

@@ -88,31 +88,37 @@
       display: none !important;
     }
   }
+  .haveDocs {
 
-  .noEditDoctLoading {
-    width: 90%;
-
-    .plaintiFilling__container {
-      width: 100%;
+    .pdfFile, .moreStyle {
+      height: 86vh !important;
     }
 
-    h5 {
-      text-align: left !important;
-    }
-
-    .file-item {
-
-      > button {
-        display: none !important;
+    .noEditDoctLoading {
+      width: 90%;
+  
+      .plaintiFilling__container {
+        width: 100%;
       }
-    }
-
-    .modal__shadow  {
-      position: fixed !important;
-    }
-
-    .modal__inner {
-      top: 45%;
+  
+      h5 {
+        text-align: left !important;
+      }
+  
+      .file-item {
+  
+        > button {
+          display: none !important;
+        }
+      }
+  
+      .modal__shadow  {
+        position: fixed !important;
+      }
+  
+      .modal__inner {
+        top: 45%;
+      }
     }
   }
 

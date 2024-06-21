@@ -22,7 +22,6 @@ const initialState = {
       icon: myIski,
       iconWhite: myIskiWhite,
     },
-
     {
       id: 2,
       name: "Создать черновик",
@@ -31,7 +30,6 @@ const initialState = {
       icon: create,
       iconWhite: createWhite,
     },
-
     {
       id: 3,
       name: "Уведомления",

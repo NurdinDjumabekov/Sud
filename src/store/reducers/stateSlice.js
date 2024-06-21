@@ -25,6 +25,8 @@ const initialState = {
 
   confirmStatus: { status: 0, id: 0 }, /////// для открытия модалки и хранения id со статусом иска
 
+  editFileDocs: true, /// можно ли добавлять документы ?
+
   /////new
 
   ///// только для обычных пользователей
@@ -32,7 +34,7 @@ const initialState = {
 
   //// targetPlint
   calculatorType: false,
-
+  
   calculatorState: false,
 
   typePay: 1, //// => typeCountSum
@@ -190,6 +192,10 @@ const stateSlice = createSlice({
       state.confirmStatus = action.payload;
     },
 
+    editFileDocsFN: (state, action) => {
+      state.editFileDocs = action.payload;
+    },
+
     changeLookAddPlaintiff: (state, action) => {
       state.lookAddPlaintiff = action.payload;
     },
@@ -260,6 +266,7 @@ export const {
   clearMainBtnList,
   sortDataIsksCounts,
   confirmStatusFN,
+  editFileDocsFN,
   changeLookAddPlaintiff,
   changeCalculatorState,
   changeSumIsk,

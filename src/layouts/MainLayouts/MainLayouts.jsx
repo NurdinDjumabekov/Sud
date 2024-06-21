@@ -28,7 +28,7 @@ const MainLayouts = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
 
   const { notifCount } = useSelector((state) => state.notificationSlice);
 
@@ -48,6 +48,10 @@ const MainLayouts = () => {
 
   const decodedToken = jwtDecode(tokenA);
 
+  const allPage = pages?.filter((i) => !(typeUser == 3 && i.id === 2));
+
+  console.log(allPage, "allPage");
+
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__menu">
@@ -62,7 +66,7 @@ const MainLayouts = () => {
           </button>
         </div>
         <p className="title">Меню</p>
-        {pages?.map((page) => (
+        {allPage?.map((page) => (
           <div key={page.id} className="everyPage">
             <button
               onClick={() => clickMenu(page)}

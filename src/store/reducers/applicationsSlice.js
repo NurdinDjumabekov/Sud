@@ -353,6 +353,7 @@ const applicationsSlice = createSlice({
         plaintiff: [...state.todosApplications.plaintiff, action.payload],
       };
     },
+
     addTodosPlaintiffResper: (state, action) => {
       state.todosApplications = {
         ...state.todosApplications,
@@ -362,12 +363,14 @@ const applicationsSlice = createSlice({
         ],
       };
     },
+
     addTodosDefendant: (state, action) => {
       state.todosApplications = {
         ...state.todosApplications,
         defendant: [...state.todosApplications.defendant, action.payload],
       };
     },
+
     addTodosDefendantResper: (state, action) => {
       state.todosApplications = {
         ...state.todosApplications,
@@ -377,9 +380,11 @@ const applicationsSlice = createSlice({
         ],
       };
     },
+
     changeTodosApplications: (state, action) => {
       state.todosApplications = action.payload;
     },
+
     clearTodosApplications: (state, action) => {
       state.todosApplications = {
         codeid: 0,
@@ -417,6 +422,7 @@ const applicationsSlice = createSlice({
         contentPred: "",
       };
     },
+
     changeApplicationList: (state, action) => {
       state.applicationList = action.payload;
     },

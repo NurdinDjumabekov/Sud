@@ -10,7 +10,7 @@ import Fullfilled_isk from "./Fullfilled_isk";
 import Reject_isk from "./Reject_isk";
 import Redone_isk from "./Redone_isk";
 
-const ConfirmRespSecr = () => {
+const ConfirmPred = () => {
   const dispatch = useDispatch();
   const { confirmStatus } = useSelector((state) => state.stateSlice);
 
@@ -30,4 +30,4 @@ const ConfirmRespSecr = () => {
   );
 };
 
-export default ConfirmRespSecr;
+export default ConfirmPred;

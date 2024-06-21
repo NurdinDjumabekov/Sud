@@ -12,10 +12,7 @@ import { clearMainBtnList, sortDataIsksCounts } from "./stateSlice";
 import { calculateDates } from "../../helpers/addDate";
 import { followLink } from "../../helpers/followLink";
 
-const initialState = {
-  preloader: false,
-  listTodos: [],
-};
+const initialState = { preloader: false, listTodos: [] };
 
 export const toTakeIsksList = createAsyncThunk(
   "toTakeIsksList",
@@ -385,6 +382,7 @@ const sendDocsSlice = createSlice({
     builder.addCase(toTakeIsksList.pending, (state, action) => {
       state.preloader = true;
     });
+
     ///// createIdIsk
     builder.addCase(createIdIsk.fulfilled, (state, action) => {
       state.preloader = false;
@@ -397,6 +395,7 @@ const sendDocsSlice = createSlice({
     builder.addCase(createIdIsk.pending, (state, action) => {
       state.preloader = true;
     });
+
     ////// sendEveryIsks
     builder.addCase(sendEveryIsks.fulfilled, (state, action) => {
       state.preloader = false;
@@ -411,6 +410,7 @@ const sendDocsSlice = createSlice({
     builder.addCase(sendEveryIsks.pending, (state, action) => {
       state.preloader = true;
     });
+
     ////// createEveryIsk
     builder.addCase(createEveryIsk.fulfilled, (state, action) => {
       state.preloader = false;
@@ -422,6 +422,7 @@ const sendDocsSlice = createSlice({
     builder.addCase(createEveryIsk.pending, (state, action) => {
       state.preloader = true;
     });
+
     ////// deleteIsks
     builder.addCase(deleteIsks.fulfilled, (state, action) => {
       state.preloader = false;
@@ -436,6 +437,7 @@ const sendDocsSlice = createSlice({
     builder.addCase(deleteIsks.pending, (state, action) => {
       state.preloader = true;
     });
+
     ////// changeStatusDocs
     builder.addCase(changeStatusDocs.fulfilled, (state, action) => {
       state.preloader = false;

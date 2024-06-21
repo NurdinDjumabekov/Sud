@@ -40,10 +40,10 @@ const NotificationPage = () => {
           <></>
         ) : (
           <>
-            {sortNotif(listNotifs)?.lookNoList?.map((notif) => (
+            {sortNotif(listNotifs)?.lookNoList?.map((notif, index) => (
               <div
                 className="notification__every"
-                key={notif?.codeid}
+                key={index}
                 style={{
                   background: "rgba(159, 217, 151, 0.24)",
                   border: "none",
@@ -76,9 +76,9 @@ const NotificationPage = () => {
             <div className="line"></div>
           </>
         )}
-        {sortNotif(listNotifs)?.lookList?.map((notif) => (
+        {sortNotif(listNotifs)?.lookList?.map((notif, index) => (
           <>
-            <div className="notification__every" key={notif?.codeid}>
+            <div className="notification__every" key={index}>
               <div>
                 <p>
                   № {notif?.isk_number},
