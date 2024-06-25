@@ -14,10 +14,11 @@ import SortingIsks from "../../components/MainPage/SortingIsks/SortingIsks";
 import Titles from "../../components/MainPage/Titles/Titles";
 import Arbitrs from "../../components/MainPage/Arbitrs/Arbitrs";
 import AllStatus from "../../components/MainPage/AllStatus/AllStatus";
-import TypeActionsUsers from "../../components/MainPage/ActionsUsers/TypeActionsUsers";
+import TypeActionsUsers from "../../components/MainPage/ActionsUsers/TypeActionsUsersAll/TypeActionsUsers";
 import MoreInfo from "../../components/MoreInfo/MoreInfo";
-import ConfirmRespSecr from "../../components/MainPage/ActionsUsers/ConfirmStatusIsks/ConfirmRespSecr/ConfirmRespSecr";
-import ConfirmPred from "../../components/MainPage/ActionsUsers/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
+import ConfirmRespSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmRespSecr/ConfirmRespSecr";
+import ConfirmPred from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
+// import ConfirmPred from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
 
 const MainPage = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);

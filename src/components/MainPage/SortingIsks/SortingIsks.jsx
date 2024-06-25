@@ -25,14 +25,14 @@ const SortingIsks = () => {
   };
 
   const typeSort = {
-    1: { start: 12, end: 15 },
-    2: { start: 0, end: 6 },
-    3: { start: 0, end: 6 },
-    4: { start: 6, end: 11 },
+    1: { start: 12, end: 15 }, ///// Секретарь
+    2: { start: 0, end: 6 }, ///// Ответственный Секретарь
+    3: { start: 0, end: 6 }, ///// Председатель
+    4: { start: 6, end: 11 }, ///// Истец
   };
 
   useEffect(() => {
-    dispatch(toTakeIsksList({ tokenA, id: typeSort?.[typeUser]?.start }));
+    dispatch(toTakeIsksList({ tokenA, id: 0 })); ///// Всегда получаю все иски сразу
   }, []);
 
   return (
@@ -45,7 +45,7 @@ const SortingIsks = () => {
               className={btn?.bool ? "activeChoice" : ""}
               onClick={() => clickBtn(btn.id)}
             >
-              {btn.name} [{btn?.count}]
+              {btn?.name} [{btn?.count}]
             </button>
           </li>
         ))}

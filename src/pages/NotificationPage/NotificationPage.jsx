@@ -1,11 +1,9 @@
 import React from "react";
-import "./NotificationPage.scss";
-import { useNavigate } from "react-router-dom";
-import {
-  notificationRead,
-  toTakeNotification,
-} from "../../store/reducers/notificationSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import "./NotificationPage.scss";
+import { toTakeNotification } from "../../store/reducers/notificationSlice";
+import { notificationRead } from "../../store/reducers/notificationSlice";
 
 const NotificationPage = () => {
   const navigate = useNavigate();
@@ -16,9 +14,8 @@ const NotificationPage = () => {
   React.useEffect(() => {
     dispatch(toTakeNotification({ tokenA }));
     const newData = listNotifs?.map((i) => i?.codeid);
-    return () => {
-      dispatch(notificationRead({ tokenA, notifs: newData }));
-    };
+
+    return () => dispatch(notificationRead({ tokenA, notifs: newData }));
   }, []);
 
   const sortNotif = (arr) => {

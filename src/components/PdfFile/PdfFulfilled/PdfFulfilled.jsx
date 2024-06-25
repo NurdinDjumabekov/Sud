@@ -3,15 +3,15 @@ import "./PdfFulfilled.scss";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchNameSelect } from "../../../helpers/searchNameSelect";
-import imgSud from "../../../asstes/images/logo.png";
 
 const PdfFulfilled = ({ editorRef }) => {
   const dispatch = useDispatch();
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+
   const { typeUser } = useSelector((state) => state.saveDataSlice);
-  const { selPrimPravo, selLangArbitr, selReglament } = useSelector(
-    (state) => state.selectsSlice
-  );
+  const { selPrimPravo } = useSelector((state) => state.selectsSlice);
+  const { selLangArbitr } = useSelector((state) => state.selectsSlice);
+  const { selReglament } = useSelector((state) => state.selectsSlice);
+  const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const transform = (arr) => {
     if (arr.length === 1) {

@@ -4,7 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 import imgSud from "../../../asstes/images/logo.png";
 
-const PdfFileRedone = ({ istype, editorRef }) => {
+const PdfFileRedone = ({ editorRef }) => {
   const dispatch = useDispatch();
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);

@@ -1,14 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
+/////// fns
 import { changeADFF, changeADUF, changeDocsIsks } from "./inputSlice";
-import {
-  changeTodosApplications,
-  toTakeTypeTypeDocs,
-} from "./applicationsSlice";
-import { changeActionType } from "../../helpers/changeActionType";
-import { transformCreateData } from "../../helpers/transformCreateData";
+import { changeTodosApplications } from "./applicationsSlice";
+import { toTakeTypeTypeDocs } from "./applicationsSlice";
 import { changeAlertText } from "./typesSlice";
 import { clearMainBtnList, sortDataIsksCounts } from "./stateSlice";
+
+/////// helpers
+import { changeActionType } from "../../helpers/changeActionType";
+import { transformCreateData } from "../../helpers/transformCreateData";
 import { calculateDates } from "../../helpers/addDate";
 import { followLink } from "../../helpers/followLink";
 
@@ -270,45 +272,29 @@ export const changeStatusIsks = createAsyncThunk(
 export const changeStatusDocs = createAsyncThunk(
   "changeStatusDocs",
   async function (info, { dispatch, rejectWithValue }) {
-    const { isk_status } = info;
+    const { isk_status, id, tokenA } = info;
+    const { idSecr, content, type, navigate } = info;
+
+    const obj = { description: "", code_secretar: idSecr };
+    const data = { code_isk: id, isk_status };
+    /// 1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем,
+    /// 4 Отклонённые председателем, 5 ответчик уведомлен, 6 - на доработку
+
     try {
       const response = await axios({
         method: "POST",
         url: `http://mttp-renaissance.333.kg/api/isks/set_isk_status`,
-        data: {
-          code_isk: +info?.id,
-          isk_status,
-          /// 1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем,
-          /// 4 Отклонённые председателем, 5 ответчик уведомлен, 6 - на доработку
-          description: "", //// delete
-          code_secretar: info?.idSecr || "",
-        },
-        headers: { Authorization: `Bearer ${info?.tokenA}` },
+        data: { ...obj, ...data },
+        headers: { Authorization: `Bearer ${tokenA}` },
       });
       if (response.status >= 200 && response.status < 300) {
-        if ([1, 2, 3, 4, 6].includes(+isk_status)) {
-          // 12  Определение о принятии иска
-          // 13, 14  Определение об отказе иска
-          // 15  Исковое заявление
+        dispatch(sendDocsEveryIsks({ id, content, type }));
+        /// для создания документа иска
 
-          const obj = { content: info?.content, type: +info?.type };
-          dispatch(sendDocsEveryIsks({ ...obj, id: +info?.id }));
-          /// для создания документа иска
-
-          dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-          // setTimeout(() => {
-          //   if (+isk_status === 1 || +isk_status === 2) {
-          //     info?.navigate("/mainRespSec");
-          //   } else if (+isk_status === 3 || +isk_status === 4) {
-          //     info?.navigate("/mainRespPred");
-          //   }
-          // }, 600);
-        } else if (+isk_status === 5) {
-          setTimeout(() => {
-            dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-            info?.navigate("/mainSimpSecr");
-          }, 600);
-        }
+        setTimeout(() => {
+          dispatch(toTakeIsksList({ tokenA, id: 0 }));
+          navigate("/main");
+        }, 500);
       } else {
         throw Error(`Error: ${response.status}`);
       }

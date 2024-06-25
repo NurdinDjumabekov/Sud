@@ -14,7 +14,7 @@ import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
 import { editIsks } from "../../../../store/reducers/applicationsSlice";
 
 ////style
-import "../style.scss";
+import "../TypeActionsUsersAll/style.scss";
 
 const ActionPred = ({ row }) => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const ActionPred = ({ row }) => {
     dispatch(confirmStatusFN({ id, status }));
     dispatch(editIsks({ id, tokenA, applicationList }));
 
-    dispatch(editFileDocsFN(true)); ///// запрещаю добавлять документы ответ. секретарю
+    dispatch(editFileDocsFN(true)); ///// запрещаю добавлять документы председателю
   };
 
   const lookIsks = (obj) => {
@@ -40,6 +40,7 @@ const ActionPred = ({ row }) => {
   };
 
   const statusMessages = {
+    // 1: { text: "Отправлено председателю", color: "greenStatus" },
     2: { text: "Отклонён ответственным секретарём", color: "redStatus" },
     3: { text: "Принят председателем", color: "greenStatus" },
     4: { text: "Отклонён председателем", color: "redStatus" },
@@ -57,11 +58,11 @@ const ActionPred = ({ row }) => {
             <button onClick={() => lookIsks(row)}>Просмотреть</button>
             {/* Просмотреть */}
           </div>
-          <button onClick={() => openModalChangeStatus(row?.codeid, 1)}>
+          <button onClick={() => openModalChangeStatus(row?.codeid, 3)}>
             <img src={fullfiled} alt="ok" />
             {/* Принять  иск*/}
           </button>
-          <button onClick={() => openModalChangeStatus(row?.codeid, 2)}>
+          <button onClick={() => openModalChangeStatus(row?.codeid, 4)}>
             <img src={reject} alt="no" />
             {/* Отклонить  иск*/}
           </button>

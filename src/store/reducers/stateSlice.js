@@ -3,15 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mainBtnList: [
     //////// для ответ. секр и председателя 1 - 6
-    { id: 0, name: "Иски", bool: true },
-    { id: 1, name: "Принятые ответственным секретарём", bool: false },
-    { id: 2, name: "Отклонённые ответственным секретарём", bool: false },
+    { id: 0, name: "Все иски", bool: true },
+    { id: 1, name: "Принятые отв. секретарём", bool: false },
+    { id: 2, name: "Отклонённые отв. секретарём", bool: false },
     { id: 3, name: "Принятые председателем", bool: false },
     { id: 4, name: "Отклонённые председателем", bool: false },
     { id: 9, name: "На доработке ", bool: false },
 
     //////// для истца 6 - 11
-    { id: 5, name: "Все иски", bool: true },
+    { id: 0, name: "Все иски", bool: true },
     { id: 6, name: "Поданные", bool: false },
     { id: 7, name: "Принятые", bool: false },
     { id: 8, name: "Отказанные", bool: false },
@@ -34,7 +34,7 @@ const initialState = {
 
   //// targetPlint
   calculatorType: false,
-  
+
   calculatorState: false,
 
   typePay: 1, //// => typeCountSum
@@ -52,7 +52,7 @@ const initialState = {
   idStatus: 0, /// для просмотра модалки изменения статуса(id)
 
   /////////////////////////////
-
+  
   confirmActionReject: false, /// для отказа иска ответствкным секретарём и  для отказа иска председателем
 
   confirmActionRedone: false, /// для отправки на доработку иска ответствкным секретарём
@@ -74,12 +74,13 @@ const stateSlice = createSlice({
     changeMainBtnList: (state, action) => {
       state.mainBtnList = action.payload;
     },
+
     clearMainBtnList: (state, action) => {
       state.mainBtnList = [
         //////// для ответ. секр и председателя
-        { id: 0, name: "Иски", bool: true },
-        { id: 1, name: "Принятые ответственным секретарём", bool: false },
-        { id: 2, name: "Отклонённые ответственным секретарём", bool: false },
+        { id: 0, name: "Все иски", bool: true },
+        { id: 1, name: "Принятые отв. секретарём", bool: false },
+        { id: 2, name: "Отклонённые отв. секретарём", bool: false },
         { id: 3, name: "Принятые председателем", bool: false },
         { id: 4, name: "Отклонённые председателем", bool: false },
         { id: 9, name: "На доработке ", bool: false },
@@ -97,23 +98,24 @@ const stateSlice = createSlice({
         { id: 10, name: "Назначенные председателем", bool: false },
       ];
     },
+
     sortDataIsksCounts: (state, action) => {
       state.mainBtnList = [
         {
           id: 0,
-          name: "Иски",
+          name: "Все иски",
           bool: state.mainBtnList[0]?.bool, // Сохраняю текущее значение bool
           count: action?.payload?.isk_count || 0,
         },
         {
           id: 1,
-          name: "Принятые ответственным секретарём",
+          name: "Принятые отв. секретарём",
           bool: state.mainBtnList[1]?.bool,
           count: action?.payload?.prinat_sec_total || 0,
         },
         {
           id: 2,
-          name: "Отклонённые ответственным секретарём",
+          name: "Отклонённые отв. секретарём",
           bool: state.mainBtnList[2]?.bool,
           count: action?.payload?.otclon_sec_total || 0,
         },
@@ -169,7 +171,7 @@ const stateSlice = createSlice({
         /////////////////// для обычных секретарей
         {
           id: 0,
-          name: "Иски",
+          name: "Все иски",
           bool: state.mainBtnList[11]?.bool, // Сохраняю текущее значение bool
           count: action?.payload?.isk_count || 0,
         },

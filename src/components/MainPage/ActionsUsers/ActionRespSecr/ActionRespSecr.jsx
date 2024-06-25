@@ -12,17 +12,15 @@ import reject from "../../../../asstes/icons/krestik.svg";
 import redone from "../../../../asstes/images/redone.png";
 
 ////fns
-import {
-  confirmStatusFN,
-  editFileDocsFN,
-} from "../../../../store/reducers/stateSlice";
+import { editFileDocsFN } from "../../../../store/reducers/stateSlice";
+import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
 import { changeIdStatus } from "../../../../store/reducers/stateSlice";
 import { changeLookChangeDeleteIsks } from "../../../../store/reducers/stateSlice";
 import { changeLookChangeStatus } from "../../../../store/reducers/stateSlice";
 import { editIsks } from "../../../../store/reducers/applicationsSlice";
 
 ////style
-import "../style.scss";
+import "../TypeActionsUsersAll/style.scss";
 
 const ActionRespSecr = ({ row }) => {
   const dispatch = useDispatch();
@@ -70,7 +68,7 @@ const ActionRespSecr = ({ row }) => {
     3: { text: "Принят председателем", color: "greenStatus" },
     4: { text: "Отклонён председателем", color: "redStatus" },
     5: { text: "Принят председателем", color: "greenStatus" },
-    6: { text: "Отправлено на доработку", color: "greenStatus" },
+    6: { text: "Отправлено на доработку", color: "redStatus" },
   };
 
   // const activeIsks = row?.status == 0 || row?.isk_status == 6; /// if иск еще не подтвержден или отправлен на доработку

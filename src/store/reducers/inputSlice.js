@@ -172,7 +172,7 @@ const inputSlice = createSlice({
     changeTypeFace: (state, action) => {
       state.typeFace = action.payload;
     },
-    
+
     changeDocsIsks: (state, action) => {
       state.docsIsks = action.payload;
     },

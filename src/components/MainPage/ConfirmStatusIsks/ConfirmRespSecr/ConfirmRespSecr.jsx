@@ -1,18 +1,26 @@
 ///// hooks
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "../../style.scss";
-import Modals from "../../../../Modals/Modals";
-import { confirmStatusFN } from "../../../../../store/reducers/stateSlice";
+import "../style.scss";
+
+////fns
+import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
 
 //// components
 import Fullfilled_isk from "./Fullfilled_isk";
 import Reject_isk from "./Reject_isk";
 import Redone_isk from "./Redone_isk";
+import Modals from "../../../Modals/Modals";
 
-const ConfirmPred = () => {
+const ConfirmRespSecr = () => {
   const dispatch = useDispatch();
   const { confirmStatus } = useSelector((state) => state.stateSlice);
+
+  const components = {
+    1: <Fullfilled_isk />, ////// принят отв. секр
+    2: <Reject_isk />, ////// отклонён отв. секр
+    6: <Redone_isk />, ////// на доработку
+  };
 
   return (
     <>
@@ -21,13 +29,11 @@ const ConfirmPred = () => {
           openModal={!!confirmStatus?.id}
           setOpenModal={() => dispatch(confirmStatusFN())}
         >
-          <Fullfilled_isk />
-          <Reject_isk />
-          <Redone_isk />
+          {components?.[confirmStatus?.status]}
         </Modals>
       </div>
     </>
   );
 };
 
-export default ConfirmPred;
+export default ConfirmRespSecr;
