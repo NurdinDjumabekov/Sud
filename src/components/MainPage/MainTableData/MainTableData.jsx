@@ -27,8 +27,8 @@ const MainTableData = ({ row }) => {
           <>
             {row.plaintiff.map((i, index) => (
               <span key={index}>
-                {i.name}
-                {index !== row.plaintiff.length - 1 && ","}
+                {i?.name}
+                {index !== row?.plaintiff?.length - 1 && ","}
               </span>
             ))}
           </>

@@ -74,9 +74,7 @@ const initialState = {
   },
 
   docsIsks: {
-    files: [
-      // { base64: "jkh", name: "sssdsshdfdfdfhh.docx", code_file: 3 },
-    ],
+    files: [], // { base64: "jkh", name: "sssdsshdfdfdfhh.docx", code_file: 3 },
     code_isk: 0,
   },
 };

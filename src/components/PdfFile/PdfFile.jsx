@@ -259,7 +259,7 @@ const PdfFile = ({ editorRef }) => {
     </div>
   `;
 
-  console.log(todosApplications, "todosApplications");
+  // console.log(todosApplications, "todosApplications");
 
   React.useEffect(() => {
     if (todosApplications.content === "") {

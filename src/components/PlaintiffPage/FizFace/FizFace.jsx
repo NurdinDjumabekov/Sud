@@ -1,27 +1,32 @@
 import React from "react";
-import "./FizFace.scss";
-import Selects from "../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeADFF,
-  clearADFF,
-  clearADUF,
-} from "../../../store/reducers/inputSlice";
-import { selectArr } from "../../../helpers/dataArr";
-import DataInput from "../DataInput/DataInput";
-import ChoiceNoneData from "../ChoiceNoneData/ChoiceNoneData";
+
+/////// style
+import "./FizFace.scss";
+
+///// fns
+import { changeADFF } from "../../../store/reducers/inputSlice";
+import { clearADFF } from "../../../store/reducers/inputSlice";
+import { clearADUF } from "../../../store/reducers/inputSlice";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 import { createEveryIsk } from "../../../store/reducers/sendDocsSlice";
 import { changeAlertText } from "../../../store/reducers/typesSlice";
 
+/////// helpers
+import { selectArr } from "../../../helpers/dataArr";
+
+////// components
+import Selects from "../../Selects/Selects";
+import DataInput from "../DataInput/DataInput";
+import ChoiceNoneData from "../ChoiceNoneData/ChoiceNoneData";
+
 const FizFace = ({ typerole }) => {
   const dispatch = useDispatch();
+  
   const { adff, typeFace } = useSelector((state) => state.inputSlice);
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { tokenA, checkEditPlaint } = useSelector(
-    (state) => state.saveDataSlice
-  );
+  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
   const { selCountries, selDistrict, selTypeAddress, selRegions } = useSelector(
     (state) => state.selectsSlice
   );
@@ -29,25 +34,25 @@ const FizFace = ({ typerole }) => {
   const sendData = (e) => {
     e.preventDefault();
     if (adff?.dob === "" && adff?.unknownDob === 0) {
-      alertFN("Заполните дату рождения");
+      dispatch(changeAlertText("Заполните дату рождения"));
     } else {
       if (adff?.timePassportStart === "" && adff?.unknownDataPassport === 0) {
-        alertFN("Заполните дату выдачи паспорта");
+        dispatch(changeAlertText("Заполните дату выдачи паспорта"));
       } else {
         if (adff?.timePassportEnd === "" && adff?.unknownDataPassport === 0) {
-          alertFN("Заполните дату истечения срока паспорта");
+          dispatch(changeAlertText("Заполните дату истечения срока паспорта"));
         } else {
           if (adff?.country === 0) {
-            alertFN("Выберите страну проживания ");
+            dispatch(changeAlertText("Выберите страну проживания "));
           } else {
             if (adff?.region === 0) {
-              alertFN("Выберите область ");
+              dispatch(changeAlertText("Выберите область "));
             } else {
               if (adff?.district === 0) {
-                alertFN("Выберите район");
+                dispatch(changeAlertText("Выберите район"));
               } else {
                 if (adff?.adddreselement === 0) {
-                  alertFN("Выберите адресный элемент");
+                  dispatch(changeAlertText("Выберите адресный элемент"));
                 } else {
                   checkData();
                 }
@@ -61,15 +66,7 @@ const FizFace = ({ typerole }) => {
 
   const addData = (type) => {
     /// action_type 1 - создание , 2 - редактирование
-    dispatch(
-      createEveryIsk({
-        todosApplications,
-        tokenA,
-        adff,
-        typeFace,
-        role: type,
-      })
-    );
+    dispatch(createEveryIsk({ todosApplications, adff, typeFace, role: type }));
   };
 
   const checkData = () => {
@@ -87,19 +84,8 @@ const FizFace = ({ typerole }) => {
     dispatch(clearADUF());
   };
 
-  const alertFN = (text) => {
-    dispatch(
-      changeAlertText({
-        text: text,
-        backColor: "#f9fafd",
-        state: true,
-      })
-    );
-  };
-
   const changeInput = (e) => {
     e.preventDefault();
-
     const { name, value } = e.target;
 
     // Проверка на наличие одинарных или обратных кавычек
@@ -129,19 +115,16 @@ const FizFace = ({ typerole }) => {
     }
   };
 
+  const role =
+    lookAddPlaintiff === 1
+      ? typerole === "истца"
+        ? "Истец"
+        : "Ответчик"
+      : `Представитель ${typerole}`;
+
   return (
     <div className="addPlaintiffFiz">
-      <h3>
-        {lookAddPlaintiff === 1 ? (
-          <> {typerole === "истца" ? "Истец" : "Ответчик"} </>
-        ) : (
-          <>
-            {typerole === "истца"
-              ? "Представитель истца"
-              : "Представитель ответчика"}
-          </>
-        )}
-      </h3>
+      <h3>{role}</h3>
       <form onSubmit={sendData}>
         <div className="twoInputs">
           <div>

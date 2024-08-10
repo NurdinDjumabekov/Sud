@@ -175,13 +175,7 @@ const ConfirmStatusPred = (props) => {
   const goodIsks = () => {
     if (+typeSecretarDela === 0) {
       dispatch(changeActionFullfilled(false));
-      dispatch(
-        changeAlertText({
-          text: "Выберите секретаря!",
-          backColor: "#f9fafd",
-          state: true,
-        })
-      );
+      dispatch(changeAlertText("Выберите секретаря!"));
     } else {
       dispatch(changeActionFullfilled(true));
     }

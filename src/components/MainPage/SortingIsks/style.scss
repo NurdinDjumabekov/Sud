@@ -1,61 +1,50 @@
 .choice__plaintiff {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 15px 10px;
-    background: #f9fafd;
-    border-radius: 5px;
-    border: 1px solid #edf2f9;
-    
-    li {
-      position: relative;
-      
-      button {
-        color: #4d5969;
-        font-size: 16px;
-        font-weight: 600;
-        font-family: 'Montserrat', sans-serif;
-        background: #f9fafd;
-        margin: 0 10px;
-        height: 40px;
-        transition: 0.2s;
-        padding: 0 5px;
-        // @media screen and (max-width: 2400px) {
-        //   font-size: 14px;
-        //   font-weight: 600;
-        //   margin: 0;
-        //   @media screen and (max-width: 1970px) {
-        //     padding: 0 8px;
-        //   }
-        // }
+  display: inline-flex;
+  align-items: center;
+  margin: 0 15px 10px;
+  background: #f9fafd;
+  border-radius: 5px;
+  border: 1px solid #edf2f9;
 
-      }
-      .activeChoice {
-        color: #4d5969;
-        box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
-          0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07),
-          0 1px 2px 0 rgba(0, 0, 0, 0.08);
-        border-radius: 5px;
-        margin: 0 8px;
-        height: 37px;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 0 15px;
-        font-family: 'Montserrat', sans-serif;
-        background: #fff;
-        @media screen and (max-width: 2400px) {
-          margin: 0 3px;
-        }
-      }
-      
-      .countInfo {
-        position: absolute;
-        top: -10px;
-        right: -2px;
-        border-radius: 50%;
-        padding: 4px 8px;
-        border: 1px solid black;
-        background: #fff;
-        font-weight: 700;
+  li {
+    position: relative;
+
+    button {
+      color: #4d5969;
+      font-size: 16px;
+      font-weight: 600;
+      background: #f9fafd;
+      margin: 0 5px;
+      height: 40px;
+      transition: 0.2s;
+      padding: 0 5px;
+    }
+
+    .activeChoice {
+      color: #4d5969;
+      box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
+        0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07),
+        0 1px 2px 0 rgba(0, 0, 0, 0.08);
+      border-radius: 5px;
+      height: 37px;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 0 15px;
+      background: #fff;
+      @media screen and (max-width: 2400px) {
+        margin: 0 3px;
       }
     }
+
+    .countInfo {
+      position: absolute;
+      top: -10px;
+      right: -2px;
+      border-radius: 50%;
+      padding: 4px 8px;
+      border: 1px solid black;
+      background: #fff;
+      font-weight: 700;
+    }
   }
+}

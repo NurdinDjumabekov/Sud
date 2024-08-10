@@ -15,63 +15,41 @@ import {
   clearMainBtnList,
 } from "../../../store/reducers/stateSlice";
 import { changeAlertText } from "../../../store/reducers/typesSlice";
-import { followLink } from "../../../helpers/followLink";
 
-const InputsPlaintiff = ({ btnList, indexComp }) => {
+const InputsPlaintiff = ({ btnList, activeComponent }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const editorRef = useRef(null);
+
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { tokenA, typeUser, checkEditPlaint } = useSelector(
+  const { typeUser, checkEditPlaint } = useSelector(
     (state) => state.saveDataSlice
   );
 
   const saveData = () => {
-    if (checkDataIsks(todosApplications)) {
-      if (todosApplications.plaintiff?.length === 0) {
-        dispatch(
-          changeAlertText({
-            text: "Добавьте истца!",
-            backColor: "#f9fafd",
-            state: true,
-          })
-        );
-      } else {
-        if (todosApplications.defendant?.length === 0) {
-          dispatch(
-            changeAlertText({
-              text: "Добавьте ответчика!",
-              backColor: "#f9fafd",
-              state: true,
-            })
-          );
-        } else {
-          if (editorRef.current && editorRef.current.editor) {
-            const content = editorRef.current.editor.getContent();
-            dispatch(
-              sendEveryIsks({
-                todosApplications,
-                tokenA,
-                navigate,
-                content,
-                typeUser,
-              })
-            );
-            dispatch(clearTodosApplications());
-            dispatch(clearMainBtnList()); /// очистка состояние типа исков
-            clearDataCalculator();
-          }
-        }
-      }
-    } else {
-      dispatch(
-        changeAlertText({
-          text: "Нету заполненных полей!",
-          backColor: "#f9fafd",
-          state: true,
-        })
-      );
+    if (!checkDataIsks(todosApplications)) {
+      return dispatch(changeAlertText("Нету заполненных полей!"));
+    }
+
+    if (todosApplications.plaintiff?.length === 0) {
+      return dispatch(changeAlertText("Добавьте истца!"));
+    }
+
+    if (todosApplications.defendant?.length === 0) {
+      return dispatch(changeAlertText("Добавьте ответчика!"));
+    }
+
+    if (editorRef.current?.editor) {
+      const content = editorRef.current.editor.getContent();
+      const obj = { navigate, content, typeUser, todosApplications };
+
+      dispatch(sendEveryIsks(obj));
+
+      // Очистка всех временных state
+      dispatch(clearTodosApplications());
+      dispatch(clearMainBtnList());
+      clearDataCalculator();
     }
   };
 
@@ -81,28 +59,25 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
     dispatch(changeCalculatorState(false)); // отображение таблицы
     dispatch(
       /// строс подсчёт калькулятора
-      changeResult({
-        num1: 0,
-        num2: 0,
-        num3: 0,
-        num4: 0,
-      })
+      changeResult({ num1: 0, num2: 0, num3: 0, num4: 0 })
     );
   };
 
-  useEffect(() => {
-    if (+todosApplications?.codeid === 0 && checkEditPlaint === false) {
-      /// 0 означает что у тебя пустое исковое заявление и ты не истец
-      followLink(typeUser, navigate);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (+todosApplications?.codeid === 0 && checkEditPlaint === false) {
+  //     /// 0 означает что у тебя пустое исковое заявление и ты не истец
+  //     followLink(typeUser, navigate);
+  //   }
+  // }, []);
+
+  const navMain = () => navigate("/main");
 
   return (
     <>
       <div className="plaintiffData">
         <div className="plantiffBlockMain">
-          <React.Fragment key={indexComp}>
-            {btnList?.[indexComp]?.components}
+          <React.Fragment key={activeComponent - 1}>
+            {btnList?.[activeComponent - 1]?.components}
           </React.Fragment>
           {lookAddPlaintiff === 0 && (
             /// if открыты инпуты с физ и юр лицами, то я временно скрываю pdf файл
@@ -113,10 +88,7 @@ const InputsPlaintiff = ({ btnList, indexComp }) => {
       {checkEditPlaint ? (
         <div className="actionBtn">
           <button onClick={saveData}>Сохранить</button>
-          <button
-            onClick={() => followLink(typeUser, navigate)}
-            className="btnLink"
-          >
+          <button onClick={navMain} className="btnLink">
             Закрыть
           </button>
         </div>

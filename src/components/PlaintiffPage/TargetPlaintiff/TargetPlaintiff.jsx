@@ -33,7 +33,7 @@ const TargetPlaintiff = () => {
   };
 
   return (
-    <div className={`${"plaintiFilling__container"} `}>
+    <div className="plaintiFilling__container">
       <div className="addPlaintiff">
         <form className="targetPlaintiff">
           {/* <div className="twoInputs">

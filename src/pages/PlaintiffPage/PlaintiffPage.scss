@@ -1,10 +1,16 @@
 .plaintiff {
-  padding: 20px 10px 20px 20px;
+  padding: 80px 10px 5px 5px;
   width: 100%;
-  // position: relative;
+  height: 100vh;
+  position: relative;
+
   .navBlock {
     display: flex;
     gap: 15px;
+    position: absolute;
+    top: 30px;
+    left: 5px;
+
     > button {
       height: 42px;
       padding: 0 15px;
@@ -14,10 +20,9 @@
         0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07),
         0 1px 2px 0 rgba(0, 0, 0, 0.08);
       color: #4d5969;
-      font-size: 18px;
       font-weight: 600;
-      font-family: 'Montserrat', sans-serif;
     }
+
     .cloused {
       display: flex;
       align-items: center;
@@ -33,26 +38,28 @@
         box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
           0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07),
           0 1px 2px 0 rgba(0, 0, 0, 0.08);
-          > img {
-            width: 60%;
-            height: 60%;
-          }
+        > img {
+          width: 60%;
+          height: 60%;
+        }
       }
     }
   }
+
   h1 {
     font-size: 25px;
     font-weight: 800;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0 0 30px 0;
     color: rgb(44, 123, 229);
   }
+
   &__type {
     display: flex;
     align-items: center;
     gap: 15px;
     justify-content: space-between;
-    
+
     > div {
       display: flex;
       align-items: center;
@@ -86,6 +93,7 @@
       }
     }
   }
+
   .prevBtn {
     position: absolute;
     right: 20px;
@@ -128,7 +136,7 @@
       color: #4d5969;
       font-size: 14px;
       font-weight: 600;
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Montserrat", sans-serif;
       background: #f9fafd;
       transition: 0.2s;
       padding: 10px 20px;
@@ -140,17 +148,18 @@
       white-space: nowrap;
       @media screen and (max-width: 2250px) {
         display: block;
-        padding: 10px ;
+        padding: 10px;
       }
-      
     }
     .activeBtnsPlaintiff {
       color: #4d5969;
-      box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+      box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
+        0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07),
+        0 1px 2px 0 rgba(0, 0, 0, 0.08);
       height: 37px;
       font-size: 16px;
       font-weight: 600;
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Montserrat", sans-serif;
       background: #fff;
       z-index: 15;
       white-space: nowrap;
@@ -160,12 +169,8 @@
       // background: red !important;
     }
   }
-  
+
   .plaintiffTypes {
-    // background: red !important;
-    // width: 990px;
-    // overflow-x: scroll;
-    // width: 100%;
     max-width: 2200px;
     .slider {
       width: 100%;

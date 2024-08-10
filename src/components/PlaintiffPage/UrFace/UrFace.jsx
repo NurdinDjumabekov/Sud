@@ -81,10 +81,7 @@ const UrFace = ({ typerole }) => {
     }
   };
 
-  const alertFN = (text) => {
-    const obj = { text: text, backColor: "#f9fafd", state: true };
-    dispatch(changeAlertText(obj));
-  };
+  const alertFN = (text) => dispatch(changeAlertText(text));
 
   const checkData = () => {
     if (typerole === "истца") {

@@ -32,7 +32,7 @@ const ActionPlaintiff = ({ row }) => {
 
   const editIsksFn = (id) => {
     ///// изменения искового заявления до подтверждения
-    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+    dispatch(editIsks({ id, navigate, applicationList }));
   };
 
   const deleteIsksFn = (id) => {

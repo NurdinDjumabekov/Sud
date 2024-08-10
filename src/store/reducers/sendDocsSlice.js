@@ -12,7 +12,6 @@ import { clearMainBtnList, sortDataIsksCounts } from "./stateSlice";
 import { changeActionType } from "../../helpers/changeActionType";
 import { transformCreateData } from "../../helpers/transformCreateData";
 import { calculateDates } from "../../helpers/addDate";
-import { followLink } from "../../helpers/followLink";
 import axiosInstance from "../../axiosInstance";
 
 const { REACT_APP_API_URL } = process.env;
@@ -88,54 +87,36 @@ export const toTakeIsksList = createAsyncThunk(
 //// для получения id иска
 export const createIdIsk = createAsyncThunk(
   "createIsk",
-  async function (info, { dispatch, rejectWithValue }) {
+  async function (props, { dispatch, rejectWithValue }) {
+    const { todosApplications, adff, aduf, docsIsks } = props;
+    const data = { action_type: 1 };
+    /// для создания иска
+    const url = `${REACT_APP_API_URL}/isks/crud`;
+
     try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
-        data: {
-          action_type: 1, /// для создания иска
-        },
-        headers: {
-          Authorization: `Bearer ${info.tokenA}`,
-        },
-      });
+      const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(
-          changeTodosApplications({
-            ...info?.todosApplications,
-            codeid: response?.data?.codeid,
-          })
-        );
-        dispatch(
-          changeADFF({
-            ...info?.adff,
-            code_isk: response?.data?.codeid,
-          })
-        );
-        dispatch(
-          changeADUF({
-            ...info?.aduf,
-            code_isk: response?.data?.codeid,
-          })
-        );
-        dispatch(
-          changeDocsIsks({
-            ...info?.docsIsks,
-            code_isk: response?.data?.codeid,
-          })
-        );
+        const { codeid } = response?.data;
+
         const { formattedTwoWeeksLater, formattedOneMonthLater } =
           calculateDates(); /// для получения даты 2 - 4 недели
 
-        dispatch(
-          changeTodosApplications({
-            ...info?.todosApplications,
-            arbitr_pay_end_date: formattedTwoWeeksLater,
-            arbitr_doplata_end_date: formattedOneMonthLater,
-            codeid: response?.data?.codeid,
-          })
-        ); /// подставляю дату сроков уплаты
+        const obj = {
+          arbitr_pay_end_date: formattedTwoWeeksLater,
+          arbitr_doplata_end_date: formattedOneMonthLater,
+          codeid,
+        };
+        dispatch(changeTodosApplications({ ...todosApplications, ...obj }));
+        ////// подставляю id для главного объекта где все данные иска и дату сроков уплаты
+
+        dispatch(changeADFF({ ...adff, code_isk: codeid }));
+        ////// подставляю id для объекта физ лиц
+
+        dispatch(changeADUF({ ...aduf, code_isk: codeid }));
+        ////// подставляю id для объекта юр лиц
+
+        dispatch(changeDocsIsks({ ...docsIsks, code_isk: codeid }));
+        ////// подставляю id для объекта документов
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -145,44 +126,33 @@ export const createIdIsk = createAsyncThunk(
   }
 );
 
-///sendEveryIsks - создание и редактирование иска у истца
+///sendEveryIsks - создание и редактирование иска
 export const sendEveryIsks = createAsyncThunk(
   "sendEveryIsks",
-  async function (info, { dispatch, rejectWithValue }) {
-    const newData = { ...info?.todosApplications };
+  async function (props, { dispatch, rejectWithValue }) {
+    const { todosApplications, content } = props;
+    const { navigate, typeUser } = props;
+    const { codeid } = todosApplications;
+
+    const newData = { ...todosApplications };
     delete newData["files"];
+
+    const data = { ...newData, action_type: 2 }; /// для редактировования созданного иска
+    const url = `${REACT_APP_API_URL}/isks/crud`;
+
     try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
-        data: {
-          ...newData,
-          action_type: 2, /// для редактировования созданного иска
-        },
-        headers: {
-          Authorization: `Bearer ${info.tokenA}`,
-        },
-      });
+      const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(
-          changeAlertText({
-            text: "Черновик сохранен!",
-            backColor: "#f9fafd",
-            state: true,
-          })
-        );
-        dispatch(toTakeTypeTypeDocs(info.tokenA)); /// для очистки (сброса) типа файлов
-        dispatch(
-          sendDocsEveryIsks({
-            content: info?.content,
-            id: info?.todosApplications?.codeid,
-            type: 15, ///(15 - для создания иска)
-          }) /// для создания документа иска
-        );
+        dispatch(changeAlertText("Черновик сохранен!"));
+        dispatch(toTakeTypeTypeDocs()); /// для очистки (сброса) типа файлов
+
+        dispatch(sendDocsEveryIsks({ content, id: codeid, type: 15 }));
+        /// для создания документа иска ( 15 - для создания иска)
+
         setTimeout(() => {
-          dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 })); /// для обновления списка на главной странице
+          dispatch(toTakeIsksList(0)); /// для обновления списка на главной странице
         }, 1000);
-        return { navigate: info.navigate, typeUser: info?.typeUser };
+        return { navigate, typeUser };
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -196,24 +166,20 @@ export const sendEveryIsks = createAsyncThunk(
 // 12  Определение о принятии иска
 // 13, 14  Определение об отказе иска
 // 15   Исковое заявление
-
 export const sendDocsEveryIsks = createAsyncThunk(
   "sendDocsEveryIsks",
-  async function (info, { dispatch, rejectWithValue }) {
-    const { content, tokenA } = info;
-    const data = { content, code_file: info?.type, code_isk: info?.id };
-    console.log(data, "data");
+  async function (props, { dispatch, rejectWithValue }) {
+    const { content, type, id, navigate } = props;
+    const data = { content, code_file: type, code_isk: id };
+    const url = `${REACT_APP_API_URL}/isks/crud/genereate-pdf`;
+
     try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/crud/genereate-pdf`,
-        data,
-        headers: { Authorization: `Bearer ${tokenA}` },
-      });
+      const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        if (info?.type == 17 || info?.type == 12) {
-          info?.navigate("/mainSimpSecr");
-          dispatch(toTakeIsksList({ tokenA, id: 0 })); /// для обновления списка на главной странице
+        if (type == 17 || type == 12) {
+          navigate("/main");
+          dispatch(toTakeIsksList(0));
+          /// для обновления списка на главной странице
         }
       } else {
         throw Error(`Error: ${response.status}`);
@@ -227,29 +193,19 @@ export const sendDocsEveryIsks = createAsyncThunk(
 /// createEveryIsk - create and edit plaintiff
 export const createEveryIsk = createAsyncThunk(
   "createEveryIsk",
-  async function (info, { dispatch, rejectWithValue }) {
-    const faceData = info?.typeFace === 1 ? info?.adff : info?.aduf;
-    const obj = transformCreateData(info, info?.role, faceData);
+  async function (props, { dispatch, rejectWithValue }) {
+    const { todosApplications, role, adff, aduf, typeFace } = props;
+    const faceData = typeFace === 1 ? adff : aduf;
+    const obj = transformCreateData(props, role, faceData);
+
+    const data = { action_type: 2, ...obj };
+    const url = `${REACT_APP_API_URL}/isks/crud`;
+
     try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
-        data: {
-          action_type: 2,
-          ...obj,
-        },
-        headers: {
-          Authorization: `Bearer ${info?.tokenA}`,
-        },
-      });
+      const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
         const newdata = changeActionType(response?.data, obj?.codeid);
-        dispatch(
-          changeTodosApplications({
-            ...info?.todosApplications,
-            ...newdata,
-          })
-        );
+        dispatch(changeTodosApplications({ ...todosApplications, ...newdata }));
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -258,6 +214,8 @@ export const createEveryIsk = createAsyncThunk(
     }
   }
 );
+
+////-------------------////
 
 /// changeStatusIsks - изменения статуса иска организацией(принят председателем,
 /// отклонён ответ.секретарём ....)
@@ -377,9 +335,7 @@ const sendDocsSlice = createSlice({
     ////// sendEveryIsks
     builder.addCase(sendEveryIsks.fulfilled, (state, action) => {
       state.preloader = false;
-      action?.payload?.navigate("/mainPlaintiff");
-      const { navigate, typeUser } = action?.payload;
-      followLink(typeUser, navigate);
+      action?.payload?.navigate("/main");
     });
     builder.addCase(sendEveryIsks.rejected, (state, action) => {
       state.error = action.payload;

@@ -5,6 +5,9 @@ import axios from "axios";
 import { transformCreateData } from "../../helpers/transformCreateData";
 import { sortDeletePlaintiff } from "../../helpers/sortDeletePlaintiff";
 import { transformArrDocs } from "../../helpers/transformArrDocs";
+import axiosInstance from "../../axiosInstance";
+
+const { REACT_APP_API_URL } = process.env;
 
 const initialState = {
   todosApplications: {
@@ -56,21 +59,19 @@ const initialState = {
   preloaderDocs: false,
 };
 
+////-------------------////
+
 /// editIsks ///
 export const editIsks = createAsyncThunk(
   "editIsks",
-  async function (info, { dispatch, rejectWithValue }) {
-    const { id, tokenA, navigate, applicationList } = info;
+  async function (props, { dispatch, rejectWithValue }) {
+    const { id, navigate, applicationList } = props;
+
+    const url = `${REACT_APP_API_URL}/isks/get/${id}`;
     try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/isks/get/${id}`,
-        headers: {
-          Authorization: `Bearer ${tokenA}`,
-        },
-      });
+      const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
-        return { data: response?.data, navigate, applicationList };
+        return { data: response?.data, navigate, applicationList, id };
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -83,15 +84,10 @@ export const editIsks = createAsyncThunk(
 /// toTakeTypeTypeDocs /// для получения всех загружаемых данных
 export const toTakeTypeTypeDocs = createAsyncThunk(
   "toTakeTypeTypeDocs",
-  async function (token, { dispatch, rejectWithValue }) {
+  async function (props, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/get/document_type?razdel=1`;
     try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/document_type?razdel=1`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
         return response?.data?.data;
       } else {
@@ -102,6 +98,8 @@ export const toTakeTypeTypeDocs = createAsyncThunk(
     }
   }
 );
+
+////-------------------////
 
 /// sendDocsIsks /// для отправки документов
 export const sendDocsIsks = createAsyncThunk(
@@ -318,13 +316,15 @@ const applicationsSlice = createSlice({
     ////// editIsks
     builder.addCase(editIsks.fulfilled, (state, action) => {
       state.preloaderDocs = false;
-      state.todosApplications = action.payload?.data;
-      state.applicationList = transformArrDocs({
-        arrIsk: action?.payload?.applicationList,
-        reqData: action.payload?.data?.files,
-      });
-      if (action.payload?.navigate) {
-        action.payload?.navigate("/plaintiffCreate");
+
+      const { applicationList, data, navigate, id } = action?.payload;
+      state.todosApplications = data;
+
+      const newArrIsk = { arrIsk: applicationList, reqData: data?.files };
+      state.applicationList = transformArrDocs(newArrIsk);
+
+      if (navigate) {
+        navigate(`/create_isk/${id}`);
       }
     });
     builder.addCase(editIsks.rejected, (state, action) => {

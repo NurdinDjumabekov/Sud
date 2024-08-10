@@ -1,16 +1,20 @@
 .pdfFile {
   width: 50%;
   align-items: center;
-  height: 86vh;
+  height: 92% !important;
+
   .tox .tox-statusbar__path {
     display: none !important;
   }
-  .tox .tox-statusbar__text-container{
+
+  .tox .tox-statusbar__text-container {
     display: none !important;
   }
-  .tox .tox-menubar{
+
+  .tox .tox-menubar {
     width: auto !important;
   }
+
   > div:nth-child(2) {
     > div:nth-child(1) {
       > div:nth-child(1) {
@@ -21,7 +25,7 @@
             cursor: pointer;
           }
           button:nth-child(1):after {
-            content: '';
+            content: "";
             position: absolute;
             padding: 8px 18px;
             height: 18px;
@@ -30,7 +34,7 @@
             color: #4d5969;
             font-size: 16px;
             font-weight: 600;
-            font-family: 'Montserrat', sans-serif;
+            font-family: "Montserrat", sans-serif;
             text-align: center;
             background-image: url("../../asstes/images/pdfFile.png");
             margin: 0 0 0 5px;

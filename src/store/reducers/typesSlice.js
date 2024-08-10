@@ -25,7 +25,7 @@ const initialState = {
     {
       id: 2,
       name: "Создать черновик",
-      path: "/create_isk",
+      path: "/create_isk/0",
       bool: false,
       icon: create,
       iconWhite: createWhite,
@@ -51,7 +51,12 @@ const typesSlice = createSlice({
     },
 
     changeAlertText: (state, action) => {
-      state.alertText = action.payload;
+      const text = action.payload;
+      state.alertText = { text, backColor: "#f9fafd", state: true };
+    },
+
+    clearAlertText: (state, action) => {
+      state.alertText = { text: "", backColor: "", state: false };
     },
 
     changeActivePage: (state, action) => {
@@ -60,7 +65,11 @@ const typesSlice = createSlice({
     },
   },
 });
-export const { changePlaintiffType, changeAlertText, changeActivePage } =
-  typesSlice.actions;
+export const {
+  changePlaintiffType,
+  changeAlertText,
+  clearAlertText,
+  changeActivePage,
+} = typesSlice.actions;
 
 export default typesSlice.reducer;

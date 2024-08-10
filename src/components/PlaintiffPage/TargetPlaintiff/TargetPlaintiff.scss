@@ -1,47 +1,51 @@
-.targetPlaintiff {
-  .twoInputs {
-    .selectBlock {
-      width: 100% !important;
-    }
-  }
-  .choiceBtnsTarget {
-    &__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      // height: 40px;
-      background: #f9fafd;
-      border-radius: 5px;
-      border: 2px solid #edf2f9;
-      width: 315px;
-      margin: 0 0 20px 0;
+.plaintiFilling__container {
+  width: 50%;
 
-      span {
-        color:#4d5969;
-        font-size: 16px;
-        font-weight: 600;
-        font-family: 'Montserrat', sans-serif;
-        background: #f9fafd;
-        transition: 0.2s;
-        padding: 10px 25px;
-        height: auto !important;
-        margin: 0 !important;  
-        border-radius: 3px;
-        margin: 0 5px;
-        cursor: pointer;
+  .targetPlaintiff {
+    .twoInputs {
+      .selectBlock {
+        width: 100% !important;
       }
-      .activeBtnsPlaintiff {
-        color: #4d5969;
-        box-shadow:  0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);;
-        height: 37px;
-        font-size: 16px;
-        font-weight: 600;
-        font-family: 'Montserrat', sans-serif;
-        background: #fff;
-        // z-index: 0;
+    }
+    .choiceBtnsTarget {
+      &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // height: 40px;
+        background: #f9fafd;
+        border-radius: 5px;
+        border: 2px solid #edf2f9;
+        width: 315px;
+        margin: 0 0 20px 0;
+
+        span {
+          color: #4d5969;
+          font-size: 16px;
+          font-weight: 600;
+          font-family: "Montserrat", sans-serif;
+          background: #f9fafd;
+          transition: 0.2s;
+          padding: 10px 25px;
+          height: auto !important;
+          margin: 0 !important;
+          border-radius: 3px;
+          margin: 0 5px;
+          cursor: pointer;
+        }
+        .activeBtnsPlaintiff {
+          color: #4d5969;
+          box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
+            0 2px 5px 0 rgba(43, 45, 80, 0.08),
+            0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+          height: 37px;
+          font-size: 16px;
+          font-weight: 600;
+          font-family: "Montserrat", sans-serif;
+          background: #fff;
+          // z-index: 0;
+        }
       }
     }
   }
 }
-
-

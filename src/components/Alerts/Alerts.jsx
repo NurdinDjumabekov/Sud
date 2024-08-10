@@ -1,13 +1,12 @@
 import React from "react";
 import { Box, Modal } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { changeAlertText } from "../../store/reducers/typesSlice";
+import { clearAlertText } from "../../store/reducers/typesSlice";
 
 const Alerts = () => {
   const dispatch = useDispatch();
   const { alertText } = useSelector((state) => state.typesSlice);
-  const handleClose = () =>
-    dispatch(changeAlertText({ ...alertText, state: false }));
+  const handleClose = () => dispatch(clearAlertText());
 
   const style = {
     position: "absolute",
@@ -28,13 +27,7 @@ const Alerts = () => {
 
   React.useEffect(() => {
     setTimeout(() => {
-      dispatch(
-        changeAlertText({
-          text: "",
-          backColor: "",
-          state: false,
-        })
-      );
+      dispatch(clearAlertText());
     }, 2000);
   }, [alertText?.state]);
 
