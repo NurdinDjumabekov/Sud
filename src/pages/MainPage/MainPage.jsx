@@ -55,6 +55,7 @@ const MainPage = () => {
                   <td className="documents">
                     <span className="documentBlock">
                       {row?.files?.length !== 0 && (
+                        //  if файлы есть
                         <div className="docsBlock">
                           {row?.files?.map((pdf) => (
                             <LookPdfModal pdf={pdf} key={pdf?.codeid} />
@@ -70,7 +71,7 @@ const MainPage = () => {
         </div>
       </div>
 
-      {/* ///// модалки для подтверждения и удаления */}
+      {/* ///// модалки для подтверждения и удаления иска */}
       <MoreInfo />
       {/* //// для ответ. секретаря */}
       <ConfirmRespSecr />

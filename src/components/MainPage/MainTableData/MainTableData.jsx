@@ -2,11 +2,11 @@
 import { useSelector } from "react-redux";
 import React from "react";
 
-////style
-import "./style.scss";
-
 ////helpers
 import { searchNameSelect } from "../../../helpers/searchNameSelect";
+
+////style
+import "./style.scss";
 
 const MainTableData = ({ row }) => {
   const { selCurrency } = useSelector((state) => state.selectsSlice);

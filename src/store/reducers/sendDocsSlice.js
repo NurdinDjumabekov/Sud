@@ -13,24 +13,68 @@ import { changeActionType } from "../../helpers/changeActionType";
 import { transformCreateData } from "../../helpers/transformCreateData";
 import { calculateDates } from "../../helpers/addDate";
 import { followLink } from "../../helpers/followLink";
+import axiosInstance from "../../axiosInstance";
+
+const { REACT_APP_API_URL } = process.env;
 
 const initialState = { preloader: false, listTodos: [] };
 
+////-------------------////
+/// changeStatusIsks - изменения статуса иска у истца (истец подаёт иск)
+export const changeStatusIsks = createAsyncThunk(
+  "changeStatusIsks",
+  async function (codeid, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/crud`;
+    const data = { action_type: 4, codeid }; ///// action_type - 4 подтверждение иска
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+        dispatch(toTakeIsksList(0)); //// get список исков (0 - все иски)
+        dispatch(clearMainBtnList()); //// сброс сортировочных кнопок на галвной стр
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// deleteIsks - удаление исков
+export const deleteIsks = createAsyncThunk(
+  "deleteIsks",
+  async function (codeid, { dispatch, rejectWithValue }) {
+    const data = { action_type: 3, codeid }; //// action_type - 3 удаление
+    const url = `${REACT_APP_API_URL}/isks/crud`;
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+        dispatch(toTakeIsksList(0)); //// get список исков (0 - все иски)
+        dispatch(clearMainBtnList()); //// сброс сортировочных кнопок на галвной стр
+        return codeid;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const toTakeIsksList = createAsyncThunk(
   "toTakeIsksList",
-  async function (info, { dispatch, rejectWithValue }) {
-    const { tokenA, id } = info;
+  async function (id, { dispatch, rejectWithValue }) {
+    //// get список исков сортируя по статусу (0 - весь список)
+    /// 1 -
+    /// 2 -
+    /// 3 -
+    const url = `${REACT_APP_API_URL}/isks/get?status=${id}`;
     try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/isks/get?status=${id}`,
-        headers: {
-          Authorization: `Bearer ${tokenA}`,
-        },
-      });
+      const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
         const { recordset, ...totals } = response?.data;
         dispatch(sortDataIsksCounts(totals));
+        //// подставляю к сортировочным кнопкам кол-ва исков которые есть
         return recordset;
       } else {
         throw Error(`Error: ${response.status}`);
@@ -206,58 +250,6 @@ export const createEveryIsk = createAsyncThunk(
             ...newdata,
           })
         );
-      } else {
-        throw Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-/// deleteIsks - удаление исков
-export const deleteIsks = createAsyncThunk(
-  "deleteIsks",
-  async function ({ codeid, tokenA }, { dispatch, rejectWithValue }) {
-    try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
-        data: { action_type: 3, codeid },
-        headers: { Authorization: `Bearer ${tokenA}` },
-      });
-      if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList({ tokenA, id: 0 }));
-
-        return codeid;
-      } else {
-        throw Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-/// changeStatusIsks - изменения статуса иска у истца(истец подаёт иск)
-export const changeStatusIsks = createAsyncThunk(
-  "changeStatusIsks",
-  async function (info, { dispatch, rejectWithValue }) {
-    try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
-        data: {
-          action_type: 4,
-          codeid: +info?.idStatus,
-        },
-        headers: {
-          Authorization: `Bearer ${info?.tokenA}`,
-        },
-      });
-      if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList({ tokenA: info?.tokenA, id: 0 }));
-        dispatch(clearMainBtnList());
       } else {
         throw Error(`Error: ${response.status}`);
       }

@@ -1,6 +1,7 @@
 ////// hooks
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 ///// style
 import "./style.scss";
@@ -8,20 +9,18 @@ import "./style.scss";
 ///// fns
 import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
 import { changeMainBtnList } from "../../../store/reducers/stateSlice";
-import { useEffect } from "react";
 
 const SortingIsks = () => {
   const dispatch = useDispatch();
 
-  const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
+  const { typeUser } = useSelector((state) => state.saveDataSlice);
 
   const { mainBtnList } = useSelector((state) => state.stateSlice);
 
   const clickBtn = (id) => {
     const newList = mainBtnList?.map((i) => ({ ...i, bool: id === i.id }));
     dispatch(changeMainBtnList(newList)); /// активная категория
-
-    dispatch(toTakeIsksList({ tokenA, id })); /// запрос для получения списка
+    dispatch(toTakeIsksList(id)); /// запрос для получения списка
   };
 
   const typeSort = {
@@ -32,7 +31,8 @@ const SortingIsks = () => {
   };
 
   useEffect(() => {
-    dispatch(toTakeIsksList({ tokenA, id: 0 })); ///// Всегда получаю все иски сразу
+    dispatch(toTakeIsksList(0));
+    ///// get все иски сразу
   }, []);
 
   return (

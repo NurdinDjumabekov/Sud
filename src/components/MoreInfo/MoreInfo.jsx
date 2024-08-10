@@ -13,7 +13,7 @@ import { deleteIsks } from "../../store/reducers/sendDocsSlice";
 import Modals from "../Modals/Modals";
 
 //////// styles
-import "./MoreInfo.scss";
+import "./style.scss";
 
 /////imgs
 import imgWarning from "../../asstes/images/warning.png";
@@ -23,7 +23,7 @@ const MoreInfo = () => {
 
   const dispatch = useDispatch();
 
-  const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
+  const { typeUser } = useSelector((state) => state.saveDataSlice);
 
   const { lookChangeStatus, lookChangeDeleteIsks, idStatus } = useSelector(
     (state) => state.stateSlice
@@ -34,21 +34,21 @@ const MoreInfo = () => {
   }, []);
 
   const confirmIsk = () => {
-    /////  подтверждения иска
-    dispatch(changeStatusIsks({ idStatus, tokenA }));
+    /////  подтверждения иска (истец подаёт иск)
+    dispatch(changeStatusIsks(idStatus));
     dispatch(changeLookChangeStatus(false));
   };
 
   const deleteIsk = () => {
     /////  удаление иска
-    dispatch(deleteIsks({ codeid: idStatus, tokenA }));
+    dispatch(deleteIsks(idStatus));
     dispatch(changeLookChangeDeleteIsks(false));
   };
 
   const closeModal = () => {
     dispatch(changeLookChangeStatus(false));
     dispatch(changeLookChangeDeleteIsks(false));
-    ///// закрыьте попапов подттверждения
+    ///// закрытие попапов подтверждения
   };
 
   const checkWhoCreateIsks = typeUser == 1 || typeUser == 2;

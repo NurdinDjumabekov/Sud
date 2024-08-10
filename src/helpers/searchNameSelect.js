@@ -5,6 +5,6 @@ export const searchNameSelect = (arr, num) => {
     return matchingItem.name;
   } else {
     const defaultItem = arr?.find((item) => +item.codeid === 0);
-    return defaultItem?.name || "Не известно";
+    return defaultItem?.name || "";
   }
 };

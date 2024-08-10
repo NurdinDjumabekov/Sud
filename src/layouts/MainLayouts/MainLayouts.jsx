@@ -30,6 +30,8 @@ const MainLayouts = () => {
 
   const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
 
+  const decodedToken = jwtDecode(tokenA);
+
   const { notifCount } = useSelector((state) => state.notificationSlice);
 
   const { pages } = useSelector((state) => state.typesSlice);
@@ -44,17 +46,18 @@ const MainLayouts = () => {
     dispatch(notificationCount(tokenA));
   }, []);
 
-  const clickMenu = ({ path }) => navigate(path); //// перехожу по страницам
-
-  const decodedToken = jwtDecode(tokenA);
-
   const allPage = pages?.filter((i) => !(typeUser == 3 && i.id === 2));
   ///// для председателя, убираю страницу создания иска
+
+  const clickLogo = () => navigate("/main");
+  ////// клик на лого и переход всегда на главную страницу
+
+  const clickMenu = ({ path }) => navigate(path); //// перехожу по страницам
 
   return (
     <div className="plaintiffBlock">
       <div className="plaintiffBlock__menu">
-        <div className="logo" onClick={() => navigate("/main")}>
+        <div className="logo" onClick={clickLogo}>
           <img src={logo} alt="logo" />
         </div>
         <p className="title">{decodedToken?.name}</p>
@@ -78,7 +81,7 @@ const MainLayouts = () => {
                   className="imgIcon"
                 />
                 <p>
-                  {page.name}
+                  {page?.name}
                   {page?.count && (
                     <button className="notifNums">{notifCount || 0}</button>
                   )}
@@ -89,7 +92,7 @@ const MainLayouts = () => {
         ))}
         <LogOut />
       </div>
-      <div className={`contents`}>
+      <div className="contents">
         <Outlet />
       </div>
     </div>

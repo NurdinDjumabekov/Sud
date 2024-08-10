@@ -45,20 +45,20 @@ const MainRoutes = () => {
       navigate("/");
     }
     /// селекты
-    dispatch(toTakeCountries({ tokenA }));
-    dispatch(toTakeRegions({ tokenA, id: 36 }));
-    dispatch(toTakeDistrict({ tokenA, id: 12 }));
-    dispatch(toTakeTypeAddress(tokenA));
-    dispatch(toTakeTypeOrganiz(tokenA));
-    dispatch(toTakeTypeCompany(tokenA));
-    dispatch(toTakeTypePosition(tokenA));
-    dispatch(toTakeTypeValuta(tokenA));
-    dispatch(toTakeCurrency(tokenA));
-    dispatch(toTakeHaracterS(tokenA));
-    dispatch(toTakePrimPravo(tokenA));
-    dispatch(toTakeReglament(tokenA));
-    dispatch(toTakeLangArbit(tokenA));
-    dispatch(toTakeArbitrsList({ tokenA, search: "" }));
+    // dispatch(toTakeCountries({ tokenA }));
+    // dispatch(toTakeRegions({ tokenA, id: 36 }));
+    // dispatch(toTakeDistrict({ tokenA, id: 12 }));
+    // dispatch(toTakeTypeAddress(tokenA));
+    // dispatch(toTakeTypeOrganiz(tokenA));
+    // dispatch(toTakeTypeCompany(tokenA));
+    // dispatch(toTakeTypePosition(tokenA));
+    // dispatch(toTakeTypeValuta(tokenA));
+    // dispatch(toTakeCurrency(tokenA));
+    // dispatch(toTakeHaracterS(tokenA));
+    // dispatch(toTakePrimPravo(tokenA));
+    // dispatch(toTakeReglament(tokenA));
+    // dispatch(toTakeLangArbit(tokenA));
+    // dispatch(toTakeArbitrsList({ tokenA, search: "" }));
   }, [location.pathname]);
 
   return (

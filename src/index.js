@@ -6,6 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
+import { propsStoreFN } from "./axiosInstance";
+
+propsStoreFN(store);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
