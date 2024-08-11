@@ -1,25 +1,26 @@
-export const changeActionType = (objs,codeid) => {
+export const changeActionType = (objs, codeid) => {
+  //// подставляю данные роли в обьект иска
   return {
-    codeid: codeid, 
-    plaintiff: objs?.plaintiff.map((obj) => ({
+    codeid: codeid,
+    plaintiff: objs?.plaintiff?.map((obj) => ({
       ...obj,
-      codeid: obj.codeid,
-      action_type: obj.codeid === 0 ? 1 : 2,
+      codeid: obj?.codeid,
+      action_type: obj?.codeid === 0 ? 1 : 2,
     })),
-    plaintiffResper: objs?.plaintiffResper.map((obj) => ({
+    plaintiffResper: objs?.plaintiffResper?.map((obj) => ({
       ...obj,
-      codeid: obj.codeid,
-      action_type: obj.codeid === 0 ? 1 : 2,
+      codeid: obj?.codeid,
+      action_type: obj?.codeid === 0 ? 1 : 2,
     })),
-    defendant: objs?.defendant.map((obj) => ({
+    defendant: objs?.defendant?.map((obj) => ({
       ...obj,
-      codeid: obj.codeid,
-      action_type: obj.codeid === 0 ? 1 : 2,
+      codeid: obj?.codeid,
+      action_type: obj?.codeid === 0 ? 1 : 2,
     })),
-    defendantResper: objs?.defendantResper.map((obj) => ({
+    defendantResper: objs?.defendantResper?.map((obj) => ({
       ...obj,
-      codeid: obj.codeid,
-      action_type: obj.codeid === 0 ? 1 : 2,
+      codeid: obj?.codeid,
+      action_type: obj?.codeid === 0 ? 1 : 2,
     })),
   };
 };

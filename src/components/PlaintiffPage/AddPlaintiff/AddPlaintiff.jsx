@@ -1,7 +1,7 @@
 import React from "react";
 import "./AddPlaintiff.scss";
-import FizFace from "../FizFace/FizFace";
-import UrFace from "../UrFace/UrFace";
+import MainFizFace from "../SaveDataFizFace/MainFizFace/MainFizFace";
+import MainUrFace from "../SaveDataUrFace/MainUrFace/MainUrFace";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTypeFace } from "../../../store/reducers/inputSlice";
 
@@ -9,7 +9,13 @@ const AddPlaintiff = ({ typerole }) => {
   const dispatch = useDispatch();
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { typeFace } = useSelector((state) => state.inputSlice);
-  const { tokenA, typeUser } = useSelector((state) => state.saveDataSlice);
+
+  const changeFace = (num) => dispatch(changeTypeFace(num));
+  /// 1 - физ лицо
+  /// 2 - юр лицо
+
+  const getButtonClass = (faceType) =>
+    typeFace === faceType ? "activeBtnsPlaintiff" : "";
 
   return (
     <>
@@ -18,32 +24,22 @@ const AddPlaintiff = ({ typerole }) => {
           <div className="btnsType">
             <button className="activeBtnsPlaintiff">Физическое лицо</button>
           </div>
-          <FizFace typerole={typerole} />
+          <MainFizFace typerole={typerole} />
         </div>
       ) : (
         <div className="addPlaintiff">
           <div className="btnsType">
-            <button
-              className={typeFace === 1 ? "activeBtnsPlaintiff" : ""}
-              onClick={() => {
-                dispatch(changeTypeFace(1)); // физ лицо
-              }}
-            >
+            <button className={getButtonClass(1)} onClick={() => changeFace(1)}>
               Физическое лицо
             </button>
-            <button
-              className={typeFace === 2 ? "activeBtnsPlaintiff" : ""}
-              onClick={() => {
-                dispatch(changeTypeFace(2)); // юр лицо
-              }}
-            >
+            <button className={getButtonClass(2)} onClick={() => changeFace(2)}>
               Юридическое лицо
             </button>
           </div>
           {typeFace === 1 ? (
-            <FizFace typerole={typerole} />
+            <MainFizFace typerole={typerole} />
           ) : (
-            <UrFace typerole={typerole} />
+            <MainUrFace typerole={typerole} />
           )}
         </div>
       )}

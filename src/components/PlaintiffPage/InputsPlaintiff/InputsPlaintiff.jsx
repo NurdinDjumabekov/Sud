@@ -1,19 +1,25 @@
-import React, { useEffect } from "react";
-import { useRef } from "react";
-import "./InputsPlaintiff.scss";
-import PdfFile from "../../PdfFile/PdfFile";
+///// hooks
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+///// style
+import "./style.scss";
+
+////// components
+import PdfFile from "../../PdfFile/PdfFile";
+
+///// helpers
 import { checkDataIsks } from "../../../helpers/checkDataIsks";
+
+///// fns
 import { sendEveryIsks } from "../../../store/reducers/sendDocsSlice";
 import { clearTodosApplications } from "../../../store/reducers/applicationsSlice";
-import {
-  changeCalculatorState,
-  changeCalculatorType,
-  changeResult,
-  changeSumIsk,
-  clearMainBtnList,
-} from "../../../store/reducers/stateSlice";
+import { changeCalculatorState } from "../../../store/reducers/stateSlice";
+import { changeCalculatorType } from "../../../store/reducers/stateSlice";
+import { changeResult } from "../../../store/reducers/stateSlice";
+import { changeSumIsk } from "../../../store/reducers/stateSlice";
+import { clearMainBtnList } from "../../../store/reducers/stateSlice";
 import { changeAlertText } from "../../../store/reducers/typesSlice";
 
 const InputsPlaintiff = ({ btnList, activeComponent }) => {
@@ -72,6 +78,8 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
 
   const navMain = () => navigate("/main");
 
+  const nonePdf = lookAddPlaintiff === 0 ? "" : "nonePdf";
+
   return (
     <>
       <div className="plaintiffData">
@@ -79,14 +87,12 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
           <React.Fragment key={activeComponent - 1}>
             {btnList?.[activeComponent - 1]?.components}
           </React.Fragment>
-          {lookAddPlaintiff === 0 && (
-            /// if открыты инпуты с физ и юр лицами, то я временно скрываю pdf файл
-            <PdfFile editorRef={editorRef} />
-          )}
+          {/* /// if открыты инпуты с физ и юр лицами, то я временно скрываю pdf файл */}
+          <PdfFile editorRef={editorRef} nonePdf={nonePdf} />
         </div>
       </div>
       {checkEditPlaint ? (
-        <div className="actionBtn">
+        <div className={`actionBtn ${nonePdf}`}>
           <button onClick={saveData}>Сохранить</button>
           <button onClick={navMain} className="btnLink">
             Закрыть
@@ -94,7 +100,7 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
         </div>
       ) : (
         <div className="actionBtn">
-          <button className="btnLink" onClick={() => navigate(-1)}>
+          <button className="btnLink" onClick={navMain}>
             Закрыть
           </button>
         </div>

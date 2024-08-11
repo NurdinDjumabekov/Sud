@@ -27,6 +27,7 @@ import { createIdIsk } from "../../store/reducers/sendDocsSlice";
 
 ////// imgs
 import kerstImg from "../../asstes/icons/krestik.svg";
+import { changeLookAddPlaintiff } from "../../store/reducers/stateSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -50,12 +51,7 @@ const PlaintiffPage = () => {
       components: <DataArrPlaintiff typerole={"ответчика"} />,
     },
     { id: 3, name: "Арбитражный сбор", components: <TargetPlaintiff /> },
-    {
-      id: 4,
-      name: "Описание",
-      bool: false,
-      components: <DescriptionClaim />,
-    },
+    { id: 4, name: "Описание", components: <DescriptionClaim /> },
     { id: 5, name: "Мотивационная часть", components: <MotivationClaim /> },
     { id: 6, name: "Обоснование", components: <Justification /> },
     { id: 7, name: "Финансовый расчет", components: <FinancialResult /> },
@@ -65,10 +61,14 @@ const PlaintiffPage = () => {
     { id: 11, name: "Приложения", components: <ApplicationFiles /> },
   ]);
 
-  const clickBtn = (id) => setActiveComponent(id);
-  //// меняю активную комопненту
+  const clickBtn = (id) => {
+    setActiveComponent(id);
+    //// меняю активную комопненту
+    dispatch(changeLookAddPlaintiff(0));
+    //// закрываю блок, где добавляются личные данные истцов, ответчиков и и х представителей
+  };
 
-  console.log(todosApplications, "todosApplications");
+  // console.log(todosApplications, "todosApplications");
 
   React.useEffect(() => {
     if (params?.id == 0) {
@@ -79,6 +79,8 @@ const PlaintiffPage = () => {
     return () => {
       dispatch(clearTodosApplications()); /// для очистки всех обьектов хранения данных
       dispatch(toTakeTypeTypeDocs());
+      dispatch(changeLookAddPlaintiff(0));
+      //// закрываю блок, где добавляются личные данные истцов, ответчиков и и х представителей
     };
   }, []);
 

@@ -99,6 +99,47 @@ export const toTakeTypeTypeDocs = createAsyncThunk(
   }
 );
 
+/// deletePlaintiff // удаление истоцов и ответчиков(представителей тоже)
+export const deleteEveryIsk = createAsyncThunk(
+  "deleteEveryIsk",
+  async function (props, { dispatch, rejectWithValue }) {
+    const { objData, role, todosApplications } = props;
+    /// action_type - 3 удаление
+    const faceData = { action_type: 3, codeid: objData?.codeid };
+    const data = transformCreateData(props, role, faceData);
+    const url = `${REACT_APP_API_URL}/isks/crud`;
+
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+        return { todosApplications, codeid: +objData?.codeid, role };
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// deleteDocsIsks /// для получения всех загружаемых данных
+export const deleteDocsIsks = createAsyncThunk(
+  "deleteDocsIsks",
+  async function (data, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/del/files`;
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+        return data?.codeid_file;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 ////-------------------////
 
 /// sendDocsIsks /// для отправки документов
@@ -122,67 +163,6 @@ export const sendDocsIsks = createAsyncThunk(
           file_path: response?.data?.file_path,
           code_file: +info.code_file,
           name: info?.name,
-        };
-      } else {
-        throw Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-/// deleteDocsIsks /// для получения всех загружаемых данных
-export const deleteDocsIsks = createAsyncThunk(
-  "deleteDocsIsks",
-  async function (info, { dispatch, rejectWithValue }) {
-    try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/del/files`,
-        headers: {
-          Authorization: `Bearer ${info?.tokenA}`,
-        },
-        data: {
-          codeid_file: info?.file,
-          code_isk: info?.code_isk,
-        },
-      });
-      if (response.status >= 200 && response.status < 300) {
-        return info?.file;
-      } else {
-        throw Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-/// deletePlaintiff // удаление истоцов и ответчиков(представителей тоже)
-export const deleteEveryIsk = createAsyncThunk(
-  "deleteEveryIsk",
-  async function (info, { dispatch, rejectWithValue }) {
-    const faceData = { action_type: 3, codeid: +info?.objData?.codeid };
-    const obj = transformCreateData(info, info?.role, faceData);
-    try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/crud`,
-        data: {
-          action_type: 2,
-          ...obj,
-        },
-        headers: {
-          Authorization: `Bearer ${info?.tokenA}`,
-        },
-      });
-      if (response.status >= 200 && response.status < 300) {
-        console.log(info?.todosApplications);
-        return {
-          todosApplications: info?.todosApplications,
-          codeid: +info?.objData?.codeid,
-          role: info?.role,
         };
       } else {
         throw Error(`Error: ${response.status}`);
@@ -297,10 +277,10 @@ const applicationsSlice = createSlice({
     ///// deleteDocsIsks
     builder.addCase(deleteDocsIsks.fulfilled, (state, action) => {
       state.preloaderDocs = false;
-      state.applicationList = state.applicationList.map((item) => ({
+      state.applicationList = state.applicationList?.map((item) => ({
         ...item,
         arrDocs: item.arrDocs.filter(
-          (doc) => doc.codeid_file !== action.payload
+          (doc) => doc?.codeid_file !== action.payload
         ),
         //// удаляю документ, если у них похожи документы
       }));
@@ -327,6 +307,7 @@ const applicationsSlice = createSlice({
         navigate(`/create_isk/${id}`);
       }
     });
+
     builder.addCase(editIsks.rejected, (state, action) => {
       state.error = action.payload;
       state.preloaderDocs = false;
@@ -350,6 +331,7 @@ const applicationsSlice = createSlice({
   },
   reducers: {
     addTodosPlaintiff: (state, action) => {
+      //// добавляю истца в список (вызывать только после успешного запроса)
       state.todosApplications = {
         ...state.todosApplications,
         plaintiff: [...state.todosApplications.plaintiff, action.payload],
@@ -357,6 +339,7 @@ const applicationsSlice = createSlice({
     },
 
     addTodosPlaintiffResper: (state, action) => {
+      //// добавляю представителя истца в список (вызывать только после успешного запроса)
       state.todosApplications = {
         ...state.todosApplications,
         plaintiffResper: [
@@ -367,6 +350,7 @@ const applicationsSlice = createSlice({
     },
 
     addTodosDefendant: (state, action) => {
+      //// добавляю ответчика в список (вызывать только после успешного запроса)
       state.todosApplications = {
         ...state.todosApplications,
         defendant: [...state.todosApplications.defendant, action.payload],
@@ -374,6 +358,7 @@ const applicationsSlice = createSlice({
     },
 
     addTodosDefendantResper: (state, action) => {
+      //// добавляю представителя ответчика в список (вызывать только после успешного запроса)
       state.todosApplications = {
         ...state.todosApplications,
         defendantResper: [

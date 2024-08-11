@@ -1,63 +1,53 @@
+//// hooks
 import React from "react";
-import "./DocsListInner.scss";
-import {
-  changeADFF,
-  changeADUF,
-  changeTypeFace,
-} from "../../../store/reducers/inputSlice";
-import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
+
+//// style
+import "./style.scss";
+
+///// fns
+import { changeADFF, changeADUF } from "../../../store/reducers/inputSlice";
+import { changeTypeFace } from "../../../store/reducers/inputSlice";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
-import { searchNameSelect } from "../../../helpers/searchNameSelect";
+
+//// igms
 import editImg from "../../../asstes/icons/editBtn.svg";
 import deleteImg from "../../../asstes/icons/deleteBtn.svg";
+
 /// delete
 import { deleteEveryIsk } from "../../../store/reducers/applicationsSlice";
 
 const DocsListInner = ({ arr, arr2, typerole }) => {
   const dispatch = useDispatch();
-  const { tokenA, typeUser, checkEditPlaint } = useSelector(
-    (state) => state.saveDataSlice
-  );
+  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { selCountries } = useSelector((state) => state.selectsSlice);
 
   const changeAddPlaintiff = (objData, type) => {
     if (type === "plaint" && typerole === "истца") {
       dispatch(changeLookAddPlaintiff(1));
-      dispatch(changeTypeFace(objData.typeFace));
+      dispatch(changeTypeFace(objData?.typeFace));
     } else if (type === "represen" && typerole === "истца") {
       dispatch(changeLookAddPlaintiff(2));
     } else if (type === "plaint" && typerole === "ответчика") {
       dispatch(changeLookAddPlaintiff(1));
-      dispatch(changeTypeFace(objData.typeFace));
+      dispatch(changeTypeFace(objData?.typeFace));
     } else if (type === "represen" && typerole === "ответчика") {
       dispatch(changeLookAddPlaintiff(2));
     }
-    dispatch(
-      changeADUF({
-        ...objData,
-        action_type: 2,
-      })
-    );
-    dispatch(
-      changeADFF({
-        ...objData,
-        action_type: 2,
-      })
-    );
+
+    if (objData?.typeFace === 1) {
+      /// подставляю данные только физ лица во временный state changeADUF
+      dispatch(changeADFF({ ...objData, action_type: 2 }));
+    } else if (objData?.typeFace === 2) {
+      /// подставляю данные только юр лица во временный state changeADUF
+      dispatch(changeADUF({ ...objData, action_type: 2 }));
+    }
+    /// action_type 2 - редактирование
   };
 
   const sortSend = (objData, type) => {
-    dispatch(
-      deleteEveryIsk({
-        objData,
-        tokenA,
-        role: type,
-        todosApplications,
-        typeFace: 1,
-      })
-    );
+    const obj = { objData, role: type, todosApplications, typeFace: 1 };
+    dispatch(deleteEveryIsk(obj));
   };
 
   const deleteIsks = (objData, type) => {
@@ -76,8 +66,12 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
     }
   };
 
-  // console.log(arr, "arr");
-  const decodedToken = jwtDecode(tokenA);
+  const objFace = {
+    0: "не указано",
+    1: "Физическое лицо",
+    2: "Юридическое лицо",
+  };
+
   return (
     <div className="listDocs">
       <div>
@@ -85,26 +79,8 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
           <div key={i.codeid} className="everyCard">
             <div className="everyCard__mainData">
               <div className="everyCard__data">
-                <h5>{i.name ? i.name : "не указано"}</h5>
-                {i.typeFace === "" ? (
-                  " не указано"
-                ) : (
-                  <p>
-                    {i?.typeFace === 1
-                      ? " Физическое лицо"
-                      : " Юридическое лицо"}
-                  </p>
-                )}
-                <p>
-                  {i.country && i.city ? (
-                    <>
-                      {searchNameSelect(selCountries, +i.country)},{i.city}
-                      {/* Кыргызстан, Бишкек */}
-                    </>
-                  ) : (
-                    ": не указан"
-                  )}
-                </p>
+                <h5>{i?.name ? i.name : "не указано"}</h5>
+                <p>{objFace?.[i?.typeFace] || "не указано"}</p>
               </div>
             </div>
             <div className="everyCard__btns">
@@ -129,34 +105,13 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
           </div>
         ))}
       </div>
-      <div
-        style={{
-          width: "auto",
-        }}
-      >
+      <div>
         {arr2?.map((i) => (
           <div key={i.codeid} className="everyCard">
             <div className="everyCard__mainData">
               <div className="everyCard__data">
                 <h5>{i.name ? i.name : "не указано"}</h5>
-                {i.typeFace === "" ? (
-                  " не указано"
-                ) : (
-                  <p>
-                    {i?.typeFace === 1
-                      ? " Физическое лицо"
-                      : " Юридическое лицо"}
-                  </p>
-                )}
-                <p>
-                  {i.country && i.city ? (
-                    <>
-                      {i.country},{i.city}
-                    </>
-                  ) : (
-                    ": не указан"
-                  )}
-                </p>
+                <p>{objFace?.[i?.typeFace] || "не указано"}</p>
               </div>
             </div>
             <div className="everyCard__btns">

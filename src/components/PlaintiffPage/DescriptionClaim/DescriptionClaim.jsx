@@ -10,9 +10,7 @@ const DescriptionClaim = () => {
   const dispatch = useDispatch();
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selCurrency } = useSelector((state) => state.selectsSlice);
-  const { typeUser, checkEditPlaint } = useSelector(
-    (state) => state.saveDataSlice
-  );
+  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -116,7 +114,7 @@ const DescriptionClaim = () => {
               id="description"
               name="description"
               onChange={changeInput}
-              value={todosApplications.description}
+              value={todosApplications?.description}
               style={{ height: "28vh" }}
             ></textarea>
           </div>

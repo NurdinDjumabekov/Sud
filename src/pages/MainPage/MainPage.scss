@@ -2,15 +2,16 @@ $paddingTableInner: 2px 10px;
 
 .mainTables {
   height: 95vh;
+  overflow-y: scroll;
   padding: 10px 0px 5px;
   width: 100%;
   border-radius: 10px;
   background: #fff;
   box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1),
     0 3px 6px 0 rgba(0, 0, 0, 0.07);
-
   margin: 30px 0 0 0;
   //// checkcheck
+
   .statusGreen {
     color: #16bb16 !important;
     padding: 0px 0px 0px 10px;
@@ -207,6 +208,37 @@ $paddingTableInner: 2px 10px;
     /* Handle */
     ::-webkit-scrollbar-thumb {
       background: rgb(234, 234, 234);
+    }
+  }
+
+  &::-webkit-scrollbar {
+    min-width: 8px;
+    max-width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    min-width: 5px;
+    max-width: 5px;
+    &:hover {
+      background-color: #b1acac;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    cursor: pointer;
+    max-height: 50px;
+    min-height: 50px;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-track {
+      background-color: #f0eaea;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(128, 128, 128, 0.202);
+      border-radius: 5px;
     }
   }
 }

@@ -3,6 +3,11 @@
   width: 50% !important;
   margin: 0 !important;
 
+  &::-webkit-scrollbar {
+    min-width: 0px !important;
+    max-width: 0px !important;
+  }
+
   .main_tabla_isk {
     .table_isk_td:nth-child(1),
     .table_isk_th:nth-child(1) {
@@ -13,10 +18,6 @@
       width: 50% !important;
     }
   }
-}
-
-.dataPlaintiff_more {
-  width: 90% !important;
 }
 
 .emptyData {

@@ -309,19 +309,3 @@ const Calculator = () => {
 };
 
 export default Calculator;
-
-// <div className="calculator__result">
-//   <div>
-//     <div>
-//       <h5>Обычный регламент, единоличный арбитр (-30%)</h5>
-//     </div>
-//   </div>
-//   <div className="tablesresult">
-//     <div>
-//       <p>Регистрационный (c НДС 12% и налогом с продаж 2%) $0 </p>
-//     </div>
-//     <div>
-//       <p>Арбитражный (c НДС 12% и налогом с продаж 2%)</p>
-//     </div>
-//   </div>
-// </div>

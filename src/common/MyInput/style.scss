@@ -1,13 +1,13 @@
-.date__inner {
-  display: flex;
-  flex-direction: column;
-  p {
+.everyInput {
+  width: 100%;
+
+  > p {
     font-weight: 600;
-    font-family: "Montserrat", sans-serif;
     color: #5e6e82;
     font-size: 18px;
     padding: 0 0 10px 0;
   }
+
   input {
     width: 100%;
     height: 40px;
@@ -17,10 +17,13 @@
     border: 1px solid #d8e2ef;
     backdrop-filter: blur(15px);
     color: #344050;
+    min-width: 300px;
   }
+
   input::placeholder {
     color: #a9afb8;
   }
+
   input:focus {
     border: 1px solid #d8e2ef;
     box-shadow: 0 1px 5px 0 rgba(65, 69, 88, 0.1),

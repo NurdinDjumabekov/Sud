@@ -1,0 +1,41 @@
+.addresFizFace {
+  display: block !important;
+
+  h4 {
+    position: relative;
+    font-weight: 600;
+    color: #5e6e82;
+    font-size: 22px;
+    padding: 20px 15px;
+    background: #fff;
+    margin: 0 0 20px 0;
+  }
+
+  .mainAddres {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0 0 30px 0;
+    padding: 0 15px;
+
+    .everyInput {
+      width: 300px;
+    }
+  }
+
+  .mainAddresMore {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0 0 30px 0;
+    padding: 0 15px;
+
+    .everyInput {
+      width: 300px;
+    }
+  }
+}

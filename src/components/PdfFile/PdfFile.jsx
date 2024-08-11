@@ -1,41 +1,77 @@
+////// hooks
 import React, { useState } from "react";
-import "./PdfFile.scss";
-import { Editor } from "@tinymce/tinymce-react";
 import { useSelector } from "react-redux";
+
+////// style
+import "./PdfFile.scss";
+
+////// components
+import { Editor } from "@tinymce/tinymce-react";
+
+////// helpers
 import { searchIdCurrency } from "../../helpers/searchIdCurrency";
 import { searchNameSelect } from "../../helpers/searchNameSelect";
 import { addFilesList } from "../../helpers/addFilesList";
+import { todayDate } from "../../helpers/todayDate";
 
-const PdfFile = ({ editorRef }) => {
-  const { selCurrency, selCountries, selRegions, selDistrict } = useSelector(
-    (state) => state.selectsSlice
-  );
-  const [date, setDate] = useState("");
-  const [data, setData] = useState("");
+const PdfFile = ({ editorRef, nonePdf }) => {
+  const { selCurrency } = useSelector((state) => state.selectsSlice);
+  const { selCountries } = useSelector((state) => state.selectsSlice);
+  const { selRegions } = useSelector((state) => state.selectsSlice);
+  const { selDistrict } = useSelector((state) => state.selectsSlice);
 
   const { todosApplications, applicationList } = useSelector(
     (state) => state.applicationsSlice
   );
 
+  const [data, setData] = useState("");
+
   const transformData = (arr, type) => {
     let allText = `<div style="font-weight: 500; font-size: 16px;">`;
     for (const text of arr) {
+      console.log(
+        searchNameSelect(selRegions, text?.region),
+        text?.region,
+        "region"
+      );
+
       const titleText = `<div style="display:inline-block;margin: 15px 5px 0px 0px;">${mainText(
         type
       )}${text.name}</div>`;
-      const phoneText = `<div style="display:flex; align-items:center"><span>Телефон: </span> ${text.numPhone}</div>`;
-      const adresText = `<div style="display:flex; align-items:center"><span>Адрес: </span> ${searchNameSelect(
+      const phoneText = text?.numPhone
+        ? `<div style="display:flex; align-items:center"><span>Телефон: </span> ${text?.numPhone}</div>`
+        : "";
+
+      const addresText = `<div style="display:flex; align-items:center"><span>Адрес: </span> ${searchNameSelect(
         selCountries,
-        text.country
-      )}, ${searchNameSelect(selRegions, text.region)}, ${searchNameSelect(
+        text?.country
+      )}, ${searchNameSelect(selRegions, text?.region)}, ${searchNameSelect(
         selDistrict,
-        text.district
-      )}, ${text.city}, ${text.street}, ${text.numObj}</div>`;
-      const email = `<div style="display:flex; align-items:center"><span>Почта: </span> ${text.email}</div>`;
-      const inn = `<div style="display:flex; align-items:center"><span>Инн: </span> ${text.inn}</div>`;
-      allText += titleText + phoneText + adresText + email + inn;
+        text?.district
+      )}${text?.city ? `, ${text?.city}` : ""}${
+        text?.street ? `, ул. ${text?.street}` : ""
+      }${text?.numObj ? `, дом ${text?.numObj}` : ""}${
+        text?.apartament ? `, кв. ${text?.apartament}` : ""
+      }</div>`;
+
+      const email = text?.email
+        ? `<div style="display:flex; align-items:center"><span>Почта: </span> ${text?.email}</div>`
+        : "";
+
+      const inn = text?.inn
+        ? `<div style="display:flex; align-items:center"><span>Инн: </span> ${text?.inn}</div>`
+        : "";
+
+      allText += titleText + phoneText + addresText + email + inn;
     }
     allText += "</div>";
+
+    const textDefault = `<div style="font-weight: 500; font-size: 16px;"></div>`;
+
+    if (allText === textDefault) {
+      // if данные не заполнены, то я возвращаю пустую строку без каких-то отступов
+      return `<div style="display: none"></div>`;
+    }
     return allText;
   };
 
@@ -71,29 +107,15 @@ const PdfFile = ({ editorRef }) => {
       </p>`
       )
       .join("");
-
     return `<div style="font-weight: 500; font-size: 16px;">${content}</div>`;
   };
-
-  React.useEffect(() => {
-    const currentDateObject = new Date();
-    const day = currentDateObject.getDate();
-    const month = currentDateObject.getMonth() + 1; // Месяцы начинаются с 0
-    const year = currentDateObject.getFullYear();
-
-    const formattedDate = `${day < 10 ? "0" : ""}${day}.${
-      month < 10 ? "0" : ""
-    }${month}.${year}г.`;
-
-    setDate(formattedDate);
-  }, []);
 
   ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 89 - 131 строки
   const initialContent = `
     <div>
       <div>
-       <div style="margin: 40px 0px 20px 0px; font-size: 16px; width: 100%; position: relative;">
-        <p style="margin: 0px 0px 0px 10px; font-size: 16px;">от ${date}</p>
+       <div style="font-size: 16px; width: 100%; position: relative;">
+        <p style="margin: 0px 0px 0px 10px; font-size: 16px;">от ${todayDate()} года</p>
         <div style="
             width: 280px;
             padding: 0px 10px 0px 0px;
@@ -158,7 +180,7 @@ const PdfFile = ({ editorRef }) => {
         ${
           +todosApplications?.non_proprietary === 0
             ? `<div>
-                <div style="margin: 0px; position: relative; width:100%; height: 60px; padding:20px 0px "> 
+                <div style="margin: 0px; position: relative; width:100%; height: 60px; padding: 10px 0px "> 
                   <p style="
                     color: transparent";
                     line-height: 25px;
@@ -259,8 +281,6 @@ const PdfFile = ({ editorRef }) => {
     </div>
   `;
 
-  // console.log(todosApplications, "todosApplications");
-
   React.useEffect(() => {
     if (todosApplications.content === "") {
       setData(initialContent);
@@ -278,8 +298,7 @@ const PdfFile = ({ editorRef }) => {
   }, [applicationList]);
 
   return (
-    // <div className={`${"pdfFile"} ${isCheckRole && "pdfNone"}`}>
-    <div className={`${"pdfFile"}`}>
+    <div className={`pdfFile ${nonePdf}`}>
       <Editor
         apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
         initialValue={data || todosApplications.content}

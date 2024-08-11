@@ -1,5 +1,5 @@
-import React from 'react';
-import './Requisites.scss';
+import React from "react";
+import "./Requisites.scss";
 
 const Requisites = () => {
   return (

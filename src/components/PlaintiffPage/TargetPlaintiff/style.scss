@@ -3,16 +3,20 @@
 
   .targetPlaintiff {
     .twoInputs {
-      .selectBlock {
-        width: 100% !important;
+      > div {
+        width: 50%;
+        .selectBlock {
+          width: 100% !important;
+        }
       }
     }
     .choiceBtnsTarget {
+      padding: 0 15px;
+
       &__inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        // height: 40px;
         background: #f9fafd;
         border-radius: 5px;
         border: 2px solid #edf2f9;
@@ -33,6 +37,7 @@
           margin: 0 5px;
           cursor: pointer;
         }
+
         .activeBtnsPlaintiff {
           color: #4d5969;
           box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
@@ -43,7 +48,6 @@
           font-weight: 600;
           font-family: "Montserrat", sans-serif;
           background: #fff;
-          // z-index: 0;
         }
       }
     }

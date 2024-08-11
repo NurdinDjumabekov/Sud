@@ -1,7 +1,7 @@
 .descriptionClaim {
   padding: 0px 10px 10px 10px;
   border-radius: 8px;
-  
+
   form {
     > div {
       margin: 5px 0px;
@@ -11,29 +11,30 @@
         margin: 20px 0 10px 0;
         cursor: pointer;
         font-weight: 500;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         color: #5e6e82;
         font-size: 18px;
       }
+
       textarea {
         width: 100%;
         display: block;
         height: 380px;
         height: 31vh;
-        // background: red;
         border-radius: 8px;
         border: none;
         padding: 5px 10px;
         resize: none;
         box-shadow: 0px 0px 2px 0px rgba(34, 60, 80, 0.5);
-      }
-      textarea::placeholder{
-        color: #a9afb8;
-      }
-      textarea:focus {
+        &::placeholder {
+          color: #a9afb8;
+        }
+        &:focus {
           border: 1px solid #d8e2ef;
-          box-shadow: 0 1px 5px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);;
+          box-shadow: 0 1px 5px 0 rgba(65, 69, 88, 0.1),
+            0 3px 6px 0 rgba(0, 0, 0, 0.07);
           outline: none;
+        }
       }
     }
     .sumIsk {
@@ -41,6 +42,7 @@
       align-items: flex-end;
       gap: 30px;
       margin: 20px 0 0 0;
+
       > div {
         > p {
           font-weight: 600;
@@ -50,6 +52,13 @@
           padding: 0 0 10px 0;
         }
       }
+
+      @media screen and (max-width: 2190px) {
+        .selectBlock {
+          width: 200px;
+        }
+      }
+
       input {
         width: 100%;
         height: 40px;
@@ -61,21 +70,21 @@
         color: #344050;
         min-width: 300px;
       }
-     .blockChoice {
-      width: 240px;
-     
-      label {
-        font-weight: 600;
-        font-family: "Montserrat", sans-serif;
-        color: #5e6e82;
-        font-size: 18px;
-        padding: 0;
+      .blockChoice {
         width: 240px;
+
+        label {
+          font-weight: 600;
+          font-family: "Montserrat", sans-serif;
+          color: #5e6e82;
+          font-size: 18px;
+          padding: 0;
+          width: 240px;
+        }
+        .choiceNoneData__inner {
+          width: 185px;
+        }
       }
-      .choiceNoneData__inner {
-        width: 185px;
-      }
-     }
     }
   }
 }

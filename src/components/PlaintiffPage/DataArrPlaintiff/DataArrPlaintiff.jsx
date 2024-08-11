@@ -1,14 +1,18 @@
 import React from "react";
-import "./DataArrPlaintiff.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
+
+////// style
+import "./style.scss";
+
+////// componnets
 import FillingPlaintiff from "../FillingPlaintiff/FillingPlaintiff";
 import DocsList from "../DocsList/DocsList";
-import {
-  changeADFF,
-  changeADUF,
-  changeTypeFace,
-} from "../../../store/reducers/inputSlice";
+
+////// fns
+import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
+import { changeADFF } from "../../../store/reducers/inputSlice";
+import { changeADUF } from "../../../store/reducers/inputSlice";
+import { changeTypeFace } from "../../../store/reducers/inputSlice";
 
 const DataArrPlaintiff = ({ typerole }) => {
   const dispatch = useDispatch();
@@ -18,6 +22,7 @@ const DataArrPlaintiff = ({ typerole }) => {
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
   const approvId = () => {
+    //// подствляю codeid для юр и физ лиц
     dispatch(changeADFF({ ...adff, code_isk: todosApplications?.codeid }));
     dispatch(changeADUF({ ...aduf, code_isk: todosApplications?.codeid }));
   };
@@ -44,8 +49,8 @@ const DataArrPlaintiff = ({ typerole }) => {
 
   return (
     <>
-      {lookAddPlaintiff == 0 && (
-        <div className={`${"mainTables"} ${"dataPlaintiff"} `}>
+      {lookAddPlaintiff === 0 ? (
+        <div className="mainTables dataPlaintiff">
           <ul className="btnsType add">
             {checkEditPlaint ? (
               <>
@@ -57,21 +62,20 @@ const DataArrPlaintiff = ({ typerole }) => {
             ) : (
               <>
                 <button>
-                  {typerole === "истца" ? "Данные истца" : "Данные ответчика"}
+                  Данные {typerole === "истца" ? "истца" : "ответчика"}
                 </button>
                 <button>
-                  {typerole === "истца"
-                    ? "Данные представителя истца"
-                    : "Данные представителя ответчика"}
+                  Данные представителя{" "}
+                  {typerole === "истца" ? "истца" : "ответчика"}
                 </button>
               </>
             )}
           </ul>
           <DocsList typerole={typerole} />
         </div>
+      ) : (
+        <FillingPlaintiff typerole={typerole} />
       )}
-      {lookAddPlaintiff === 1 && <FillingPlaintiff typerole={typerole} />}
-      {lookAddPlaintiff === 2 && <FillingPlaintiff typerole={typerole} />}
     </>
   );
 };

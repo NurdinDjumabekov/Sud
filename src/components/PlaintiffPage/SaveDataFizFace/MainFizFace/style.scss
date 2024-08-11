@@ -4,8 +4,8 @@
   padding: 0px 0px 20px 0px;
   border-radius: 8px !important;
   width: 100%;
+
   .addPlaintiffFiz {
-    // background: red;
     width: 100%;
   }
 
@@ -14,37 +14,30 @@
     background: #fff;
     border-radius: 8px 8px 0 0 !important;
     font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     color: #5e6e82;
     font-size: 22px;
   }
-  h4 {
-    position: relative;
-    height: 80px;
-    > p {
-      position: absolute;
-      top: 0;
-      left: -20px;
-      padding: 15px 0px 15px 20px !important;
-      background: #fff;
-      min-width: 104%;
-      // border-radius: 8px 8px 0 0 !important;
-      font-weight: 600;
-      font-family: 'Montserrat', sans-serif;
-      color: #5e6e82;
-      font-size: 22px !important;
-    }
-  }
+
   form {
     margin: 20px 0 0 0;
-    padding: 5px 15px 20px;
+    padding: 5px 0px 20px;
+
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 10px 0;
+    }
+
     p {
       font-weight: 600;
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Montserrat", sans-serif;
       color: #5e6e82;
       font-size: 18px;
       padding: 0 0 10px 0;
     }
+
     input {
       width: 100%;
       height: 40px;
@@ -55,18 +48,18 @@
       backdrop-filter: blur(15px);
       color: #344050;
       min-width: 300px;
-      
+
+      &::placeholder {
+        color: #a9afb8;
+      }
+      &:focus {
+        border: 1px solid #d8e2ef;
+        box-shadow: 0 1px 5px 0 rgba(65, 69, 88, 0.1),
+          0 3px 6px 0 rgba(0, 0, 0, 0.07);
+        outline: none;
+      }
     }
-    input::placeholder{
-      color: #a9afb8;
-    }
-    input:focus {
-      border: 1px solid #d8e2ef;
-      box-shadow: 0 1px 5px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);;
-      // border: none !important;
-      // box-shadow: none !important;
-      outline: none;
-    }
+
     .date {
       width: 100%;
       margin: 30px 0 10px 0;
@@ -74,52 +67,29 @@
       justify-content: space-between;
       gap: 40px;
     }
-    > div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0 0 10px 0;
-    }
-    .inputDate {
-      width: 225px;
-      border-radius: 5px;
-      padding: 5;
-      // border: 1px solid #000;
-    }
-    .checkBoxBlock {
-      margin: 10px 0px;
-    }
-   
+
     .twoInputs {
-      padding: 0 0 30px 0;
       gap: 15px;
-      > div {
-        width: 100%;
-      }
+      padding: 0px 15px 30px;
     }
+
     .sixInputs {
       width: 100%;
       align-items: center;
       gap: 120px;
-      // gap: 15px;
+      padding: 0 15px;
+      @media screen and (max-width: 2090px) {
+        gap: 30px;
+        justify-content: space-between;
+      }
     }
-    .threeInputs {
-      padding: 0 0 30px 0;
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      align-items: end;
-      width: 100%;
 
-    }
-    .moreStyles {
-      gap: 8px;
-    }
     .noneDataInputs {
       background: transparent;
       width: 300px;
       justify-self: 25px;
     }
+
     .disableInput {
       background: #f9fafd !important;
     }
@@ -128,6 +98,7 @@
 .btnsSave {
   justify-content: center !important;
   gap: 50px;
+
   .saveBtn {
     display: block;
     border-radius: 8px;
@@ -137,18 +108,19 @@
     margin: 20px 0 0px;
     box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.5);
     font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     color: #fff;
     font-size: 18px;
     padding: 10px 40px;
     background: transparent !important;
     background: green !important;
-
   }
+
   span {
     cursor: pointer;
     text-align: center;
   }
+
   .moreBtn {
     background: transparent !important;
     color: #344050;

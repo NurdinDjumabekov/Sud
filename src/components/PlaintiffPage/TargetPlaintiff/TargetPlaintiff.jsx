@@ -1,72 +1,54 @@
+/////// hooks
 import React from "react";
-import Selects from "../../Selects/Selects";
-import "./TargetPlaintiff.scss";
-import Requisites from "../Requisites/Requisites";
-import Calculator from "../../Calculator/Calculator";
 import { useDispatch, useSelector } from "react-redux";
-import DataInput from "../DataInput/DataInput";
+
+/////// style
+import "./style.scss";
+
+////// fns
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
 import { changeCalculatorType } from "../../../store/reducers/stateSlice";
 
+///// components
+import Selects from "../../Selects/Selects";
+import Requisites from "../Requisites/Requisites";
+import Calculator from "../../Calculator/Calculator";
+import DataInput from "../DataInput/DataInput";
+import MyInput from "../../../common/MyInput/MyInput";
+
 const TargetPlaintiff = () => {
   const dispatch = useDispatch();
+
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { selCurrency } = useSelector((state) => state.selectsSlice);
   const { calculatorType } = useSelector((state) => state.stateSlice);
-  const { typeUser, checkEditPlaint } = useSelector(
-    (state) => state.saveDataSlice
-  );
 
   const changeInput = (e) => {
     e.preventDefault();
-    const value = e.target.value;
-    if (value.includes("'") || value.includes("`")) {
-      return;
-    }
-    const filteredValue = value.replace(/[^0-9]/g, "");
-    dispatch(
-      changeTodosApplications({
-        ...todosApplications,
-        [e.target.name]: filteredValue,
-      })
-    );
+    const { name, value } = e.target;
+    if (value.includes("'") || value.includes("`")) return;
+
+    const obj = { ...todosApplications, [name]: value.replace(/\D/g, "") };
+    dispatch(changeTodosApplications(obj));
   };
+
+  const lookCalculator = () => dispatch(changeCalculatorType(true));
+  const lookRequisit = () => dispatch(changeCalculatorType(false));
 
   return (
     <div className="plaintiFilling__container">
       <div className="addPlaintiff">
         <form className="targetPlaintiff">
-          {/* <div className="twoInputs">
-            <div>
-              <p>Цена иска</p>
-              <input
-                type="text"
-                placeholder="Цена иска"
-                name="summ"
-                onChange={changeInput}
-                value={todosApplications.summ}
-                required
-              />
-            </div>
-            <Selects
-              arr={selCurrency}
-              initText={"Валюта иска"}
-              keys={{ typeKey: todosApplications.summ_curr, type: "summ_curr" }}
-              type="todos"
-            />
-          </div> */}
           <div className="twoInputs">
-            <div>
-              <p>Арбитражный сбор</p>
-              <input
-                type="text"
-                name="arbitr_fee"
-                placeholder="Арбитр. сбор"
-                onChange={changeInput}
-                value={todosApplications.arbitr_fee}
-                required
-              />
-            </div>
+            <MyInput
+              changeInput={changeInput}
+              title={"Арбитражный сбор"}
+              value={todosApplications?.arbitr_fee}
+              name={"arbitr_fee"}
+              placeholder={"Арбитр. сбор"}
+              required={true}
+            />
+
             <Selects
               arr={selCurrency}
               initText={"Валюта арбитражного сбора"}
@@ -78,17 +60,15 @@ const TargetPlaintiff = () => {
             />
           </div>
           <div className="twoInputs">
-            <div>
-              <p>Регистрационные сборы</p>
-              <input
-                type="text"
-                placeholder="Рег. сбор"
-                name="registr_fee"
-                onChange={changeInput}
-                value={todosApplications.registr_fee}
-                required
-              />
-            </div>
+            <MyInput
+              changeInput={changeInput}
+              title={"Регистрационные сборы"}
+              value={todosApplications?.registr_fee}
+              name={"registr_fee"}
+              placeholder={"Рег. сбор"}
+              required={true}
+            />
+
             <Selects
               arr={selCurrency}
               initText={"Валюта регистрационного сбора"}
@@ -100,17 +80,15 @@ const TargetPlaintiff = () => {
             />
           </div>
           <div className="twoInputs">
-            <div>
-              <p>Сумма доплаты</p>
-              <input
-                type="text"
-                placeholder="Cумма доплаты"
-                name="doplata_summ"
-                onChange={changeInput}
-                value={todosApplications.doplata_summ}
-                required
-              />
-            </div>
+            <MyInput
+              changeInput={changeInput}
+              title={"Cумма доплаты"}
+              value={todosApplications?.doplata_summ}
+              name={"doplata_summ"}
+              placeholder={"Cумма доплаты"}
+              required={true}
+            />
+
             <Selects
               arr={selCurrency}
               initText={"Валюта надбавки"}
@@ -130,6 +108,7 @@ const TargetPlaintiff = () => {
                 typeChange: "todos",
               }}
             />
+
             <DataInput
               props={{
                 title: "Крайний срок доплаты арбитражного сбора *",
@@ -143,13 +122,13 @@ const TargetPlaintiff = () => {
             <div className="choiceBtnsTarget__inner">
               <span
                 className={calculatorType ? "" : "activeBtnsPlaintiff"}
-                onClick={() => dispatch(changeCalculatorType(false))}
+                onClick={lookRequisit}
               >
                 Реквизиты
               </span>
               <span
                 className={calculatorType ? "activeBtnsPlaintiff" : ""}
-                onClick={() => dispatch(changeCalculatorType(true))}
+                onClick={lookCalculator}
               >
                 Калькулятор
               </span>

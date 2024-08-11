@@ -44,7 +44,7 @@ const ApplicationFiles = () => {
     }
 
     // Отправка каждого файла на сервер отдельно
-    newFiles.forEach((file) => {
+    newFiles?.forEach((file) => {
       // console.log(file, "file");
       if (file) {
         const fileData = new FormData();
@@ -66,7 +66,7 @@ const ApplicationFiles = () => {
 
   const deleteDocs = (file) => {
     const { codeid } = todosApplications;
-    const send = { file: file?.codeid_file, tokenA, code_isk: codeid };
+    const send = { codeid_file: file?.codeid_file, code_isk: codeid };
     dispatch(deleteDocsIsks(send));
   };
 
@@ -87,7 +87,7 @@ const ApplicationFiles = () => {
                   onChange={(e) => handleFileChange(docs?.codeid, e)}
                   style={{ display: "none" }}
                   multiple
-                  disabled={editFileDocs ? false : true}
+                  // disabled={editFileDocs ? false : true}
                 />
                 <button>Добавить</button>
                 <span>
