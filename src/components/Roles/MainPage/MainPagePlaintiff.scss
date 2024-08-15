@@ -22,7 +22,7 @@ $paddingTableInner: 2px 10px;
         color: #4d5969;
         font-size: 16px;
         font-weight: 600;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         background: #f9fafd;
         margin: 0 20px;
         height: 40px;
@@ -36,7 +36,6 @@ $paddingTableInner: 2px 10px;
             padding: 0 8px;
           }
         }
-       
       }
       .activeBtnsPlaintiff {
         color: #4d5969;
@@ -48,7 +47,7 @@ $paddingTableInner: 2px 10px;
         height: 37px;
         font-size: 16px;
         font-weight: 600;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         background: #fff;
         @media screen and (max-width: 2400px) {
           margin: 0 3px;
@@ -66,15 +65,15 @@ $paddingTableInner: 2px 10px;
       }
     }
   }
-  
+
   .statusGreen {
     color: #16bb16 !important;
-    padding: 0px 0px 0px 10px
+    padding: 0px 0px 0px 10px;
   }
 
-   .statusRed {
+  .statusRed {
     color: red !important;
-    padding: 0px 0px 0px 10px
+    padding: 0px 0px 0px 10px;
   }
 
   .main_tabla_isk {
@@ -153,7 +152,7 @@ $paddingTableInner: 2px 10px;
       text-align: center;
       border: 1px solid rgb(237, 242, 249);
       padding: 8px;
-      
+
       .innerTable {
         display: flex;
         flex-direction: column;
@@ -162,35 +161,35 @@ $paddingTableInner: 2px 10px;
           margin: 0 0 5px 0;
         }
       }
-      
-      .statusIsks {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        > button {
-          color: #4d5969;
-          font-size: 12px;
-          font-weight: 600;
-          font-family: 'Montserrat', sans-serif;
-          transition: 0.2s;
-          padding: 5px 13px;
-          height: auto !important;
-          margin: 0 !important;
-          border-radius: 3px;
-          background: rgb(237, 242, 249);
-          // width: 100%;
-          > img {
-            width: 15px;
-            height: 25px;
-          }
-        }
-        > button:hover {
-          background: rgba(215, 219, 224, 0.76);
-        }
-      }
+
+      // .statusIsks {
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
+      //   gap: 5px;
+      //   > button {
+      //     color: #4d5969;
+      //     font-size: 12px;
+      //     font-weight: 600;
+      //     font-family: 'Montserrat', sans-serif;
+      //     transition: 0.2s;
+      //     padding: 5px 13px;
+      //     height: auto !important;
+      //     margin: 0 !important;
+      //     border-radius: 3px;
+      //     background: rgb(237, 242, 249);
+      //     // width: 100%;
+      //     > img {
+      //       width: 15px;
+      //       height: 25px;
+      //     }
+      //   }
+      //   > button:hover {
+      //     background: rgba(215, 219, 224, 0.76);
+      //   }
+      // }
     }
-   
+
     .table_isk th {
       font-size: 13px;
       font-weight: 500;
@@ -266,7 +265,6 @@ $paddingTableInner: 2px 10px;
       color: #344050;
     }
 
-    
     .table_isk_td:nth-child(1),
     .table_isk_th:nth-child(1) {
       white-space: nowrap;
@@ -307,7 +305,6 @@ $paddingTableInner: 2px 10px;
     .table_isk_th:nth-child(7) {
       max-width: 170px;
       width: 170px;
-      
     }
 
     .table_isk_td:nth-child(8),
@@ -328,7 +325,6 @@ $paddingTableInner: 2px 10px;
     .table_isk_td:nth-child(11),
     .table_isk_th:nth-child(11) {
       width: 150px;
-
     }
 
     .table_isk_td:nth-child(12),
@@ -351,14 +347,12 @@ $paddingTableInner: 2px 10px;
           color: #4d5969;
           font-size: 14px;
           font-weight: 500;
-          font-family: 'Montserrat', sans-serif;
+          font-family: "Montserrat", sans-serif;
           background: #f9fafd;
           background: transparent;
         }
       }
-      
     }
-    
 
     .table_isk_td {
       font-weight: 400;
@@ -371,7 +365,7 @@ $paddingTableInner: 2px 10px;
         width: 100%;
         text-align: left;
         font-weight: 500;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         font-size: 15px !important;
       }
       .docsBlock {

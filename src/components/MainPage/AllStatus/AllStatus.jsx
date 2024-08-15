@@ -1,16 +1,38 @@
+////// hooks
 import React from "react";
-import "./style.scss";
 import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
+
+////// style
+import "./style.scss";
+
+///// components
+import ActionsSimpleSecr from "../ActionsUsers/ActionsSimpleSecr/ActionsSS";
 
 const AllStatus = ({ row }) => {
-  const { typeUser } = useSelector((state) => state.saveDataSlice);
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { type_user } = jwtDecode(tokenA);
 
+  const objType = {
+    1: <ActionsSimpleSecr row={row} />, /// Секретарь
+    // 2: <DefaultPlaintiff row={row} />, /// Ответственный секретарь
+    // 3: <DefaultPlaintiff row={row} />, /// Председатель
+    4: <DefaultPlaintiff row={row} />, /// Истец
+  };
+
+  return <td className="allStatus">{objType?.[type_user]}</td>;
+};
+
+export default AllStatus;
+
+///// default для истца
+export const DefaultPlaintiff = ({ row }) => {
   return (
-    <td className="allStatus">
+    <>
       {row?.status == 1 ? (
         <>
-          {row?.isk_status == 6 && typeUser == 4 ? (
-            <span className="noActivePlaint">Отпавлено на доработку</span>
+          {row?.isk_status == 6 ? (
+            <span className="noActivePlaint">Отправлено на доработку</span>
           ) : (
             <span className="activePlaint">Активен</span>
           )}
@@ -18,8 +40,6 @@ const AllStatus = ({ row }) => {
       ) : (
         <span className="noActivePlaint">Черновик</span>
       )}
-    </td>
+    </>
   );
 };
-
-export default AllStatus;

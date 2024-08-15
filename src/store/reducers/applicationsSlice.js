@@ -104,9 +104,13 @@ export const deleteEveryIsk = createAsyncThunk(
   "deleteEveryIsk",
   async function (props, { dispatch, rejectWithValue }) {
     const { objData, role, todosApplications } = props;
-    /// action_type - 3 удаление
+
+    /// action_type - 3 удаление (вложенного обьекта (кого-то их лиц (ответчик, истец)))
     const faceData = { action_type: 3, codeid: objData?.codeid };
-    const data = transformCreateData(props, role, faceData);
+    const dataInner = transformCreateData(props, role, faceData);
+    const data = { action_type: 2, ...dataInner };
+    /// action_type - 2 (редактирование) главного обьекта
+
     const url = `${REACT_APP_API_URL}/isks/crud`;
 
     try {

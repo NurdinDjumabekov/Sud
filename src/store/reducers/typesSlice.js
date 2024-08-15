@@ -61,7 +61,13 @@ const typesSlice = createSlice({
 
     changeActivePage: (state, action) => {
       const { path } = action.payload;
-      state.pages = state.pages?.map((i) => ({ ...i, bool: path == i?.path }));
+
+      state.pages = state.pages?.map((i) => {
+        // Обрезаем path и i?.path до первых 4 символов
+        const trimmedPath = path.slice(0, 4);
+        const trimmedIPath = i?.path?.slice(0, 4);
+        return { ...i, bool: trimmedPath === trimmedIPath };
+      });
     },
   },
 });

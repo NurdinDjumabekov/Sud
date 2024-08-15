@@ -53,6 +53,60 @@ button {
   color: red !important;
 }
 
+.statusIsks {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  gap: 5px;
+
+  button {
+    color: #4d5969;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    transition: 0.2s;
+    padding: 5px 13px;
+    height: auto !important;
+    margin: 0 !important;
+    border-radius: 3px;
+    background: rgb(237, 242, 249);
+    position: relative;
+
+    &:hover {
+      background: rgba(215, 219, 224, 0.76);
+
+      span {
+        display: flex !important;
+        align-items: center;
+        background: #fff;
+        box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
+          0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07),
+          0 1px 2px 0 rgba(0, 0, 0, 0.08);
+      }
+    }
+
+    img {
+      width: 15px;
+      height: 25px;
+    }
+
+    span {
+      position: absolute !important;
+      left: 42px;
+      bottom: 42px;
+      border-radius: 3px;
+      // transform: translateY(-50%);
+      z-index: 10;
+      max-width: 150px !important;
+      min-width: 125px !important;
+      display: none !important;
+      // max-height: 40px !important;
+      // min-height: 25px !important;
+      padding: 5px;
+    }
+  }
+}
+
 @keyframes animation {
   from {
     opacity: 0;

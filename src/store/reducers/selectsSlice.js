@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import axiosInstance from "../../axiosInstance";
+
+const { REACT_APP_API_URL } = process.env;
 
 const initialState = {
   preloaderSel: false,
@@ -22,19 +25,14 @@ const initialState = {
   typeSecretarDela: 0,
 };
 
+////-------------------////
 /// toTakeCountries
 export const toTakeCountries = createAsyncThunk(
   "toTakeCountries",
-  async function (info, { dispatch, rejectWithValue }) {
-    const { tokenA, id } = info;
+  async function (props, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/get/country`;
     try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/country`,
-        headers: {
-          Authorization: `Bearer ${tokenA}`,
-        },
-      });
+      const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
         return response?.data?.data;
       } else {
@@ -45,21 +43,17 @@ export const toTakeCountries = createAsyncThunk(
     }
   }
 );
+
 /// toTakeRegions
 export const toTakeRegions = createAsyncThunk(
   "toTakeRegions",
-  async function (info, { dispatch, rejectWithValue }) {
-    const { tokenA, id } = info;
+  async function (props, { dispatch, rejectWithValue }) {
+    const { id } = props;
+    const url = `${REACT_APP_API_URL}/get/region${
+      id ? `?code_country=${id}` : ""
+    }`;
     try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/region${
-          id ? `?code_country=${id}` : ""
-        }`,
-        headers: {
-          Authorization: `Bearer ${tokenA}`,
-        },
-      });
+      const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
         return response?.data?.data;
       } else {
@@ -70,21 +64,17 @@ export const toTakeRegions = createAsyncThunk(
     }
   }
 );
+
 /// toTakeDistrict
 export const toTakeDistrict = createAsyncThunk(
   "toTakeDistrict",
-  async function (info, { dispatch, rejectWithValue }) {
-    const { tokenA, id } = info;
+  async function (props, { dispatch, rejectWithValue }) {
+    const { id } = props;
+    const url = `${REACT_APP_API_URL}/get/district${
+      id ? `?code_region=${id}` : ""
+    }`;
     try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/district${
-          id ? `?code_region=${id}` : ""
-        }`,
-        headers: {
-          Authorization: `Bearer ${tokenA}`,
-        },
-      });
+      const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
         return response?.data?.data;
       } else {
@@ -95,6 +85,9 @@ export const toTakeDistrict = createAsyncThunk(
     }
   }
 );
+
+////-------------------////
+
 /// toTakeTypeAddress
 export const toTakeTypeAddress = createAsyncThunk(
   "toTakeTypeAddress",

@@ -13,6 +13,9 @@ import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 import { changeADFF } from "../../../store/reducers/inputSlice";
 import { changeADUF } from "../../../store/reducers/inputSlice";
 import { changeTypeFace } from "../../../store/reducers/inputSlice";
+import { toTakeCountries } from "../../../store/reducers/selectsSlice";
+import { toTakeDistrict } from "../../../store/reducers/selectsSlice";
+import { toTakeRegions } from "../../../store/reducers/selectsSlice";
 
 const DataArrPlaintiff = ({ typerole }) => {
   const dispatch = useDispatch();
@@ -47,11 +50,18 @@ const DataArrPlaintiff = ({ typerole }) => {
     }
   };
 
+  const getAllSelectAddres = () => {
+    dispatch(toTakeCountries());
+    dispatch(toTakeRegions({}));
+    dispatch(toTakeDistrict({}));
+    ///// для получения и отображения нужных мне значений городов, стран для седектов
+  };
+
   return (
     <>
       {lookAddPlaintiff === 0 ? (
         <div className="mainTables dataPlaintiff">
-          <ul className="btnsType add">
+          <ul className="btnsType add" onClick={getAllSelectAddres}>
             {checkEditPlaint ? (
               <>
                 <button onClick={clickPlaintiff}>Добавить {typerole}</button>

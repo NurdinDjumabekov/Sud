@@ -9,6 +9,9 @@ import "./style.scss";
 import { changeADFF, changeADUF } from "../../../store/reducers/inputSlice";
 import { changeTypeFace } from "../../../store/reducers/inputSlice";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
+import { toTakeCountries } from "../../../store/reducers/selectsSlice";
+import { toTakeDistrict } from "../../../store/reducers/selectsSlice";
+import { toTakeRegions } from "../../../store/reducers/selectsSlice";
 
 //// igms
 import editImg from "../../../asstes/icons/editBtn.svg";
@@ -19,7 +22,10 @@ import { deleteEveryIsk } from "../../../store/reducers/applicationsSlice";
 
 const DocsListInner = ({ arr, arr2, typerole }) => {
   const dispatch = useDispatch();
-  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
+
+  const { checkEditPlaint, tokenA } = useSelector(
+    (state) => state.saveDataSlice
+  );
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const changeAddPlaintiff = (objData, type) => {
@@ -43,6 +49,15 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
       dispatch(changeADUF({ ...objData, action_type: 2 }));
     }
     /// action_type 2 - редактирование
+
+    getAllSelectAddres();
+  };
+
+  const getAllSelectAddres = () => {
+    dispatch(toTakeCountries());
+    dispatch(toTakeRegions({}));
+    dispatch(toTakeDistrict({}));
+    ///// для получения и отображения нужных мне значений городов, стран для селектов
   };
 
   const sortSend = (objData, type) => {

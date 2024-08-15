@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { searchNameSelect } from "../../helpers/searchNameSelect";
 
 ////// style
-import "./MainPage.scss";
+import "./style.scss";
 
 ////// components
 import LookPdfModal from "../../components/MainPage/LookPdfModal/LookPdfModal";
@@ -18,6 +18,7 @@ import TypeActionsUsers from "../../components/MainPage/ActionsUsers/TypeActions
 import MoreInfo from "../../components/MoreInfo/MoreInfo";
 import ConfirmRespSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmRespSecr/ConfirmRespSecr";
 import ConfirmPred from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
+import TimeAndActions from "../../components/MainPage/ActionsUsers/TimeAndActions/TimeAndActions";
 // import ConfirmPred from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
 
 const MainPage = () => {
@@ -51,7 +52,7 @@ const MainPage = () => {
                   </td>
                   <AllStatus row={row} />
                   <TypeActionsUsers row={row} />
-                  <td className="times">время с бэка</td>
+                  <TimeAndActions row={row} />
                   <td className="documents">
                     <span className="documentBlock">
                       {row?.files?.length !== 0 && (

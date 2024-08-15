@@ -36,11 +36,6 @@ const FizFace = ({ typerole }) => {
       return dispatch(changeAlertText("Заполните дату выдачи паспорта"));
     }
 
-    if (adff?.timePassportEnd === "" && adff?.unknownDataPassport === 0) {
-      const text = "Заполните дату истечения срока паспорта";
-      return dispatch(changeAlertText(text));
-    }
-
     if (adff?.country === 0) {
       return dispatch(changeAlertText("Выберите страну проживания"));
     }
@@ -109,6 +104,8 @@ const FizFace = ({ typerole }) => {
     //// очищаю state где хрпанятся данные
   };
 
+  console.log(adff, "adff");
+
   const role =
     lookAddPlaintiff === 1
       ? typerole === "истца"
@@ -136,7 +133,6 @@ const FizFace = ({ typerole }) => {
             value={adff?.numPhone}
             name={"numPhone"}
             placeholder={"Телефон*"}
-            required={true}
           />
 
           <MyInput

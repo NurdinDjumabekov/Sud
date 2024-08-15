@@ -25,9 +25,7 @@ const UrFace = ({ typerole }) => {
   const { aduf, typeFace } = useSelector((state) => state.inputSlice);
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
-  const { selTypeOrganiz, selTypeCompany } = useSelector(
-    (state) => state.selectsSlice
-  );
+  const { selTypeOrganiz } = useSelector((state) => state.selectsSlice);
   const { selTypePosition } = useSelector((state) => state.selectsSlice);
 
   const sendData = (e) => {
@@ -40,20 +38,11 @@ const UrFace = ({ typerole }) => {
     if (aduf?.dataReg === "") {
       return dispatch(changeAlertText("Заполните дату первичной регистрации"));
     }
-    if (aduf?.typeCompany === 0) {
-      return dispatch(changeAlertText("Заполните тип компании"));
-    }
     if (aduf?.country === 0) {
       return dispatch(changeAlertText("Выберите страну"));
     }
     if (aduf?.userStatus === 0) {
       return dispatch(changeAlertText("Заполните должность компании"));
-    }
-    if (aduf?.startData === "") {
-      return dispatch(changeAlertText("Заполните дату назначения"));
-    }
-    if (aduf?.endData === 0) {
-      return dispatch(changeAlertText("Заполните дату истечения"));
     }
     if (aduf?.region === 0) {
       return dispatch(changeAlertText("Выберите область"));
@@ -125,7 +114,6 @@ const UrFace = ({ typerole }) => {
             value={aduf?.numPhone}
             name={"numPhone"}
             placeholder={"Номер телефона"}
-            required={true}
           />
 
           <MyInput
@@ -171,7 +159,7 @@ const UrFace = ({ typerole }) => {
           <div style={{ width: "300px" }}>
             <Selects
               arr={selTypeOrganiz}
-              initText={"Вид организационно-правовой нормы"}
+              initText={"Вид организационно-правовой формы"}
               keys={{
                 typeKey: aduf.typeOrganization,
                 type: "typeOrganization",
@@ -192,14 +180,14 @@ const UrFace = ({ typerole }) => {
               urgently: true,
             }}
           />
-
+          <div style={{ width: "300px" }} />
+          {/* 
           <Selects
             arr={selTypeCompany}
             initText={"Тип компании"}
             keys={{ typeKey: aduf?.typeCompany, type: "typeCompany" }}
             type="aduf"
-            urgently={true}
-          />
+          /> */}
         </div>
 
         <div className="threeInputs">
@@ -217,7 +205,6 @@ const UrFace = ({ typerole }) => {
               placeholder: "",
               keyData: aduf.startData,
               typeChange: "aduf",
-              urgently: true,
             }}
           />
           <DataInput
@@ -227,7 +214,6 @@ const UrFace = ({ typerole }) => {
               placeholder: "",
               keyData: aduf.endData,
               typeChange: "aduf",
-              urgently: true,
             }}
           />
 

@@ -47,10 +47,10 @@ const AddresFizFace = (props) => {
 
         <MyInput
           changeInput={changeInput}
-          title={"Город"}
+          title={"Гoрoд"}
           value={adff?.city}
           name={"city"}
-          placeholder={"Ваш город проживания"}
+          placeholder={"Ваш гoрoд проживания"}
         />
 
         <Selects

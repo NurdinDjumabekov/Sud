@@ -6,19 +6,24 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changeADFF, changeADUF } from "../../../store/reducers/inputSlice";
 import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
-import { format, parse } from "date-fns";
+import { parse } from "date-fns";
 
 const DataInput = ({ props }) => {
   const dispatch = useDispatch();
   const { adff, aduf } = useSelector((state) => state.inputSlice);
+
+  // Проверяем, если дата равна "01.01.1900", устанавливаем null
   const [selectedDate, setSelectedDate] = useState(
-    props?.keyData ? parse(props.keyData, "dd.MM.yyyy", new Date()) : null
+    props?.keyData && props.keyData !== "01.01.1900"
+      ? parse(props.keyData, "dd.MM.yyyy", new Date())
+      : null
   );
+
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const parseDate = (dateString) => {
     const [day, month, year] = dateString.split(".");
-    return new Date(year, month - 1, day); // month - 1, так как месяцы в JavaScript начинаются с 0
+    return new Date(year, month - 1, day);
   };
 
   const formatDateForDisplay = (date) => {
@@ -40,22 +45,26 @@ const DataInput = ({ props }) => {
     }
     return "";
   };
+
   const transformData = (data) => {
-    const formattedDateForDisplay = formatDateForDisplay(data);
+    // Если дата равна 01.01.1900 или дата не выбрана, то очищаем selectedDate
+    if (!data || formatDateForDisplay(data) === "01.01.1900") {
+      setSelectedDate(null);
+      return;
+    }
+
+    const formattedDateForServer = formatDateForServer(data);
     setSelectedDate(data);
 
     if (props.typeChange === "adff") {
-      const formattedDateForServer = formatDateForServer(data);
       dispatch(
         changeADFF({ ...adff, [props.nameInput]: formattedDateForServer })
       );
     } else if (props.typeChange === "aduf") {
-      const formattedDateForServer = formatDateForServer(data);
       dispatch(
         changeADUF({ ...aduf, [props.nameInput]: formattedDateForServer })
       );
     } else if (props.typeChange === "todos") {
-      const formattedDateForServer = formatDateForServer(data);
       dispatch(
         changeTodosApplications({
           ...todosApplications,
@@ -69,9 +78,7 @@ const DataInput = ({ props }) => {
     const inputText = e.target.value;
     const formattedText = inputText.replace(/[^0-9]/g, ""); // Оставляем только цифры
     if (formattedText.length <= 8) {
-      // Максимальная длина 8 символов (ddMMyyyy)
       const parsedDate = parseDate(formattedText);
-      setSelectedDate(parsedDate);
       transformData(parsedDate);
     }
   };
@@ -79,7 +86,7 @@ const DataInput = ({ props }) => {
   return (
     <div className="date__inner">
       <p>
-        {props.title} {props?.urgently ? <b className="required">*</b> : ""}
+        {props.title} {props?.urgently && <b className="required">*</b>}
       </p>
       <DatePicker
         selected={selectedDate}
@@ -89,7 +96,7 @@ const DataInput = ({ props }) => {
         locale={ru}
         shouldCloseOnSelect={true}
         customInput={<input onChange={handleDateInputChange} />}
-        yearDropdownItemNumber={100} // Например, отображать 15 лет в выпадающем списке
+        yearDropdownItemNumber={100}
         showYearDropdown
         scrollableYearDropdown
       />

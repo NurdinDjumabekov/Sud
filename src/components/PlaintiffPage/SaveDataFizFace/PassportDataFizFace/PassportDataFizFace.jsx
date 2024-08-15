@@ -82,7 +82,6 @@ const PassportDataFizFace = (props) => {
                   nameInput: "timePassportEnd",
                   keyData: adff?.timePassportEnd,
                   typeChange: "adff",
-                  urgently: true,
                 }}
               />
             </>

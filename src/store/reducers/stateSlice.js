@@ -24,7 +24,8 @@ const initialState = {
     { id: 10, name: "Назначенные председателем", bool: false },
   ],
 
-  confirmStatus: { status: 0, id: 0 }, /////// для открытия модалки и хранения id со статусом иска
+  confirmStatus: { status: 0, id: 0 }, 
+  /////// для открытия модалки и хранения id со статусом для изменения иска
 
   editFileDocs: true, /// можно ли добавлять документы ?
 

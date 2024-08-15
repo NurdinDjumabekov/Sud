@@ -29,12 +29,6 @@ const PdfFile = ({ editorRef, nonePdf }) => {
   const transformData = (arr, type) => {
     let allText = `<div style="font-weight: 500; font-size: 16px;">`;
     for (const text of arr) {
-      console.log(
-        searchNameSelect(selRegions, text?.region),
-        text?.region,
-        "region"
-      );
-
       const titleText = `<div style="display:inline-block;margin: 15px 5px 0px 0px;">${mainText(
         type
       )}${text.name}</div>`;

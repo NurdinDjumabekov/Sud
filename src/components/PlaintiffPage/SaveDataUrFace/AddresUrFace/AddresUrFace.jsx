@@ -48,10 +48,10 @@ const AddresUrFace = (props) => {
 
         <MyInput
           changeInput={changeInput}
-          title={"Город"}
+          title={"Гoрoд"}
           value={aduf?.city}
           name={"city"}
-          placeholder={"Ваш город проживания"}
+          placeholder={"Ваш гoрoд проживания"}
         />
 
         <Selects
