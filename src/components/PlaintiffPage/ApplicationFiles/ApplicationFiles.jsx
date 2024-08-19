@@ -24,9 +24,7 @@ const ApplicationFiles = () => {
     (state) => state.applicationsSlice
   );
 
-  const { tokenA, checkEditPlaint } = useSelector(
-    (state) => state.saveDataSlice
-  );
+  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
   const { editFileDocs } = useSelector((state) => state.saveDataSlice);
 
@@ -52,9 +50,7 @@ const ApplicationFiles = () => {
         fileData.append("code_file", +id);
         fileData.append("file", file);
         fileData.append("name", file?.name);
-        dispatch(
-          sendDocsIsks({ fileData, tokenA, code_file: +id, name: file?.name })
-        );
+        dispatch(sendDocsIsks({ fileData, code_file: +id, name: file?.name }));
       }
     });
   };
@@ -64,9 +60,9 @@ const ApplicationFiles = () => {
     fileInput?.click();
   };
 
-  const deleteDocs = (file) => {
+  const deleteDocs = ({ codeid_file }) => {
     const { codeid } = todosApplications;
-    const send = { codeid_file: file?.codeid_file, code_isk: codeid };
+    const send = { codeid_file, code_isk: codeid };
     dispatch(deleteDocsIsks(send));
   };
 

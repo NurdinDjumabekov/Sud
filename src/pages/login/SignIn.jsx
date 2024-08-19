@@ -83,7 +83,7 @@ export default function SignIn() {
           />
         </div>
 
-        <button className="actionBtn" type="submit">
+        <button className="actionLogin" type="submit">
           Войти
         </button>
         <div className="register">

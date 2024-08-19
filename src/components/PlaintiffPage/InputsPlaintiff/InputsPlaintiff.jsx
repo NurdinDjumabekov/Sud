@@ -63,10 +63,8 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
     dispatch(changeCalculatorType(false)); /// строс отображение калькулятора
     dispatch(changeSumIsk("")); /// сброс суммы калькулятора
     dispatch(changeCalculatorState(false)); // отображение таблицы
-    dispatch(
-      /// строс подсчёт калькулятора
-      changeResult({ num1: 0, num2: 0, num3: 0, num4: 0 })
-    );
+    dispatch(changeResult({ num1: 0, num2: 0, num3: 0, num4: 0 }));
+    /// строс подсчёт калькулятора
   };
 
   // useEffect(() => {

@@ -4,6 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../../Modals/Modals";
 import { newListDocs } from "../../../helpers/newListDocs";
+import { key } from "../../../helpers/localData";
 
 const PdfOpis = ({ lookOpis, setLookOpis }) => {
   const [date, setDate] = useState("");
@@ -61,7 +62,7 @@ const PdfOpis = ({ lookOpis, setLookOpis }) => {
     <Modals openModal={lookOpis} setOpenModal={() => setLookOpis()}>
       <div className="pdfFile newPdf">
         <Editor
-          apiKey="gydld2v6nkt94wd85xei7jj62bgagm191o3utnlxihf8cg0a"
+          apiKey={key}
           initialValue={initialContent}
           init={{
             height: "100%",

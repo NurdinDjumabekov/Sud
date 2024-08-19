@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import "./style.scss";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
+import { key } from "../../../helpers/localData";
 
 const PdfFileOtvodArbitr = ({ istype, editorRef }) => {
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const PdfFileOtvodArbitr = ({ istype, editorRef }) => {
   return (
     <div className="pdfFileReject">
       <Editor
-        apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
+        apiKey={key}
         initialValue={initialContent}
         init={{
           height: "100%",

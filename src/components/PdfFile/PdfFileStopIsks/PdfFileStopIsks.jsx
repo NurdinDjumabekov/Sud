@@ -2,11 +2,10 @@ import React, { useRef } from "react";
 import "./PdfFileStopIsks.scss";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
-import imgSud from "../../../asstes/images/logo.png";
+import { key } from "../../../helpers/localData";
 
 const PdfFileStopIsks = ({ istype, editorRef }) => {
   const dispatch = useDispatch();
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { typeUser } = useSelector((state) => state.saveDataSlice);
 
@@ -68,31 +67,28 @@ const PdfFileStopIsks = ({ istype, editorRef }) => {
     <div style="display:flex; gap:200px; padding: 20px 0 0 0px">
       <h4 style="text-align:center; font-size: 18px; margin: 20px 0 0 0px;">Председатель Майчиев Ш.Ю.</h4>
       </div>
-      `;
+    `;
 
   return (
-    <>
-      <div className="pdfFileReject">
-        <Editor
-          apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
-          initialValue={initialContent}
-          init={{
-            height: "100%",
-            width: "100%",
-            menubar: {
-              file: {
-                title: "File",
-                items: "preview | print | save",
-              },
+    <div className="pdfFileReject">
+      <Editor
+        apiKey={key}
+        initialValue={initialContent}
+        init={{
+          height: "100%",
+          width: "100%",
+          menubar: {
+            file: {
+              title: "File",
+              items: "preview | print | save",
             },
-            content_style:
-              'body { font-family: "Times New Roman", sans-serif; }',
-            toolbar: false,
-          }}
-          ref={editorRef}
-        />
-      </div>
-    </>
+          },
+          content_style: 'body { font-family: "Times New Roman", sans-serif; }',
+          toolbar: false,
+        }}
+        ref={editorRef}
+      />
+    </div>
   );
 };
 

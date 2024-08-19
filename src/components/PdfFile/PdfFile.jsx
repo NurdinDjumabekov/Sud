@@ -13,6 +13,7 @@ import { searchIdCurrency } from "../../helpers/searchIdCurrency";
 import { searchNameSelect } from "../../helpers/searchNameSelect";
 import { addFilesList } from "../../helpers/addFilesList";
 import { todayDate } from "../../helpers/todayDate";
+import { key } from "../../helpers/localData";
 
 const PdfFile = ({ editorRef, nonePdf }) => {
   const { selCurrency } = useSelector((state) => state.selectsSlice);
@@ -24,49 +25,49 @@ const PdfFile = ({ editorRef, nonePdf }) => {
     (state) => state.applicationsSlice
   );
 
+  const { isk_summ, isk_summ_curr } = todosApplications;
+
   const [data, setData] = useState("");
 
   const transformData = (arr, type) => {
-    let allText = `<div style="font-weight: 500; font-size: 16px;">`;
-    for (const text of arr) {
-      const titleText = `<div style="display:inline-block;margin: 15px 5px 0px 0px;">${mainText(
-        type
-      )}${text.name}</div>`;
-      const phoneText = text?.numPhone
-        ? `<div style="display:flex; align-items:center"><span>Телефон: </span> ${text?.numPhone}</div>`
-        : "";
+    const selOptions = [selCountries, selRegions, selDistrict];
 
-      const addresText = `<div style="display:flex; align-items:center"><span>Адрес: </span> ${searchNameSelect(
-        selCountries,
-        text?.country
-      )}, ${searchNameSelect(selRegions, text?.region)}, ${searchNameSelect(
-        selDistrict,
-        text?.district
-      )}${text?.city ? `, ${text?.city}` : ""}${
-        text?.street ? `, ул. ${text?.street}` : ""
-      }${text?.numObj ? `, дом ${text?.numObj}` : ""}${
-        text?.apartament ? `, кв. ${text?.apartament}` : ""
-      }</div>`;
+    const generateText = (text, selOptions) => {
+      return [
+        text?.numPhone &&
+          `<div style="display:flex; align-items:center"><span>Телефон: </span>${text.numPhone}</div>`,
+        `<div style="display:flex; align-items:center"><span>Адрес: </span>${searchNameSelect(
+          selOptions[0],
+          text?.country
+        )}, ${searchNameSelect(
+          selOptions[1],
+          text?.region
+        )}, ${searchNameSelect(selOptions[2], text?.district)}${
+          text?.city ? `, ${text.city}` : ""
+        }${text?.street ? `, ул. ${text.street}` : ""}${
+          text?.numObj ? `, дом ${text.numObj}` : ""
+        }${text?.apartament ? `, кв. ${text.apartament}` : ""}</div>`,
+        text?.email &&
+          `<div style="display:flex; align-items:center"><span>Почта: </span>${text.email}</div>`,
+        text?.inn &&
+          `<div style="display:flex; align-items:center"><span>Инн: </span>${text.inn}</div>`,
+      ]
+        .filter(Boolean)
+        .join("");
+    };
 
-      const email = text?.email
-        ? `<div style="display:flex; align-items:center"><span>Почта: </span> ${text?.email}</div>`
-        : "";
+    let allText = arr
+      ?.map(
+        (text) =>
+          `<div style="display:inline-block; margin: 15px 5px 0px 0px;">${mainText(
+            type
+          )}${text.name}</div>` + generateText(text, selOptions)
+      )
+      ?.join("");
 
-      const inn = text?.inn
-        ? `<div style="display:flex; align-items:center"><span>Инн: </span> ${text?.inn}</div>`
-        : "";
-
-      allText += titleText + phoneText + addresText + email + inn;
-    }
-    allText += "</div>";
-
-    const textDefault = `<div style="font-weight: 500; font-size: 16px;"></div>`;
-
-    if (allText === textDefault) {
-      // if данные не заполнены, то я возвращаю пустую строку без каких-то отступов
-      return `<div style="display: none"></div>`;
-    }
-    return allText;
+    return allText
+      ? `<div style="font-weight: 500; font-size: 16px;">${allText}</div>`
+      : `<div style="display: none"></div>`;
   };
 
   const mainText = (type) => {
@@ -84,9 +85,7 @@ const PdfFile = ({ editorRef, nonePdf }) => {
   const signaturePlaintiff = (arrData) => {
     const newHtml = `<div style="font-weight: 500; font-size: 16px; margin:0px 0px 0px 10px; text-align:right">
     ${arrData
-      ?.map(
-        (i, ind) => `<p><span>_______________________</span>  ${i?.name}</p>`
-      )
+      ?.map((i) => `<p><span>_______________________</span>  ${i?.name}</p>`)
       .join("")}
     </div>`;
     return newHtml;
@@ -104,42 +103,42 @@ const PdfFile = ({ editorRef, nonePdf }) => {
     return `<div style="font-weight: 500; font-size: 16px;">${content}</div>`;
   };
 
+  const plaintiff = transformData(todosApplications?.plaintiff, 1);
+  const plaintiffResper = transformData(todosApplications?.plaintiffResper, 2);
+  const defendant = transformData(todosApplications?.defendant, 3);
+  const defendantResper = transformData(todosApplications?.defendantResper, 4);
+
+  const iskSum = isk_summ === "0" || isk_summ === "" || isk_summ === 0;
+
+  const iskSummCurr = searchIdCurrency(selCurrency, +isk_summ_curr);
+
+  const money = `${
+    !iskSum
+      ? `Денежные требования: ${
+          iskSummCurr
+            ? `<span >${+todosApplications?.isk_summ}  ${iskSummCurr}</span>`
+            : ""
+        }`
+      : ""
+  }`;
+
   ///////////////нахуй не нужный код, он для отталкивания блока стоит////////////////// 89 - 131 строки
   const initialContent = `
     <div>
       <div>
        <div style="font-size: 16px; width: 100%; position: relative;">
-        <p style="margin: 0px 0px 0px 10px; font-size: 16px;">от ${todayDate()} года</p>
+        <p style="margin: 65px 0px 0px 10px; font-size: 16px;">от ${todayDate()} года</p>
+        <div style="width: 280px;padding: 6px 10px 0px 0px;line-height: 25px;font-weight: 600;font-family: 'Times New Roman', sans-serif;">
+          <p style="color: transparent; margin: 0px; font-size: 16px;">Международный Третейский суд</p>
+          <p style="color: transparent; margin: 0px; font-size: 16px;">при Торгово-Промышленной палате</p>
+          <p style="color: transparent; margin: 0px; font-size: 16px;">Кыргызской Республики</p>
+          <div style="color: transparent; margin: 0px">${plaintiff}</div>
+            <div style="color: transparent; margin: 0px">${plaintiffResper}</div>
+            <div style="color: transparent; margin: 0px">${defendant}</div>
+            <div style="color: transparent; margin: 0px">${defendantResper}</div>
+          </div>
+        </div>
         <div style="
-            width: 280px;
-            padding: 0px 10px 0px 0px;
-            line-height: 25px;
-            font-weight: 600;
-            font-family: 'Times New Roman', sans-serif;">
-        <p style="color: transparent; margin: 0px; font-size: 16px;">Международный Третейский суд</p>
-        <p style="color: transparent; margin: 0px; font-size: 16px;">при Торгово-Промышленной палате</p>
-        <p style="color: transparent; margin: 0px; font-size: 16px;">Кыргызской Республики</p>
-        <div style="color: transparent; margin: 0px">${transformData(
-          todosApplications?.plaintiff,
-          1
-        )}</div>
-        <div style="color: transparent; margin: 0px">${transformData(
-          todosApplications?.plaintiffResper,
-          2
-        )}</div>
-        <div style="color: transparent; margin: 0px">${transformData(
-          todosApplications?.defendant,
-          3
-        )}</div>
-        <div style="color: transparent; margin: 0px">${transformData(
-          todosApplications?.defendantResper,
-          4
-        )}
-        </div>
-             </p>
-            </div>
-        </div>
-          <div style="
               width: 280px;
               padding: 0px 10px 0px 0px;
               line-height: 25px;
@@ -152,50 +151,22 @@ const PdfFile = ({ editorRef, nonePdf }) => {
             <p style="margin: 0px; font-size: 16px;">Международный Третейский суд</p>
             <p style="margin: 0px; font-size: 16px;">при Торгово-Промышленной палате</p>
             <p style="margin: 0px; font-size: 16px;">Кыргызской Республики</p>
-            <div style="margin: 0px">${transformData(
-              todosApplications?.plaintiff,
-              1
-            )}</div>
-            <div style="margin: 0px">${transformData(
-              todosApplications?.plaintiffResper,
-              2
-            )}</div>
-            <div style="margin: 0px">${transformData(
-              todosApplications?.defendant,
-              3
-            )}</div>
-            <div style="margin: 0px">${transformData(
-              todosApplications?.defendantResper,
-              4
-            )}
+            <div style="margin: 0px">${plaintiff}</div>
+            <div style="margin: 0px">${plaintiffResper}</div>
+            <div style="margin: 0px">${defendant}</div>
+            <div style="margin: 0px">${defendantResper}
             </div>
-            </div>
+          </div>
         </div>
         ${
           +todosApplications?.non_proprietary === 0
             ? `<div>
-                <div style="margin: 0px; position: relative; width:100%; height: 60px; padding: 10px 0px "> 
+                <div style="position: relative; width:100%; height: 60px; padding: 0px 0px 10px 0px "> 
                   <p style="
                     color: transparent";
                     line-height: 25px;
                     font-family: 'Times New Roman', sans-serif;
-                    >${
-                      todosApplications?.isk_summ === "0" ||
-                      todosApplications?.isk_summ === "" ||
-                      todosApplications?.isk_summ === 0
-                        ? ""
-                        : `Денежные требования: ${
-                            searchIdCurrency(
-                              selCurrency,
-                              +todosApplications?.isk_summ_curr
-                            )
-                              ? `<span >${+todosApplications?.isk_summ}  ${searchIdCurrency(
-                                  selCurrency,
-                                  +todosApplications?.isk_summ_curr
-                                )}</span>`
-                              : ""
-                          }`
-                    }
+                    >${money}
                     </p>
                     <p style="
                         font-size: 16px;
@@ -208,66 +179,48 @@ const PdfFile = ({ editorRef, nonePdf }) => {
                         font-weight: 600;
                         font-family: 'Times New Roman', sans-serif;
                         padding: 0px;
-                      ">${
-                        todosApplications?.isk_summ === "0" ||
-                        todosApplications?.isk_summ === "" ||
-                        todosApplications?.isk_summ === 0
-                          ? ""
-                          : `Денежные требования: ${
-                              searchIdCurrency(
-                                selCurrency,
-                                +todosApplications?.isk_summ_curr
-                              )
-                                ? `<span style="font-weight: 500;  font-size: 16px;">${
-                                    todosApplications?.isk_summ
-                                  }  ${searchIdCurrency(
-                                    selCurrency,
-                                    +todosApplications?.isk_summ_curr
-                                  )}</span>`
-                                : ""
-                            }`
-                      }
+                      ">${money}
                     </p>
-                </div>
-              </div>`
+              </div>
+          </div>`
             : ""
         }
         ${
-          todosApplications?.name === ""
-            ? ""
-            : `<h4 style="text-align:center; font-size: 18px; margin: 0 auto; width: 60%;">
-              ${todosApplications?.name}
-            </h4>`
+          !!todosApplications?.name
+            ? `<h4 style="text-align:center; font-size: 18px; margin: 0 auto; width: 60%;">
+                ${todosApplications?.name}
+              </h4>`
+            : ""
         }
         ${
-          todosApplications?.description === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.description}</p>`
+          !!todosApplications?.description
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.description}</p>`
+            : ""
         }
         ${
-          todosApplications?.motivation === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.motivation}</p>`
+          !!todosApplications?.motivation
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.motivation}</p>`
+            : ""
         }
         ${
-          todosApplications?.obosnovanie === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.obosnovanie}</p>`
+          !!todosApplications?.obosnovanie
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.obosnovanie}</p>`
+            : ""
         }
         ${
-          todosApplications?.finance_raschet === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.finance_raschet}</p>`
+          !!todosApplications?.finance_raschet
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.finance_raschet}</p>`
+            : ""
         }
         ${
-          todosApplications?.law_links === ""
-            ? ""
-            : `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.law_links}</p>`
+          !!todosApplications?.law_links
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.law_links}</p>`
+            : ""
         }
         ${
-          todosApplications?.claim?.length === 0
-            ? ""
-            : transformClaim(todosApplications?.claim)
+          !!todosApplications?.claim
+            ? transformClaim(todosApplications?.claim)
+            : ""
         }
         <p style="text-align:center; font-size: 20px;">Приложения в копиях</p>
         ${addFilesList(applicationList)}
@@ -294,7 +247,7 @@ const PdfFile = ({ editorRef, nonePdf }) => {
   return (
     <div className={`pdfFile ${nonePdf}`}>
       <Editor
-        apiKey="aqp3lj8havavh7ud6btplh670nfzm8axex2z18lpuqrv30ag"
+        apiKey={key}
         initialValue={data || todosApplications.content}
         init={{
           height: "100%",

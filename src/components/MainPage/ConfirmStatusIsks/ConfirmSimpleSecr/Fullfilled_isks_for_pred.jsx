@@ -1,14 +1,13 @@
 ///// hooks
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 ///// style
 import "../style.scss";
 
 ////// fns
 import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
-import { changeStatusDocs } from "../../../../store/reducers/sendDocsSlice";
+import { sendDocsEveryIsks } from "../../../../store/reducers/sendDocsSlice";
 
 ///// components
 import PdfFulfilled from "../../../PdfFile/PdfFulfilled/PdfFulfilled";
@@ -19,30 +18,24 @@ import Modals from "../../../Modals/Modals";
 ///// imgs
 import imgWarning from "../../../../asstes/images/warning.png";
 
-const Fullfilled_isk_for_pred = () => {
+////// helpers
+
+const Fullfilled_isks_for_pred = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const editorDocRef = useRef(null);
   const fulfilledRef = useRef(null);
 
   const [confirmAction, setConfirmAction] = useState(false);
   const [lookDocs, setLookDocs] = useState(false); ///// для просмотра документов
 
-  const { confirmStatus } = useSelector((state) => state.stateSlice);
-
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { id } = useSelector((state) => state.stateSlice?.confirmStatus);
 
   const fulfilledIsk = () => {
-    const { id, status } = confirmStatus;
     if (fulfilledRef.current.editor) {
       const content = fulfilledRef.current.editor.getContent();
-
-      const send = { id, tokenA, isk_status: status, content, navigate };
-
-      dispatch(changeStatusDocs({ ...send, type: 12 }));
+      dispatch(sendDocsEveryIsks({ content, code_file: 12, id }));
       /// 12 - принятие иска председателем
-
-      // dispatch(clearMainBtnList());
+      /// для создания документа о принятии иска (заполняет секретарь для председателя)
       closeAllModal();
     }
   };
@@ -55,7 +48,7 @@ const Fullfilled_isk_for_pred = () => {
 
   return (
     <>
-      {/* ///// открытие документа приняти  я иска  */}
+      {/* ///// открытие документа приняти  я иска, секретарь заполняет его для председателя */}
       <>
         <div className="choiceSecretard">
           {lookDocs ? (
@@ -78,21 +71,25 @@ const Fullfilled_isk_for_pred = () => {
             <PdfFulfilled editorRef={fulfilledRef} />
           </div>
         </div>
-        <div className="modalchangeStatus" style={{ height: "auto" }}>
+        <div className="modalchangeStatus allHeight">
           <div className="btnsSendIsks">
-            <button onClick={() => setConfirmAction(true)}>Принять</button>
+            <button onClick={() => setConfirmAction(true)}>Отправить</button>
             <button onClick={closeAllModal}>Отмена</button>
           </div>
         </div>
       </>
 
       {/* ///// подверждение документа принятия иска  */}
-      <Modals openModal={confirmAction} setOpenModal={setConfirmAction}>
+      <Modals
+        openModal={confirmAction}
+        setOpenModal={setConfirmAction}
+        krest={true}
+      >
         <div className="modalchangeStatus">
           <div className="imgBlock">
             <img src={imgWarning} alt="send!" />
           </div>
-          <h5>Принять иск?</h5>
+          <h5>Отправить председателю?</h5>
           <div className="btnsSendIsks">
             <button onClick={fulfilledIsk}>Да</button>
             <button onClick={() => setConfirmAction(false)}>Нет</button>
@@ -103,4 +100,4 @@ const Fullfilled_isk_for_pred = () => {
   );
 };
 
-export default Fullfilled_isk_for_pred;
+export default Fullfilled_isks_for_pred;

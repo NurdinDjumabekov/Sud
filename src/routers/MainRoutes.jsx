@@ -32,6 +32,7 @@ import {
   toTakeTypeValuta,
 } from "../store/reducers/selectsSlice";
 import MainPage from "../pages/MainPage/MainPage";
+import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
 
 const MainRoutes = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,10 @@ const MainRoutes = () => {
     dispatch(toTakeReglament(tokenA));
     dispatch(toTakeLangArbit(tokenA));
     dispatch(toTakeArbitrsList({ tokenA, search: "" }));
-  }, [location.pathname]);
+
+    dispatch(toTakeTypeTypeDocs());
+    ///// get список документов, которые нужны для заполнения иска (просто текста)
+  }, []);
 
   return (
     <>

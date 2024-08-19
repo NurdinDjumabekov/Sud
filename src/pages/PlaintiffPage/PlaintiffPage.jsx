@@ -1,5 +1,5 @@
 ////// hooks
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,13 +24,10 @@ import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { createIdIsk } from "../../store/reducers/sendDocsSlice";
 import { changeLookAddPlaintiff } from "../../store/reducers/stateSlice";
-import { toTakeCountries } from "../../store/reducers/selectsSlice";
-import { toTakeDistrict } from "../../store/reducers/selectsSlice";
-import { toTakeRegions } from "../../store/reducers/selectsSlice";
-// import { changeLookAddPlaintiff } from "../../store/reducers/stateSlice";
 
 ////// imgs
 import kerstImg from "../../asstes/icons/krestik.svg";
+import { getCountry } from "../../helpers/getSelects";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -71,15 +68,14 @@ const PlaintiffPage = () => {
     //// закрываю блок, где добавляются личные данные истцов, ответчиков и и х представителей
   };
 
-  // console.log(todosApplications, "todosApplications");
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (params?.id == 0) {
       // 0 = я создаю новый документ, а если не !0, то редактирую документ (это codeid иска)
       dispatch(createIdIsk({ todosApplications, adff, aduf, docsIsks })); /// для того чтобы взть id для создания иска
     }
 
-    getAllSelectAddres();
+    getCountry(dispatch);
+    ///// для получения и отображения нужных мне значений городов, стран для седектов
 
     return () => {
       dispatch(clearTodosApplications()); /// для очистки всех обьектов хранения данных
@@ -88,13 +84,6 @@ const PlaintiffPage = () => {
       //// закрываю блок, где добавляются личные данные истцов, ответчиков и и х представителей
     };
   }, []);
-
-  const getAllSelectAddres = () => {
-    dispatch(toTakeCountries());
-    dispatch(toTakeRegions({}));
-    dispatch(toTakeDistrict({}));
-    ///// для получения и отображения нужных мне значений городов, стран для седектов
-  };
 
   return (
     <div className="plaintiff">

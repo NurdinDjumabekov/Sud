@@ -146,12 +146,9 @@ export const sendEveryIsks = createAsyncThunk(
         dispatch(changeAlertText("Черновик сохранен!"));
         dispatch(toTakeTypeTypeDocs()); /// для очистки (сброса) типа файлов
 
-        dispatch(sendDocsEveryIsks({ content, id: codeid, type: 15 }));
+        const obj = { content, id: codeid, code_file: 15, navigate };
+        dispatch(sendDocsEveryIsks({ ...obj, reRender: true }));
         /// для создания документа иска ( 15 - для создания иска)
-
-        setTimeout(() => {
-          dispatch(toTakeIsksList(0)); /// для обновления списка на главной странице
-        }, 1000);
         return { navigate, typeUser };
       } else {
         throw Error(`Error: ${response.status}`);
@@ -162,25 +159,22 @@ export const sendEveryIsks = createAsyncThunk(
   }
 );
 
-/// sendDocsEveryIsks - отправка документа в виде HTML для создания копии иска
-// 12  Определение о принятии иска
-// 13, 14  Определение об отказе иска
-// 15   Исковое заявление
+/// sendDocsEveryIsks - отправка документа в виде HTML для создания
 export const sendDocsEveryIsks = createAsyncThunk(
   "sendDocsEveryIsks",
   async function (props, { dispatch, rejectWithValue }) {
-    const { content, type, id, navigate } = props;
-    const data = { content, code_file: type, code_isk: id };
-    const url = `${REACT_APP_API_URL}/isks/crud/genereate-pdf`;
+    const { content, code_file, id, navigate, reRender } = props;
 
+    const data = { content, code_file, code_isk: id };
+    const url = `${REACT_APP_API_URL}/isks/crud/genereate-pdf`;
     try {
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        if (type == 17 || type == 12) {
-          navigate("/main");
+        navigate("/main");
+        if (reRender) {
           dispatch(toTakeIsksList(0));
-          /// для обновления списка на главной странице
         }
+        //// get список исков (0 - все иски)
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -215,10 +209,9 @@ export const createEveryIsk = createAsyncThunk(
   }
 );
 
-////-------------------////
-
-/// changeStatusIsks - изменения статуса иска организацией(принят председателем,
-/// отклонён ответ.секретарём ....)
+/// changeStatusIsks - изменения статуса иска организацией
+/// 1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем,
+/// 4 Отклонённые председателем, 5 ответчик уведомлен, 6 - на доработку
 export const changeStatusDocs = createAsyncThunk(
   "changeStatusDocs",
   async function (info, { dispatch, rejectWithValue }) {
@@ -226,25 +219,16 @@ export const changeStatusDocs = createAsyncThunk(
     const { idSecr, content, type, navigate } = info;
 
     const obj = { description: "", code_secretar: idSecr };
-    const data = { code_isk: id, isk_status };
-    /// 1 принят секратарем, 2 отклонен секретарем, 3 Принятые председателем,
-    /// 4 Отклонённые председателем, 5 ответчик уведомлен, 6 - на доработку
+    const data = { ...obj, code_isk: id, isk_status };
 
+    const url = `${REACT_APP_API_URL}/isks/set_isk_status`;
     try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/set_isk_status`,
-        data: { ...obj, ...data },
-        headers: { Authorization: `Bearer ${tokenA}` },
-      });
+      const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
         dispatch(sendDocsEveryIsks({ id, content, type }));
         /// для создания документа иска
-
-        setTimeout(() => {
-          dispatch(toTakeIsksList({ tokenA, id: 0 }));
-          navigate("/main");
-        }, 500);
+        dispatch(toTakeIsksList({ tokenA, id: 0 })); //// get весь список
+        navigate("/main");
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -253,6 +237,8 @@ export const changeStatusDocs = createAsyncThunk(
     }
   }
 );
+
+////-------------------////
 
 /// choiceSecr - выбор секретаря дела председателем
 export const choiceSecr = createAsyncThunk(

@@ -1,4 +1,3 @@
-/// transformArrDocs трансформация массива с файлами, добавление данных а массив файлов(приложений)Ю, при нажатии на редактирование иска
 export const transformArrDocs = (data) => {
   const { arrIsk, reqData } = data;
 
@@ -8,18 +7,30 @@ export const transformArrDocs = (data) => {
     );
     return {
       ...i,
-      arrDocs: [
-        ...i.arrDocs,
-        ...matchingItems?.map((newObj) => ({
-          code_file: newObj?.code_file_type,
-          codeid_file: newObj?.codeid,
-          file_path: newObj?.path,
-          name: newObj?.name,
-        })),
-      ],
+      arrDocs: matchingItems?.map((newObj) => ({
+        code_file: newObj?.code_file_type,
+        codeid_file: newObj?.codeid,
+        file_path: newObj?.path,
+        name: newObj?.name,
+      })),
     };
   });
 
-  //   console.log(newdata, "newdata");
   return newdata;
+};
+
+export const transformRole = (arr) => {
+  ///// возврашаю определенную роль одну либо слазу несколько
+  //// истец, ответчик, представитель истцв и предю отвветч.
+  if (arr?.length === 1) {
+    return arr?.[0].name;
+  } else if (arr?.length === 2) {
+    return `${arr?.[0].name} и ${arr?.[1].name}`;
+  } else {
+    const namesString = arr?.map((item) => item?.name)?.join(", ");
+    return `${namesString?.substring(
+      0,
+      namesString.lastIndexOf(",")
+    )} и${namesString?.substring(namesString?.lastIndexOf(",") + 1)}`;
+  }
 };

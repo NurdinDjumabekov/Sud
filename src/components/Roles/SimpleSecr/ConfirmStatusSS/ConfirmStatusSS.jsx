@@ -46,6 +46,8 @@ const ConfirmStatusSS = (props) => {
     (state) => state.stateSlice
   );
 
+  ///// objectionPdfVeiw - delete
+
   const sendObjection = () => {
     if (editorRef.current && editorRef.current.editor) {
       const content = editorRef.current.editor.getContent();

@@ -53,8 +53,8 @@ const initialState = {
     //////////////////
   },
 
-  //// массив дел
-  applicationList: [], // для сохранения файлов
+  //// список документов, которые нужны для заполнения иска (просто текста)
+  applicationList: [],
 
   preloaderDocs: false,
 };
@@ -81,7 +81,8 @@ export const editIsks = createAsyncThunk(
   }
 );
 
-/// toTakeTypeTypeDocs /// для получения всех загружаемых данных
+/////// toTakeTypeTypeDocs
+/////// для списка документов, которые нужны для заполнения иска (просто текста)
 export const toTakeTypeTypeDocs = createAsyncThunk(
   "toTakeTypeTypeDocs",
   async function (props, { dispatch, rejectWithValue }) {
@@ -144,29 +145,39 @@ export const deleteDocsIsks = createAsyncThunk(
   }
 );
 
-////-------------------////
+/// getIsk /// для получения данных иска
+export const getIsk = createAsyncThunk(
+  "getIsk",
+  async function (id, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/get/${id}`;
+    try {
+      const response = await axiosInstance(url);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 /// sendDocsIsks /// для отправки документов
 export const sendDocsIsks = createAsyncThunk(
   "sendDocsIsks",
-  async function (info, { dispatch, rejectWithValue }) {
-    // console.log(info?.name,"info?.name");
+  async function (props, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/crud/files`;
+    const data = props?.fileData;
     try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/crud/files`,
-        headers: {
-          Authorization: `Bearer ${info?.tokenA}`,
-        },
-        data: info?.fileData,
-      });
+      const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
         return {
-          fileData: info?.fileData,
+          fileData: props?.fileData,
           codeid_file: +response?.data?.code_file,
           file_path: response?.data?.file_path,
-          code_file: +info.code_file,
-          name: info?.name,
+          code_file: +props.code_file,
+          name: props?.name,
         };
       } else {
         throw Error(`Error: ${response.status}`);
@@ -176,6 +187,8 @@ export const sendDocsIsks = createAsyncThunk(
     }
   }
 );
+
+////-------------------////
 
 /// sendDocsReject // отправка файла принятия или отказа иска
 export const sendDocsReject = createAsyncThunk(
@@ -228,16 +241,12 @@ const applicationsSlice = createSlice({
   name: "applicationsSlice",
   initialState,
   extraReducers: (builder) => {
-    ///// selTypeTypeDocs
+    ///// toTakeTypeTypeDocs
     builder.addCase(toTakeTypeTypeDocs.fulfilled, (state, action) => {
       state.preloaderDocs = false;
       state.applicationList = action?.payload?.map((i) => {
-        return {
-          codeid: i.codeid,
-          name: i.name,
-          status: i.status,
-          arrDocs: [],
-        };
+        const { codeid, name, status } = i;
+        return { codeid, name, status, arrDocs: [] };
       });
     });
     builder.addCase(toTakeTypeTypeDocs.rejected, (state, action) => {
@@ -294,6 +303,25 @@ const applicationsSlice = createSlice({
       state.preloaderDocs = false;
     });
     builder.addCase(deleteDocsIsks.pending, (state, action) => {
+      state.preloaderDocs = true;
+    });
+
+    //////////////////////////////////////////// getIsk
+    builder.addCase(getIsk.fulfilled, (state, action) => {
+      state.preloaderDocs = false;
+      const { files, codeid } = action.payload;
+      if (codeid !== 0 && !!action.payload?.codeid) {
+        ///// if данные с запроса есть, то только тогда надо подставить их, если их нет то ненадо подставлять
+        state.todosApplications = action.payload;
+      }
+      const newArrIsk = { arrIsk: state.applicationList, reqData: files };
+      state.applicationList = transformArrDocs(newArrIsk);
+    });
+    builder.addCase(getIsk.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderDocs = false;
+    });
+    builder.addCase(getIsk.pending, (state, action) => {
       state.preloaderDocs = true;
     });
 
@@ -379,10 +407,10 @@ const applicationsSlice = createSlice({
     clearTodosApplications: (state, action) => {
       state.todosApplications = {
         codeid: 0,
-        plaintiff: [], //1 plaintiff
-        plaintiffResper: [], //2
-        defendant: [], //3
-        defendantResper: [], //4
+        plaintiff: [],
+        plaintiffResper: [],
+        defendant: [],
+        defendantResper: [],
         name: "",
         description: "",
         isk_summ: "",

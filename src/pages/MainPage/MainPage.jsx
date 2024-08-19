@@ -19,6 +19,7 @@ import MoreInfo from "../../components/MoreInfo/MoreInfo";
 import ConfirmRespSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmRespSecr/ConfirmRespSecr";
 import ConfirmPred from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
 import TimeAndActions from "../../components/MainPage/ActionsUsers/TimeAndActions/TimeAndActions";
+import ConfirmSimpleSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmSimpleSecr/ConfirmSimpleSecr";
 // import ConfirmPred from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
 
 const MainPage = () => {
@@ -74,9 +75,10 @@ const MainPage = () => {
 
       {/* ///// модалки для подтверждения и удаления иска */}
       <MoreInfo />
-      {/* //// для ответ. секретаря */}
+      {/* //// для ответ. секретаря, председателя и обыного секретаря */}
       <ConfirmRespSecr />
       <ConfirmPred />
+      <ConfirmSimpleSecr />
     </>
   );
 };

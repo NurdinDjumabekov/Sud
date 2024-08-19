@@ -11,39 +11,16 @@
     display: none !important;
   }
 
-  .tox .tox-menubar {
-    width: auto !important;
-  }
+  .tox-menubar {
+    > button:nth-child(1) {
+      min-width: 50px !important;
+    }
 
-  > div:nth-child(2) {
-    > div:nth-child(1) {
-      > div:nth-child(1) {
-        > div:nth-child(1) {
-          button:nth-child(1) {
-            width: 1px !important;
-            // background: red !important;
-            cursor: pointer;
-          }
-          button:nth-child(1):after {
-            content: "";
-            position: absolute;
-            padding: 8px 18px;
-            height: 18px;
-            top: 7px;
-            left: 5px;
-            color: #4d5969;
-            font-size: 16px;
-            font-weight: 600;
-            font-family: "Montserrat", sans-serif;
-            text-align: center;
-            background-image: url("../../asstes/images/pdfFile.png");
-            margin: 0 0 0 5px;
-            background-repeat: no-repeat;
-          }
-          button:not(:first-child) {
-            display: none;
-          }
-        }
+    > button {
+      cursor: pointer !important;
+
+      span {
+        cursor: pointer !important;
       }
     }
   }

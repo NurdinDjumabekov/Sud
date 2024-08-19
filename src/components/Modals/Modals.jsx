@@ -1,8 +1,8 @@
-import "./Modals.scss";
-import krest from "../../asstes/icons/krestik.svg";
 import { useEffect } from "react";
+import "./Modals.scss";
+import krestIcon from "../../asstes/icons/krestik.svg";
 
-const Modals = ({ openModal, children, setOpenModal }) => {
+const Modals = ({ openModal, children, setOpenModal, krest }) => {
   const closeModal = () => setOpenModal(false);
 
   useEffect(() => {
@@ -24,9 +24,11 @@ const Modals = ({ openModal, children, setOpenModal }) => {
         <div className="modal__shadow" onClick={closeModal}></div>
         <div className="modal__inner">
           {children}
-          <button className="krest" onClick={closeModal}>
-            <img src={krest} alt="x" />
-          </button>
+          {!krest && (
+            <button className="krest" onClick={closeModal}>
+              <img src={krestIcon} alt="x" />
+            </button>
+          )}
         </div>
       </div>
     );
