@@ -29,7 +29,6 @@ const NotifyDefendants = () => {
       const content = editorRef.current?.editor?.getContent();
       const obj = { content, id: confirmStatus?.id, code_file: 23 };
       dispatch(sendDocsEveryIsks({ ...obj, reRender: true, navigate })); /// 17 - уведомление
-      console.log({ ...obj, reRender: true, navigate });
       /// для создания и отправки документа "уведомления ответчика"
       ////// закрываю модалки
       dispatch(confirmStatusFN(false));

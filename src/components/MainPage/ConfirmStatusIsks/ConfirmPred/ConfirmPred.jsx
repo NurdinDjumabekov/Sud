@@ -24,17 +24,18 @@ const ConfirmPred = () => {
     6: <Redone_isk />, ////// на доработку
   };
 
+  const status = confirmStatus?.status;
+  const active = status == 3 || status == 4 || status == 6;
+
   return (
-    <>
-      <div className="blockModal moreStylePdf">
-        <Modals
-          openModal={!!confirmStatus?.id}
-          setOpenModal={() => dispatch(confirmStatusFN())}
-        >
-          {components?.[confirmStatus?.status]}
-        </Modals>
-      </div>
-    </>
+    <div className={`blockModal moreStylePdf ${active ? "" : "noActive"}`}>
+      <Modals
+        openModal={!!confirmStatus?.id}
+        setOpenModal={() => dispatch(confirmStatusFN())}
+      >
+        {components?.[status]}
+      </Modals>
+    </div>
   );
 };
 

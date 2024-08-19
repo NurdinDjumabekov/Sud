@@ -15,7 +15,7 @@ const TimeAndActions = ({ row }) => {
 
   const objType = {
     1: <ActionsStatusSS row={row} />, /// Секретарь дела
-    // 2: <DefaultPlaintiff row={row} />, /// Ответственный секретарь
+    2: <p>Время потом добавлю</p>, /// Ответственный секретарь
     // 3: <DefaultPlaintiff row={row} />, /// Председатель
     4: <p>Время потом добавлю</p>, /// Истец
   };

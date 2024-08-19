@@ -215,20 +215,16 @@ export const createEveryIsk = createAsyncThunk(
 export const changeStatusDocs = createAsyncThunk(
   "changeStatusDocs",
   async function (info, { dispatch, rejectWithValue }) {
-    const { isk_status, id, tokenA } = info;
-    const { idSecr, content, type, navigate } = info;
+    const { id, isk_status, content, navigate, code_file } = info;
 
-    const obj = { description: "", code_secretar: idSecr };
-    const data = { ...obj, code_isk: id, isk_status };
-
+    const data = { description: "", code_isk: id, isk_status };
     const url = `${REACT_APP_API_URL}/isks/set_isk_status`;
     try {
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(sendDocsEveryIsks({ id, content, type }));
+        const obj = { id, content, code_file, navigate, reRender: true };
+        dispatch(sendDocsEveryIsks(obj));
         /// для создания документа иска
-        dispatch(toTakeIsksList({ tokenA, id: 0 })); //// get весь список
-        navigate("/main");
       } else {
         throw Error(`Error: ${response.status}`);
       }

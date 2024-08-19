@@ -52,7 +52,7 @@ const ActionsSimpleSecr = ({ row }) => {
   const darabotka = row?.isk_status === 6; //// if докумен на доработке
 
   return (
-    <>
+    <td className="allStatus">
       {row?.status === 0 || darabotka ? (
         <div className="statusIsks">
           <button onClick={() => changeStatus(row?.codeid)}>
@@ -76,7 +76,7 @@ const ActionsSimpleSecr = ({ row }) => {
           {status ? status.text : "..."}
         </span>
       )}
-    </>
+    </td>
   );
 };
 

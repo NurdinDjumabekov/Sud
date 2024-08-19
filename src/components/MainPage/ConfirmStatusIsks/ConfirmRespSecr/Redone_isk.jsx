@@ -28,16 +28,13 @@ const Redone_isk = () => {
 
   const { confirmStatus } = useSelector((state) => state.stateSlice);
 
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
-
   const redoneIsk = () => {
     const { id, status } = confirmStatus;
     if (editorRef.current && editorRef.current.editor) {
       const content = editorRef.current.editor.getContent();
 
-      const send = { id, tokenA, isk_status: status, content, navigate };
-
-      dispatch(changeStatusDocs({ ...send, type: 18 }));
+      const send = { id, isk_status: status, content, navigate };
+      dispatch(changeStatusDocs({ ...send, code_file: 18 }));
       /// 18 - отправить на доработку
 
       closeAllModal();

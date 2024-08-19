@@ -55,11 +55,11 @@ const ActionRespSecr = ({ row }) => {
   };
 
   const lookIsks = (obj) => {
-    // if (+obj.status === 1) {
-    //   dispatch(
-    //     editIsks({ id: obj?.codeid, tokenA, navigate, applicationList })
-    //   );
-    // }
+    if (+obj.status === 1) {
+      dispatch(
+        editIsks({ id: obj?.codeid, tokenA, navigate, applicationList })
+      );
+    }
   };
 
   const statusMessages = {
@@ -71,7 +71,6 @@ const ActionRespSecr = ({ row }) => {
     6: { text: "Отправлено на доработку", color: "redStatus" },
   };
 
-  // const activeIsks = row?.status == 0 || row?.isk_status == 6; /// if иск еще не подтвержден или отправлен на доработку
   const activeIsks = row?.status == 0; /// if иск еще не подтвержден или отправлен на доработку
 
   const iskActive = row?.isk_status == 0;

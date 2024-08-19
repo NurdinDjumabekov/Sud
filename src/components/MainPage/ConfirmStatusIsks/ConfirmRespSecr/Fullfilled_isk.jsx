@@ -30,19 +30,14 @@ const Fullfilled_isk = () => {
 
   const { confirmStatus } = useSelector((state) => state.stateSlice);
 
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
-
   const fulfilledIsk = () => {
     const { id, status } = confirmStatus;
     if (fulfilledRef.current.editor) {
       const content = fulfilledRef.current.editor.getContent();
 
-      const send = { id, tokenA, isk_status: status, content, navigate };
-
-      dispatch(changeStatusDocs({ ...send, type: 12 }));
+      const send = { id, isk_status: status, content, navigate };
+      dispatch(changeStatusDocs({ ...send, code_file: 12 }));
       /// 12 - принятие иска ответственным секретарём
-
-      // dispatch(clearMainBtnList());
       closeAllModal();
     }
   };

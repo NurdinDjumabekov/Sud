@@ -28,17 +28,19 @@ const ConfirmSimpleSecr = () => {
     8: <NotifyDefendants />, ////// уведомление ответчика
   };
 
+  const status = confirmStatus?.status;
+
+  const active = status == 5 || status == 7 || status == 8;
+
   return (
-    <>
-      <div className="blockModal moreStylePdf">
-        <Modals
-          openModal={!!confirmStatus?.id}
-          setOpenModal={() => dispatch(confirmStatusFN())}
-        >
-          {components?.[confirmStatus?.status]}
-        </Modals>
-      </div>
-    </>
+    <div className={`blockModal moreStylePdf ${active ? "" : "noActive"}`}>
+      <Modals
+        openModal={!!confirmStatus?.id}
+        setOpenModal={() => dispatch(confirmStatusFN())}
+      >
+        {components?.[status]}
+      </Modals>
+    </div>
   );
 };
 

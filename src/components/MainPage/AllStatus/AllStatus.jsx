@@ -15,12 +15,12 @@ const AllStatus = ({ row }) => {
 
   const objType = {
     1: <ActionsSimpleSecr row={row} />, /// Секретарь
-    // 2: <DefaultPlaintiff row={row} />, /// Ответственный секретарь
+    2: <></>, /// Ответственный секретарь
     // 3: <DefaultPlaintiff row={row} />, /// Председатель
     4: <DefaultPlaintiff row={row} />, /// Истец
   };
 
-  return <td className="allStatus">{objType?.[type_user]}</td>;
+  return objType?.[type_user];
 };
 
 export default AllStatus;
@@ -28,7 +28,7 @@ export default AllStatus;
 ///// default для истца
 export const DefaultPlaintiff = ({ row }) => {
   return (
-    <>
+    <td className="allStatus">
       {row?.status == 1 ? (
         <>
           {row?.isk_status == 6 ? (
@@ -40,6 +40,6 @@ export const DefaultPlaintiff = ({ row }) => {
       ) : (
         <span className="noActivePlaint">Черновик</span>
       )}
-    </>
+    </td>
   );
 };

@@ -111,6 +111,11 @@ button {
   height: auto !important;
 }
 
+.noActive {
+  // я вызываю много модалок и чтобы определенная модалка выводилась, а остальные скрывались
+  display: none !important;
+}
+
 @keyframes animation {
   from {
     opacity: 0;

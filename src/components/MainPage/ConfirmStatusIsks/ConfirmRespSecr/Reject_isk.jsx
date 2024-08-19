@@ -7,13 +7,10 @@ import { useRef, useState } from "react";
 import "../style.scss";
 
 ////// fns
-import { changeLookDocs } from "../../../../store/reducers/stateSlice";
 import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
 import { changeStatusDocs } from "../../../../store/reducers/sendDocsSlice";
 
 ///// components
-import PdfFulfilled from "../../../../components/PdfFile/PdfFulfilled/PdfFulfilled";
-import ApplicationFiles from "../../../../components/PlaintiffPage/ApplicationFiles/ApplicationFiles";
 import PdfFileReject from "../../../PdfFile/PdfFileReject/PdfFileReject";
 import PdfFile from "../../../../components/PdfFile/PdfFile";
 import Modals from "../../../Modals/Modals";
@@ -30,19 +27,14 @@ const Reject_isk = () => {
 
   const { confirmStatus } = useSelector((state) => state.stateSlice);
 
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
-
   const rejectIsk = () => {
     const { id, status } = confirmStatus;
-    if (editorRefReject.current && editorRefReject.current.editor) {
-      const content = editorRefReject.current.editor.getContent();
+    if (editorRefReject?.current && editorRefReject.current?.editor) {
+      const content = editorRefReject.current?.editor?.getContent();
 
-      const send = { id, tokenA, isk_status: status, content, navigate };
-
-      dispatch(changeStatusDocs({ ...send, type: 13 }));
+      const send = { id, isk_status: status, content, navigate };
+      dispatch(changeStatusDocs({ ...send, code_file: 13 }));
       /// 13 - отклонение иска ответственным секретарём
-
-      // dispatch(clearMainBtnList());
       closeAllModal();
     }
   };
@@ -83,7 +75,7 @@ const Reject_isk = () => {
           </div>
           <h5>Отказать в иске?</h5>
           <div className="btnsSendIsks">
-            <button onClick={(e) => rejectIsk(e)}>Да</button>
+            <button onClick={rejectIsk}>Да</button>
             <button onClick={() => setConfirmAction(false)}>нет</button>
           </div>
         </div>

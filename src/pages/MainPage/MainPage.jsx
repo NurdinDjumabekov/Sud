@@ -26,6 +26,8 @@ const MainPage = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { selReglament } = useSelector((state) => state.selectsSlice);
 
+  const { confirmStatus } = useSelector((state) => state.stateSlice);
+
   return (
     <>
       <div className="mainTables">
@@ -60,7 +62,11 @@ const MainPage = () => {
                         //  if файлы есть
                         <div className="docsBlock">
                           {row?.files?.map((pdf) => (
-                            <LookPdfModal pdf={pdf} key={pdf?.codeid} />
+                            <LookPdfModal
+                              pdf={pdf}
+                              key={pdf?.codeid}
+                              row={row}
+                            />
                           ))}
                         </div>
                       )}
@@ -75,10 +81,10 @@ const MainPage = () => {
 
       {/* ///// модалки для подтверждения и удаления иска */}
       <MoreInfo />
-      {/* //// для ответ. секретаря, председателя и обыного секретаря */}
-      <ConfirmRespSecr />
-      <ConfirmPred />
+      {/* //// для ответ. секретаря, председателя и обычного секретаря */}
       <ConfirmSimpleSecr />
+      <ConfirmRespSecr />
+      {/* <ConfirmPred /> */}
     </>
   );
 };
