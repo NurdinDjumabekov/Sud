@@ -1,8 +1,13 @@
+////// hooks
 import React from "react";
-import "./style.scss";
 import { useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
-import ChoiceReglament from "../../Roles/ChairmanPred/ChoiceReglament/ChoiceReglament";
+
+////// style
+import "./style.scss";
+
+/////// components
+import ChoiceReglament from "../ConfirmStatusIsks/ConfirmPred/ChoiceReglament/ChoiceReglament";
 
 const Arbitrs = ({ row }) => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
@@ -12,17 +17,20 @@ const Arbitrs = ({ row }) => {
     return <ChoiceReglament row={row} />;
   }
 
-  return (
-    <td className="arbitrs">
-      {row?.arbitrs?.length !== 0 &&
-        row?.arbitrs?.map((i, index) => (
-          <span>
+  if (row?.arbitrs?.length !== 0) {
+    return (
+      <td className="arbitrs">
+        {row?.arbitrs?.map((i, index) => (
+          <span key={index}>
             {i?.fio_arbitr}
             {index !== row?.arbitrs?.length - 1 && ","}
           </span>
         ))}
-    </td>
-  );
+      </td>
+    );
+  }
+
+  return <td className="arbitrs"></td>;
 };
 
 export default Arbitrs;

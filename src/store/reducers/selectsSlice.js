@@ -335,17 +335,12 @@ export const toTakeSecretarList = createAsyncThunk(
 ////toTakeArbitrsList
 export const toTakeArbitrsList = createAsyncThunk(
   "toTakeArbitrsList",
-  async function ({ tokenA, search }, { dispatch, rejectWithValue }) {
+  async function (search, { dispatch, rejectWithValue }) {
     try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/sp_arbitrs${
-          search && `?search=${search}`
-        }`,
-        headers: {
-          Authorization: `Bearer ${tokenA}`,
-        },
-      });
+      const searchText = search ? `?search=${search}` : "";
+      const url = `${REACT_APP_API_URL}/get/sp_arbitrs${searchText}`;
+
+      const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
         return response?.data?.data;
       } else {

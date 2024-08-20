@@ -8,7 +8,7 @@ import editImg from "../../../../asstes/icons/editBtn.svg";
 import deleteImg from "../../../../asstes/icons/deleteBtn.svg";
 import sendImg from "../../../../asstes/icons/goodSend.svg";
 
-///// states
+///// fns
 import { editIsks } from "../../../../store/reducers/applicationsSlice";
 import { changeIdStatus } from "../../../../store/reducers/stateSlice";
 import { changeLookChangeDeleteIsks } from "../../../../store/reducers/stateSlice";
@@ -16,11 +16,11 @@ import { changeLookChangeStatus } from "../../../../store/reducers/stateSlice";
 import { changeCheckEditPlaint } from "../../../../store/reducers/saveDataSlice";
 
 const ActionsSimpleSecr = ({ row }) => {
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { applicationList } = useSelector((state) => state.applicationsSlice);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { applicationList } = useSelector((state) => state.applicationsSlice);
 
   const changeStatus = (id) => {
     dispatch(changeLookChangeStatus(true)); /// для вызова модалки изменения статуса иска

@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
 
 ///fns
-import { choiceArbitrsFN } from "../../../../store/reducers/sendDocsSlice";
+import { choiceArbitrsFN } from "../../../../../store/reducers/sendDocsSlice";
 
 ///////helpers
-import { searchNameSelect } from "../../../../helpers/searchNameSelect";
+import { searchNameSelect } from "../../../../../helpers/searchNameSelect";
 
 ///// components
-import Modals from "../../../Modals/Modals";
+import Modals from "../../../../Modals/Modals";
 import ChoiceArbitrsPred from "../ChoiceArbitrsPred/ChoiceArbitrsPred";
 
 const ChoiceReglament = ({ row }) => {
@@ -56,12 +56,14 @@ const ChoiceReglament = ({ row }) => {
             </Modals>
           </span>
         ) : (
-          row?.arbitrs?.map((i, index) => (
-            <span key={index}>
-              {i?.fio_arbitr}
-              {index !== row.arbitrs.length - 1 && ","}
-            </span>
-          ))
+          <>
+            {row?.arbitrs?.map((i, index) => (
+              <span key={index}>
+                {i?.fio_arbitr}
+                {index !== row.arbitrs.length - 1 && ","}
+              </span>
+            ))}
+          </>
         )}
       </td>
 
@@ -91,7 +93,7 @@ const ChoiceReglament = ({ row }) => {
             </div>
             <div>
               <span>Страна:</span>
-              <p>{searchNameSelect(selCountries, +dataModalArbitr.gorod)}</p>
+              <p>{searchNameSelect(selCountries, +dataModalArbitr?.gorod)}</p>
             </div>
           </div>
         </div>

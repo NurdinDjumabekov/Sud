@@ -1,5 +1,5 @@
 ////// hooks
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 ////// fns
@@ -18,7 +18,7 @@ import "./style.scss";
 /////imgs
 import imgWarning from "../../asstes/images/warning.png";
 
-const MoreInfo = () => {
+const IsksConfirmAndDel = () => {
   //////////////////////   для подтверждения и удаления иска
 
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const MoreInfo = () => {
     (state) => state.stateSlice
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => dispatch(changeIdStatus(0));
   }, []);
 
@@ -94,4 +94,4 @@ const MoreInfo = () => {
   );
 };
 
-export default MoreInfo;
+export default IsksConfirmAndDel;

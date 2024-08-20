@@ -1,11 +1,12 @@
+///// hooks
 import React, { useEffect, useState } from "react";
-import "./ChoiceSecr.scss";
-import Modals from "../../../Modals/Modals";
-import Selects from "../../../Selects/Selects";
 import { useDispatch, useSelector } from "react-redux";
-import { choiceSecr } from "../../../../store/reducers/sendDocsSlice";
 import { jwtDecode } from "jwt-decode";
-import { toTakeSecretarList } from "../../../../store/reducers/selectsSlice";
+import "./style.scss";
+import { choiceSecr } from "../../../../../store/reducers/sendDocsSlice";
+import Modals from "../../../../Modals/Modals";
+import { toTakeSecretarList } from "../../../../../store/reducers/selectsSlice";
+import Selects from "../../../../Selects/Selects";
 
 const ChoiceSecr = ({ item }) => {
   const dispatch = useDispatch();

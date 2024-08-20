@@ -3,11 +3,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 
-/////// style
 import "./style.scss";
 
 ////// components
-import ActionsStatusSS from "../ActionsSimpleSecr/ActionsStatusSS/ActionsStatusSS";
+import ActionsStatusSS from "../ActionsSimpleSecr/ActionsStatusSS";
 
 const TimeAndActions = ({ row }) => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);

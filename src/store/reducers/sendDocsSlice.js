@@ -64,17 +64,13 @@ export const toTakeIsksList = createAsyncThunk(
   "toTakeIsksList",
   async function (id, { dispatch, rejectWithValue }) {
     //// get список исков сортируя по статусу (0 - весь список)
-    /// 1 -
-    /// 2 -
-    /// 3 -
     const url = `${REACT_APP_API_URL}/isks/get?status=${id}`;
     try {
       const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
-        const { recordset, ...totals } = response?.data;
-        dispatch(sortDataIsksCounts(totals));
+        dispatch(sortDataIsksCounts(response?.data));
         //// подставляю к сортировочным кнопкам кол-ва исков которые есть
-        return recordset;
+        return response.data?.recordset;
       } else {
         throw Error(`Error: ${response.status}`);
       }

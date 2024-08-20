@@ -1,5 +1,6 @@
 /////// hooks
 import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 
 ////// helpers
 import { searchNameSelect } from "../../helpers/searchNameSelect";
@@ -15,13 +16,12 @@ import Titles from "../../components/MainPage/Titles/Titles";
 import Arbitrs from "../../components/MainPage/Arbitrs/Arbitrs";
 import AllStatus from "../../components/MainPage/AllStatus/AllStatus";
 import TypeActionsUsers from "../../components/MainPage/ActionsUsers/TypeActionsUsersAll/TypeActionsUsers";
-import MoreInfo from "../../components/MoreInfo/MoreInfo";
 import ConfirmRespSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmRespSecr/ConfirmRespSecr";
 import ConfirmPred from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
 import TimeAndActions from "../../components/MainPage/ActionsUsers/TimeAndActions/TimeAndActions";
 import ConfirmSimpleSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmSimpleSecr/ConfirmSimpleSecr";
-import { jwtDecode } from "jwt-decode";
-import ChoiceSecr from "../../components/Roles/ChairmanPred/ChoiceSecr/ChoiceSecr";
+import ChoiceSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ChoiceSecr/ChoiceSecr";
+import IsksConfirmAndDel from "../../components/IsksConfirmAndDel/IsksConfirmAndDel";
 
 const MainPage = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
@@ -53,7 +53,7 @@ const MainPage = () => {
                   </td>
                   <Arbitrs row={row} />
                   <td className="secr">
-                    <span>{row.secretary || <ChoiceSecr item={row} />}</span>
+                    <span>{row?.secretary || <ChoiceSecr item={row} />}</span>
                   </td>
                   <AllStatus row={row} />
                   <TypeActionsUsers row={row} />
@@ -82,7 +82,7 @@ const MainPage = () => {
       </div>
 
       {/* ///// модалки для подтверждения и удаления иска */}
-      <MoreInfo />
+      <IsksConfirmAndDel />
       {/* //// для ответ. секретаря, председателя и обычного секретаря */}
       <ConfirmSimpleSecr />
       {type_user === 2 && <ConfirmRespSecr />}

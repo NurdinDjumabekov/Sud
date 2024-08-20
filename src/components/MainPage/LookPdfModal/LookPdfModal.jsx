@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Modals from "../../Modals/Modals";
-import "./LookPdfModal.scss";
+import "./style.scss";
 import pdfImg from "../../../asstes/images/pdfFile.png";
 
 const LookPdfModal = ({ pdf, row }) => {

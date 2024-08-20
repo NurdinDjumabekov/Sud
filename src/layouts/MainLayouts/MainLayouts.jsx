@@ -78,8 +78,8 @@ const MainLayouts = () => {
         </div>
         <p className="title">Меню</p>
         {allPage?.map((page) => (
-          <div key={page.id} className="everyPage">
-            <button
+          <ul key={page.id} className="everyPage">
+            <li
               onClick={() => clickMenu(page)}
               className={page.bool ? "activePage" : ""}
             >
@@ -96,8 +96,8 @@ const MainLayouts = () => {
                   )}
                 </p>
               </div>
-            </button>
-          </div>
+            </li>
+          </ul>
         ))}
         <LogOut />
       </div>

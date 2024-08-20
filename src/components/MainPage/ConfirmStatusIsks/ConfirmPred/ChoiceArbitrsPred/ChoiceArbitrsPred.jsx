@@ -1,10 +1,17 @@
+/////// hooks
 import React, { useCallback, useState } from "react";
-import "./ChoiceArbitrsPred.scss";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "debounce";
-import userImg from "../../../../asstes/icons/plaintiff/fiz_face.svg";
-import { changeArbitrPred } from "../../../../store/reducers/stateSlice";
-import { toTakeArbitrsList } from "../../../../store/reducers/selectsSlice";
+
+/////// style
+import "./style.scss";
+
+/////// imgs
+import userImg from "../../../../../asstes/icons/plaintiff/fiz_face.svg";
+
+/////// fns
+import { changeArbitrPred } from "../../../../../store/reducers/stateSlice";
+import { toTakeArbitrsList } from "../../../../../store/reducers/selectsSlice";
 
 const ChoiceArbitrsPred = (props) => {
   const { setDataModalArbitr, setModalArbitrs } = props;
@@ -16,33 +23,29 @@ const ChoiceArbitrsPred = (props) => {
 
   const { selArbitrs } = useSelector((state) => state.selectsSlice);
 
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
-
   const [serach, setSearch] = useState("");
 
   const changeInput = (e) => {
-    e.preventDefault();
-    const value = e.target.value;
-    setSearch(value);
-    debouncedSearch(value);
+    setSearch(e.target.value);
+    debouncedSearch(e.target.value);
   };
 
   const debouncedSearch = useCallback(
+    /// поиск арбитре
     debounce((value) => {
-      dispatch(toTakeArbitrsList({ tokenA, search: value }));
+      dispatch(toTakeArbitrsList(value));
       dispatch(changeArbitrPred(0));
     }, 500),
     []
   );
 
   const moreInfo = (obj) => {
+    ///// посмотреть подробную инфу об арбитре
     setDataModalArbitr(obj);
     setModalArbitrs(true);
   };
 
-  const clickArbitr = (codeid) => {
-    dispatch(changeArbitrPred(codeid));
-  };
+  const clickArbitr = (codeid) => dispatch(changeArbitrPred(codeid));
 
   return (
     <div className="choiceArbitrs">

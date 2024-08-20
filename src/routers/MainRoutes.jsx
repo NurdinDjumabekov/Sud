@@ -45,10 +45,10 @@ const MainRoutes = () => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
 
-  console.log(applicationList, "applicationList");
+  // console.log(applicationList, "applicationList");
 
   React.useEffect(() => {
-    if (tokenA === "" || !tokenA) {
+    if (tokenA === "" || !!!tokenA) {
       navigate("/");
     }
     /// селекты
@@ -65,7 +65,8 @@ const MainRoutes = () => {
     dispatch(toTakePrimPravo(tokenA));
     dispatch(toTakeReglament(tokenA));
     dispatch(toTakeLangArbit(tokenA));
-    dispatch(toTakeArbitrsList({ tokenA, search: "" }));
+
+    dispatch(toTakeArbitrsList());
 
     dispatch(toTakeTypeTypeDocs());
     ///// get список документов, которые нужны для заполнения иска (просто текста)

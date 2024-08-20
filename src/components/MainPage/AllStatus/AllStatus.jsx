@@ -16,11 +16,11 @@ const AllStatus = ({ row }) => {
   const objType = {
     1: <ActionsSimpleSecr row={row} />, /// Секретарь
     2: <></>, /// Ответственный секретарь
-    // 3: <DefaultPlaintiff row={row} />, /// Председатель
+    3: <></>, /// Председатель
     4: <DefaultPlaintiff row={row} />, /// Истец
   };
 
-  return objType?.[type_user];
+  return <>{objType?.[type_user]}</>;
 };
 
 export default AllStatus;

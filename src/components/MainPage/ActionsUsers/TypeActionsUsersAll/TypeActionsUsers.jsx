@@ -10,6 +10,7 @@ const TypeActionsUsers = ({ row }) => {
   const { typeUser } = useSelector((state) => state.saveDataSlice);
 
   const components = {
+    ////// логика для обычных секретарей была перенесена в компонент в TimeAndActions
     4: <ActionPlaintiff row={row} />,
     2: <ActionRespSecr row={row} />,
     3: <ActionPred row={row} />,

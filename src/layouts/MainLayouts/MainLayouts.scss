@@ -33,11 +33,15 @@ $widthAllContent: 100%;
 
     .infoUser {
       margin: 0 0 40px 0;
+      text-align: left;
+      width: 100%;
+
       button {
         display: flex;
         gap: 12px;
         justify-content: start !important;
         padding: 10px 20px 25px 20px;
+        background: transparent;
 
         span {
           font-size: 20px;
@@ -83,19 +87,20 @@ $widthAllContent: 100%;
       color: #4650dd;
     }
 
-    > div {
+    .everyPage {
       background: transparent;
       text-align: left;
       width: 100%;
       gap: 5px;
 
-      > button {
+      li {
         padding: 15px 35px 15px 20px;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         background: #f9fafd;
+        cursor: pointer;
 
         .everyPage__inner {
           background: transparent;
