@@ -20,13 +20,15 @@ import ConfirmRespSecr from "../../components/MainPage/ConfirmStatusIsks/Confirm
 import ConfirmPred from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
 import TimeAndActions from "../../components/MainPage/ActionsUsers/TimeAndActions/TimeAndActions";
 import ConfirmSimpleSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmSimpleSecr/ConfirmSimpleSecr";
-// import ConfirmPred from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ConfirmPred";
+import { jwtDecode } from "jwt-decode";
+import ChoiceSecr from "../../components/Roles/ChairmanPred/ChoiceSecr/ChoiceSecr";
 
 const MainPage = () => {
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { selReglament } = useSelector((state) => state.selectsSlice);
 
-  const { confirmStatus } = useSelector((state) => state.stateSlice);
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { type_user } = jwtDecode(tokenA);
 
   return (
     <>
@@ -49,9 +51,9 @@ const MainPage = () => {
                       )}
                     </span>
                   </td>
-                  <Arbitrs />
+                  <Arbitrs row={row} />
                   <td className="secr">
-                    <span>{row.secretary || ""}</span>
+                    <span>{row.secretary || <ChoiceSecr item={row} />}</span>
                   </td>
                   <AllStatus row={row} />
                   <TypeActionsUsers row={row} />
@@ -83,8 +85,8 @@ const MainPage = () => {
       <MoreInfo />
       {/* //// для ответ. секретаря, председателя и обычного секретаря */}
       <ConfirmSimpleSecr />
-      <ConfirmRespSecr />
-      {/* <ConfirmPred /> */}
+      {type_user === 2 && <ConfirmRespSecr />}
+      {type_user === 3 && <ConfirmPred />}
     </>
   );
 };

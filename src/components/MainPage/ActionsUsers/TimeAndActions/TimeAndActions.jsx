@@ -15,9 +15,9 @@ const TimeAndActions = ({ row }) => {
 
   const objType = {
     1: <ActionsStatusSS row={row} />, /// Секретарь дела
-    2: <p>Время потом добавлю</p>, /// Ответственный секретарь
-    // 3: <DefaultPlaintiff row={row} />, /// Председатель
-    4: <p>Время потом добавлю</p>, /// Истец
+    2: <p>14 дней</p>, /// Ответственный секретарь
+    3: <p>14 дней</p>, /// Председатель
+    4: <p>14 дней</p>, /// Истец
   };
 
   return <td className="times">{objType?.[type_user]}</td>;

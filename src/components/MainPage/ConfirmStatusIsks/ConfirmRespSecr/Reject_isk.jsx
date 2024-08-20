@@ -49,7 +49,7 @@ const Reject_isk = () => {
     <>
       {/* ///// открытие документа принятия иска  */}
       <>
-        <div className="blockModal__inner">
+        <div className="blockModal__inner vh100">
           <PdfFile editorRef={editorRefReject} />
           <div className="plaintiFilling__container moreStyle">
             <PdfFileReject editorRef={editorRefReject} />

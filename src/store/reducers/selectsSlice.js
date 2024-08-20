@@ -332,7 +332,7 @@ export const toTakeSecretarList = createAsyncThunk(
   }
 );
 
-////toTakeSecretarList
+////toTakeArbitrsList
 export const toTakeArbitrsList = createAsyncThunk(
   "toTakeArbitrsList",
   async function ({ tokenA, search }, { dispatch, rejectWithValue }) {

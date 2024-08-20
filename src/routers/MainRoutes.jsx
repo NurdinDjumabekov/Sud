@@ -32,7 +32,10 @@ import {
   toTakeTypeValuta,
 } from "../store/reducers/selectsSlice";
 import MainPage from "../pages/MainPage/MainPage";
-import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
+import {
+  changeApplicationList,
+  toTakeTypeTypeDocs,
+} from "../store/reducers/applicationsSlice";
 
 const MainRoutes = () => {
   const dispatch = useDispatch();
@@ -40,6 +43,9 @@ const MainRoutes = () => {
   const location = useLocation();
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { applicationList } = useSelector((state) => state.applicationsSlice);
+
+  console.log(applicationList, "applicationList");
 
   React.useEffect(() => {
     if (tokenA === "" || !tokenA) {

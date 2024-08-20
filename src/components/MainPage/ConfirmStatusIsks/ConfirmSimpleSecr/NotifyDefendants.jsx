@@ -4,16 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 /////// components
-import PdfObjection from "../../../PdfFile/PdfObjection/PdfObjection";
 import Modals from "../../../Modals/Modals";
+import PdfNotifyDefendant from "../../../PdfFile/PdfNotifyDefendant/PdfNotifyDefendant";
 
 ////// fns
 import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
-import { sendDocsEveryIsks } from "../../../../store/reducers/sendDocsSlice";
+import { changeStatusDocs } from "../../../../store/reducers/sendDocsSlice";
 
 ///// imgs
 import imgWarning from "../../../../asstes/images/warning.png";
-import PdfNotifyDefendant from "../../../PdfFile/PdfNotifyDefendant/PdfNotifyDefendant";
 
 const NotifyDefendants = () => {
   const dispatch = useDispatch();
@@ -28,8 +27,9 @@ const NotifyDefendants = () => {
     if (editorRef.current && editorRef.current?.editor) {
       const content = editorRef.current?.editor?.getContent();
       const obj = { content, id: confirmStatus?.id, code_file: 23 };
-      dispatch(sendDocsEveryIsks({ ...obj, reRender: true, navigate })); /// 17 - уведомление
-      /// для создания и отправки документа "уведомления ответчика"
+      dispatch(changeStatusDocs({ ...obj, isk_status: 5, navigate }));
+      /// 17 - уведомление
+
       ////// закрываю модалки
       dispatch(confirmStatusFN(false));
       setConfirmAction(false);

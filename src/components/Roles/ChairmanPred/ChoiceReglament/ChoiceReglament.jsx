@@ -9,8 +9,10 @@ import "./style.scss";
 import { choiceArbitrsFN } from "../../../../store/reducers/sendDocsSlice";
 
 ///////helpers
-import Modals from "../../../Modals/Modals";
 import { searchNameSelect } from "../../../../helpers/searchNameSelect";
+
+///// components
+import Modals from "../../../Modals/Modals";
 import ChoiceArbitrsPred from "../ChoiceArbitrsPred/ChoiceArbitrsPred";
 
 const ChoiceReglament = ({ row }) => {
@@ -24,17 +26,13 @@ const ChoiceReglament = ({ row }) => {
 
   const [dataModalArbitr, setDataModalArbitr] = useState({}); //// для выбора арбитра
 
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
-
   const { arbitrPred } = useSelector((state) => state.stateSlice);
 
-  const { selReglament, selCountries } = useSelector(
-    (state) => state.selectsSlice
-  );
+  const { selCountries } = useSelector((state) => state.selectsSlice);
 
   const sendArbitrs = () => {
     setModal(false);
-    dispatch(choiceArbitrsFN({ tokenA, arbitrPred, code_isk: codeid }));
+    dispatch(choiceArbitrsFN({ arbitrPred, code_isk: codeid }));
   };
 
   const checkArbitrs = row?.arbitrs?.length === 0; /// if арбитров нет
@@ -43,12 +41,6 @@ const ChoiceReglament = ({ row }) => {
 
   return (
     <>
-      <td className="table_isk_td">
-        {+row?.reglament !== 0 && (
-          <span>{searchNameSelect(selReglament, +row?.reglament)}</span>
-        )}
-      </td>
-
       <td className="table_isk_td">
         {checkArbitrs && checkStatus ? (
           <span>

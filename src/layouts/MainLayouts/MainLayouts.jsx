@@ -16,6 +16,8 @@ import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
 import logo from "../../asstes/images/logo.png";
 
 ///// store
+import { clearFilesApplicationList } from "../../store/reducers/applicationsSlice";
+import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { notificationCount } from "../../store/reducers/notificationSlice";
 import { changeActivePage } from "../../store/reducers/typesSlice";
@@ -52,7 +54,14 @@ const MainLayouts = () => {
   const clickLogo = () => navigate("/main");
   ////// клик на лого и переход всегда на главную страницу
 
-  const clickMenu = ({ path }) => navigate(path); //// перехожу по страницам
+  const clickMenu = ({ path }) => {
+    navigate(path);
+    //// перехожу по страницам
+    dispatch(clearTodosApplications());
+    /// сбрасываю state для хранения данных иска
+    dispatch(clearFilesApplicationList([]));
+    /// сбрасываю state для хранения файлов иска
+  };
 
   return (
     <div className="plaintiffBlock">

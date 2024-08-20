@@ -67,13 +67,6 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
     /// строс подсчёт калькулятора
   };
 
-  // useEffect(() => {
-  //   if (+todosApplications?.codeid === 0 && checkEditPlaint === false) {
-  //     /// 0 означает что у тебя пустое исковое заявление и ты не истец
-  //     followLink(typeUser, navigate);
-  //   }
-  // }, []);
-
   const navMain = () => navigate("/main");
 
   const nonePdf = lookAddPlaintiff === 0 ? "" : "nonePdf";

@@ -216,7 +216,6 @@ export const changeStatusDocs = createAsyncThunk(
   "changeStatusDocs",
   async function (info, { dispatch, rejectWithValue }) {
     const { id, isk_status, content, navigate, code_file } = info;
-
     const data = { description: "", code_isk: id, isk_status };
     const url = `${REACT_APP_API_URL}/isks/set_isk_status`;
     try {
@@ -225,6 +224,31 @@ export const changeStatusDocs = createAsyncThunk(
         const obj = { id, content, code_file, navigate, reRender: true };
         dispatch(sendDocsEveryIsks(obj));
         /// для создания документа иска
+
+        if (isk_status == 5) {
+          /// для создания и отправки документа "уведомления ответчика"
+
+          setTimeout(() => {
+            dispatch(sendNotif(id)); /// отправка уведомления
+          }, 3000);
+        }
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// sendNotif - для отправки смс уведомления через почту
+export const sendNotif = createAsyncThunk(
+  "sendNotif",
+  async function (id, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/send_sms?id=${id}`;
+    try {
+      const response = await axiosInstance(url);
+      if (response.status >= 200 && response.status < 300) {
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -239,17 +263,16 @@ export const changeStatusDocs = createAsyncThunk(
 /// choiceSecr - выбор секретаря дела председателем
 export const choiceSecr = createAsyncThunk(
   "choiceSecr",
-  async function (info, { dispatch, rejectWithValue }) {
-    const { tokenA, typeSecretarDela, code_isk } = info;
+  async function (props, { dispatch, rejectWithValue }) {
+    const { typeSecretarDela, code_isk } = props;
+
+    const url = `http://mttp-renaissance.333.kg/api/isks/set_isk_secretar`;
+    const data = { code_isk, code_secretar: typeSecretarDela };
+
     try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/set_isk_secretar`,
-        data: { code_isk, code_secretar: typeSecretarDela },
-        headers: { Authorization: `Bearer ${tokenA}` },
-      });
+      const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList({ tokenA, id: 0 }));
+        dispatch(toTakeIsksList(0));
         dispatch(clearMainBtnList());
       } else {
         throw Error(`Error: ${response.status}`);
@@ -264,16 +287,15 @@ export const choiceSecr = createAsyncThunk(
 export const choiceArbitrsFN = createAsyncThunk(
   "choiceArbitrsFN",
   async function (props, { dispatch, rejectWithValue }) {
-    const { tokenA, arbitrPred, code_isk } = props;
+    const { arbitrPred, code_isk } = props;
+
+    const url = "http://mttp-renaissance.333.kg/api/isks/set_isk_arbitrs";
+    const data = { code_isk, code_arbitr: arbitrPred };
+
     try {
-      const response = await axios({
-        method: "POST",
-        url: `http://mttp-renaissance.333.kg/api/isks/set_isk_arbitrs`,
-        data: { code_isk, code_arbitr: arbitrPred },
-        headers: { Authorization: `Bearer ${tokenA}` },
-      });
+      const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList({ tokenA, id: 0 }));
+        dispatch(toTakeIsksList(0));
         dispatch(clearMainBtnList());
       } else {
         throw Error(`Error: ${response.status}`);

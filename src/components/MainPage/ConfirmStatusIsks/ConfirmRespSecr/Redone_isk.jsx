@@ -11,7 +11,6 @@ import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
 import { changeStatusDocs } from "../../../../store/reducers/sendDocsSlice";
 
 ///// components
-import PdfFulfilled from "../../../../components/PdfFile/PdfFulfilled/PdfFulfilled";
 import PdfFile from "../../../../components/PdfFile/PdfFile";
 import PdfFileRedone from "../../../../components/PdfFile/PdfFileRedone/PdfFileRedone";
 import Modals from "../../../Modals/Modals";
@@ -51,7 +50,7 @@ const Redone_isk = () => {
     <>
       {/* ///// открытие документа приняти  я иска  */}
       <>
-        <div className="blockModal__inner">
+        <div className="blockModal__inner vh100">
           <PdfFile editorRef={editorRef} />
           <div className="plaintiFilling__container moreStyle">
             <PdfFileRedone editorRef={editorRef} />

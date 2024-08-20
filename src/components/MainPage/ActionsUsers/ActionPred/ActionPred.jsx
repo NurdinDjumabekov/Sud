@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import fullfiled from "../../../../asstes/icons/goodSend.svg";
 import reject from "../../../../asstes/icons/krestik.svg";
 import redone from "../../../../asstes/images/redone.png";
+import editImg from "../../../../asstes/icons/editBtn.svg";
 
 ////fns
 import { editFileDocsFN } from "../../../../store/reducers/stateSlice";
@@ -31,12 +32,8 @@ const ActionPred = ({ row }) => {
     dispatch(editFileDocsFN(true)); ///// запрещаю добавлять документы председателю
   };
 
-  const lookIsks = (obj) => {
-    // if (+obj.status === 1) {
-    //   dispatch(
-    //     editIsks({ id: obj?.codeid, tokenA, navigate, applicationList })
-    //   );
-    // }
+  const lookIsks = ({ codeid }) => {
+    dispatch(editIsks({ id: codeid, tokenA, navigate, applicationList }));
   };
 
   const statusMessages = {
@@ -50,27 +47,40 @@ const ActionPred = ({ row }) => {
 
   const iskActive = row?.isk_status == 0 || row?.isk_status == 1;
 
+  const notif = row?.isk_status == 5;
+
   return (
     <td className="typeUser">
       {iskActive ? (
-        <div className="statusIsks">
-          <div className="statusIsks lookIsk">
-            <button onClick={() => lookIsks(row)}>Просмотреть</button>
-            {/* Просмотреть */}
-          </div>
-          <button onClick={() => openModalChangeStatus(row?.codeid, 3)}>
-            <img src={fullfiled} alt="ok" />
-            {/* Принять  иск*/}
-          </button>
-          <button onClick={() => openModalChangeStatus(row?.codeid, 4)}>
-            <img src={reject} alt="no" />
-            {/* Отклонить  иск*/}
-          </button>
-          <button onClick={() => openModalChangeStatus(row?.codeid, 6)}>
-            {/* Отправить на доработку */}
-            <img src={redone} alt="redone" className="redoneImg" />
-          </button>
-        </div>
+        <>
+          {notif ? (
+            <div className="statusIsks">
+              <button onClick={() => lookIsks(row)}>
+                <img src={editImg} alt="ok" />
+                <span>Редактировать</span>
+              </button>
+            </div>
+          ) : (
+            <div className="statusIsks">
+              <button onClick={() => lookIsks(row)}>
+                <img src={editImg} alt="ok" />
+                <span>Редактировать</span>
+              </button>
+              <button onClick={() => openModalChangeStatus(row?.codeid, 3)}>
+                <img src={fullfiled} alt="ok" />
+                <span>Принять иск</span>
+              </button>
+              <button onClick={() => openModalChangeStatus(row?.codeid, 4)}>
+                <img src={reject} alt="no" />
+                <span>Отклонить иск</span>
+              </button>
+              <button onClick={() => openModalChangeStatus(row?.codeid, 6)}>
+                <img src={redone} alt="redone" className="redoneImg" />
+                <span>Отправить на доработку</span>
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="statusPlaintiff">
           {statusMessages[row?.isk_status] && (

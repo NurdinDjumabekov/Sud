@@ -60,7 +60,7 @@ const UrFace = ({ typerole }) => {
   const checkData = () => {
     const role = typerole === "истца" ? 1 : 2;
     const obj = { todosApplications, action_type: 1 }; ///
-    const objMore = { aduf, typeFace, role };
+    const objMore = { aduf, typeFace, role, country_ur: aduf?.country };
 
     dispatch(createEveryIsk({ ...obj, ...objMore }));
     cancel();

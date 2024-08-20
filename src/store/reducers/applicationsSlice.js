@@ -292,7 +292,7 @@ const applicationsSlice = createSlice({
       state.preloaderDocs = false;
       state.applicationList = state.applicationList?.map((item) => ({
         ...item,
-        arrDocs: item.arrDocs.filter(
+        arrDocs: item.arrDocs?.filter(
           (doc) => doc?.codeid_file !== action.payload
         ),
         //// удаляю документ, если у них похожи документы
@@ -445,6 +445,13 @@ const applicationsSlice = createSlice({
     changeApplicationList: (state, action) => {
       state.applicationList = action.payload;
     },
+
+    clearFilesApplicationList: (state, action) => {
+      state.applicationList = state.applicationList?.map((item) => ({
+        ...item,
+        arrDocs: [],
+      }));
+    },
   },
 });
 
@@ -456,6 +463,7 @@ export const {
   changeTodosApplications,
   clearTodosApplications,
   changeApplicationList,
+  clearFilesApplicationList,
 } = applicationsSlice.actions;
 
 export default applicationsSlice.reducer;

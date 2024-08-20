@@ -26,7 +26,6 @@ const ActionRespSecr = ({ row }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
 
   const changeStatus = (id) => {
@@ -37,7 +36,7 @@ const ActionRespSecr = ({ row }) => {
 
   const changeIsk = (id) => {
     ///// изменения искового заявления до подтверждения
-    dispatch(editIsks({ id, tokenA, navigate, applicationList }));
+    dispatch(editIsks({ id, navigate, applicationList }));
   };
 
   const deleteIsksFn = (id) => {
@@ -49,17 +48,13 @@ const ActionRespSecr = ({ row }) => {
   const openModalChangeStatus = (id, status) => {
     // для принятия, отклонения и отпарвки на доработку иска
     dispatch(confirmStatusFN({ id, status }));
-    dispatch(editIsks({ id, tokenA, applicationList }));
+    dispatch(editIsks({ id, applicationList }));
 
     dispatch(editFileDocsFN(true)); ///// запрещаю добавлять документы ответ. секретарю
   };
 
-  const lookIsks = (obj) => {
-    if (+obj.status === 1) {
-      dispatch(
-        editIsks({ id: obj?.codeid, tokenA, navigate, applicationList })
-      );
-    }
+  const lookIsks = ({ codeid }) => {
+    dispatch(editIsks({ id: codeid, navigate, applicationList }));
   };
 
   const statusMessages = {
@@ -80,37 +75,37 @@ const ActionRespSecr = ({ row }) => {
       {activeIsks ? (
         <div className="statusIsks">
           <button onClick={() => changeStatus(row?.codeid)}>
-            {/* Подать */}
             <img src={sendImg} alt="sendImg" />
+            <span>Подать</span>
           </button>
           <button onClick={() => changeIsk(row?.codeid)}>
-            {/* Редактировать */}
             <img src={editImg} alt="sendImg" />
+            <span>Редактировать</span>
           </button>
           <button onClick={() => deleteIsksFn(row?.codeid)}>
-            {/* Удалить */}
             <img src={deleteImg} alt="sendImg" />
+            <span>Удалить</span>
           </button>
         </div>
       ) : (
         <>
           {iskActive ? (
             <div className="statusIsks">
-              <div className="statusIsks lookIsk">
-                <button onClick={() => lookIsks(row)}>Просмотреть</button>
-                {/* Просмотреть */}
-              </div>
+              <button onClick={() => lookIsks(row)}>
+                <img src={editImg} alt="ok" />
+                <span>Редактировать иск</span>
+              </button>
               <button onClick={() => openModalChangeStatus(row?.codeid, 1)}>
                 <img src={fullfiled} alt="ok" />
-                {/* Принять  иск*/}
+                <span>Принять иск</span>
               </button>
               <button onClick={() => openModalChangeStatus(row?.codeid, 2)}>
                 <img src={reject} alt="no" />
-                {/* Отклонить  иск*/}
+                <span>Отклонить иск</span>
               </button>
               <button onClick={() => openModalChangeStatus(row?.codeid, 6)}>
-                {/* Отправить на доработку */}
                 <img src={redone} alt="redone" className="redoneImg" />
+                <span>Отправить на доработку</span>
               </button>
             </div>
           ) : (
