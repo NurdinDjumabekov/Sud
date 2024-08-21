@@ -42,7 +42,6 @@ const AddresFizFace = (props) => {
           initText={"Район"}
           keys={{ typeKey: adff.district, type: "district" }}
           type="adff"
-          urgently={true}
         />
 
         <MyInput

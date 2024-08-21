@@ -14,6 +14,7 @@ import { searchNameSelect } from "../../helpers/searchNameSelect";
 import { addFilesList } from "../../helpers/addFilesList";
 import { todayDate } from "../../helpers/todayDate";
 import { key } from "../../helpers/localData";
+import { comparisonCheck } from "../../helpers/getSelects";
 
 const PdfFile = ({ editorRef, nonePdf }) => {
   const { selCurrency } = useSelector((state) => state.selectsSlice);
@@ -33,27 +34,41 @@ const PdfFile = ({ editorRef, nonePdf }) => {
     const selOptions = [selCountries, selRegions, selDistrict];
 
     const generateText = (text, selOptions) => {
+      const districtText = searchNameSelect(selOptions[2], text?.district);
+
+      const country = comparisonCheck(text?.country)
+        ? `${searchNameSelect(selOptions[0], text?.country)}, `
+        : "";
+
+      const region = comparisonCheck(text?.region)
+        ? `${searchNameSelect(selOptions[1], text?.region)}, `
+        : "";
+
+      const district = comparisonCheck(districtText)
+        ? `${searchNameSelect(selOptions[2], text?.district)}, `
+        : "";
+
+      const city = text?.city ? `г. ${text.city}, ` : "";
+
+      const street = text?.street ? `ул. ${text.street} ` : "";
+
+      const numObj = text?.numObj ? `${text.numObj}` : "";
+
+      const apartament = text?.apartament ? `, кв. ${text.apartament}` : "";
+
+      console.log(text?.district, "text?.district");
+
       return [
         text?.numPhone &&
           `<div style="display:flex; align-items:center"><span>Телефон: </span>${text.numPhone}</div>`,
-        `<div style="display:flex; align-items:center"><span>Адрес: </span>${searchNameSelect(
-          selOptions[0],
-          text?.country
-        )}, ${searchNameSelect(
-          selOptions[1],
-          text?.region
-        )}, ${searchNameSelect(selOptions[2], text?.district)}${
-          text?.city ? `, ${text.city}` : ""
-        }${text?.street ? `, ул. ${text.street}` : ""}${
-          text?.numObj ? `, дом ${text.numObj}` : ""
-        }${text?.apartament ? `, кв. ${text.apartament}` : ""}</div>`,
+        `<div style="display:flex; align-items:center"><span>Адрес: </span>${country} ${region} ${district} ${city}${street}${numObj}${apartament}</div>`,
         text?.email &&
           `<div style="display:flex; align-items:center"><span>Почта: </span>${text.email}</div>`,
         text?.inn &&
           `<div style="display:flex; align-items:center"><span>Инн: </span>${text.inn}</div>`,
       ]
-        .filter(Boolean)
-        .join("");
+        ?.filter(Boolean)
+        ?.join("");
     };
 
     let allText = arr

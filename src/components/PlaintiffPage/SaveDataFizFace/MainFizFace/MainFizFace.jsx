@@ -44,10 +44,6 @@ const FizFace = ({ typerole }) => {
       return dispatch(changeAlertText("Выберите область"));
     }
 
-    if (adff?.district === 0) {
-      return dispatch(changeAlertText("Выберите район"));
-    }
-
     if (adff?.adddreselement === 0) {
       return dispatch(changeAlertText("Выберите адресный элемент"));
     }

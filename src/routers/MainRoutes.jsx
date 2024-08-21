@@ -32,10 +32,8 @@ import {
   toTakeTypeValuta,
 } from "../store/reducers/selectsSlice";
 import MainPage from "../pages/MainPage/MainPage";
-import {
-  changeApplicationList,
-  toTakeTypeTypeDocs,
-} from "../store/reducers/applicationsSlice";
+import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
+import { jwtDecode } from "jwt-decode";
 
 const MainRoutes = () => {
   const dispatch = useDispatch();
@@ -45,7 +43,9 @@ const MainRoutes = () => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
 
-  // console.log(applicationList, "applicationList");
+  // const decodedToken = jwtDecode(tokenA);
+
+  // console.log(decodedToken);
 
   React.useEffect(() => {
     if (tokenA === "" || !!!tokenA) {

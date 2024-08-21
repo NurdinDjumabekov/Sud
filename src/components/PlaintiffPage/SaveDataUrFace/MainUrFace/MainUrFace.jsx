@@ -47,9 +47,7 @@ const UrFace = ({ typerole }) => {
     if (aduf?.region === 0) {
       return dispatch(changeAlertText("Выберите область"));
     }
-    if (aduf?.district === 0) {
-      return dispatch(changeAlertText("Выберите район"));
-    }
+
     if (aduf?.adddreselement === 0) {
       return dispatch(changeAlertText("Выберите адресный элемент"));
     }

@@ -43,7 +43,6 @@ const AddresUrFace = (props) => {
           initText={"Район"}
           keys={{ typeKey: aduf.district, type: "district" }}
           type="aduf"
-          urgently={true}
         />
 
         <MyInput

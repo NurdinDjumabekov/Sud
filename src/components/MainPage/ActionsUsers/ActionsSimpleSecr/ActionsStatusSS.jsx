@@ -16,6 +16,7 @@ const ActionsStatusSS = ({ row }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isk_status = row?.isk_status;
+  const status = row?.status;
 
   const { applicationList } = useSelector((state) => state.applicationsSlice);
 
@@ -35,7 +36,8 @@ const ActionsStatusSS = ({ row }) => {
     isk_status == 2 ||
     isk_status == 4 ||
     isk_status == 6 ||
-    isk_status == 7
+    isk_status == 7 ||
+    status == 0
   ) {
     return <></>;
   }
