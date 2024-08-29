@@ -56,7 +56,7 @@ const PdfFile = ({ editorRef, nonePdf }) => {
 
       const apartament = text?.apartament ? `, кв. ${text.apartament}` : "";
 
-      console.log(text?.district, "text?.district");
+      // console.log(text?.district, "text?.district");
 
       return [
         text?.numPhone &&

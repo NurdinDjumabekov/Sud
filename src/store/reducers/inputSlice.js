@@ -38,7 +38,6 @@ const initialState = {
     typeFace: 1,
   },
 
-  //// addPlaintiffUrFace
   aduf: {
     action_type: 1,
     code_isk: 0,
@@ -73,6 +72,35 @@ const initialState = {
     ur_face_type: 1, // 1-plaintiff, 2-defendan
   },
 
+  adif: {
+    action_type: 1,
+    code_isk: 0,
+
+    codeid: 0,
+    name: "",
+    numPhone: "",
+    inn: "",
+    okpo: "",
+    email: "",
+    email2: "",
+
+    startData: "",
+    endData: "",
+
+    country: 36, /// select
+    region: 12, /// область /// select
+    district: 48, //// район /// select
+    adddreselement: 1, // адресный элемент   /// select
+    city: "",
+    street: "",
+    numObj: "",
+    index: "",
+    apartament: "",
+    emailIndex: "",
+    description: "",
+    ip_face_type: 1, // 1-plaintiff, 2-defendan
+  },
+
   docsIsks: {
     files: [], // { base64: "jkh", name: "sssdsshdfdfdfhh.docx", code_file: 3 },
     code_isk: 0,
@@ -83,7 +111,7 @@ const inputSlice = createSlice({
   name: "inputSlice",
   initialState,
   reducers: {
-    //// addPlaintiffFizFace
+    ///// fiz face
     changeADFF: (state, action) => {
       state.adff = action.payload;
     },
@@ -125,7 +153,7 @@ const inputSlice = createSlice({
       };
     },
 
-    //// addPlaintiffUrFace
+    ///// ur face
     changeADUF: (state, action) => {
       state.aduf = action.payload;
     },
@@ -144,7 +172,6 @@ const inputSlice = createSlice({
         typeOrganization: 1, /// select
         dataReg: "", // дата регистрации
         typeCompany: 1, /// select
-        // country_ur: 1, /// select
 
         userStatus: 1, //// должность в компании /// select
         startData: "",
@@ -166,7 +193,42 @@ const inputSlice = createSlice({
       };
     },
 
-    ////////////////////////
+    ///// ip face
+    changeADIF: (state, action) => {
+      state.adif = action.payload;
+    },
+
+    clearADIF: (state, action) => {
+      state.adif = {
+        action_type: 1,
+        code_isk: 0,
+
+        codeid: 0,
+        name: "",
+        numPhone: "",
+        inn: "",
+        okpo: "",
+        email: "",
+        email2: "",
+
+        startData: "",
+        endData: "",
+
+        country: 36, /// select
+        region: 12, /// область /// select
+        district: 48, //// район /// select
+        adddreselement: 1, // адресный элемент   /// select
+        city: "",
+        street: "",
+        numObj: "",
+        index: "",
+        apartament: "",
+        emailIndex: "",
+        description: "",
+        ip_face_type: 1, // 1-plaintiff, 2-defendan
+      };
+    },
+
     changeTypeFace: (state, action) => {
       state.typeFace = action.payload;
     },
@@ -182,6 +244,8 @@ export const {
   clearADFF,
   changeADUF,
   clearADUF,
+  changeADIF,
+  clearADIF,
   changeRP,
   changeTypeFace,
   changeDocsIsks,

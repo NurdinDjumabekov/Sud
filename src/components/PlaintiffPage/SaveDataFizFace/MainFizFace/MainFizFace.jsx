@@ -1,3 +1,4 @@
+//////// hooks
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,9 +7,6 @@ import "./style.scss";
 
 ///// fns
 import { changeADFF } from "../../../../store/reducers/inputSlice";
-import { clearADFF } from "../../../../store/reducers/inputSlice";
-import { clearADUF } from "../../../../store/reducers/inputSlice";
-import { changeLookAddPlaintiff } from "../../../../store/reducers/stateSlice";
 import { createEveryIsk } from "../../../../store/reducers/sendDocsSlice";
 import { changeAlertText } from "../../../../store/reducers/typesSlice";
 
@@ -16,6 +14,9 @@ import { changeAlertText } from "../../../../store/reducers/typesSlice";
 import MyInput from "../../../../common/MyInput/MyInput";
 import PassportDataFizFace from "../PassportDataFizFace/PassportDataFizFace";
 import AddresFizFace from "../AddresFizFace/AddresFizFace";
+
+/////// helpers
+import { clearAllFace } from "../../../../helpers/clear";
 
 const FizFace = ({ typerole }) => {
   const dispatch = useDispatch();
@@ -91,14 +92,8 @@ const FizFace = ({ typerole }) => {
     dispatch(changeADFF({ ...adff, [name]: filteredValue }));
   };
 
-  const cancel = () => {
-    /// отмена
-    dispatch(changeLookAddPlaintiff(0));
-    /// 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
-    dispatch(clearADFF());
-    dispatch(clearADUF());
-    //// очищаю state где хрпанятся данные
-  };
+  const cancel = () => clearAllFace(dispatch);
+  ///// очищаю все state для всех лиц
 
   console.log(adff, "adff");
 

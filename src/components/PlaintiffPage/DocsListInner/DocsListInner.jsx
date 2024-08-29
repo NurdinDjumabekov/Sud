@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
 
 ///// fns
-import { changeADFF, changeADUF } from "../../../store/reducers/inputSlice";
+import { changeADFF } from "../../../store/reducers/inputSlice";
+import { changeADIF } from "../../../store/reducers/inputSlice";
+import { changeADUF } from "../../../store/reducers/inputSlice";
 import { changeTypeFace } from "../../../store/reducers/inputSlice";
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
 import { toTakeCountries } from "../../../store/reducers/selectsSlice";
@@ -23,12 +25,12 @@ import { deleteEveryIsk } from "../../../store/reducers/applicationsSlice";
 const DocsListInner = ({ arr, arr2, typerole }) => {
   const dispatch = useDispatch();
 
-  const { checkEditPlaint, tokenA } = useSelector(
-    (state) => state.saveDataSlice
-  );
+  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
   const changeAddPlaintiff = (objData, type) => {
+    console.log(objData, "objData");
+    console.log(typerole, type, "typerole, type");
     if (type === "plaint" && typerole === "истца") {
       dispatch(changeLookAddPlaintiff(1));
       dispatch(changeTypeFace(objData?.typeFace));
@@ -47,6 +49,10 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
     } else if (objData?.typeFace === 2) {
       /// подставляю данные только юр лица во временный state changeADUF
       dispatch(changeADUF({ ...objData, action_type: 2 }));
+    } else {
+      /// подставляю данные только юр лица во временный state changeADUF
+      dispatch(changeADIF({ ...objData, action_type: 2 }));
+      dispatch(changeTypeFace(3));
     }
     /// action_type 2 - редактирование
 
@@ -85,6 +91,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
     0: "не указано",
     1: "Физическое лицо",
     2: "Юридическое лицо",
+    3: "Индивидуальный предприниматель",
   };
 
   return (

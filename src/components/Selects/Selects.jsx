@@ -2,7 +2,11 @@ import React from "react";
 import "./Selects.scss";
 import img from "../../asstes/icons/arrowBtn.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { changeADFF, changeADUF } from "../../store/reducers/inputSlice";
+import {
+  changeADFF,
+  changeADIF,
+  changeADUF,
+} from "../../store/reducers/inputSlice";
 import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
 import {
   changeArbitrPred,
@@ -20,7 +24,7 @@ const Selects = (props) => {
   const dispatch = useDispatch();
   const [active, setActive] = React.useState(false);
   const accordionRef = React.useRef(null);
-  const { adff, aduf } = useSelector((state) => state.inputSlice);
+  const { adff, aduf, adif } = useSelector((state) => state.inputSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
 
@@ -47,6 +51,8 @@ const Selects = (props) => {
       dispatch(changeADFF({ ...adff, [keys.type]: +id }));
     } else if (type === "aduf") {
       dispatch(changeADUF({ ...aduf, [keys.type]: +id }));
+    } else if (type === "adif") {
+      dispatch(changeADIF({ ...adif, [keys.type]: +id }));
     } else if (type === "todos") {
       dispatch(
         changeTodosApplications({ ...todosApplications, [keys.type]: +id })
@@ -72,6 +78,14 @@ const Selects = (props) => {
       dispatch(changeADUF({ ...aduf, district: 48, region: 12, country: id }));
     }
     if (keys?.type === "region" && type === "aduf") {
+      dispatch(toTakeDistrict({ tokenA, id }));
+    }
+    if (keys?.type === "country" && type === "adif") {
+      dispatch(toTakeRegions({ tokenA, id }));
+      dispatch(toTakeDistrict({ tokenA, id: 48 }));
+      dispatch(changeADIF({ ...adif, district: 48, region: 12, country: id }));
+    }
+    if (keys?.type === "region" && type === "adif") {
       dispatch(toTakeDistrict({ tokenA, id }));
     }
     setActive(false);

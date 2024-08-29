@@ -10,7 +10,7 @@ import DocsList from "../DocsList/DocsList";
 
 ////// fns
 import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
-import { changeADFF } from "../../../store/reducers/inputSlice";
+import { changeADFF, changeADIF } from "../../../store/reducers/inputSlice";
 import { changeADUF } from "../../../store/reducers/inputSlice";
 import { changeTypeFace } from "../../../store/reducers/inputSlice";
 import { toTakeCountries } from "../../../store/reducers/selectsSlice";
@@ -21,13 +21,14 @@ const DataArrPlaintiff = ({ typerole }) => {
   const dispatch = useDispatch();
   const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { adff, aduf } = useSelector((state) => state.inputSlice);
+  const { adff, aduf, adif } = useSelector((state) => state.inputSlice);
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
   const approvId = () => {
     //// подствляю codeid для юр и физ лиц
     dispatch(changeADFF({ ...adff, code_isk: todosApplications?.codeid }));
     dispatch(changeADUF({ ...aduf, code_isk: todosApplications?.codeid }));
+    dispatch(changeADIF({ ...adif, code_isk: todosApplications?.codeid }));
   };
 
   const clickPlaintiff = () => {

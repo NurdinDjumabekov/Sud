@@ -1,9 +1,20 @@
+//////// hooks
 import React from "react";
-import "./AddPlaintiff.scss";
+import { useDispatch, useSelector } from "react-redux";
+
+/////// style
+import "./style.scss";
+
+//////// fns
+import { changeTypeFace } from "../../../store/reducers/inputSlice";
+
+//////// components
 import MainFizFace from "../SaveDataFizFace/MainFizFace/MainFizFace";
 import MainUrFace from "../SaveDataUrFace/MainUrFace/MainUrFace";
-import { useDispatch, useSelector } from "react-redux";
-import { changeTypeFace } from "../../../store/reducers/inputSlice";
+import MainIpFace from "../SaveDataIPFace/MainIpFace/MainIpFace";
+
+//////// helpers
+import { listFace } from "../../../helpers/dataArr";
 
 const AddPlaintiff = ({ typerole }) => {
   const dispatch = useDispatch();
@@ -11,11 +22,16 @@ const AddPlaintiff = ({ typerole }) => {
   const { typeFace } = useSelector((state) => state.inputSlice);
 
   const changeFace = (num) => dispatch(changeTypeFace(num));
-  /// 1 - физ лицо
-  /// 2 - юр лицо
+  /// 1 - физ лицо, 2 - юр лицо, 3 - ИП
 
   const getButtonClass = (faceType) =>
     typeFace === faceType ? "activeBtnsPlaintiff" : "";
+
+  const component = {
+    1: <MainFizFace typerole={typerole} />,
+    2: <MainUrFace typerole={typerole} />,
+    3: <MainIpFace typerole={typerole} />,
+  };
 
   return (
     <>
@@ -29,18 +45,16 @@ const AddPlaintiff = ({ typerole }) => {
       ) : (
         <div className="addPlaintiff">
           <div className="btnsType">
-            <button className={getButtonClass(1)} onClick={() => changeFace(1)}>
-              Физическое лицо
-            </button>
-            <button className={getButtonClass(2)} onClick={() => changeFace(2)}>
-              Юридическое лицо
-            </button>
+            {listFace?.map(({ id, name }) => (
+              <button
+                className={getButtonClass(id)}
+                onClick={() => changeFace(id)}
+              >
+                {name}
+              </button>
+            ))}
           </div>
-          {typeFace === 1 ? (
-            <MainFizFace typerole={typerole} />
-          ) : (
-            <MainUrFace typerole={typerole} />
-          )}
+          {component?.[typeFace]}
         </div>
       )}
     </>

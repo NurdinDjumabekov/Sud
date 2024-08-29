@@ -81,3 +81,9 @@ export const predHeaders = [
   "Документы",
   "Действия",
 ];
+
+export const listFace = [
+  { id: 1, name: "Физическое лицо" },
+  { id: 2, name: "Юридическое лицо" },
+  { id: 3, name: "Индивидуальный предприниматель" },
+];

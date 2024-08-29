@@ -6,48 +6,44 @@ import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
 
 // components
-import Selects from "../../../Selects/Selects";
 import DataInput from "../../DataInput/DataInput";
 import MyInput from "../../../../common/MyInput/MyInput";
-import AddresUrFace from "../AddresUrFace/AddresUrFace";
+import AddresUrFace from "../AddresIpFace/AddresIpFace";
 
 /// fns
-import { changeADUF } from "../../../../store/reducers/inputSlice";
+import { changeADIF } from "../../../../store/reducers/inputSlice";
 import { createEveryIsk } from "../../../../store/reducers/sendDocsSlice";
 import { changeAlertText } from "../../../../store/reducers/typesSlice";
 import { clearAllFace } from "../../../../helpers/clear";
 
-const UrFace = ({ typerole }) => {
+const MainIpFace = ({ typerole }) => {
   const dispatch = useDispatch();
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { aduf, typeFace } = useSelector((state) => state.inputSlice);
+  const { adif, typeFace } = useSelector((state) => state.inputSlice);
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
-
-  const { selTypeOrganiz } = useSelector((state) => state.selectsSlice);
-  const { selTypePosition } = useSelector((state) => state.selectsSlice);
 
   const sendData = (e) => {
     e.preventDefault();
 
-    if (aduf?.typeOrganization === 0) {
+    if (adif?.typeOrganization === 0) {
       const text = "Заполните вид организационно-правовой нормы";
       return dispatch(changeAlertText(text));
     }
-    if (aduf?.dataReg === "") {
+    if (adif?.dataReg === "") {
       return dispatch(changeAlertText("Заполните дату первичной регистрации"));
     }
-    if (aduf?.country === 0) {
+    if (adif?.country === 0) {
       return dispatch(changeAlertText("Выберите страну"));
     }
-    if (aduf?.userStatus === 0) {
+    if (adif?.userStatus === 0) {
       return dispatch(changeAlertText("Заполните должность компании"));
     }
-    if (aduf?.region === 0) {
+    if (adif?.region === 0) {
       return dispatch(changeAlertText("Выберите область"));
     }
 
-    if (aduf?.adddreselement === 0) {
+    if (adif?.adddreselement === 0) {
       return dispatch(changeAlertText("Выберите адресный элемент"));
     }
 
@@ -56,8 +52,8 @@ const UrFace = ({ typerole }) => {
 
   const checkData = () => {
     const role = typerole === "истца" ? 1 : 2;
-    const obj = { todosApplications, action_type: 1 }; ///
-    const objMore = { aduf, typeFace, role, country_ur: aduf?.country };
+    const obj = { todosApplications, action_type: 1 }; /// 1 - создание
+    const objMore = { adif, typeFace, role };
 
     dispatch(createEveryIsk({ ...obj, ...objMore }));
     console.log({ ...obj, ...objMore }, "{ ...obj, ...objMore }");
@@ -83,7 +79,7 @@ const UrFace = ({ typerole }) => {
       filteredValue = value.replace(/[^0-9+()-]/g, "");
     }
 
-    dispatch(changeADUF({ ...aduf, [name]: filteredValue }));
+    dispatch(changeADIF({ ...adif, [name]: filteredValue }));
   };
 
   const cancel = () => clearAllFace(dispatch);
@@ -96,8 +92,8 @@ const UrFace = ({ typerole }) => {
         <div className="mainUrFace">
           <MyInput
             changeInput={changeInput}
-            title={"Название"}
-            value={aduf?.name}
+            title={"ФИО"}
+            value={adif?.name}
             name={"name"}
             placeholder={"Название"}
             required={true}
@@ -106,7 +102,7 @@ const UrFace = ({ typerole }) => {
           <MyInput
             changeInput={changeInput}
             title={"Номер телефона"}
-            value={aduf?.numPhone}
+            value={adif?.numPhone}
             name={"numPhone"}
             placeholder={"Номер телефона"}
           />
@@ -114,7 +110,7 @@ const UrFace = ({ typerole }) => {
           <MyInput
             changeInput={changeInput}
             title={"Ваш ИНН"}
-            value={aduf?.inn}
+            value={adif?.inn}
             name={"inn"}
             placeholder={"ИНН"}
             required={true}
@@ -123,7 +119,7 @@ const UrFace = ({ typerole }) => {
           <MyInput
             changeInput={changeInput}
             title={"ОКПО"}
-            value={aduf?.okpo}
+            value={adif?.okpo}
             name={"okpo"}
             placeholder={
               "Общереспубликанский Классификатор Предприятий и Организаций"
@@ -137,7 +133,7 @@ const UrFace = ({ typerole }) => {
             changeInput={changeInput}
             type={"email"}
             title={"Электронная почта"}
-            value={aduf?.email}
+            value={adif?.email}
             name={"email"}
             placeholder={"Электронная почта"}
           />
@@ -146,81 +142,37 @@ const UrFace = ({ typerole }) => {
             changeInput={changeInput}
             type={"email"}
             title={"Второй адрес электронной почты"}
-            value={aduf?.email2}
+            value={adif?.email2}
             name={"email2"}
             placeholder={"Второй адрес электронной почты"}
           />
 
-          <div style={{ width: "300px" }}>
-            <Selects
-              arr={selTypeOrganiz}
-              initText={"Вид организационно-правовой формы"}
-              keys={{
-                typeKey: aduf.typeOrganization,
-                type: "typeOrganization",
-              }}
-              type="aduf"
-              urgently={true}
-            />
-          </div>
-
           <DataInput
             props={{
-              title: "Дата первичной регистрации",
-              nameInput: "dataReg",
-              placeholder: "",
-              change: changeInput,
-              keyData: aduf?.dataReg,
-              typeChange: "aduf",
-              urgently: true,
-            }}
-          />
-          <div style={{ width: "300px" }} />
-          {/* 
-          <Selects
-            arr={selTypeCompany}
-            initText={"Тип компании"}
-            keys={{ typeKey: aduf?.typeCompany, type: "typeCompany" }}
-            type="aduf"
-          /> */}
-        </div>
-
-        <div className="threeInputs">
-          <Selects
-            arr={selTypePosition}
-            initText={"Должность в компании"}
-            keys={{ typeKey: aduf.userStatus, type: "userStatus" }}
-            type="aduf"
-            urgently={true}
-          />
-          <DataInput
-            props={{
-              title: "Дата назначения",
+              title: "Дата регистрации ИП",
               nameInput: "startData",
               placeholder: "",
-              keyData: aduf.startData,
-              typeChange: "aduf",
+              keyData: adif?.startData,
+              typeChange: "adif",
             }}
           />
           <DataInput
             props={{
-              title: "Дата истечения",
+              title: "Дата истечения ИП",
               nameInput: "endData",
               placeholder: "",
-              keyData: aduf.endData,
-              typeChange: "aduf",
+              keyData: adif?.endData,
+              typeChange: "adif",
             }}
           />
 
           <MyInput
             changeInput={changeInput}
             title={"ФИО руководителя"}
-            value={aduf?.fioBoss}
+            value={adif?.fioBoss}
             name={"fioBoss"}
             placeholder={"ФИО руководителя"}
           />
-
-          <div className="noneDataInputs"></div>
         </div>
 
         <AddresUrFace changeInput={changeInput} />
@@ -240,4 +192,4 @@ const UrFace = ({ typerole }) => {
   );
 };
 
-export default UrFace;
+export default MainIpFace;

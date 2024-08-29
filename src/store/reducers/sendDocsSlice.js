@@ -180,12 +180,14 @@ export const sendDocsEveryIsks = createAsyncThunk(
   }
 );
 
-/// createEveryIsk - create and edit plaintiff
+/// createEveryIsk - create and edit истцов и ответчиков
 export const createEveryIsk = createAsyncThunk(
   "createEveryIsk",
   async function (props, { dispatch, rejectWithValue }) {
-    const { todosApplications, role, adff, aduf, typeFace } = props;
-    const faceData = typeFace === 1 ? adff : aduf;
+    const { todosApplications, role, adff, aduf, typeFace, adif } = props;
+
+    const objFace = { 1: adff, 2: aduf, 3: adif };
+    const faceData = objFace?.[typeFace];
     const obj = transformCreateData(props, role, faceData);
 
     const data = { action_type: 2, ...obj };

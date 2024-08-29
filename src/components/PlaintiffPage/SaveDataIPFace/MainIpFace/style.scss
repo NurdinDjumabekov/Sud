@@ -1,0 +1,23 @@
+.urFaceForm {
+  padding: 0 15px !important;
+
+  .mainUrFace {
+    gap: 15px;
+    margin: 0 0 30px 0;
+  }
+
+  .emails {
+    gap: 15px;
+    align-items: flex-end;
+    margin: 0 0 30px 0;
+    .everyInput {
+      width: 300px;
+    }
+  }
+
+  .threeInputs {
+    .everyInput {
+      width: 300px;
+    }
+  }
+}

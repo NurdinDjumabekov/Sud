@@ -42,6 +42,10 @@ const MainRoutes = () => {
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
+  const { aduf, adif } = useSelector((state) => state.inputSlice);
+
+  // console.log(aduf, "aduf");
+  // console.log(adif, "adif");
 
   // const decodedToken = jwtDecode(tokenA);
 

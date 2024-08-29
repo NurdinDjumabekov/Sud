@@ -35,6 +35,8 @@ const PlaintiffPage = () => {
   const dispatch = useDispatch();
   const [activeComponent, setActiveComponent] = useState(1);
 
+  console.log(params, "params");
+
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf, docsIsks } = useSelector((state) => state.inputSlice);
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
