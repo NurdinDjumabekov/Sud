@@ -2,28 +2,25 @@
 /// и если запрос fulfilled, то эта функция ищет и удаляет обьект у меня,
 /// который отправили request для удаления
 
-export const sortDeletePlaintiff = (obj) => {
+export const delSidesIskFN = (obj) => {
   const { codeid, todosApplications, role } = obj;
 
-  const roleMappings = {
+  const roleObj = {
     1: "plaintiff",
     2: "defendant",
     3: "plaintiffResper",
     4: "defendantResper",
   };
 
-  const field = roleMappings[role];
+  const sides = roleObj?.[role];
 
-  if (field && todosApplications && todosApplications[field]) {
-    const newData = todosApplications[field].filter(
-      (i) => +i.codeid !== +codeid
-    );
+  console.log(todosApplications?.[sides], "todosApplicationstodosApplications");
 
-    return {
-      ...todosApplications,
-      [field]: [...newData],
-    };
-  }
+  const newList = todosApplications?.[sides]?.filter(
+    (item) => item?.codeid !== codeid
+  );
 
-  return todosApplications;
+  const newTodosApplications = { ...todosApplications, [sides]: newList };
+
+  return newTodosApplications;
 };

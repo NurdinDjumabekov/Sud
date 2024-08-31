@@ -17,14 +17,49 @@ import AddresFizFace from "../AddresFizFace/AddresFizFace";
 
 /////// helpers
 import { clearAllFace } from "../../../../helpers/clear";
+import { objSidesAndRoles } from "../../../../helpers/localData";
 
-const FizFace = ({ typerole }) => {
+const FizFace = ({ typeSide }) => {
   const dispatch = useDispatch();
 
   const { adff, typeFace } = useSelector((state) => state.inputSlice);
-  const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
+  const { lookTypeRole } = useSelector((state) => state.stateSlice); ///истец(1) или ответчик(2)
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
+  //// check - для проверки редактирования
+
+  const key = `${typeSide}_${lookTypeRole}`;
+  const role = objSidesAndRoles?.[key]?.num; /// 1 из 4 ролей выбирается
+
+  const checkData = () => {
+    //// отправка запроса для выбора роли
+
+    dispatch(createEveryIsk({ todosApplications, adff, typeFace, role }));
+    /// action_type 1 - создание , 2 - редактирование
+    cancel();
+  };
+
+  const changeInput = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+
+    // Проверка на наличие одинарных или обратных кавычек
+    if (value.includes("'") || value.includes("`")) return;
+
+    let filteredValue = value;
+
+    if (name === "name") {
+      const regName = /^[A-Za-zА-Яа-я- ]{0,70}$/;
+      if (!regName.test(value)) return;
+    } else if (name === "inn") {
+      const innRegex = /^[0-9]{0,14}$/;
+      if (!innRegex.test(value)) return;
+    } else if (name === "numPhone") {
+      filteredValue = value.replace(/[^0-9+()-]/g, "");
+    }
+
+    dispatch(changeADFF({ ...adff, [name]: filteredValue }));
+  };
 
   const sendData = (e) => {
     e.preventDefault();
@@ -52,61 +87,12 @@ const FizFace = ({ typerole }) => {
     checkData();
   };
 
-  const checkData = () => {
-    if (typerole === "истца" && lookAddPlaintiff === 1) {
-      addData(1);
-    } else if (typerole === "ответчика" && lookAddPlaintiff === 1) {
-      addData(2);
-    } else if (typerole === "истца" && lookAddPlaintiff === 2) {
-      addData(3);
-    } else if (typerole === "ответчика" && lookAddPlaintiff === 2) {
-      addData(4);
-    }
-    cancel();
-  };
-
-  const addData = (type) => {
-    dispatch(createEveryIsk({ todosApplications, adff, typeFace, role: type }));
-    /// action_type 1 - создание , 2 - редактирование
-  };
-
-  const changeInput = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-
-    // Проверка на наличие одинарных или обратных кавычек
-    if (value.includes("'") || value.includes("`")) return;
-
-    let filteredValue = value;
-
-    if (name === "name") {
-      const regName = /^[A-Za-zА-Яа-я- ]{0,70}$/;
-      if (!regName.test(value)) return;
-    } else if (name === "inn") {
-      const innRegex = /^[0-9]{0,14}$/;
-      if (!innRegex.test(value)) return;
-    } else if (name === "numPhone") {
-      filteredValue = value.replace(/[^0-9+()-]/g, "");
-    }
-
-    dispatch(changeADFF({ ...adff, [name]: filteredValue }));
-  };
-
   const cancel = () => clearAllFace(dispatch);
   ///// очищаю все state для всех лиц
 
-  console.log(adff, "adff");
-
-  const role =
-    lookAddPlaintiff === 1
-      ? typerole === "истца"
-        ? "Истец"
-        : "Ответчик"
-      : `Представитель ${typerole}`;
-
   return (
     <div className="addPlaintiffFiz">
-      <h3>{role}</h3>
+      <h3>{objSidesAndRoles?.[key]?.text}</h3>
       <form onSubmit={sendData}>
         <div className="twoInputs">
           <MyInput
@@ -148,11 +134,9 @@ const FizFace = ({ typerole }) => {
         <PassportDataFizFace changeInput={changeInput} />
         <AddresFizFace changeInput={changeInput} />
         <div className="btnsSave">
-          {checkEditPlaint && (
-            <button className="saveBtn" type="submit">
-              Добавить
-            </button>
-          )}
+          <button className="saveBtn" type="submit">
+            Добавить
+          </button>
           <span className="saveBtn moreBtn" onClick={cancel}>
             Отмена
           </span>

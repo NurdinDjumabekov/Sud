@@ -1,52 +1,54 @@
 .addPlaintiff {
-  background: rgba(249, 250, 253, 0.616) !important;
-  box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);;
-  position: relative;
-  // max-height: 950px;
-  // background: red !important;
-  overflow-y: scroll;
-  height: 85vh;
-  &::-webkit-scrollbar {
+  width: 100%;
+  min-width: 100%;
+
+  &__inner {
+    background: rgba(249, 250, 253, 0.616) !important;
+    box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1),
+      0 3px 6px 0 rgba(0, 0, 0, 0.07);
+    position: relative;
+    overflow-y: scroll;
+    height: 85vh;
+    &::-webkit-scrollbar {
       width: 0px;
     }
-  
-  .btnsType {
+
+    .btnsType {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      // height: 40px;
       background: #f9fafd;
       border-radius: 5px;
       border: 2px solid #edf2f9;
-      // width: 180px;
       position: absolute !important;
       right: 20px;
       top: 18px;
-      // background: red;
 
       button {
-        color:#4d5969;
+        color: #4d5969;
         font-size: 16px;
         font-weight: 600;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         background: #f9fafd;
         transition: 0.2s;
         padding: 10px 25px;
         height: auto !important;
-        margin: 0 !important;  
+        margin: 0 !important;
         border-radius: 3px;
         margin: 0 5px;
       }
       .activeBtnsPlaintiff {
         color: #4d5969;
-        box-shadow:  0 0 0 1px rgba(43, 45, 80, 0.1), 0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07), 0 1px 2px 0 rgba(0, 0, 0, 0.08);;
+        box-shadow: 0 0 0 1px rgba(43, 45, 80, 0.1),
+          0 2px 5px 0 rgba(43, 45, 80, 0.08), 0 1px 1.5px 0 rgba(0, 0, 0, 0.07),
+          0 1px 2px 0 rgba(0, 0, 0, 0.08);
         height: 37px;
         font-size: 16px;
         font-weight: 600;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         background: #fff;
         z-index: 5;
       }
+    }
   }
- 
 }

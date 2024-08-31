@@ -3,9 +3,10 @@ import axios from "axios";
 
 //////// helpers
 import { transformCreateData } from "../../helpers/transformCreateData";
-import { sortDeletePlaintiff } from "../../helpers/sortDeletePlaintiff";
 import { transformArrDocs } from "../../helpers/transformArrDocs";
 import axiosInstance from "../../axiosInstance";
+import { clearTodosApp } from "../../helpers/clear";
+import { delSidesIskFN } from "../../helpers/sortDeletePlaintiff";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -100,24 +101,22 @@ export const toTakeTypeTypeDocs = createAsyncThunk(
   }
 );
 
-/// deletePlaintiff // удаление истоцов и ответчиков(представителей тоже)
-export const deleteEveryIsk = createAsyncThunk(
-  "deleteEveryIsk",
-  async function (props, { dispatch, rejectWithValue }) {
-    const { objData, role, todosApplications } = props;
-
+/// delDataSidesFN // удаление истцов и ответчиков(представителей тоже)
+export const delDataSidesFN = createAsyncThunk(
+  "delDataSidesFN",
+  async function ({ obj, role }, { dispatch, rejectWithValue }) {
+    const { codeid, typeFace } = obj;
     /// action_type - 3 удаление (вложенного обьекта (кого-то их лиц (ответчик, истец)))
-    const faceData = { action_type: 3, codeid: objData?.codeid };
-    const dataInner = transformCreateData(props, role, faceData);
-    const data = { action_type: 2, ...dataInner };
-    /// action_type - 2 (редактирование) главного обьекта
+    const data = { action_type: 3, codeid, typeFace };
 
-    const url = `${REACT_APP_API_URL}/isks/crud`;
+    const url = `${REACT_APP_API_URL}/isks/del_sides`;
 
     try {
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        return { todosApplications, codeid: +objData?.codeid, role };
+        if (response.data.status) {
+          return { codeid, role };
+        }
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -348,16 +347,17 @@ const applicationsSlice = createSlice({
       state.preloaderDocs = true;
     });
 
-    /// deleteEveryIsk
-    builder.addCase(deleteEveryIsk.fulfilled, (state, action) => {
+    ////// delDataSidesFN
+    builder.addCase(delDataSidesFN.fulfilled, (state, action) => {
       state.preloaderDocs = false;
-      state.todosApplications = sortDeletePlaintiff(action.payload);
+      const obj = { todosApplications: state.todosApplications };
+      state.todosApplications = delSidesIskFN({ ...obj, ...action.payload });
     });
-    builder.addCase(deleteEveryIsk.rejected, (state, action) => {
+    builder.addCase(delDataSidesFN.rejected, (state, action) => {
       state.error = action.payload;
       state.preloaderDocs = false;
     });
-    builder.addCase(deleteEveryIsk.pending, (state, action) => {
+    builder.addCase(delDataSidesFN.pending, (state, action) => {
       state.preloaderDocs = true;
     });
   },
@@ -405,41 +405,7 @@ const applicationsSlice = createSlice({
     },
 
     clearTodosApplications: (state, action) => {
-      state.todosApplications = {
-        codeid: 0,
-        plaintiff: [],
-        plaintiffResper: [],
-        defendant: [],
-        defendantResper: [],
-        name: "",
-        description: "",
-        isk_summ: "",
-        isk_summ_curr: 0, /// select (default-сом)
-        non_proprietary: 0,
-        code_arbitr: 0,
-        motivation: "",
-        obosnovanie: "",
-        finance_raschet: "",
-        law_links: "",
-        claim: [],
-        summ: "",
-        summ_curr: 1, /// select
-        arbitr_fee: "",
-        arbitr_curr: 1, /// select
-        registr_fee: "",
-        registr_curr: 1, /// select
-        doplata_summ: "",
-        nadbavka_curr: 1, /// select
-        arbitr_pay_end_date: "", //
-        arbitr_doplata_end_date: "", //
-        prim_pravo: 1,
-        reglament: 2,
-        haracter_spor: 1,
-        arbitr_lang: 1,
-        is_arbitr_po_dogovor: 0, // заменить на 1 и 0
-        status: "1", /// why?
-        contentPred: "",
-      };
+      state.todosApplications = clearTodosApp;
     },
 
     changeApplicationList: (state, action) => {

@@ -16,39 +16,37 @@ import MainIpFace from "../SaveDataIPFace/MainIpFace/MainIpFace";
 //////// helpers
 import { listFace } from "../../../helpers/dataArr";
 
-const AddPlaintiff = ({ typerole }) => {
+const AddDataRole = ({ typeSide }) => {
   const dispatch = useDispatch();
-  const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
-  const { typeFace } = useSelector((state) => state.inputSlice);
+  const { lookTypeRole } = useSelector((state) => state.stateSlice);
+  const { typeFace } = useSelector((state) => state.inputSlice); /// (юр и физ лиц и ип)
 
   const changeFace = (num) => dispatch(changeTypeFace(num));
   /// 1 - физ лицо, 2 - юр лицо, 3 - ИП
 
-  const getButtonClass = (faceType) =>
-    typeFace === faceType ? "activeBtnsPlaintiff" : "";
-
   const component = {
-    1: <MainFizFace typerole={typerole} />,
-    2: <MainUrFace typerole={typerole} />,
-    3: <MainIpFace typerole={typerole} />,
+    1: <MainFizFace typeSide={typeSide} />,
+    2: <MainUrFace typeSide={typeSide} />,
+    3: <MainIpFace typeSide={typeSide} />,
   };
 
   return (
-    <>
-      {lookAddPlaintiff === 2 ? ( /// если это ответчик
-        <div className="addPlaintiff">
+    <div className="addPlaintiff">
+      {lookTypeRole === 2 ? ( /// если это ответчик
+        <div className="addPlaintiff__inner">
           <div className="btnsType">
             <button className="activeBtnsPlaintiff">Физическое лицо</button>
           </div>
-          <MainFizFace typerole={typerole} />
+          <MainFizFace typeSide={typeSide} />
         </div>
       ) : (
-        <div className="addPlaintiff">
+        <div className="addPlaintiff__inner">
           <div className="btnsType">
             {listFace?.map(({ id, name }) => (
               <button
-                className={getButtonClass(id)}
+                className={typeFace === id ? "activeBtnsPlaintiff" : ""}
                 onClick={() => changeFace(id)}
+                key={id}
               >
                 {name}
               </button>
@@ -57,8 +55,8 @@ const AddPlaintiff = ({ typerole }) => {
           {component?.[typeFace]}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
-export default AddPlaintiff;
+export default AddDataRole;

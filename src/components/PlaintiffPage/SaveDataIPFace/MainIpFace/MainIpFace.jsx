@@ -16,12 +16,13 @@ import { createEveryIsk } from "../../../../store/reducers/sendDocsSlice";
 import { changeAlertText } from "../../../../store/reducers/typesSlice";
 import { clearAllFace } from "../../../../helpers/clear";
 
-const MainIpFace = ({ typerole }) => {
+const MainIpFace = ({ typeSide }) => {
   const dispatch = useDispatch();
+
+  const objSide = { 1: "Истец", 2: "Ответчик" };
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adif, typeFace } = useSelector((state) => state.inputSlice);
-  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
   const sendData = (e) => {
     e.preventDefault();
@@ -51,12 +52,10 @@ const MainIpFace = ({ typerole }) => {
   };
 
   const checkData = () => {
-    const role = typerole === "истца" ? 1 : 2;
-    const obj = { todosApplications, action_type: 1 }; /// 1 - создание
-    const objMore = { adif, typeFace, role };
+    const obj = { todosApplications, action_type: 1, role: typeSide }; /// 1 - создание
+    const senData = { adif, typeFace };
 
-    dispatch(createEveryIsk({ ...obj, ...objMore }));
-    console.log({ ...obj, ...objMore }, "{ ...obj, ...objMore }");
+    dispatch(createEveryIsk({ ...obj, ...senData }));
     cancel();
   };
 
@@ -87,7 +86,7 @@ const MainIpFace = ({ typerole }) => {
 
   return (
     <>
-      <h3>{typerole === "истца" ? "Истец" : "Ответчик"}</h3>
+      <h3>{objSide?.[typeSide]}</h3>
       <form onSubmit={sendData} className="urFaceForm">
         <div className="mainUrFace">
           <MyInput
@@ -178,11 +177,9 @@ const MainIpFace = ({ typerole }) => {
         <AddresUrFace changeInput={changeInput} />
 
         <div className="btnsSave">
-          {checkEditPlaint && (
-            <button className="saveBtn" type="submit">
-              Добавить
-            </button>
-          )}
+          <button className="saveBtn" type="submit">
+            Добавить
+          </button>
           <span className="saveBtn moreBtn" onClick={cancel}>
             Отмена
           </span>

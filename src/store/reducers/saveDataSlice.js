@@ -9,6 +9,7 @@ const initialState = {
   tokenA: "",
   typeUser: 0, /// типы пользователей
   checkEditPlaint: true, /// true - можно редактировать иск, false - нельзя редактировать иск
+  /// check
 };
 
 const saveDataSlice = createSlice({

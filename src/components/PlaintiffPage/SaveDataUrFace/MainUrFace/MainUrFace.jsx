@@ -17,12 +17,13 @@ import { createEveryIsk } from "../../../../store/reducers/sendDocsSlice";
 import { changeAlertText } from "../../../../store/reducers/typesSlice";
 import { clearAllFace } from "../../../../helpers/clear";
 
-const UrFace = ({ typerole }) => {
+const UrFace = ({ typeSide }) => {
   const dispatch = useDispatch();
+
+  const objSide = { 1: "Истец", 2: "Ответчик" };
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { aduf, typeFace } = useSelector((state) => state.inputSlice);
-  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
   const { selTypeOrganiz } = useSelector((state) => state.selectsSlice);
   const { selTypePosition } = useSelector((state) => state.selectsSlice);
@@ -55,12 +56,10 @@ const UrFace = ({ typerole }) => {
   };
 
   const checkData = () => {
-    const role = typerole === "истца" ? 1 : 2;
-    const obj = { todosApplications, action_type: 1 }; ///
-    const objMore = { aduf, typeFace, role, country_ur: aduf?.country };
+    const obj = { todosApplications, action_type: 1, role: typeSide };
+    const senData = { aduf, typeFace, country_ur: aduf?.country };
 
-    dispatch(createEveryIsk({ ...obj, ...objMore }));
-    console.log({ ...obj, ...objMore }, "{ ...obj, ...objMore }");
+    dispatch(createEveryIsk({ ...obj, ...senData }));
     cancel();
   };
 
@@ -91,7 +90,7 @@ const UrFace = ({ typerole }) => {
 
   return (
     <>
-      <h3>{typerole === "истца" ? "Истец" : "Ответчик"}</h3>
+      <h3>{objSide?.[typeSide]}</h3>
       <form onSubmit={sendData} className="urFaceForm">
         <div className="mainUrFace">
           <MyInput
@@ -226,11 +225,9 @@ const UrFace = ({ typerole }) => {
         <AddresUrFace changeInput={changeInput} />
 
         <div className="btnsSave">
-          {checkEditPlaint && (
-            <button className="saveBtn" type="submit">
-              Добавить
-            </button>
-          )}
+          <button className="saveBtn" type="submit">
+            Добавить
+          </button>
           <span className="saveBtn moreBtn" onClick={cancel}>
             Отмена
           </span>

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { defaultSort } from "../../helpers/localData";
+import { transformDataSort } from "../../helpers/transformCreateData";
 
 const initialState = {
   mainBtnList: [
@@ -24,7 +25,7 @@ const initialState = {
     { id: 10, name: "Назначенные председателем", bool: false },
   ],
 
-  confirmStatus: { status: 0, id: 0 }, 
+  confirmStatus: { status: 0, id: 0 },
   /////// для открытия модалки и хранения id со статусом для изменения иска
 
   editFileDocs: true, /// можно ли добавлять документы ?
@@ -32,7 +33,7 @@ const initialState = {
   /////new
 
   ///// только для обычных пользователей
-  lookAddPlaintiff: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
+  lookTypeRole: 0, // 1 - тип истец, представ. истца, 2 - ответчик, предст. ответчика
 
   //// targetPlint
   calculatorType: false,
@@ -82,94 +83,7 @@ const stateSlice = createSlice({
     },
 
     sortDataIsksCounts: (state, action) => {
-      state.mainBtnList = [
-        {
-          id: 0,
-          name: "Все иски",
-          bool: state.mainBtnList[0]?.bool, // Сохраняю текущее значение bool
-          count: action?.payload?.isk_count || 0,
-        },
-        {
-          id: 1,
-          name: "Принятые отв. секретарём",
-          bool: state.mainBtnList[1]?.bool,
-          count: action?.payload?.prinat_sec_total || 0,
-        },
-        {
-          id: 2,
-          name: "Отклонённые отв. секретарём",
-          bool: state.mainBtnList[2]?.bool,
-          count: action?.payload?.otclon_sec_total || 0,
-        },
-        {
-          id: 3,
-          name: "Принятые председателем",
-          bool: state.mainBtnList[3]?.bool,
-          count: action?.payload?.prinat_pred_total || 0,
-        },
-        {
-          id: 4,
-          name: "Отклонённые председателем",
-          bool: state.mainBtnList[4]?.bool,
-          count: action?.payload?.otclon_pred_total || 0,
-        },
-        {
-          id: 9,
-          name: "На доработке",
-          bool: state.mainBtnList[5]?.bool,
-          count: action?.payload?.na_dorabotke || 0,
-        },
-        /////////////////////////
-        {
-          id: 5,
-          name: "Все иски",
-          bool: state.mainBtnList[6]?.bool,
-          count: action?.payload?.isk_draft_total || 0,
-        },
-        {
-          id: 6,
-          name: "Поданные",
-          bool: state.mainBtnList[7]?.bool,
-          count: action?.payload?.isk_count || 0,
-        },
-        {
-          id: 7,
-          name: "Принятые",
-          bool: state.mainBtnList[8]?.bool,
-          count: action?.payload?.prinat_total || 0,
-        },
-        {
-          id: 8,
-          name: "Отказанные",
-          bool: state.mainBtnList[9]?.bool,
-          count: action?.payload?.otclon_total || 0,
-        },
-        {
-          id: 9,
-          name: "На доработке",
-          bool: state.mainBtnList[10]?.bool,
-          count: action?.payload?.na_dorabotke || 0,
-        },
-        /////////////////// для обычных секретарей
-        {
-          id: 0,
-          name: "Все иски",
-          bool: state.mainBtnList[11]?.bool, // Сохраняю текущее значение bool
-          count: action?.payload?.isk_count || 0,
-        },
-        {
-          id: 9,
-          name: "На доработке",
-          bool: state.mainBtnList[12]?.bool,
-          count: action?.payload?.na_dorabotke || 0,
-        },
-        {
-          id: 10,
-          name: "Назначенные председателем",
-          bool: state.mainBtnList[13]?.bool,
-          count: action?.payload?.secretar_isk || 0,
-        },
-      ];
+      state.mainBtnList = transformDataSort(state, action.payload);
     },
 
     confirmStatusFN: (state, action) => {
@@ -180,8 +94,8 @@ const stateSlice = createSlice({
       state.editFileDocs = action.payload;
     },
 
-    changeLookAddPlaintiff: (state, action) => {
-      state.lookAddPlaintiff = action.payload;
+    setLookTypeRole: (state, action) => {
+      state.lookTypeRole = action.payload;
     },
 
     changeCalculatorState: (state, action) => {
@@ -251,7 +165,7 @@ export const {
   sortDataIsksCounts,
   confirmStatusFN,
   editFileDocsFN,
-  changeLookAddPlaintiff,
+  setLookTypeRole,
   changeCalculatorState,
   changeSumIsk,
   changeResult,

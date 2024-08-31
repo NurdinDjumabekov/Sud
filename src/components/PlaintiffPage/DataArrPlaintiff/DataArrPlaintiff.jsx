@@ -1,3 +1,4 @@
+//////// hooks
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -5,90 +6,63 @@ import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
 
 ////// componnets
-import FillingPlaintiff from "../FillingPlaintiff/FillingPlaintiff";
+import AddDataRole from "../AddDataRole/AddDataRole";
 import DocsList from "../DocsList/DocsList";
 
 ////// fns
-import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
+import { setLookTypeRole } from "../../../store/reducers/stateSlice";
 import { changeADFF, changeADIF } from "../../../store/reducers/inputSlice";
 import { changeADUF } from "../../../store/reducers/inputSlice";
 import { changeTypeFace } from "../../../store/reducers/inputSlice";
-import { toTakeCountries } from "../../../store/reducers/selectsSlice";
-import { toTakeDistrict } from "../../../store/reducers/selectsSlice";
-import { toTakeRegions } from "../../../store/reducers/selectsSlice";
 
-const DataArrPlaintiff = ({ typerole }) => {
+/////// helpers
+import { getCountry } from "../../../helpers/getSelects";
+
+const DataArrPlaintiff = ({ typerole, typeSide }) => {
+  const objRole = { 1: "истца", 2: "ответчика" };
+  //// typeSide - (1)сторона истца, (2) сторона ответчика
+
   const dispatch = useDispatch();
-  const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
+
+  const { lookTypeRole } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf, adif } = useSelector((state) => state.inputSlice);
-  const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
   const approvId = () => {
-    //// подствляю codeid для юр и физ лиц
     dispatch(changeADFF({ ...adff, code_isk: todosApplications?.codeid }));
     dispatch(changeADUF({ ...aduf, code_isk: todosApplications?.codeid }));
     dispatch(changeADIF({ ...adif, code_isk: todosApplications?.codeid }));
-  };
-
-  const clickPlaintiff = () => {
-    dispatch(changeLookAddPlaintiff(1));
-    dispatch(changeTypeFace(1));
-    approvId();
-  };
-
-  const clickRepresen = () => {
-    if (typerole === "истца") {
-      approvId();
-      /// нажатие на представителя истца
-      dispatch(changeLookAddPlaintiff(2));
-      dispatch(changeTypeFace(1));
-    } else if (typerole === "ответчика") {
-      approvId();
-      /// нажатие на представителя ответчика
-      dispatch(changeLookAddPlaintiff(2));
-      dispatch(changeTypeFace(1));
-    }
-  };
-
-  const getAllSelectAddres = () => {
-    dispatch(toTakeCountries());
-    dispatch(toTakeRegions({}));
-    dispatch(toTakeDistrict({}));
+    //// подствляю codeid для юр и физ лиц и ип
+    getCountry(dispatch);
     ///// для получения и отображения нужных мне значений городов, стран для седектов
   };
 
-  return (
-    <>
-      {lookAddPlaintiff === 0 ? (
-        <div className="mainTables dataPlaintiff">
-          <ul className="btnsType add" onClick={getAllSelectAddres}>
-            {checkEditPlaint ? (
-              <>
-                <button onClick={clickPlaintiff}>Добавить {typerole}</button>
-                <button onClick={clickRepresen}>
-                  Добавить представителя {typerole}
-                </button>
-              </>
-            ) : (
-              <>
-                <button>
-                  Данные {typerole === "истца" ? "истца" : "ответчика"}
-                </button>
-                <button>
-                  Данные представителя{" "}
-                  {typerole === "истца" ? "истца" : "ответчика"}
-                </button>
-              </>
-            )}
-          </ul>
-          <DocsList typerole={typerole} />
-        </div>
-      ) : (
-        <FillingPlaintiff typerole={typerole} />
-      )}
-    </>
-  );
+  const lookDataRole = (type) => {
+    ///// при нажатии на истца
+    dispatch(setLookTypeRole(type));
+    /// убираю state для отображения добавленных истцов и ответчиков (представителей тоже) и отоюражаю из добавление
+    dispatch(changeTypeFace(1)); /// type face (юр и физ лиц и ип)
+    approvId();
+  };
+
+  if (lookTypeRole == 0) {
+    //// if  0 то показывать краткую инфу об истцах и ответчиках
+    return (
+      <div className="mainTables dataPlaintiff">
+        <ul className="btnsType add">
+          <button onClick={() => lookDataRole(1)}>
+            Добавить {objRole?.[typeSide]}
+          </button>
+          <button onClick={() => lookDataRole(2)}>
+            Добавить представителя {objRole?.[typeSide]}
+          </button>
+        </ul>
+        <DocsList typerole={typerole} typeSide={typeSide} />
+      </div>
+    );
+  }
+
+  return <AddDataRole typeSide={typeSide} />;
 };
 
 export default DataArrPlaintiff;

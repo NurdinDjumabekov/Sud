@@ -10,94 +10,60 @@ import { changeADFF } from "../../../store/reducers/inputSlice";
 import { changeADIF } from "../../../store/reducers/inputSlice";
 import { changeADUF } from "../../../store/reducers/inputSlice";
 import { changeTypeFace } from "../../../store/reducers/inputSlice";
-import { changeLookAddPlaintiff } from "../../../store/reducers/stateSlice";
-import { toTakeCountries } from "../../../store/reducers/selectsSlice";
-import { toTakeDistrict } from "../../../store/reducers/selectsSlice";
-import { toTakeRegions } from "../../../store/reducers/selectsSlice";
+import { setLookTypeRole } from "../../../store/reducers/stateSlice";
 
 //// igms
 import editImg from "../../../asstes/icons/editBtn.svg";
 import deleteImg from "../../../asstes/icons/deleteBtn.svg";
 
-/// delete
-import { deleteEveryIsk } from "../../../store/reducers/applicationsSlice";
+///// helpers
+import { getCountry } from "../../../helpers/getSelects";
+import { objFace, objSidesAndRoles } from "../../../helpers/localData";
 
-const DocsListInner = ({ arr, arr2, typerole }) => {
+import { delDataSidesFN } from "../../../store/reducers/applicationsSlice";
+/// check
+
+const DocsListInner = ({ firstList, secondList, typeSide }) => {
   const dispatch = useDispatch();
 
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
 
-  const changeAddPlaintiff = (objData, type) => {
-    console.log(objData, "objData");
-    console.log(typerole, type, "typerole, type");
-    if (type === "plaint" && typerole === "истца") {
-      dispatch(changeLookAddPlaintiff(1));
-      dispatch(changeTypeFace(objData?.typeFace));
-    } else if (type === "represen" && typerole === "истца") {
-      dispatch(changeLookAddPlaintiff(2));
-    } else if (type === "plaint" && typerole === "ответчика") {
-      dispatch(changeLookAddPlaintiff(1));
-      dispatch(changeTypeFace(objData?.typeFace));
-    } else if (type === "represen" && typerole === "ответчика") {
-      dispatch(changeLookAddPlaintiff(2));
-    }
+  const changeDataSides = (objData, type) => {
+    //// меняю данные всех ролей (это для редактированиЯ)
+    //// type - 1 только соновные лица, 2 - представители
+
+    dispatch(setLookTypeRole(type));
+    dispatch(changeTypeFace(objData?.typeFace));
 
     if (objData?.typeFace === 1) {
       /// подставляю данные только физ лица во временный state changeADUF
-      dispatch(changeADFF({ ...objData, action_type: 2 }));
+      dispatch(changeADFF({ ...objData, action_type: 2 })); /// action_type 2 - редактирование
     } else if (objData?.typeFace === 2) {
       /// подставляю данные только юр лица во временный state changeADUF
       dispatch(changeADUF({ ...objData, action_type: 2 }));
     } else {
       /// подставляю данные только юр лица во временный state changeADUF
       dispatch(changeADIF({ ...objData, action_type: 2 }));
-      dispatch(changeTypeFace(3));
     }
-    /// action_type 2 - редактирование
 
-    getAllSelectAddres();
-  };
-
-  const getAllSelectAddres = () => {
-    dispatch(toTakeCountries());
-    dispatch(toTakeRegions({}));
-    dispatch(toTakeDistrict({}));
+    getCountry(dispatch);
     ///// для получения и отображения нужных мне значений городов, стран для селектов
   };
 
-  const sortSend = (objData, type) => {
-    const obj = { objData, role: type, todosApplications, typeFace: 1 };
-    dispatch(deleteEveryIsk(obj));
-  };
+  const delDataSides = (obj, type) => {
+    //// удалить данные сторон (данные ответчика, истца и т.д.)
+    const key = `${typeSide}_${type}`;
+    const role = objSidesAndRoles?.[key]?.num; /// 1 из 4 ролей выбирается
 
-  const deleteIsks = (objData, type) => {
-    if (type === "plaint" && typerole === "истца") {
-      /// истец
-      sortSend(objData, 1);
-    } else if (type === "plaint" && typerole === "ответчика") {
-      //// ответчик
-      sortSend(objData, 2);
-    } else if (type === "represen" && typerole === "истца") {
-      /// представитель истца
-      sortSend(objData, 3);
-    } else if (type === "represen" && typerole === "ответчика") {
-      ///// представитель ответчика
-      sortSend(objData, 4);
-    }
-  };
-
-  const objFace = {
-    0: "не указано",
-    1: "Физическое лицо",
-    2: "Юридическое лицо",
-    3: "Индивидуальный предприниматель",
+    console.log(role, "role");
+    dispatch(delDataSidesFN({ obj, role }));
+    //// typeFace - check
   };
 
   return (
     <div className="listDocs">
       <div>
-        {arr?.map((i) => (
+        {firstList?.map((i) => (
           <div key={i.codeid} className="everyCard">
             <div className="everyCard__mainData">
               <div className="everyCard__data">
@@ -108,17 +74,17 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
             <div className="everyCard__btns">
               {checkEditPlaint ? (
                 <>
-                  <button onClick={() => changeAddPlaintiff(i, "plaint")}>
+                  <button onClick={() => changeDataSides(i, 1)}>
                     <p>Редактировать</p>
                     <img src={editImg} alt="edit" className="imgMini" />
                   </button>
-                  <button onClick={() => deleteIsks(i, "plaint")}>
+                  <button onClick={() => delDataSides(i, 1)}>
                     <p>Удалить</p>
                     <img src={deleteImg} alt="del" />
                   </button>
                 </>
               ) : (
-                <button onClick={() => changeAddPlaintiff(i, "plaint")}>
+                <button onClick={() => changeDataSides(i, 1)}>
                   <p>Посмотреть</p>
                   <img src={editImg} alt="edit" className="imgMini" />
                 </button>
@@ -128,7 +94,7 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
         ))}
       </div>
       <div>
-        {arr2?.map((i) => (
+        {secondList?.map((i) => (
           <div key={i.codeid} className="everyCard">
             <div className="everyCard__mainData">
               <div className="everyCard__data">
@@ -139,17 +105,17 @@ const DocsListInner = ({ arr, arr2, typerole }) => {
             <div className="everyCard__btns">
               {checkEditPlaint ? (
                 <>
-                  <button onClick={() => changeAddPlaintiff(i, "represen")}>
+                  <button onClick={() => changeDataSides(i, 2)}>
                     <p>Редактировать</p>
                     <img src={editImg} alt="edit" className="imgMini" />
                   </button>
-                  <button onClick={() => deleteIsks(i, "represen")}>
+                  <button onClick={() => delDataSides(i, 2)}>
                     <p>Удалить</p>
                     <img src={deleteImg} alt="del" />
                   </button>
                 </>
               ) : (
-                <button onClick={() => changeAddPlaintiff(i, "represen")}>
+                <button onClick={() => changeDataSides(i, 2)}>
                   <p>Посмотреть</p>
                   <img src={editImg} alt="edit" className="imgMini" />
                 </button>

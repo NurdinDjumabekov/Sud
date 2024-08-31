@@ -41,7 +41,9 @@ const MainRoutes = () => {
   const location = useLocation();
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { applicationList } = useSelector((state) => state.applicationsSlice);
+  const { applicationList, todosApplications } = useSelector(
+    (state) => state.applicationsSlice
+  );
   const { aduf, adif } = useSelector((state) => state.inputSlice);
 
   // console.log(aduf, "aduf");
@@ -50,6 +52,8 @@ const MainRoutes = () => {
   // const decodedToken = jwtDecode(tokenA);
 
   // console.log(decodedToken);
+
+  console.log(todosApplications, "todosApplications");
 
   React.useEffect(() => {
     if (tokenA === "" || !!!tokenA) {

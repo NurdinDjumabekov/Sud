@@ -27,7 +27,7 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
 
-  const { lookAddPlaintiff } = useSelector((state) => state.stateSlice);
+  const { lookTypeRole } = useSelector((state) => state.stateSlice);
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { typeUser, checkEditPlaint } = useSelector(
     (state) => state.saveDataSlice
@@ -69,7 +69,7 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
 
   const navMain = () => navigate("/main");
 
-  const nonePdf = lookAddPlaintiff === 0 ? "" : "nonePdf";
+  const nonePdf = lookTypeRole === 0 ? "" : "nonePdf";
 
   return (
     <>

@@ -23,7 +23,7 @@ import DataArrPlaintiff from "../../components/PlaintiffPage/DataArrPlaintiff/Da
 import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { createIdIsk } from "../../store/reducers/sendDocsSlice";
-import { changeLookAddPlaintiff } from "../../store/reducers/stateSlice";
+import { setLookTypeRole } from "../../store/reducers/stateSlice";
 
 ////// imgs
 import kerstImg from "../../asstes/icons/krestik.svg";
@@ -35,22 +35,23 @@ const PlaintiffPage = () => {
   const dispatch = useDispatch();
   const [activeComponent, setActiveComponent] = useState(1);
 
-  console.log(params, "params");
+  // console.log(params, "params");
 
   const { todosApplications } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf, docsIsks } = useSelector((state) => state.inputSlice);
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
+  //// typeRole 1 - истец, 2 - ответчик
   const [btnList, setBtnList] = useState([
     {
       id: 1,
       name: "Истец",
-      components: <DataArrPlaintiff typerole={"истца"} />,
+      components: <DataArrPlaintiff typerole={"истца"} typeSide={1} />,
     },
     {
       id: 2,
       name: "Ответчик",
-      components: <DataArrPlaintiff typerole={"ответчика"} />,
+      components: <DataArrPlaintiff typerole={"ответчика"} typeSide={2} />,
     },
     { id: 3, name: "Арбитражный сбор", components: <TargetPlaintiff /> },
     { id: 4, name: "Описание", components: <DescriptionClaim /> },
@@ -66,7 +67,7 @@ const PlaintiffPage = () => {
   const clickBtn = (id) => {
     setActiveComponent(id);
     //// меняю активную комопненту
-    dispatch(changeLookAddPlaintiff(0));
+    dispatch(setLookTypeRole(0));
     //// закрываю блок, где добавляются личные данные истцов, ответчиков и и х представителей
   };
 
@@ -82,7 +83,7 @@ const PlaintiffPage = () => {
     return () => {
       dispatch(clearTodosApplications()); /// для очистки всех обьектов хранения данных
       dispatch(toTakeTypeTypeDocs());
-      dispatch(changeLookAddPlaintiff(0));
+      dispatch(setLookTypeRole(0));
       //// закрываю блок, где добавляются личные данные истцов, ответчиков и и х представителей
     };
   }, []);
