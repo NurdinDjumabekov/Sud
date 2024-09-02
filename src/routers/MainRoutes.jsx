@@ -41,7 +41,7 @@ const MainRoutes = () => {
   const location = useLocation();
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { applicationList, todosApplications } = useSelector(
+  const { applicationList, dataIsk } = useSelector(
     (state) => state.applicationsSlice
   );
   const { aduf, adif } = useSelector((state) => state.inputSlice);
@@ -53,7 +53,7 @@ const MainRoutes = () => {
 
   // console.log(decodedToken);
 
-  console.log(todosApplications, "todosApplications");
+  console.log(dataIsk, "dataIsk");
 
   React.useEffect(() => {
     if (tokenA === "" || !!!tokenA) {

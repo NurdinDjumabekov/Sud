@@ -22,11 +22,11 @@ const PdfFile = ({ editorRef, nonePdf }) => {
   const { selRegions } = useSelector((state) => state.selectsSlice);
   const { selDistrict } = useSelector((state) => state.selectsSlice);
 
-  const { todosApplications, applicationList } = useSelector(
+  const { dataIsk, applicationList } = useSelector(
     (state) => state.applicationsSlice
   );
 
-  const { isk_summ, isk_summ_curr } = todosApplications;
+  const { isk_summ, isk_summ_curr } = dataIsk;
 
   const [data, setData] = useState("");
 
@@ -118,10 +118,10 @@ const PdfFile = ({ editorRef, nonePdf }) => {
     return `<div style="font-weight: 500; font-size: 16px;">${content}</div>`;
   };
 
-  const plaintiff = transformData(todosApplications?.plaintiff, 1);
-  const plaintiffResper = transformData(todosApplications?.plaintiffResper, 2);
-  const defendant = transformData(todosApplications?.defendant, 3);
-  const defendantResper = transformData(todosApplications?.defendantResper, 4);
+  const plaintiff = transformData(dataIsk?.plaintiff, 1);
+  const plaintiffResper = transformData(dataIsk?.plaintiffResper, 2);
+  const defendant = transformData(dataIsk?.defendant, 3);
+  const defendantResper = transformData(dataIsk?.defendantResper, 4);
 
   const iskSum = isk_summ === "0" || isk_summ === "" || isk_summ === 0;
 
@@ -131,7 +131,7 @@ const PdfFile = ({ editorRef, nonePdf }) => {
     !iskSum
       ? `Денежные требования: ${
           iskSummCurr
-            ? `<span >${+todosApplications?.isk_summ}  ${iskSummCurr}</span>`
+            ? `<span >${+dataIsk?.isk_summ}  ${iskSummCurr}</span>`
             : ""
         }`
       : ""
@@ -174,7 +174,7 @@ const PdfFile = ({ editorRef, nonePdf }) => {
           </div>
         </div>
         ${
-          +todosApplications?.non_proprietary === 0
+          +dataIsk?.non_proprietary === 0
             ? `<div>
                 <div style="position: relative; width:100%; height: 60px; padding: 0px 0px 10px 0px "> 
                   <p style="
@@ -201,59 +201,55 @@ const PdfFile = ({ editorRef, nonePdf }) => {
             : ""
         }
         ${
-          !!todosApplications?.name
+          !!dataIsk?.name
             ? `<h4 style="text-align:center; font-size: 18px; margin: 0 auto; width: 60%;">
-                ${todosApplications?.name}
+                ${dataIsk?.name}
               </h4>`
             : ""
         }
         ${
-          !!todosApplications?.description
-            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.description}</p>`
+          !!dataIsk?.description
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${dataIsk?.description}</p>`
             : ""
         }
         ${
-          !!todosApplications?.motivation
-            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.motivation}</p>`
+          !!dataIsk?.motivation
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${dataIsk?.motivation}</p>`
             : ""
         }
         ${
-          !!todosApplications?.obosnovanie
-            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.obosnovanie}</p>`
+          !!dataIsk?.obosnovanie
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${dataIsk?.obosnovanie}</p>`
             : ""
         }
         ${
-          !!todosApplications?.finance_raschet
-            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.finance_raschet}</p>`
+          !!dataIsk?.finance_raschet
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${dataIsk?.finance_raschet}</p>`
             : ""
         }
         ${
-          !!todosApplications?.law_links
-            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${todosApplications?.law_links}</p>`
+          !!dataIsk?.law_links
+            ? `<p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px">${dataIsk?.law_links}</p>`
             : ""
         }
-        ${
-          !!todosApplications?.claim
-            ? transformClaim(todosApplications?.claim)
-            : ""
-        }
+        ${!!dataIsk?.claim ? transformClaim(dataIsk?.claim) : ""}
         <p style="text-align:center; font-size: 20px;">Приложения в копиях</p>
         ${addFilesList(applicationList)}
-        ${signaturePlaintiff(todosApplications?.plaintiff)}
+        ${signaturePlaintiff(dataIsk?.plaintiff)}
     </div>
   `;
 
   React.useEffect(() => {
-    if (todosApplications.content === "") {
+    if (dataIsk.content === "") {
       setData(initialContent);
     } else {
-      setData(todosApplications?.content);
+      setData(dataIsk?.content);
     }
   }, [initialContent]);
 
   React.useEffect(() => {
     setData(initialContent);
-  }, [todosApplications]);
+  }, [dataIsk]);
 
   React.useEffect(() => {
     setData(initialContent);
@@ -263,7 +259,7 @@ const PdfFile = ({ editorRef, nonePdf }) => {
     <div className={`pdfFile ${nonePdf}`}>
       <Editor
         apiKey={key}
-        initialValue={data || todosApplications.content}
+        initialValue={data || dataIsk.content}
         init={{
           height: "100%",
           width: "100%",

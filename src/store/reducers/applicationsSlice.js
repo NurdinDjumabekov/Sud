@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 //////// helpers
-import { transformCreateData } from "../../helpers/transformCreateData";
 import { transformArrDocs } from "../../helpers/transformArrDocs";
 import axiosInstance from "../../axiosInstance";
 import { clearTodosApp } from "../../helpers/clear";
@@ -11,12 +10,13 @@ import { delSidesIskFN } from "../../helpers/sortDeletePlaintiff";
 const { REACT_APP_API_URL } = process.env;
 
 const initialState = {
-  todosApplications: {
+  dataIsk: {
     codeid: 0,
     plaintiff: [], //1 plaintiff
     plaintiffResper: [], //2
     defendant: [], //3
     defendantResper: [], //4
+    arbitrs: [],
 
     name: "",
     description: "",
@@ -51,7 +51,7 @@ const initialState = {
     status: 1, /// why?
     content: "", /// для html разметки(доков истца)
     contentPred: "", /// для html разметки(для председателя)
-    //////////////////
+    place_arbitration: "", /// Место разбирательства
   },
 
   //// список документов, которые нужны для заполнения иска (просто текста)
@@ -311,7 +311,7 @@ const applicationsSlice = createSlice({
       const { files, codeid } = action.payload;
       if (codeid !== 0 && !!action.payload?.codeid) {
         ///// if данные с запроса есть, то только тогда надо подставить их, если их нет то ненадо подставлять
-        state.todosApplications = action.payload;
+        state.dataIsk = action.payload;
       }
       const newArrIsk = { arrIsk: state.applicationList, reqData: files };
       state.applicationList = transformArrDocs(newArrIsk);
@@ -329,7 +329,7 @@ const applicationsSlice = createSlice({
       state.preloaderDocs = false;
 
       const { applicationList, data, navigate, id } = action?.payload;
-      state.todosApplications = data;
+      state.dataIsk = data;
 
       const newArrIsk = { arrIsk: applicationList, reqData: data?.files };
       state.applicationList = transformArrDocs(newArrIsk);
@@ -350,8 +350,8 @@ const applicationsSlice = createSlice({
     ////// delDataSidesFN
     builder.addCase(delDataSidesFN.fulfilled, (state, action) => {
       state.preloaderDocs = false;
-      const obj = { todosApplications: state.todosApplications };
-      state.todosApplications = delSidesIskFN({ ...obj, ...action.payload });
+      const obj = { dataIsk: state.dataIsk };
+      state.dataIsk = delSidesIskFN({ ...obj, ...action.payload });
     });
     builder.addCase(delDataSidesFN.rejected, (state, action) => {
       state.error = action.payload;
@@ -364,48 +364,42 @@ const applicationsSlice = createSlice({
   reducers: {
     addTodosPlaintiff: (state, action) => {
       //// добавляю истца в список (вызывать только после успешного запроса)
-      state.todosApplications = {
-        ...state.todosApplications,
-        plaintiff: [...state.todosApplications.plaintiff, action.payload],
+      state.dataIsk = {
+        ...state.dataIsk,
+        plaintiff: [...state.dataIsk.plaintiff, action.payload],
       };
     },
 
     addTodosPlaintiffResper: (state, action) => {
       //// добавляю представителя истца в список (вызывать только после успешного запроса)
-      state.todosApplications = {
-        ...state.todosApplications,
-        plaintiffResper: [
-          ...state.todosApplications.plaintiffResper,
-          action.payload,
-        ],
+      state.dataIsk = {
+        ...state.dataIsk,
+        plaintiffResper: [...state.dataIsk.plaintiffResper, action.payload],
       };
     },
 
     addTodosDefendant: (state, action) => {
       //// добавляю ответчика в список (вызывать только после успешного запроса)
-      state.todosApplications = {
-        ...state.todosApplications,
-        defendant: [...state.todosApplications.defendant, action.payload],
+      state.dataIsk = {
+        ...state.dataIsk,
+        defendant: [...state.dataIsk.defendant, action.payload],
       };
     },
 
     addTodosDefendantResper: (state, action) => {
       //// добавляю представителя ответчика в список (вызывать только после успешного запроса)
-      state.todosApplications = {
-        ...state.todosApplications,
-        defendantResper: [
-          ...state.todosApplications.defendantResper,
-          action.payload,
-        ],
+      state.dataIsk = {
+        ...state.dataIsk,
+        defendantResper: [...state.dataIsk.defendantResper, action.payload],
       };
     },
 
-    changeTodosApplications: (state, action) => {
-      state.todosApplications = action.payload;
+    setDataaIsk: (state, action) => {
+      state.dataIsk = action.payload;
     },
 
-    clearTodosApplications: (state, action) => {
-      state.todosApplications = clearTodosApp;
+    clearDataaIsk: (state, action) => {
+      state.dataIsk = clearTodosApp;
     },
 
     changeApplicationList: (state, action) => {
@@ -426,8 +420,8 @@ export const {
   addTodosPlaintiffResper,
   addTodosDefendant,
   addTodosDefendantResper,
-  changeTodosApplications,
-  clearTodosApplications,
+  setDataaIsk,
+  clearDataaIsk,
   changeApplicationList,
   clearFilesApplicationList,
 } = applicationsSlice.actions;

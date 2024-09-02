@@ -1,3 +1,4 @@
+//////// hooks
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,8 +7,8 @@ import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import { key, logoBas64 } from "../../../helpers/localData";
 import { transformDate } from "../../../helpers/todayDate";
 
-const PdfFulfilled = ({ editorRef, idContent }) => {
-  const dispatch = useDispatch();
+const PdfFulfilledAllSecr = ({ editorRef }) => {
+  ///// для секретаря дела и отв. секретаря
 
   const { selPrimPravo } = useSelector((state) => state.selectsSlice);
   const { selLangArbitr } = useSelector((state) => state.selectsSlice);
@@ -167,9 +168,7 @@ const PdfFulfilled = ({ editorRef, idContent }) => {
         </main>
       `;
 
-  const everyHtml = listContentHtml?.find((i) => i?.codeid == idContent);
-
-  const dataIskHtml = !!idContent ? everyHtml?.html_accept_isk : initialContent;
+  const dataIskHtml = listContentHtml?.[0]?.html_accept_isk || initialContent;
 
   return (
     <div className="pdfFileReject">
@@ -179,12 +178,7 @@ const PdfFulfilled = ({ editorRef, idContent }) => {
         init={{
           height: "100%",
           width: "100%",
-          menubar: {
-            file: {
-              title: "File",
-              items: "preview | print | save",
-            },
-          },
+          menubar: { file: { title: "File", items: "preview | print | save" } },
           content_style: "body { font-family: 'Times New Roman', sans-serif; }",
           toolbar: false,
         }}
@@ -194,4 +188,4 @@ const PdfFulfilled = ({ editorRef, idContent }) => {
   );
 };
 
-export default PdfFulfilled;
+export default PdfFulfilledAllSecr;

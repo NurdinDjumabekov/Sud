@@ -17,7 +17,7 @@ import logo from "../../asstes/images/logo.png";
 
 ///// store
 import { clearFilesApplicationList } from "../../store/reducers/applicationsSlice";
-import { clearTodosApplications } from "../../store/reducers/applicationsSlice";
+import { clearDataaIsk } from "../../store/reducers/applicationsSlice";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { notificationCount } from "../../store/reducers/notificationSlice";
 import { changeActivePage } from "../../store/reducers/typesSlice";
@@ -57,7 +57,7 @@ const MainLayouts = () => {
   const clickMenu = ({ path }) => {
     navigate(path);
     //// перехожу по страницам
-    dispatch(clearTodosApplications());
+    dispatch(clearDataaIsk());
     /// сбрасываю state для хранения данных иска
     dispatch(clearFilesApplicationList([]));
     /// сбрасываю state для хранения файлов иска

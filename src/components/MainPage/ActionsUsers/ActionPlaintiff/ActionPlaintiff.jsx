@@ -21,7 +21,6 @@ const ActionPlaintiff = ({ row }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
 
   const changeStatus = (id) => {

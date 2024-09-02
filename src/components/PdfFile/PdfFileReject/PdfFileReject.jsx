@@ -8,7 +8,7 @@ import { key } from "../../../helpers/localData";
 const PdfFileReject = ({ editorRef }) => {
   const dispatch = useDispatch();
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { typeUser } = useSelector((state) => state.saveDataSlice);
 
   const transform = (arr) => {
@@ -57,11 +57,11 @@ const PdfFileReject = ({ editorRef }) => {
     </div>
     <h4 style="text-align:center; font-size: 22px; margin: 80px 0 0 0;">ОТКАЗ</h4>
     <h4 style="text-align:center; font-size: 18px; margin: 0px;">в принятии искового заявления к производству № ${
-      todosApplications?.isk_number
+      dataIsk?.isk_number
     }</h4>
     <h4 style="text-align:right !important; font-size: 18px; margin: 20px 0 0 0px; padding: 0px 30px 0px 0px;">г.Бишкек</h4>
     <p style=" font-size: 18px; text-indent: 40px; margin: 20px 0px 0 0">Международный Третейский Суд при Торгово-промышленной палате Кыргызской Республики (МТС ТПП) в лице Председателя Майчиева Шамарала Юсуповича, отказывает в принятии искового заявление в производство МТС ТПП от ${transform(
-      todosApplications?.plaintiff
+      dataIsk?.plaintiff
     )}</p>
     <h4 style="text-align:center; font-size: 18px; margin: 20px 0 0 0px;">По причине:</h4>
     <p style=" font-size: 18px; text-indent: 40px; margin: 5px 0px"></p>

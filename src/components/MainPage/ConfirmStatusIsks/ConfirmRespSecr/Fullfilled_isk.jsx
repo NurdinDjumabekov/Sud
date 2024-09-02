@@ -1,5 +1,5 @@
 ///// hooks
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +8,10 @@ import "../style.scss";
 
 ////// fns
 import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
+import {
+  createFileAccept,
+  getDataHtmlContent,
+} from "../../../../store/reducers/sendDocsSlice";
 import { changeStatusDocs } from "../../../../store/reducers/sendDocsSlice";
 
 ///// components
@@ -18,6 +22,7 @@ import Modals from "../../../Modals/Modals";
 
 ///// imgs
 import imgWarning from "../../../../asstes/images/warning.png";
+import PdfFulfilledAllSecr from "../../../PdfFile/PdfFulfilledAllSecr/PdfFulfilledAllSecr";
 
 const Fullfilled_isk = () => {
   const dispatch = useDispatch();
@@ -29,12 +34,14 @@ const Fullfilled_isk = () => {
   const [lookDocs, setLookDocs] = useState(false); ///// для просмотра документов
 
   const { confirmStatus } = useSelector((state) => state.stateSlice);
+  const { id } = useSelector((state) => state.stateSlice?.confirmStatus);
 
   const fulfilledIsk = () => {
     const { id, status } = confirmStatus;
     if (fulfilledRef.current.editor) {
       const content = fulfilledRef.current.editor.getContent();
-
+      dispatch(createFileAccept({ content, id }));
+      /// content text для председателя
       const send = { id, isk_status: status, content, navigate };
       dispatch(changeStatusDocs({ ...send, code_file: 12 }));
       /// 12 - принятие иска ответственным секретарём
@@ -47,6 +54,11 @@ const Fullfilled_isk = () => {
     setConfirmAction(false);
     //// закрываю обе модалки
   };
+
+  useEffect(() => {
+    dispatch(getDataHtmlContent({ id }));
+    //// get данные для отбражения видов документов приготовленные секретарями
+  }, [id]);
 
   return (
     <>
@@ -70,7 +82,7 @@ const Fullfilled_isk = () => {
             <PdfFile editorRef={editorDocRef} />
           )}
           <div className="plaintiFilling__container moreStyle">
-            <PdfFulfilled editorRef={fulfilledRef} />
+            <PdfFulfilledAllSecr editorRef={fulfilledRef} />
           </div>
         </div>
         <div className="modalchangeStatus" style={{ height: "auto" }}>

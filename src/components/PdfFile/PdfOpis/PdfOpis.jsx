@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import "./PdfOpis.scss";
+import React, { useEffect, useRef, useState } from "react";
+import "./style.scss";
 import { Editor } from "@tinymce/tinymce-react";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../../Modals/Modals";
@@ -7,15 +7,16 @@ import { newListDocs } from "../../../helpers/newListDocs";
 import { key } from "../../../helpers/localData";
 
 const PdfOpis = ({ lookOpis, setLookOpis }) => {
+  const { applicationList } = useSelector((state) => state.applicationsSlice);
+
   const [date, setDate] = useState("");
   const editorRef = useRef(null);
-  const { applicationList } = useSelector((state) => state.applicationsSlice);
 
   const handleEditorChange = (content, editor) => {
     // console.log('Content was updated:', content);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const currentDateObject = new Date();
     const day = currentDateObject.getDate();
     const month = currentDateObject.getMonth() + 1; // Месяцы начинаются с 0
@@ -59,29 +60,31 @@ const PdfOpis = ({ lookOpis, setLookOpis }) => {
   `;
 
   return (
-    <Modals openModal={lookOpis} setOpenModal={() => setLookOpis()}>
-      <div className="pdfFile newPdf">
-        <Editor
-          apiKey={key}
-          initialValue={initialContent}
-          init={{
-            height: "100%",
-            width: "100%",
-            menubar: {
-              file: {
-                title: "File",
-                items: "print | undo redo",
+    <div className={`opisPdf ${lookOpis ? "opisPdfActive" : ""}`}>
+      <Modals openModal={lookOpis} setOpenModal={() => setLookOpis()}>
+        <div className="pdfFile opisPdf__inner">
+          <Editor
+            apiKey={key}
+            initialValue={initialContent}
+            init={{
+              height: "100%",
+              width: "100%",
+              menubar: {
+                file: {
+                  title: "File",
+                  items: "print | undo redo",
+                },
               },
-            },
-            content_style:
-              "body { font-family: 'Times New Roman', sans-serif; }",
-            toolbar: false,
-          }}
-          onEditorChange={handleEditorChange}
-          ref={editorRef}
-        />
-      </div>
-    </Modals>
+              content_style:
+                "body { font-family: 'Times New Roman', sans-serif; }",
+              toolbar: false,
+            }}
+            onEditorChange={handleEditorChange}
+            ref={editorRef}
+          />
+        </div>
+      </Modals>
+    </div>
   );
 };
 

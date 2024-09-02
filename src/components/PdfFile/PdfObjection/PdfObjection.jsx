@@ -6,7 +6,7 @@ import { key } from "../../../helpers/localData";
 
 const PdfObjection = ({ editorRef }) => {
   const dispatch = useDispatch();
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
 
   const transform = (arr) => {
     if (arr?.length === 1) {
@@ -48,21 +48,21 @@ const PdfObjection = ({ editorRef }) => {
       </div>
     </div>
     <h4 style="text-align:center; font-size: 22px; margin: 80px 0 0 0;">Возражение на исковое заявление № ${
-      todosApplications?.isk_number
+      dataIsk?.isk_number
     }</h4>
     <h4 style="text-align:right !important; font-size: 18px; margin: 20px 0 0 0px; padding: 0px 30px 0px 0px;">г.Бишкек</h4>
     <p style=" font-size: 18px; text-indent: 40px; margin: 20px 0px 0 0">В Международном Третейском Суду при Торгово-промышленной палате Кыргызской
     Республики (МТС ТПП) в лице Председателя Майчиева Шамарала Юсуповича, находится
     исковое заявление в производстве МТС ТПП от ${transform(
-      todosApplications?.plaintiff
-    )} к ${transform(todosApplications?.defendant)}</p>
+      dataIsk?.plaintiff
+    )} к ${transform(dataIsk?.defendant)}</p>
     <p style=" font-size: 18px; margin: 20px 0px 0 0">Ответчик не согласен с заявленными исковыми требованиями, считает заявленные истцом
     требования незаконным, необоснованными и возражает против удовлетворения</p>
     <h4 style="text-align:center; font-size: 18px; margin: 20px 0 0 0px;">ПРОШУ:</h4>
     <p style=" font-size: 18px; margin: 5px 0px">
     В удовлетворении исковых тербований по иску ${transform(
-      todosApplications?.plaintiff
-    )} к ${transform(todosApplications?.defendant)} отказать по причине того что
+      dataIsk?.plaintiff
+    )} к ${transform(dataIsk?.defendant)} отказать по причине того что
     </p>
     <div style="display:flex; gap:200px; padding: 20px 0 0 0px"></div>
       `;

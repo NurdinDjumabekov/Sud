@@ -1,14 +1,14 @@
 import React from "react";
 import ExampleBlock from "../ExampleBlock/ExampleBlock";
 import "./DescriptionClaim.scss";
-import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { setDataaIsk } from "../../../store/reducers/applicationsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Selects from "../../Selects/Selects";
 import ChoiceNoneData from "../ChoiceNoneData/ChoiceNoneData";
 
 const DescriptionClaim = () => {
   const dispatch = useDispatch();
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { selCurrency } = useSelector((state) => state.selectsSlice);
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
 
@@ -24,15 +24,15 @@ const DescriptionClaim = () => {
         .filter((char) => numReg.test(char))
         .join("");
       dispatch(
-        changeTodosApplications({
-          ...todosApplications,
+        setDataaIsk({
+          ...dataIsk,
           [e.target.name]: filteredValue,
         })
       );
     } else {
       dispatch(
-        changeTodosApplications({
-          ...todosApplications,
+        setDataaIsk({
+          ...dataIsk,
           [e.target.name]: e.target.value,
         })
       );
@@ -40,16 +40,16 @@ const DescriptionClaim = () => {
   };
 
   // React.useEffect(() => {
-  //   if (+todosApplications.non_proprietary === 0) {
+  //   if (+dataIsk.non_proprietary === 0) {
   //     dispatch(
-  //       changeTodosApplications({
-  //         ...todosApplications,
+  //       setDataaIsk({
+  //         ...dataIsk,
   //         isk_summ: "",
   //         isk_summ_curr: 0,
   //       })
   //     );
   //   }
-  // }, [+todosApplications.non_proprietary]);
+  // }, [+dataIsk.non_proprietary]);
 
   return (
     <div className={`${"plaintiFilling__container"} `}>
@@ -65,7 +65,7 @@ const DescriptionClaim = () => {
               name="name"
               id="name"
               onChange={changeInput}
-              value={todosApplications.name}
+              value={dataIsk.name}
               style={{ height: "28vh" }}
             ></textarea>
           </div>
@@ -75,14 +75,14 @@ const DescriptionClaim = () => {
                 <ChoiceNoneData
                   props={{
                     title: `Неимущественный иск`,
-                    typeKey: todosApplications.non_proprietary,
+                    typeKey: dataIsk.non_proprietary,
                     type: "non_proprietary",
                   }}
                   multiType={true}
                 />
               </div>
             )}
-            {todosApplications.non_proprietary === 0 ? (
+            {dataIsk.non_proprietary === 0 ? (
               <>
                 <div>
                   <p>Денежные требования</p>
@@ -91,14 +91,14 @@ const DescriptionClaim = () => {
                     placeholder="Денежные требования"
                     name="isk_summ"
                     onChange={changeInput}
-                    value={todosApplications.isk_summ}
+                    value={dataIsk.isk_summ}
                   />
                 </div>
                 <Selects
                   arr={selCurrency}
                   initText={"Валюта"}
                   keys={{
-                    typeKey: todosApplications.isk_summ_curr,
+                    typeKey: dataIsk.isk_summ_curr,
                     type: "isk_summ_curr",
                   }}
                   type="todos"
@@ -114,7 +114,7 @@ const DescriptionClaim = () => {
               id="description"
               name="description"
               onChange={changeInput}
-              value={todosApplications?.description}
+              value={dataIsk?.description}
               style={{ height: "28vh" }}
             ></textarea>
           </div>

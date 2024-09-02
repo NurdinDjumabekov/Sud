@@ -2,18 +2,16 @@ import React, { useState } from "react";
 import "./ChoiceNoneData.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { changeADFF } from "../../../store/reducers/inputSlice";
-import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { setDataaIsk } from "../../../store/reducers/applicationsSlice";
 
 const ChoiceNoneData = ({ props, multiType }) => {
   const dispatch = useDispatch();
   const { adff } = useSelector((state) => state.inputSlice);
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
 
   const clickBtn = (bool) => {
     if (multiType) {
-      dispatch(
-        changeTodosApplications({ ...todosApplications, [props.type]: bool })
-      );
+      dispatch(setDataaIsk({ ...dataIsk, [props.type]: bool }));
     } else {
       dispatch(changeADFF({ ...adff, [props.type]: bool }));
     }

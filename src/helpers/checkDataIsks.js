@@ -31,3 +31,4 @@ export const checkDataIsks = (obj) => {
     return true;
   }
 };
+//// delete

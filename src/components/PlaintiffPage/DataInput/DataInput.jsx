@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changeADFF, changeADUF } from "../../../store/reducers/inputSlice";
-import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { setDataaIsk } from "../../../store/reducers/applicationsSlice";
 import { parse } from "date-fns";
 
 const DataInput = ({ props }) => {
@@ -19,7 +19,7 @@ const DataInput = ({ props }) => {
       : null
   );
 
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
 
   const parseDate = (dateString) => {
     const [day, month, year] = dateString.split(".");
@@ -66,8 +66,8 @@ const DataInput = ({ props }) => {
       );
     } else if (props.typeChange === "todos") {
       dispatch(
-        changeTodosApplications({
-          ...todosApplications,
+        setDataaIsk({
+          ...dataIsk,
           [props.nameInput]: formattedDateForServer,
         })
       );

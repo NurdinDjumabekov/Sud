@@ -1,11 +1,11 @@
 import React from "react";
 import ExampleBlock from "../ExampleBlock/ExampleBlock";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { setDataaIsk } from "../../../store/reducers/applicationsSlice";
 
 const MotivationClaim = () => {
   const dispatch = useDispatch();
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { typeUser, checkEditPlaint } = useSelector(
     (state) => state.saveDataSlice
   );
@@ -16,8 +16,8 @@ const MotivationClaim = () => {
       return;
     }
     dispatch(
-      changeTodosApplications({
-        ...todosApplications,
+      setDataaIsk({
+        ...dataIsk,
         [e.target.name]: e.target.value,
       })
     );
@@ -38,7 +38,7 @@ const MotivationClaim = () => {
               name="motivation"
               id="name"
               onChange={changeInput}
-              value={todosApplications.motivation}
+              value={dataIsk.motivation}
             ></textarea>
           </div>
         </form>

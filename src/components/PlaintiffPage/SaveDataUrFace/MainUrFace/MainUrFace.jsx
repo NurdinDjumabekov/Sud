@@ -13,7 +13,7 @@ import AddresUrFace from "../AddresUrFace/AddresUrFace";
 
 /// fns
 import { changeADUF } from "../../../../store/reducers/inputSlice";
-import { createEveryIsk } from "../../../../store/reducers/sendDocsSlice";
+import { create_edit_sides } from "../../../../store/reducers/sendDocsSlice";
 import { changeAlertText } from "../../../../store/reducers/typesSlice";
 import { clearAllFace } from "../../../../helpers/clear";
 
@@ -22,7 +22,7 @@ const UrFace = ({ typeSide }) => {
 
   const objSide = { 1: "Истец", 2: "Ответчик" };
 
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { aduf, typeFace } = useSelector((state) => state.inputSlice);
 
   const { selTypeOrganiz } = useSelector((state) => state.selectsSlice);
@@ -56,10 +56,10 @@ const UrFace = ({ typeSide }) => {
   };
 
   const checkData = () => {
-    const obj = { todosApplications, action_type: 1, role: typeSide };
+    const obj = { dataIsk, action_type: 1, role: typeSide };
     const senData = { aduf, typeFace, country_ur: aduf?.country };
 
-    dispatch(createEveryIsk({ ...obj, ...senData }));
+    dispatch(create_edit_sides({ ...obj, ...senData }));
     cancel();
   };
 

@@ -12,7 +12,7 @@ import AddresUrFace from "../AddresIpFace/AddresIpFace";
 
 /// fns
 import { changeADIF } from "../../../../store/reducers/inputSlice";
-import { createEveryIsk } from "../../../../store/reducers/sendDocsSlice";
+import { create_edit_sides } from "../../../../store/reducers/sendDocsSlice";
 import { changeAlertText } from "../../../../store/reducers/typesSlice";
 import { clearAllFace } from "../../../../helpers/clear";
 
@@ -21,7 +21,7 @@ const MainIpFace = ({ typeSide }) => {
 
   const objSide = { 1: "Истец", 2: "Ответчик" };
 
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { adif, typeFace } = useSelector((state) => state.inputSlice);
 
   const sendData = (e) => {
@@ -52,10 +52,10 @@ const MainIpFace = ({ typeSide }) => {
   };
 
   const checkData = () => {
-    const obj = { todosApplications, action_type: 1, role: typeSide }; /// 1 - создание
+    const obj = { dataIsk, action_type: 1, role: typeSide }; /// 1 - создание
     const senData = { adif, typeFace };
 
-    dispatch(createEveryIsk({ ...obj, ...senData }));
+    dispatch(create_edit_sides({ ...obj, ...senData }));
     cancel();
   };
 

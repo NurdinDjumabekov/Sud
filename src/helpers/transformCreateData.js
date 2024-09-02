@@ -1,7 +1,7 @@
 export const transformCreateData = (props, role, faceData) => {
   if (role == 1) {
     return {
-      ...props?.todosApplications,
+      ...props?.dataIsk,
       plaintiff: [{ ...faceData, typeFace: props?.typeFace }],
       defendant: [],
       plaintiffResper: [],
@@ -9,7 +9,7 @@ export const transformCreateData = (props, role, faceData) => {
     };
   } else if (role == 2) {
     return {
-      ...props?.todosApplications,
+      ...props?.dataIsk,
       defendant: [{ ...faceData, typeFace: props?.typeFace }],
       plaintiff: [],
       plaintiffResper: [],
@@ -17,7 +17,7 @@ export const transformCreateData = (props, role, faceData) => {
     };
   } else if (role == 3) {
     return {
-      ...props?.todosApplications,
+      ...props?.dataIsk,
       plaintiffResper: [{ ...faceData, typeFace: props?.typeFace }],
       plaintiff: [],
       defendant: [],
@@ -25,7 +25,7 @@ export const transformCreateData = (props, role, faceData) => {
     };
   } else if (role == 4) {
     return {
-      ...props?.todosApplications,
+      ...props?.dataIsk,
       defendantResper: [{ ...faceData, typeFace: props?.typeFace }],
       plaintiff: [],
       defendant: [],

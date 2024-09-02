@@ -18,14 +18,14 @@ import { transformDate } from "../../../helpers/todayDate";
 import { addFilesList } from "../../../helpers/addFilesList";
 
 const PdfNotifyDefendant = ({ editorRef }) => {
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { applicationList } = useSelector((state) => state.applicationsSlice);
   const { selCountries } = useSelector((state) => state.selectsSlice);
   const { selRegions } = useSelector((state) => state.selectsSlice);
   const { selDistrict } = useSelector((state) => state.selectsSlice);
 
-  const plaintiff = transformRole(todosApplications?.plaintiff);
-  const defendant = transformRole(todosApplications?.defendant);
+  const plaintiff = transformRole(dataIsk?.plaintiff);
+  const defendant = transformRole(dataIsk?.defendant);
 
   //// addres
   const selOptions = [selCountries, selRegions, selDistrict];
@@ -67,11 +67,11 @@ const PdfNotifyDefendant = ({ editorRef }) => {
       : `<div style="display: none"></div>`;
   };
 
-  console.log(todosApplications, "todosApplications");
+  console.log(dataIsk, "dataIsk");
 
-  const dateIsk = transformDate(`${todosApplications?.isk_date}`);
+  const dateIsk = transformDate(`${dataIsk?.isk_date}`);
 
-  const arbirts = arbitrsLook(todosApplications?.arbitrs);
+  const arbirts = arbitrsLook(dataIsk?.arbitrs);
 
   const noneStyle =
     "background: transparent !important; color: transparent !important;";
@@ -81,25 +81,25 @@ const PdfNotifyDefendant = ({ editorRef }) => {
         <div>
           <div style="position: relative; margin: 20px 0px 20px 0px; font-size:16px !important; min-width:100%">
             <div style="${noneStyle} width: 380px;">
-              ${transformData(todosApplications?.defendant, 3)}
+              ${transformData(dataIsk?.defendant, 3)}
             </div> 
             <img style="position: absolute; z-index: 1; top: 0; left: 0;" src="data:image/png;base64,${logoMainBas64}" alt="logo" height=120px width:950px >
             <div style="width: 380px; position: absolute; z-index: 1; top: 10px; right:0;">
-              ${transformData(todosApplications?.defendant, 3)}
+              ${transformData(dataIsk?.defendant, 3)}
             </div>
           </div>
         </div>
       </div>
 
       <div style="position: relative; padding-left:230px; margin-top: 80px;">
-        ${listAddresNotify(`${todosApplications?.isk_date}`)}
+        ${listAddresNotify(`${dataIsk?.isk_date}`)}
         <div>
          ${notifTitle}
 
           <div>
             <p style="font-size: 18px; text-indent: 40px; margin: 20px 0px 0px 0px">
               Настоящим уведомляем, что ${dateIsk} года ${plaintiff}  обратился  в МТС ТПП с исковым заявлением к ${defendant}   о ${
-    todosApplications?.name
+    dataIsk?.name
   }.
             </p>
 

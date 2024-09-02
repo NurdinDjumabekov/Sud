@@ -18,20 +18,20 @@ import { changeTypeFace } from "../../../store/reducers/inputSlice";
 /////// helpers
 import { getCountry } from "../../../helpers/getSelects";
 
-const DataArrPlaintiff = ({ typerole, typeSide }) => {
+const DataArrPlaintiff = ({ typeSide }) => {
   const objRole = { 1: "истца", 2: "ответчика" };
   //// typeSide - (1)сторона истца, (2) сторона ответчика
 
   const dispatch = useDispatch();
 
   const { lookTypeRole } = useSelector((state) => state.stateSlice);
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { adff, aduf, adif } = useSelector((state) => state.inputSlice);
 
   const approvId = () => {
-    dispatch(changeADFF({ ...adff, code_isk: todosApplications?.codeid }));
-    dispatch(changeADUF({ ...aduf, code_isk: todosApplications?.codeid }));
-    dispatch(changeADIF({ ...adif, code_isk: todosApplications?.codeid }));
+    dispatch(changeADFF({ ...adff, code_isk: dataIsk?.codeid }));
+    dispatch(changeADUF({ ...aduf, code_isk: dataIsk?.codeid }));
+    dispatch(changeADIF({ ...adif, code_isk: dataIsk?.codeid }));
     //// подствляю codeid для юр и физ лиц и ип
     getCountry(dispatch);
     ///// для получения и отображения нужных мне значений городов, стран для седектов
@@ -57,7 +57,7 @@ const DataArrPlaintiff = ({ typerole, typeSide }) => {
             Добавить представителя {objRole?.[typeSide]}
           </button>
         </ul>
-        <DocsList typerole={typerole} typeSide={typeSide} />
+        <DocsList typeSide={typeSide} />
       </div>
     );
   }

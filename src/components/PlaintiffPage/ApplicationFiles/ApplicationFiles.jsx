@@ -20,13 +20,11 @@ const ApplicationFiles = () => {
   const dispatch = useDispatch();
   const [lookOpis, setLookOpis] = useState(false);
 
-  const { todosApplications, applicationList } = useSelector(
+  const { dataIsk, applicationList } = useSelector(
     (state) => state.applicationsSlice
   );
 
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
-
-  const { editFileDocs } = useSelector((state) => state.saveDataSlice);
 
   const handleFileChange = (id, e) => {
     const newFiles = Array.from(e.target.files);
@@ -46,7 +44,7 @@ const ApplicationFiles = () => {
       // console.log(file, "file");
       if (file) {
         const fileData = new FormData();
-        fileData.append("code_isk", +todosApplications?.codeid);
+        fileData.append("code_isk", +dataIsk?.codeid);
         fileData.append("code_file", +id);
         fileData.append("file", file);
         fileData.append("name", file?.name);
@@ -61,7 +59,7 @@ const ApplicationFiles = () => {
   };
 
   const deleteDocs = ({ codeid_file }) => {
-    const { codeid } = todosApplications;
+    const { codeid } = dataIsk;
     const send = { codeid_file, code_isk: codeid };
     dispatch(deleteDocsIsks(send));
   };

@@ -8,11 +8,11 @@ import {
   changeResult,
   changeSumIsk,
 } from "../../store/reducers/stateSlice";
-import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
+import { setDataaIsk } from "../../store/reducers/applicationsSlice";
 
 const Calculator = () => {
   const dispatch = useDispatch();
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { typeUser, checkEditPlaint } = useSelector(
     (state) => state.saveDataSlice
   );
@@ -206,8 +206,8 @@ const Calculator = () => {
     );
     if (checkEditPlaint) {
       dispatch(
-        changeTodosApplications({
-          ...todosApplications,
+        setDataaIsk({
+          ...dataIsk,
           arbitr_fee: Math.round(+data?.arbitrSbor),
           arbitr_curr: 6, /// с сомов в доллары
           registr_fee: Math.round(+data?.regSbor),
@@ -228,7 +228,7 @@ const Calculator = () => {
   };
 
   React.useEffect(() => {
-    dispatch(changeSumIsk(todosApplications.summ));
+    dispatch(changeSumIsk(dataIsk.summ));
   }, []);
 
   const isCheckRole =

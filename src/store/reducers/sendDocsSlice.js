@@ -2,8 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 /////// fns
-import { changeADFF, changeADUF, changeDocsIsks } from "./inputSlice";
-import { changeTodosApplications } from "./applicationsSlice";
+import {
+  changeADFF,
+  changeADIF,
+  changeADUF,
+  changeDocsIsks,
+} from "./inputSlice";
+import { setDataaIsk } from "./applicationsSlice";
 import { toTakeTypeTypeDocs } from "./applicationsSlice";
 import { changeAlertText } from "./typesSlice";
 import { clearMainBtnList, sortDataIsksCounts } from "./stateSlice";
@@ -16,7 +21,7 @@ import axiosInstance from "../../axiosInstance";
 
 const { REACT_APP_API_URL } = process.env;
 
-const initialState = { preloader: false, listTodos: [] };
+const initialState = { preloader: false, listTodos: [], listContentHtml: [] };
 
 ////-------------------////
 /// changeStatusIsks - изменения статуса иска у истца (истец подаёт иск)
@@ -60,6 +65,25 @@ export const deleteIsks = createAsyncThunk(
   }
 );
 
+//// потом надо доделать
+///// getDataSort - для get статусов для сортировки
+export const getDataSort = createAsyncThunk(
+  "getDataSort",
+  async function (props, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/accesses_status_role`;
+    try {
+      const response = await axiosInstance(url);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const toTakeIsksList = createAsyncThunk(
   "toTakeIsksList",
   async function (id, { dispatch, rejectWithValue }) {
@@ -81,12 +105,12 @@ export const toTakeIsksList = createAsyncThunk(
 );
 
 //// для получения id иска
-export const createIdIsk = createAsyncThunk(
+export const createIdIskFN = createAsyncThunk(
   "createIsk",
   async function (props, { dispatch, rejectWithValue }) {
-    const { todosApplications, adff, aduf, docsIsks } = props;
-    const data = { action_type: 1 };
-    /// для создания иска
+    const { dataIsk, adff, aduf, adif, docsIsks } = props;
+    const data = { action_type: 1 }; /// для создания иска
+
     const url = `${REACT_APP_API_URL}/isks/crud`;
 
     try {
@@ -102,13 +126,16 @@ export const createIdIsk = createAsyncThunk(
           arbitr_doplata_end_date: formattedOneMonthLater,
           codeid,
         };
-        dispatch(changeTodosApplications({ ...todosApplications, ...obj }));
+        dispatch(setDataaIsk({ ...dataIsk, ...obj }));
         ////// подставляю id для главного объекта где все данные иска и дату сроков уплаты
 
         dispatch(changeADFF({ ...adff, code_isk: codeid }));
         ////// подставляю id для объекта физ лиц
 
         dispatch(changeADUF({ ...aduf, code_isk: codeid }));
+        ////// подставляю id для объекта юр лиц
+
+        dispatch(changeADIF({ ...adif, code_isk: codeid }));
         ////// подставляю id для объекта юр лиц
 
         dispatch(changeDocsIsks({ ...docsIsks, code_isk: codeid }));
@@ -126,11 +153,11 @@ export const createIdIsk = createAsyncThunk(
 export const sendEveryIsks = createAsyncThunk(
   "sendEveryIsks",
   async function (props, { dispatch, rejectWithValue }) {
-    const { todosApplications, content } = props;
+    const { dataIsk, content } = props;
     const { navigate, typeUser } = props;
-    const { codeid } = todosApplications;
+    const { codeid } = dataIsk;
 
-    const newData = { ...todosApplications };
+    const newData = { ...dataIsk };
     delete newData["files"];
 
     const data = { ...newData, action_type: 2 }; /// для редактировования созданного иска
@@ -180,11 +207,11 @@ export const sendDocsEveryIsks = createAsyncThunk(
   }
 );
 
-/// createEveryIsk - create and edit истцов и ответчиков
-export const createEveryIsk = createAsyncThunk(
-  "createEveryIsk",
+/// create_edit_sides - create and edit истцов и ответчиков(представителей)
+export const create_edit_sides = createAsyncThunk(
+  "create_edit_sides",
   async function (props, { dispatch, rejectWithValue }) {
-    const { todosApplications, role, adff, aduf, typeFace, adif } = props;
+    const { dataIsk, role, adff, aduf, typeFace, adif } = props;
 
     const objFace = { 1: adff, 2: aduf, 3: adif };
     const faceData = objFace?.[typeFace];
@@ -197,7 +224,7 @@ export const createEveryIsk = createAsyncThunk(
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
         const newdata = changeActionType(response?.data, obj?.codeid);
-        dispatch(changeTodosApplications({ ...todosApplications, ...newdata }));
+        dispatch(setDataaIsk({ ...dataIsk, ...newdata }));
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -225,10 +252,7 @@ export const changeStatusDocs = createAsyncThunk(
 
         if (isk_status == 5) {
           /// для создания и отправки документа "уведомления ответчика"
-
-          setTimeout(() => {
-            dispatch(sendNotif(id)); /// отправка уведомления
-          }, 3000);
+          dispatch(sendNotif(id)); /// отправка уведомления
         }
       } else {
         throw Error(`Error: ${response.status}`);
@@ -264,7 +288,7 @@ export const choiceSecr = createAsyncThunk(
   async function (props, { dispatch, rejectWithValue }) {
     const { typeSecretarDela, code_isk } = props;
 
-    const url = `http://mttp-renaissance.333.kg/api/isks/set_isk_secretar`;
+    const url = `${REACT_APP_API_URL}/isks/set_isk_secretar`;
     const data = { code_isk, code_secretar: typeSecretarDela };
 
     try {
@@ -304,6 +328,41 @@ export const choiceArbitrsFN = createAsyncThunk(
   }
 );
 
+/// createFileAccept - создание документа для принятие иска для председателя от отв. секретаря и секретаря дела
+export const createFileAccept = createAsyncThunk(
+  "createFileAccept",
+  async function (data, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/create_accept_file`;
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/// getDataHtmlContent - get данные секретарей, котоыре заполняли html документ для прняти иска председателю
+export const getDataHtmlContent = createAsyncThunk(
+  "getDataHtmlContent",
+  async function (data, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/get_content`;
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const sendDocsSlice = createSlice({
   name: "sendDocsSlice",
   initialState,
@@ -321,16 +380,15 @@ const sendDocsSlice = createSlice({
       state.preloader = true;
     });
 
-    ///// createIdIsk
-    builder.addCase(createIdIsk.fulfilled, (state, action) => {
+    ///// createIdIskFN
+    builder.addCase(createIdIskFN.fulfilled, (state, action) => {
       state.preloader = false;
-      state.createIdIsk = action.payload;
     });
-    builder.addCase(createIdIsk.rejected, (state, action) => {
+    builder.addCase(createIdIskFN.rejected, (state, action) => {
       state.error = action.payload;
       state.preloader = false;
     });
-    builder.addCase(createIdIsk.pending, (state, action) => {
+    builder.addCase(createIdIskFN.pending, (state, action) => {
       state.preloader = true;
     });
 
@@ -347,15 +405,15 @@ const sendDocsSlice = createSlice({
       state.preloader = true;
     });
 
-    ////// createEveryIsk
-    builder.addCase(createEveryIsk.fulfilled, (state, action) => {
+    ////// create_edit_sides
+    builder.addCase(create_edit_sides.fulfilled, (state, action) => {
       state.preloader = false;
     });
-    builder.addCase(createEveryIsk.rejected, (state, action) => {
+    builder.addCase(create_edit_sides.rejected, (state, action) => {
       state.error = action.payload;
       state.preloader = false;
     });
-    builder.addCase(createEveryIsk.pending, (state, action) => {
+    builder.addCase(create_edit_sides.pending, (state, action) => {
       state.preloader = true;
     });
 
@@ -383,6 +441,31 @@ const sendDocsSlice = createSlice({
       state.preloader = false;
     });
     builder.addCase(changeStatusDocs.pending, (state, action) => {
+      state.preloader = true;
+    });
+
+    /////// createFileAccept
+    builder.addCase(createFileAccept.fulfilled, (state, action) => {
+      state.preloader = false;
+    });
+    builder.addCase(createFileAccept.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloader = false;
+    });
+    builder.addCase(createFileAccept.pending, (state, action) => {
+      state.preloader = true;
+    });
+
+    /////// getDataHtmlContent
+    builder.addCase(getDataHtmlContent.fulfilled, (state, action) => {
+      state.preloader = false;
+      state.listContentHtml = action.payload;
+    });
+    builder.addCase(getDataHtmlContent.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloader = false;
+    });
+    builder.addCase(getDataHtmlContent.pending, (state, action) => {
       state.preloader = true;
     });
   },

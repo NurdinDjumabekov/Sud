@@ -312,15 +312,10 @@ export const toTakeLangArbit = createAsyncThunk(
 ////toTakeSecretarList
 export const toTakeSecretarList = createAsyncThunk(
   "toTakeSecretarList",
-  async function (token, { dispatch, rejectWithValue }) {
+  async function (props, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/get/sp_secretar`;
     try {
-      const response = await axios({
-        method: "GET",
-        url: `http://mttp-renaissance.333.kg/api/get/sp_secretar`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
         return response?.data?.data;
       } else {

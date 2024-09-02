@@ -53,7 +53,13 @@ const MainPage = () => {
                   </td>
                   <Arbitrs row={row} />
                   <td className="secr">
-                    <span>{row?.secretary || <ChoiceSecr item={row} />}</span>
+                    <span>
+                      {type_user != 3 ? (
+                        row?.secretary
+                      ) : (
+                        <ChoiceSecr item={row} />
+                      )}
+                    </span>
                   </td>
                   <AllStatus row={row} />
                   <TypeActionsUsers row={row} />

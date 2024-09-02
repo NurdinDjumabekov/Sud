@@ -14,7 +14,7 @@ import { checkDataIsks } from "../../../helpers/checkDataIsks";
 
 ///// fns
 import { sendEveryIsks } from "../../../store/reducers/sendDocsSlice";
-import { clearTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { clearDataaIsk } from "../../../store/reducers/applicationsSlice";
 import { changeCalculatorState } from "../../../store/reducers/stateSlice";
 import { changeCalculatorType } from "../../../store/reducers/stateSlice";
 import { changeResult } from "../../../store/reducers/stateSlice";
@@ -28,32 +28,28 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
   const editorRef = useRef(null);
 
   const { lookTypeRole } = useSelector((state) => state.stateSlice);
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { typeUser, checkEditPlaint } = useSelector(
     (state) => state.saveDataSlice
   );
 
   const saveData = () => {
-    if (!checkDataIsks(todosApplications)) {
-      return dispatch(changeAlertText("Нету заполненных полей!"));
-    }
-
-    if (todosApplications.plaintiff?.length === 0) {
+    if (dataIsk?.plaintiff?.length === 0) {
       return dispatch(changeAlertText("Добавьте истца!"));
     }
 
-    if (todosApplications.defendant?.length === 0) {
-      return dispatch(changeAlertText("Добавьте ответчика!"));
-    }
+    // if (dataIsk?.defendant?.length === 0) {
+    //   return dispatch(changeAlertText("Добавьте ответчика!"));
+    // }
 
     if (editorRef.current?.editor) {
       const content = editorRef.current.editor.getContent();
-      const obj = { navigate, content, typeUser, todosApplications };
+      const obj = { navigate, content, typeUser, dataIsk };
 
       dispatch(sendEveryIsks(obj));
 
       // Очистка всех временных state
-      dispatch(clearTodosApplications());
+      dispatch(clearDataaIsk());
       dispatch(clearMainBtnList());
       clearDataCalculator();
     }

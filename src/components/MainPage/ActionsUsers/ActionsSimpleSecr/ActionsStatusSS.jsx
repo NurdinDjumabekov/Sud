@@ -32,6 +32,43 @@ const ActionsStatusSS = ({ row }) => {
     //// chech (зачем передавать applicationList ???)
   };
 
+  // const list = [
+  //   {
+  //     fiz_face_type: 2,
+  //     code_isk: 213,
+  //   },
+  //   {
+  //     ur_face_type: 2,
+  //     code_isk: 2123,
+  //   },
+  //   {
+  //     ip_face_type: 1,
+  //     code_isk: 2153,
+  //   },
+
+  //   {
+  //     ip_face_type: 1,
+  //     code_isk: 21113,
+  //   },
+  //   {
+  //     ip_face_type: 0,
+  //     code_isk: 2103,
+  //   },
+  // ];
+
+  // const filteredEmails = list
+  //   .filter(
+  //     (item) =>
+  //       item.fiz_face_type == 2 ||
+  //       item.ur_face_type == 2 ||
+  //       item.ip_face_type == 2
+  //   )
+  //   .map(({ code_isk }) => ({
+  //     code_isk,
+  //   }));
+
+  // console.log(filteredEmails, "filteredEmails");
+
   if (
     isk_status == 2 ||
     isk_status == 4 ||

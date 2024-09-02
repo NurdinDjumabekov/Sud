@@ -1,11 +1,11 @@
 import React from "react";
 import ExampleBlock from "../ExampleBlock/ExampleBlock";
-import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { setDataaIsk } from "../../../store/reducers/applicationsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Justification = () => {
   const dispatch = useDispatch();
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -13,8 +13,8 @@ const Justification = () => {
       return;
     }
     dispatch(
-      changeTodosApplications({
-        ...todosApplications,
+      setDataaIsk({
+        ...dataIsk,
         [e.target.name]: e.target.value,
       })
     );
@@ -35,7 +35,7 @@ const Justification = () => {
               name="obosnovanie"
               id="name"
               onChange={changeInput}
-              value={todosApplications.obosnovanie}
+              value={dataIsk.obosnovanie}
             ></textarea>
           </div>
         </form>

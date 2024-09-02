@@ -1,5 +1,5 @@
 ///// hooks
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 ///// style
@@ -7,11 +7,13 @@ import "../style.scss";
 
 ////// fns
 import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
+import { createFileAccept } from "../../../../store/reducers/sendDocsSlice";
+import { getDataHtmlContent } from "../../../../store/reducers/sendDocsSlice";
 import { sendDocsEveryIsks } from "../../../../store/reducers/sendDocsSlice";
 
 ///// components
-import PdfFulfilled from "../../../PdfFile/PdfFulfilled/PdfFulfilled";
 import ApplicationFiles from "../../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
+import PdfFulfilledAllSecr from "../../../PdfFile/PdfFulfilledAllSecr/PdfFulfilledAllSecr";
 import PdfFile from "../../../PdfFile/PdfFile";
 import Modals from "../../../Modals/Modals";
 
@@ -33,6 +35,9 @@ const Fullfilled_isks_for_pred = () => {
   const fulfilledIsk = () => {
     if (fulfilledRef.current.editor) {
       const content = fulfilledRef.current.editor.getContent();
+
+      dispatch(createFileAccept({ content, id }));
+      /// content text для председателя
       dispatch(sendDocsEveryIsks({ content, code_file: 12, id }));
       /// 12 - принятие иска председателем
       /// для создания документа о принятии иска (заполняет секретарь для председателя)
@@ -45,6 +50,11 @@ const Fullfilled_isks_for_pred = () => {
     setConfirmAction(false);
     //// закрываю обе модалки
   };
+
+  useEffect(() => {
+    dispatch(getDataHtmlContent({ id }));
+    //// get данные для отбражения видов документов приготовленные секретарями
+  }, [id]);
 
   return (
     <>
@@ -68,7 +78,7 @@ const Fullfilled_isks_for_pred = () => {
             <PdfFile editorRef={editorDocRef} />
           )}
           <div className="plaintiFilling__container moreStyle">
-            <PdfFulfilled editorRef={fulfilledRef} />
+            <PdfFulfilledAllSecr editorRef={fulfilledRef} />
           </div>
         </div>
         <div className="modalchangeStatus allHeight">

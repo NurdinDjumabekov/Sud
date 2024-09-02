@@ -7,7 +7,7 @@ import "./style.scss";
 
 ///// fns
 import { changeADFF } from "../../../../store/reducers/inputSlice";
-import { createEveryIsk } from "../../../../store/reducers/sendDocsSlice";
+import { create_edit_sides } from "../../../../store/reducers/sendDocsSlice";
 import { changeAlertText } from "../../../../store/reducers/typesSlice";
 
 ////// components
@@ -24,7 +24,7 @@ const FizFace = ({ typeSide }) => {
 
   const { adff, typeFace } = useSelector((state) => state.inputSlice);
   const { lookTypeRole } = useSelector((state) => state.stateSlice); ///истец(1) или ответчик(2)
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { checkEditPlaint } = useSelector((state) => state.saveDataSlice);
   //// check - для проверки редактирования
 
@@ -34,7 +34,7 @@ const FizFace = ({ typeSide }) => {
   const checkData = () => {
     //// отправка запроса для выбора роли
 
-    dispatch(createEveryIsk({ todosApplications, adff, typeFace, role }));
+    dispatch(create_edit_sides({ dataIsk, adff, typeFace, role }));
     /// action_type 1 - создание , 2 - редактирование
     cancel();
   };

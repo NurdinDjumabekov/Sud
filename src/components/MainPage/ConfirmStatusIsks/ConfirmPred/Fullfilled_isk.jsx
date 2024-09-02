@@ -1,5 +1,5 @@
 ///// hooks
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +8,10 @@ import "../style.scss";
 
 ////// fns
 import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
-import { changeStatusDocs } from "../../../../store/reducers/sendDocsSlice";
+import {
+  changeStatusDocs,
+  getDataHtmlContent,
+} from "../../../../store/reducers/sendDocsSlice";
 
 ///// components
 import PdfFulfilled from "../../../../components/PdfFile/PdfFulfilled/PdfFulfilled";
@@ -18,6 +21,7 @@ import Modals from "../../../Modals/Modals";
 
 ///// imgs
 import imgWarning from "../../../../asstes/images/warning.png";
+import MySelects from "../../../MySelects/MySelects";
 
 const Fullfilled_isk = () => {
   const dispatch = useDispatch();
@@ -26,9 +30,12 @@ const Fullfilled_isk = () => {
   const fulfilledRef = useRef(null);
 
   const [confirmAction, setConfirmAction] = useState(false);
+  const [idContent, setIdContent] = useState({ id: 0, name: "" });
   const [lookDocs, setLookDocs] = useState(false); ///// для просмотра документов
 
   const { confirmStatus } = useSelector((state) => state.stateSlice);
+  const { listContentHtml } = useSelector((state) => state.sendDocsSlice);
+  const { id } = useSelector((state) => state.stateSlice?.confirmStatus);
 
   const fulfilledIsk = () => {
     const { id, status } = confirmStatus;
@@ -49,6 +56,15 @@ const Fullfilled_isk = () => {
     //// закрываю обе модалки
   };
 
+  const onChangeSel = (nameKey, name, codeid) => {
+    setIdContent({ [nameKey]: name, id: codeid });
+  };
+
+  useEffect(() => {
+    dispatch(getDataHtmlContent({ id }));
+    //// get данные для отбражения видов документов приготовленные секретарями
+  }, [id]);
+
   return (
     <>
       {/* ///// открытие документа приняти  я иска  */}
@@ -61,6 +77,13 @@ const Fullfilled_isk = () => {
           ) : (
             <button onClick={() => setLookDocs(true)}>Документы</button>
           )}
+          <MySelects
+            list={listContentHtml}
+            onChangeSel={onChangeSel}
+            initText={""}
+            nameKey={"name"}
+            value={idContent?.id}
+          />
         </div>
         <div className="blockModal__inner haveDocs">
           {lookDocs ? (
@@ -71,7 +94,7 @@ const Fullfilled_isk = () => {
             <PdfFile editorRef={editorDocRef} />
           )}
           <div className="plaintiFilling__container moreStyle">
-            <PdfFulfilled editorRef={fulfilledRef} />
+            <PdfFulfilled editorRef={fulfilledRef} idContent={idContent?.id} />
           </div>
         </div>
         <div className="modalchangeStatus" style={{ height: "auto" }}>

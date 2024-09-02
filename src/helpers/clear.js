@@ -15,6 +15,7 @@ export const clearTodosApp = {
   plaintiffResper: [], //2
   defendant: [], //3
   defendantResper: [], //4
+  arbitrs: [],
 
   name: "",
   description: "",
@@ -49,7 +50,7 @@ export const clearTodosApp = {
   status: 1, /// why?
   content: "", /// для html разметки(доков истца)
   contentPred: "", /// для html разметки(для председателя)
-  //////////////////
+  place_arbitration: "", /// Место разбирательства
 };
 
 export const adffClear = {
@@ -86,6 +87,7 @@ export const adffClear = {
   description: "",
   typeFace: 1,
 };
+
 export const adufClear = {
   action_type: 1,
   code_isk: 0,
@@ -147,4 +149,3 @@ export const adifClear = {
   description: "",
   ip_face_type: 1, // 1-plaintiff, 2-defendan
 };
-

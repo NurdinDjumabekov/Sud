@@ -1,72 +1,96 @@
-import React, { useState } from "react";
-import "./GeneralInfo.scss";
-import Selects from "../../Selects/Selects";
+//////// hooks
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
-import { typeArbitrs } from "../../../helpers/dataArr";
+
+/////// fns
+import { setDataaIsk } from "../../../store/reducers/applicationsSlice";
+
+////// components
+import MyInput from "../../../common/MyInput/MyInput";
+import MySelects from "../../MySelects/MySelects";
+
+////// style
+import "./style.scss";
 
 const GeneralInfo = () => {
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
-  const { selHarSpora, selPrimPravo, selReglament, selLangArbitr } =
-    useSelector((state) => state.selectsSlice);
-
   const dispatch = useDispatch();
 
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
+  const { selHarSpora, selPrimPravo, selReglament } = useSelector(
+    (state) => state.selectsSlice
+  );
+  const { selLangArbitr, selArbitrs } = useSelector(
+    (state) => state.selectsSlice
+  );
+
+  const changeInput = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    if (value.includes("'") || value.includes("`")) return;
+
+    const obj = { ...dataIsk, [name]: value };
+    dispatch(setDataaIsk(obj));
+  };
+
+  const onChangeSel = (nameKey, name, codeid) => {
+    const obj = { ...dataIsk, [nameKey]: codeid };
+    dispatch(setDataaIsk(obj));
+  };
+
   return (
-    <div className={`${"plaintiFilling__container"} `}>
+    <div className="plaintiFilling__container">
       <div className="generalInfo">
         <form>
           <div className="blockSelects">
-            <Selects
-              arr={selPrimPravo}
+            <MySelects
+              list={selPrimPravo}
+              onChangeSel={onChangeSel}
               initText={"Применимое право"}
-              keys={{
-                typeKey: todosApplications.prim_pravo,
-                type: "prim_pravo",
-              }}
-              type="todos"
+              nameKey={"prim_pravo"}
+              value={dataIsk.prim_pravo}
             />
-            <Selects
-              arr={selReglament}
-              initText={"Регламент"}
-              keys={{
-                typeKey: todosApplications.reglament,
-                type: "reglament",
-              }}
-              type="todos"
+
+            <MySelects
+              list={selReglament}
+              onChangeSel={onChangeSel}
+              initText={"Процессуальное право"} /// раньше "Регламент"
+              nameKey={"reglament"}
+              value={dataIsk.reglament}
             />
           </div>
           <div className="blockSelects">
-            <Selects
-              arr={selHarSpora}
+            <MySelects
+              list={selHarSpora}
+              onChangeSel={onChangeSel}
               initText={"Характер спора"}
-              keys={{
-                typeKey: todosApplications.haracter_spor,
-                type: "haracter_spor",
-              }}
-              type="todos"
+              nameKey={"haracter_spor"}
+              value={dataIsk.haracter_spor}
             />
-            <Selects
-              arr={selLangArbitr}
+
+            <MySelects
+              list={selLangArbitr}
+              onChangeSel={onChangeSel}
               initText={"Язык арбитража"}
-              keys={{
-                typeKey: todosApplications.arbitr_lang,
-                type: "arbitr_lang",
-              }}
-              type="todos"
+              nameKey={"arbitr_lang"}
+              value={dataIsk.arbitr_lang}
             />
           </div>
           <div className="blockSelects">
-            <Selects
-              arr={typeArbitrs}
-              initText={"Выбрать арбитра"}
-              keys={{
-                typeKey: todosApplications.code_arbitr,
-                type: "code_arbitr",
-              }}
-              type="todos"
+            <MySelects
+              list={selArbitrs}
+              onChangeSel={onChangeSel}
+              initText={`Выбрать арбитра (всего ${selArbitrs?.length} арбитров)`}
+              nameKey={"code_arbitr"}
+              value={dataIsk.code_arbitr}
             />
           </div>
+          <MyInput
+            changeInput={changeInput}
+            title={"Место разбирательства "}
+            value={dataIsk?.place_arbitration}
+            name={"place_arbitration"}
+            placeholder={"Место арбитража"}
+          />
           <div className="blockCheckBox">
             <input
               type="checkbox"
@@ -74,13 +98,13 @@ const GeneralInfo = () => {
               name="is_arbitr_po_dogovor"
               onChange={(e) =>
                 dispatch(
-                  changeTodosApplications({
-                    ...todosApplications,
+                  setDataaIsk({
+                    ...dataIsk,
                     is_arbitr_po_dogovor: e.target.checked ? 1 : 0,
                   })
                 )
               }
-              checked={todosApplications.is_arbitr_po_dogovor === 1}
+              checked={dataIsk.is_arbitr_po_dogovor === 1}
             />
             <label htmlFor="lab">Выбрать арбитра по договору</label>
           </div>

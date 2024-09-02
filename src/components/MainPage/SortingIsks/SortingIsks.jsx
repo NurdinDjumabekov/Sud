@@ -7,7 +7,10 @@ import { useEffect } from "react";
 import "./style.scss";
 
 ///// fns
-import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
+import {
+  getDataSort,
+  toTakeIsksList,
+} from "../../../store/reducers/sendDocsSlice";
 import { changeMainBtnList } from "../../../store/reducers/stateSlice";
 
 const SortingIsks = () => {
@@ -32,6 +35,7 @@ const SortingIsks = () => {
 
   useEffect(() => {
     dispatch(toTakeIsksList(0));
+    dispatch(getDataSort(0));
     ///// get все иски сразу
   }, []);
 

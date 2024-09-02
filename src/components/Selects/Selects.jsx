@@ -7,7 +7,7 @@ import {
   changeADIF,
   changeADUF,
 } from "../../store/reducers/inputSlice";
-import { changeTodosApplications } from "../../store/reducers/applicationsSlice";
+import { setDataaIsk } from "../../store/reducers/applicationsSlice";
 import {
   changeArbitrPred,
   changeTypePay,
@@ -25,7 +25,7 @@ const Selects = (props) => {
   const [active, setActive] = React.useState(false);
   const accordionRef = React.useRef(null);
   const { adff, aduf, adif } = useSelector((state) => state.inputSlice);
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
   const { tokenA } = useSelector((state) => state.saveDataSlice);
 
   React.useEffect(() => {
@@ -54,9 +54,7 @@ const Selects = (props) => {
     } else if (type === "adif") {
       dispatch(changeADIF({ ...adif, [keys.type]: +id }));
     } else if (type === "todos") {
-      dispatch(
-        changeTodosApplications({ ...todosApplications, [keys.type]: +id })
-      );
+      dispatch(setDataaIsk({ ...dataIsk, [keys.type]: +id }));
     } else if (type === "typePay") {
       dispatch(changeTypePay(+id));
     } else if (type === "secr") {

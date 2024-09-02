@@ -1,11 +1,11 @@
 import React from "react";
 import ExampleBlock from "../ExampleBlock/ExampleBlock";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTodosApplications } from "../../../store/reducers/applicationsSlice";
+import { setDataaIsk } from "../../../store/reducers/applicationsSlice";
 
 const LinksLaw = () => {
   const dispatch = useDispatch();
-  const { todosApplications } = useSelector((state) => state.applicationsSlice);
+  const { dataIsk } = useSelector((state) => state.applicationsSlice);
 
   const changeInput = (e) => {
     e.preventDefault();
@@ -13,8 +13,8 @@ const LinksLaw = () => {
       return;
     }
     dispatch(
-      changeTodosApplications({
-        ...todosApplications,
+      setDataaIsk({
+        ...dataIsk,
         [e.target.name]: e.target.value,
       })
     );
@@ -35,7 +35,7 @@ const LinksLaw = () => {
               name="law_links"
               id="name"
               onChange={changeInput}
-              value={todosApplications.law_links}
+              value={dataIsk.law_links}
             ></textarea>
           </div>
         </form>

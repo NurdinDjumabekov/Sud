@@ -1,9 +1,8 @@
 /// при удалении истца(представителей и ответчика) я отпраляю запрос
-/// и если запрос fulfilled, то эта функция ищет и удаляет обьект у меня,
-/// который отправили request для удаления
+/// и если запрос fulfilled, то эта функция ищет и удаляет обьект у меня
 
 export const delSidesIskFN = (obj) => {
-  const { codeid, todosApplications, role } = obj;
+  const { codeid, dataIsk, role } = obj;
 
   const roleObj = {
     1: "plaintiff",
@@ -14,13 +13,9 @@ export const delSidesIskFN = (obj) => {
 
   const sides = roleObj?.[role];
 
-  console.log(todosApplications?.[sides], "todosApplicationstodosApplications");
+  const newList = dataIsk?.[sides]?.filter((item) => item?.codeid !== codeid);
 
-  const newList = todosApplications?.[sides]?.filter(
-    (item) => item?.codeid !== codeid
-  );
+  const newdataIsk = { ...dataIsk, [sides]: newList };
 
-  const newTodosApplications = { ...todosApplications, [sides]: newList };
-
-  return newTodosApplications;
+  return newdataIsk;
 };
