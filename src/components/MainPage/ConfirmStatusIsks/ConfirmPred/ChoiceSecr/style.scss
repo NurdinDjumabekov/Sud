@@ -25,6 +25,12 @@
 }
 
 .editSecr {
+  .modal__inner .krest {
+    right: 5px !important;
+    top: 5px !important;
+    padding: 0 !important;
+  }
+
   > button {
     width: 40px;
     min-width: 40px;

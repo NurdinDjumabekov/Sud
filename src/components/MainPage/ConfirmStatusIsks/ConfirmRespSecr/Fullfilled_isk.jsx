@@ -15,7 +15,6 @@ import {
 import { changeStatusDocs } from "../../../../store/reducers/sendDocsSlice";
 
 ///// components
-import PdfFulfilled from "../../../../components/PdfFile/PdfFulfilled/PdfFulfilled";
 import ApplicationFiles from "../../../PlaintiffPage/ApplicationFiles/ApplicationFiles";
 import PdfFile from "../../../PdfFile/PdfFile";
 import Modals from "../../../Modals/Modals";

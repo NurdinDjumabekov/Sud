@@ -15,15 +15,15 @@ const AllSumArbtrFee = () => {
   );
 
   const newArbitr_curr = selCurrency?.find(
-    (i) => i.codeid == arbitr_curr
+    (i) => i?.codeid == arbitr_curr
   )?.rate;
 
   const newRegistr_curr = selCurrency?.find(
-    (i) => i.codeid == registr_curr
+    (i) => i?.codeid == registr_curr
   )?.rate;
 
   const newNadbavka_curr = selCurrency?.find(
-    (i) => i.codeid == nadbavka_curr
+    (i) => i?.codeid == nadbavka_curr
   )?.rate;
 
   const arbitr_sum = +arbitr_fee * +newArbitr_curr || 0;

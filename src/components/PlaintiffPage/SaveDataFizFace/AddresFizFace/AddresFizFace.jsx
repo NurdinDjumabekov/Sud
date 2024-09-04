@@ -17,6 +17,8 @@ const AddresFizFace = (props) => {
     (state) => state.selectsSlice
   );
 
+  // console.log(adff, "adff");
+
   return (
     <section className="addresFizFace">
       <h4>Адрес</h4>

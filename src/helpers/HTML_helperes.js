@@ -55,3 +55,13 @@ export const notifText2 =
 
 export const notifText3 =
   "Также, ставим Вас в известность, что непредставление отзыва на исковое заявление в соответствии со статьей 25 Закона «О третейских судах в Кыргызской Республике» не является препятствием к разрешению спора.";
+
+export const listClaims = (list) => {
+  let initText = "";
+  list?.forEach((item) => {
+    const text = `<div><p style="font-size: 17px; padding: 0px;">-  ${item?.claimText}</p></div>`;
+    initText += text;
+  });
+
+  return `${initText}`;
+};

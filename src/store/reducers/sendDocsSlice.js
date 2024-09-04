@@ -252,7 +252,9 @@ export const changeStatusDocs = createAsyncThunk(
 
         if (isk_status == 5) {
           /// для создания и отправки документа "уведомления ответчика"
-          dispatch(sendNotif(id)); /// отправка уведомления
+          setTimeout(() => {
+            dispatch(sendNotif(id)); /// отправка уведомления
+          }, 1000);
         }
       } else {
         throw Error(`Error: ${response.status}`);
