@@ -78,7 +78,7 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
           <PdfFile editorRef={editorRef} nonePdf={nonePdf} />
         </div>
       </div>
-      {checkEditPlaint ? (
+      {true ? ( //// check
         <div className={`actionBtn ${nonePdf}`}>
           <button onClick={saveData}>Сохранить</button>
           <button onClick={navMain} className="btnLink">

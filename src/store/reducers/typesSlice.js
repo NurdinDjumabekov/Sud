@@ -30,15 +30,15 @@ const initialState = {
       icon: create,
       iconWhite: createWhite,
     },
-    {
-      id: 3,
-      name: "Уведомления",
-      path: "/notif_user",
-      bool: false,
-      icon: notif,
-      iconWhite: notifWhite,
-      count: true,
-    },
+    // {
+    //   id: 3,
+    //   name: "Уведомления",
+    //   path: "/notif_user",
+    //   bool: false,
+    //   icon: notif,
+    //   iconWhite: notifWhite,
+    //   count: true,
+    // },
   ],
 };
 

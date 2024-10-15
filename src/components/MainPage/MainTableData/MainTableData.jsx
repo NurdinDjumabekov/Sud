@@ -8,15 +8,27 @@ import { searchNameSelect } from "../../../helpers/searchNameSelect";
 ////style
 import "./style.scss";
 
+///// imgs
+import editIcon from "../../../asstes/icons/editBtn.svg";
+import { jwtDecode } from "jwt-decode";
+
 const MainTableData = ({ row }) => {
   const { selCurrency } = useSelector((state) => state.selectsSlice);
 
+  const { tokenA } = useSelector((state) => state.saveDataSlice);
+  const { type_user } = jwtDecode(tokenA);
+
   return (
     <>
-      <td className="num">
-        <span className="span_teble">
-          {row?.isk_number ? `№ ${row?.isk_number}` : ""}
-        </span>
+      <td className="num codeidIsk">
+        <div className="codeidIsk__inner">
+          {type_user == 3 && (
+            <button>
+              <img src={editIcon} alt="" />
+            </button>
+          )}
+          <span>{!!row?.isk_number && `№ ${row?.isk_number}`}</span>
+        </div>
       </td>
       <td className="date">
         <span>{row?.isk_date}</span>

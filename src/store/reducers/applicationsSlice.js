@@ -236,6 +236,23 @@ export const sendMainDocs = createAsyncThunk(
   }
 );
 
+// createIsksInDocs - создания иска в доксе
+export const createIsksInDocs = createAsyncThunk(
+  "createIsksInDocs",
+  async function (data, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/create_journal_docs`;
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const applicationsSlice = createSlice({
   name: "applicationsSlice",
   initialState,

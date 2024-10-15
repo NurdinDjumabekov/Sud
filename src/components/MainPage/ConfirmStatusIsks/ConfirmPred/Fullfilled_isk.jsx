@@ -8,10 +8,8 @@ import "../style.scss";
 
 ////// fns
 import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
-import {
-  changeStatusDocs,
-  getDataHtmlContent,
-} from "../../../../store/reducers/sendDocsSlice";
+import { changeStatusDocs } from "../../../../store/reducers/sendDocsSlice";
+import { getDataHtmlContent } from "../../../../store/reducers/sendDocsSlice";
 
 ///// components
 import PdfFulfilled from "../../../../components/PdfFile/PdfFulfilled/PdfFulfilled";
@@ -21,7 +19,8 @@ import Modals from "../../../Modals/Modals";
 
 ///// imgs
 import imgWarning from "../../../../asstes/images/warning.png";
-import MySelects from "../../../MySelects/MySelects";
+import { createIsksInDocs } from "../../../../store/reducers/applicationsSlice";
+import { transformDate } from "../../../../helpers/transformDate";
 
 const Fullfilled_isk = () => {
   const dispatch = useDispatch();
@@ -34,19 +33,56 @@ const Fullfilled_isk = () => {
   const [lookDocs, setLookDocs] = useState(false); ///// для просмотра документов
 
   const { confirmStatus } = useSelector((state) => state.stateSlice);
-  const { listContentHtml } = useSelector((state) => state.sendDocsSlice);
   const { id } = useSelector((state) => state.stateSlice?.confirmStatus);
+  const { listTodos } = useSelector((state) => state.sendDocsSlice);
 
-  const fulfilledIsk = () => {
+  const fulfilledIsk = async () => {
     const { id, status } = confirmStatus;
     if (fulfilledRef.current.editor) {
       const content = fulfilledRef.current.editor.getContent();
 
-      const send = { id, isk_status: status, content, navigate };
-      dispatch(changeStatusDocs({ ...send, code_file: 12 }));
+      const send = { id, isk_status: status, content, navigate, code_file: 12 };
+
+      // const res = await dispatch(changeStatusDocs(send)).unwrap();
       /// 12 - принятие иска председателем
 
-      closeAllModal();
+      console.log(listTodos, "listTodos");
+
+      // if (res?.result == 1) {
+      const [data] = listTodos?.filter((item) => item?.codeid == id);
+      // console.log(res, "res");
+
+      const { isk_date, isk_time, plaintiff, defendant } = data;
+      const { reglament, arbitr_fee, arbitr_lang, files } = data;
+      const { isk_number, haracter_spor } = data;
+
+      const plaintiffs = plaintiff?.map((obj) => obj?.name).join(", ");
+      const defendants = defendant?.map((obj) => obj?.name).join(", ");
+
+      const countrysPlaint = plaintiff?.[0]?.country || 0;
+      const countrysDefend = defendant?.[0]?.country || 0;
+
+      const [file] = files?.filter((item) => item?.code_file_type == 12); /// ищу файл "определение о принятии иска"
+
+      // console.log(data, "listTodos");
+      const sendData = {
+        crateDate: `${isk_date} ${isk_time}`,
+        plaintiffs,
+        defendants,
+        reglament,
+        countrysPlaint,
+        arbitr_fee,
+        arbitr_lang,
+        countrysDefend,
+        dateAccept: transformDate(file?.date),
+        isk_number,
+        haracter_spor,
+      };
+
+      dispatch(createIsksInDocs(sendData)); // создания иска в доксе
+      // }
+
+      // closeAllModal();
     }
   };
 
@@ -56,10 +92,6 @@ const Fullfilled_isk = () => {
     //// закрываю обе модалки
   };
 
-  const onChangeSel = (nameKey, name, codeid) => {
-    setIdContent({ [nameKey]: name, id: codeid });
-  };
-
   useEffect(() => {
     dispatch(getDataHtmlContent({ id }));
     //// get данные для отбражения видов документов приготовленные секретарями
@@ -67,7 +99,7 @@ const Fullfilled_isk = () => {
 
   return (
     <>
-      {/* ///// открытие документа приняти  я иска  */}
+      {/* ///// открытие документа принятия иска  */}
       <>
         <div className="choiceSecretard">
           {lookDocs ? (
@@ -77,13 +109,6 @@ const Fullfilled_isk = () => {
           ) : (
             <button onClick={() => setLookDocs(true)}>Документы</button>
           )}
-          <MySelects
-            list={listContentHtml}
-            onChangeSel={onChangeSel}
-            initText={""}
-            nameKey={"name"}
-            value={idContent?.id}
-          />
         </div>
         <div className="blockModal__inner haveDocs">
           {lookDocs ? (

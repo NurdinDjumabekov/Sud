@@ -87,7 +87,7 @@ const MainRoutes = () => {
         <Route element={<MainLayouts />}>
           <Route path="/main" element={<MainPage />} />
           <Route path="/create_isk/:id" element={<PlaintiffPage />} />
-          <Route path="/notif_user" element={<NotificationPage />} />
+          {/* <Route path="/notif_user" element={<NotificationPage />} /> */}
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

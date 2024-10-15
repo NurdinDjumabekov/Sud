@@ -256,6 +256,7 @@ export const changeStatusDocs = createAsyncThunk(
             dispatch(sendNotif(id)); /// отправка уведомления
           }, 1000);
         }
+        return response.data;
       } else {
         throw Error(`Error: ${response.status}`);
       }

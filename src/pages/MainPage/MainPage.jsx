@@ -1,5 +1,5 @@
 /////// hooks
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 
 ////// helpers
@@ -24,6 +24,8 @@ import ChoiceSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/
 import IsksConfirmAndDel from "../../components/IsksConfirmAndDel/IsksConfirmAndDel";
 
 const MainPage = () => {
+  const dispatch = useDispatch();
+
   const { listTodos } = useSelector((state) => state.sendDocsSlice);
   const { selReglament } = useSelector((state) => state.selectsSlice);
 
