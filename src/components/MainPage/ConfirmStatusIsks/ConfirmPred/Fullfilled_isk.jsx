@@ -43,46 +43,48 @@ const Fullfilled_isk = () => {
 
       const send = { id, isk_status: status, content, navigate, code_file: 12 };
 
-      // const res = await dispatch(changeStatusDocs(send)).unwrap();
+      const res = await dispatch(changeStatusDocs(send)).unwrap();
       /// 12 - принятие иска председателем
 
-      console.log(listTodos, "listTodos");
+      if (res?.result == 1) {
+        const [data] = listTodos?.filter((item) => item?.codeid == id);
 
-      // if (res?.result == 1) {
-      const [data] = listTodos?.filter((item) => item?.codeid == id);
-      // console.log(res, "res");
+        const { isk_date, isk_time, plaintiff, defendant } = data;
+        const { reglament_codeid_journal, arbitr_fee } = data;
+        const { isk_number, haracter_spor, isk_summ, arbitrs } = data;
+        const { arbitr_lang_codeid_journal } = data;
 
-      const { isk_date, isk_time, plaintiff, defendant } = data;
-      const { reglament, arbitr_fee, arbitr_lang, files } = data;
-      const { isk_number, haracter_spor } = data;
+        const plaintiffs = plaintiff?.map((obj) => obj?.name).join(", ");
+        const defendants = defendant?.map((obj) => obj?.name).join(", ");
+        const choice_arbitr = arbitrs?.[0]?.codeid_journal;
 
-      const plaintiffs = plaintiff?.map((obj) => obj?.name).join(", ");
-      const defendants = defendant?.map((obj) => obj?.name).join(", ");
+        const countrysPlaint = plaintiff?.[0]?.country_journal || 0;
+        const countrysDefend = defendant?.[0]?.country_journal || 0;
+        /// 2636 - финансовый
 
-      const countrysPlaint = plaintiff?.[0]?.country || 0;
-      const countrysDefend = defendant?.[0]?.country || 0;
+        // console.log(data, "listTodos");
+        const sendData = {
+          crateDate: `${isk_date} ${isk_time}`,
+          plaintiffs,
+          defendants,
+          reglament: reglament_codeid_journal,
+          countrysPlaint,
+          arbitr_fee, // деньги
+          arbitr_lang: arbitr_lang_codeid_journal,
+          choice_arbitr,
+          countrysDefend,
+          dateAccept: transformDate(new Date()),
+          isk_number,
+          haracter_spor,
+          isk_summ,
+        };
 
-      const [file] = files?.filter((item) => item?.code_file_type == 12); /// ищу файл "определение о принятии иска"
+        // console.log(sendData, "sendData");
 
-      // console.log(data, "listTodos");
-      const sendData = {
-        crateDate: `${isk_date} ${isk_time}`,
-        plaintiffs,
-        defendants,
-        reglament,
-        countrysPlaint,
-        arbitr_fee,
-        arbitr_lang,
-        countrysDefend,
-        dateAccept: transformDate(file?.date),
-        isk_number,
-        haracter_spor,
-      };
+        dispatch(createIsksInDocs(sendData)); // создания иска в доксе
+      }
 
-      dispatch(createIsksInDocs(sendData)); // создания иска в доксе
-      // }
-
-      // closeAllModal();
+      closeAllModal();
     }
   };
 

@@ -253,6 +253,9 @@ export const createIsksInDocs = createAsyncThunk(
   }
 );
 
+
+
+
 const applicationsSlice = createSlice({
   name: "applicationsSlice",
   initialState,
