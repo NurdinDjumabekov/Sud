@@ -34,9 +34,9 @@ const InputsPlaintiff = ({ btnList, activeComponent }) => {
   );
 
   const saveData = () => {
-    if (dataIsk?.plaintiff?.length === 0) {
-      return dispatch(changeAlertText("Добавьте истца!"));
-    }
+    // if (dataIsk?.plaintiff?.length === 0) {
+    //   return dispatch(changeAlertText("Добавьте истца!"));
+    // }
 
     // if (dataIsk?.defendant?.length === 0) {
     //   return dispatch(changeAlertText("Добавьте ответчика!"));

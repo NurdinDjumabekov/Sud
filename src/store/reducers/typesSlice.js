@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import myIski from "../../asstes/icons/IconPage/me_iski.svg";
 import notif from "../../asstes/icons/IconPage/notification.svg";
 import create from "../../asstes/icons/IconPage/create.svg";
+import archive from "../../asstes/icons/IconPage/archive.svg";
 
 ////imgsWhite
 import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
 import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
 import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
+import archiveWhite from "../../asstes/icons/IconPageWhite/archive.svg";
 
 const initialState = {
   plaintiffType: 1, //// check check
@@ -30,15 +32,23 @@ const initialState = {
       icon: create,
       iconWhite: createWhite,
     },
-    // {
-    //   id: 3,
-    //   name: "Уведомления",
-    //   path: "/notif_user",
-    //   bool: false,
-    //   icon: notif,
-    //   iconWhite: notifWhite,
-    //   count: true,
-    // },
+    {
+      id: 3,
+      name: "Архив",
+      path: "/history",
+      bool: false,
+      icon: archive,
+      iconWhite: archiveWhite,
+    },
+    {
+      id: 4,
+      name: "Уведомления",
+      path: "/notif_user",
+      bool: false,
+      icon: notif,
+      iconWhite: notifWhite,
+      count: true,
+    },
   ],
 };
 

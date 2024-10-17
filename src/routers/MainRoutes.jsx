@@ -34,6 +34,7 @@ import {
 import MainPage from "../pages/MainPage/MainPage";
 import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
 import { jwtDecode } from "jwt-decode";
+import ArchivePage from "../pages/ArchivePage/ArchivePage";
 
 const MainRoutes = () => {
   const dispatch = useDispatch();
@@ -87,6 +88,7 @@ const MainRoutes = () => {
         <Route element={<MainLayouts />}>
           <Route path="/main" element={<MainPage />} />
           <Route path="/create_isk/:id" element={<PlaintiffPage />} />
+          <Route path="/history" element={<ArchivePage />} />
           {/* <Route path="/notif_user" element={<NotificationPage />} /> */}
         </Route>
         <Route path="*" element={<NotFoundPage />} />

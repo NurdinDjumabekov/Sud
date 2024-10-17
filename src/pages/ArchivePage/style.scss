@@ -80,5 +80,30 @@
       }
     }
   }
-  
+
+  .table_isk {
+    thead {
+      tr {
+        th:nth-child(1) {
+          width: 50px !important;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .index {
+    // background: red !important;
+    width: 50px !important;
+    max-width: 50px !important;
+    min-width: 50px !important;
+
+    div,
+    span {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
+      text-align: center !important;
+    }
+  }
 }

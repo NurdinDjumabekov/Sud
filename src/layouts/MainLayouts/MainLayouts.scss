@@ -20,6 +20,16 @@ $widthAllContent: 100%;
     max-width: $widthMenu;
     height: 100vh;
 
+    > ul:nth-child(6) {
+      li {
+        img {
+          width: 21px !important;
+          height: 21px !important;
+          margin: 0 5px 0 0;
+        }
+      }
+    }
+
     .title {
       color: #5e6e82;
       font-size: 15px;

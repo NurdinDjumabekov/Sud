@@ -81,6 +81,7 @@ const PdfFulfilled = ({ editorRef, idContent }) => {
   /////// определяю сумму сборов (надо перенестив функцию)
   /////// определяю сумму сборов (надо перенестив функцию)
   /////// определяю сумму сборов (надо перенестив функцию)
+
   const { selCurrency } = useSelector((state) => state.selectsSlice);
 
   const { arbitr_fee, registr_fee, doplata_summ } = useSelector(

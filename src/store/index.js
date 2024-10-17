@@ -25,6 +25,7 @@ import saveDataSlice from "./reducers/saveDataSlice";
 import selectsSlice from "./reducers/selectsSlice";
 import authSlice from "./reducers/authSlice";
 import notificationSlice from "./reducers/notificationSlice";
+import historyIsks from "./reducers/historyIsks";
 
 const reducer = combineReducers({
   inputSlice,
@@ -36,6 +37,7 @@ const reducer = combineReducers({
   selectsSlice,
   authSlice,
   notificationSlice,
+  historyIsks,
 });
 
 const persistConfig = {

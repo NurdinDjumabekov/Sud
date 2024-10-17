@@ -1,88 +1,168 @@
-import React from "react";
-import "./ArchivePage.scss";
+/////// hooks
+import { useDispatch, useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
+
+////// helpers
+import { searchNameSelect } from "../../helpers/searchNameSelect";
+
+////// style
+import "./style.scss";
+
+////// components
+import LookPdfModal from "../../components/MainPage/LookPdfModal/LookPdfModal";
+import MainTableData from "../../components/MainPage/MainTableData/MainTableData";
+import Arbitrs from "../../components/MainPage/Arbitrs/Arbitrs";
+import AllStatus from "../../components/MainPage/AllStatus/AllStatus";
+import TypeActionsUsers from "../../components/MainPage/ActionsUsers/TypeActionsUsersAll/TypeActionsUsers";
+import TimeAndActions from "../../components/MainPage/ActionsUsers/TimeAndActions/TimeAndActions";
+import ChoiceSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ChoiceSecr/ChoiceSecr";
+import SortingArchive from "../../components/ArchivePage/SortingArchive/SortingArchive";
+import { useEffect } from "react";
+import { getHistoryIsks } from "../../store/reducers/historyIsks";
+import {
+  transformActionDate,
+  transformDate,
+} from "../../helpers/transformDate";
 
 const ArchivePage = () => {
-  const rowsData = [
-    {
-      id: 1,
-      number: "№ 1326",
-      dateStart: "19.12.2023",
-      dateEnd: "31.12.2023",
-      plaintiffFIO: "Джумабеков Нурдин Арленович",
-      defendant: "Сейитбеков Тимур Сейитович ",
-      plaintiffName:
-        ' Джумабековича"О расторжении договора займа 482 от 17.10.2005 г. и взыскании задолженности путем обращения взыскания на заложенное имущество',
-    },
-    {
-      id: 2,
-      number: "№ 1327",
-      dateStart: "19.12.2023",
-      dateEnd: "31.12.2023",
-      plaintiffFIO: "Джумабеков Нурдин Арленович",
-      defendant: "Сейитбеков Тимур Сейитович ",
-      plaintiffName:
-        ' Джумабековича"О расторжении договора займа 482 от 17.10.2005 г. и взыскании задолженности путем обращения взыскания на заложенное имущество',
-    },
-    {
-      id: 3,
-      number: "№ 1328",
-      dateStart: "19.12.2023",
-      dateEnd: "31.12.2023",
-      plaintiffFIO: "Джумабеков Нурдин Арленович",
-      defendant: "Сейитбеков Тимур Сейитович ",
-      plaintiffName:
-        ' Джумабековича"О расторжении договора займа 482 от 17.10.2005 г. и взыскании задолженности путем обращения взыскания на заложенное имущество',
-    },
+  const dispatch = useDispatch();
+
+  const { listHistoryIsks } = useSelector((state) => state.historyIsks);
+  const { selReglament } = useSelector((state) => state.selectsSlice);
+
+  useEffect(() => {
+    dispatch(
+      getHistoryIsks({
+        date_from: "01.01.2024",
+        date_to: "17.10.2024 ",
+      })
+    );
+  }, []);
+
+  const respSecrHeaders = [
+    "№",
+    "Иск",
+    "Дата",
+    "Истец",
+    "Ответчик",
+    "Арбитражный сбор",
+    "Регламент",
+    "Арбитры",
+    "Секретарь",
+    "Статус",
+    // "До рассмотрения осталось",
+    "Документы",
   ];
 
   return (
-    <div className="mainTables">
-      <div className="archivePage">
-        {/* <div className="searchBlock">
-          <input type="search" placeholder="Поиск по наименованию иска" />
-          <button className="saveBtn">Поиск</button>
-        </div> */}
-        <div className="main_tabla_isk">
+    <div className="archivePage">
+      <div className="mainTables">
+        <SortingArchive />
+        <div className="iskData">
           <table className="table_isk">
             <thead>
               <tr>
-                <th className="table_isk_th">Номер иска</th>
-                <th className="table_isk_th">Дата начала </th>
-                <th className="table_isk_th">Дата конца </th>
-                <th className="table_isk_th">ФИО истца</th>
-                <th className="table_isk_th">ФИО ответчика </th>
-                <th className="table_isk_th">Наименование иска</th>
+                {respSecrHeaders?.map((header, index) => (
+                  <th
+                    key={index}
+                    className="table_isk_th"
+                    style={{ width: index === 0 ? "10%" : "auto" }}
+                  >
+                    {header}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody className="tbody_isk">
-              {rowsData.map((row, index) => (
+              {listHistoryIsks?.map((row, index) => (
                 <tr
                   key={index}
-                  style={
-                    +index % 2 === 0
-                      ? { background: "#fff" }
-                      : { background: "#f9fafd" }
-                  }
+                  className={`${+index % 2 === 0 ? "colorWhite" : "colorGray"}`}
                 >
-                  <td className="table_isk_td">
-                    <div>
-                      <span className="span_teble">{row.number}</span>
+                  <td className="index">
+                    <div className="codeidIsk__inner">
+                      <span>{row?.codeid}</span>
                     </div>
                   </td>
-                  <td className="table_isk_td">
-                    <span>{row.dateStart}</span>
+                  <td className="num codeidIsk">
+                    <div className="codeidIsk__inner">
+                      <span>{!!row?.isk_number && `№ ${row?.isk_number}`}</span>
+                    </div>
                   </td>
-                  <td className="table_isk_td">
-                    <span>{row.dateEnd}</span>
+                  <td className="date">
+                    <span>{row?.isk_date}</span>
+                    <span>{row?.isk_time}</span>
                   </td>
-                  <td className="table_isk_td">
-                    <span>{row.plaintiffFIO}</span>
+                  <td className="plaintiffTable">
+                    {row?.plaintiff?.length !== 0 && (
+                      <>
+                        {row?.plaintiff?.map((i, index) => (
+                          <span key={index}>
+                            {i?.name}
+                            {index !== row?.plaintiff?.length - 1 && ","}
+                          </span>
+                        ))}
+                      </>
+                    )}
                   </td>
-                  <td className="table_isk_td">
-                    <span>{row.defendant}</span>
+                  <td className="defendant">
+                    {row?.defendant?.length !== 0 && (
+                      <>
+                        {row?.defendant?.map((i, index) => (
+                          <span key={index}>
+                            {i.name}
+                            {index !== row?.defendant?.length - 1 && ","}
+                          </span>
+                        ))}
+                      </>
+                    )}
                   </td>
-                  <td className="table_isk_td">
-                    <span>{row.plaintiffName}</span>
+                  <td className="arbitrs">
+                    {+row?.arbitr_fee !== 0 && (
+                      <span>
+                        {row?.arbitr_fee}{" "}
+                        {/* {searchNameSelect(selCurrency, +row?.arbitr_curr)} */}
+                        {/* //  сумма и валюта/// */}
+                      </span>
+                    )}
+                  </td>
+                  <td className="reglamet">
+                    <span>
+                      {+row?.reglament !== 0 && (
+                        <>{searchNameSelect(selReglament, +row?.reglament)}</>
+                      )}
+                    </span>
+                  </td>
+                  <td className="arbitrs">
+                    {row?.arbitrs?.map((i, index) => (
+                      <span key={index}>
+                        {i?.fio_arbitr}
+                        {index !== row?.arbitrs?.length - 1 && ","}
+                      </span>
+                    ))}
+                  </td>
+                  <td className="secr">
+                    <span>{row?.secretary}</span>
+                  </td>
+                  <td className="allStatus">
+                    <span className="">В архиве</span>
+                  </td>
+                  <TypeActionsUsers row={row} />
+                  <td className="documents">
+                    <span className="documentBlock">
+                      {row?.files?.length !== 0 && (
+                        //  if файлы есть
+                        <div className="docsBlock">
+                          {row?.files?.map((pdf) => (
+                            <LookPdfModal
+                              pdf={pdf}
+                              key={pdf?.codeid}
+                              row={row}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </span>
                   </td>
                 </tr>
               ))}
