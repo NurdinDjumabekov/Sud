@@ -13,6 +13,7 @@ import {
   transformActionDate,
   transformDate,
 } from "../../../helpers/transformDate";
+import { useEffect } from "react";
 
 const SortingArchive = () => {
   const dispatch = useDispatch();
@@ -34,34 +35,19 @@ const SortingArchive = () => {
     }
   };
 
-  const sortSearch = [
-    {
-      num: "",
-      codeid: 1,
-    },
-    {
-      plaitiff: "",
-      codeid: 2,
-    },
-  ];
+  useEffect(() => {
+    const data = {
+      date_from: "01.01.2024",
+      date_to: "17.10.2024 ",
+    };
+    dispatch(getHistoryIsks(data));
+  }, []);
 
   return (
     <div className="sortingArchive">
       <div className="sortingArchive__date">
         <p>Сортировка по дате</p>
-        <ReactDatePicker
-          selectsRange={true}
-          startDate={dateRange?.[0]}
-          endDate={dateRange?.[1]}
-          onChange={onChangeDate}
-          isClearable={true}
-          maxDate={new Date()}
-          dateFormat="dd.MM.yyyy"
-          locale={ru}
-          showYearDropdown
-          yearDropdownItemNumber={25}
-          scrollableYearDropdown
-        />
+        {/* <Select options={listYesrs} /> */}
       </div>
       <div className="sortingArchive__date searchInput">
         <p>Поиск</p>

@@ -1,0 +1,109 @@
+.archivePage {
+  padding: 10px 10px 0 10px;
+  height: 100%;
+  .searchBlock {
+    margin: 5px 0px 15px 0;
+    display: flex;
+    gap: 20px;
+    position: relative;
+    width: 600px;
+    input {
+      // box-shadow: 0px 0px 2px 0px rgba(34, 60, 80, 0.753);
+      height: 40px;
+      padding: 2px 140px 2px 10px;
+      border-radius: 7px;
+      width: 100%;
+      font-size: 15px;
+      background: #fff;
+      border: 1px solid #000;
+      color: #121111cb;
+      text-align: left;
+      font-family: Roboto;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+    input::placeholder {
+      color: #121111cb;
+      text-align: left;
+      font-family: Roboto;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+    > button {
+      margin: 0;
+      width: 80px;
+      height: 40px !important;
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: #4650dd;
+      color: #fff;
+      width: 120px;
+      border-radius: 0 5px 5px 0;
+      box-shadow: none !important;
+      font-size: 22px;
+      padding: 0 !important;
+    }
+  }
+  .main_tabla_isk {
+    height: 93%;
+    .table_isk_td:nth-child(1),
+    .table_isk_th:nth-child(1) {
+      width: 40px;
+    }
+    .table_isk_td:nth-child(2),
+    .table_isk_th:nth-child(2) {
+      width: 60px;
+    }
+    .table_isk_td:nth-child(3),
+    .table_isk_th:nth-child(3) {
+      width: 60px;
+    }
+    .table_isk_td:nth-child(4),
+    .table_isk_th:nth-child(4) {
+      width: 100px;
+    }
+    .table_isk_td {
+      font-weight: 400;
+      text-align: left;
+      span {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 18px !important;
+        font-weight: 500;
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
+
+  .table_isk {
+    thead {
+      tr {
+        th:nth-child(1) {
+          width: 50px !important;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .index {
+    // background: red !important;
+    width: 50px !important;
+    max-width: 50px !important;
+    min-width: 50px !important;
+
+    div,
+    span {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
+      text-align: center !important;
+    }
+  }
+}

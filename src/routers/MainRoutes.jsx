@@ -35,6 +35,7 @@ import MainPage from "../pages/MainPage/MainPage";
 import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
 import { jwtDecode } from "jwt-decode";
 import ArchivePage from "../pages/ArchivePage/ArchivePage";
+import ArchiveIsksPage from "../pages/ArchiveIsksPage/ArchiveIsksPage";
 
 const MainRoutes = () => {
   const dispatch = useDispatch();
@@ -89,6 +90,7 @@ const MainRoutes = () => {
           <Route path="/main" element={<MainPage />} />
           <Route path="/create_isk/:id" element={<PlaintiffPage />} />
           <Route path="/history" element={<ArchivePage />} />
+          <Route path="/history_isk" element={<ArchiveIsksPage />} />
           {/* <Route path="/notif_user" element={<NotificationPage />} /> */}
         </Route>
         <Route path="*" element={<NotFoundPage />} />

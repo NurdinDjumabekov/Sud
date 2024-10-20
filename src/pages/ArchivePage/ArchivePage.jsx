@@ -1,176 +1,114 @@
 /////// hooks
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { jwtDecode } from "jwt-decode";
 
 ////// helpers
-import { searchNameSelect } from "../../helpers/searchNameSelect";
 
 ////// style
 import "./style.scss";
 
+////// icons
+import DeleteIcon from "../../asstes/icons/MyIcons/DeleteIcon";
+import EditIcon from "../../asstes/icons/MyIcons/EditIcon";
+import EyesIcon from "../../asstes/icons/MyIcons/EyesIcon";
+import AddIcon from "../../asstes/icons/MyIcons/AddIcon";
+
+///// fns
+import { crudJournals, getJournals } from "../../store/reducers/archiveSlice";
+import ActionsArchive from "../../components/ArchivePage/ActionsArchive/ActionsArchive";
+import { useState } from "react";
+import ConfirmModal from "../../common/ConfirmModal/ConfirmModal";
+
 ////// components
-import LookPdfModal from "../../components/MainPage/LookPdfModal/LookPdfModal";
-import MainTableData from "../../components/MainPage/MainTableData/MainTableData";
-import Arbitrs from "../../components/MainPage/Arbitrs/Arbitrs";
-import AllStatus from "../../components/MainPage/AllStatus/AllStatus";
-import TypeActionsUsers from "../../components/MainPage/ActionsUsers/TypeActionsUsersAll/TypeActionsUsers";
-import TimeAndActions from "../../components/MainPage/ActionsUsers/TimeAndActions/TimeAndActions";
-import ChoiceSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ChoiceSecr/ChoiceSecr";
-import SortingArchive from "../../components/ArchivePage/SortingArchive/SortingArchive";
-import { useEffect } from "react";
-import { getHistoryIsks } from "../../store/reducers/historyIsks";
-import {
-  transformActionDate,
-  transformDate,
-} from "../../helpers/transformDate";
 
 const ArchivePage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { listHistoryIsks } = useSelector((state) => state.historyIsks);
-  const { selReglament } = useSelector((state) => state.selectsSlice);
+  const [data, setData] = useState({
+    status: 0,
+    name: "",
+    description: "",
+    codeid: 0,
+  });
+  // 1- создание, 2 - редактирование, 3 - удаление
+
+  const closeModal = () => {
+    setData({ status: 0, name: "", description: "", codeid: 0 });
+  };
+
+  const { listYesrs } = useSelector((state) => state.archiveSlice);
 
   useEffect(() => {
-    dispatch(
-      getHistoryIsks({
-        date_from: "01.01.2024",
-        date_to: "17.10.2024 ",
-      })
-    );
+    dispatch(getJournals()); //// get список годов
   }, []);
 
-  const respSecrHeaders = [
-    "№",
-    "Иск",
-    "Дата",
-    "Истец",
-    "Ответчик",
-    "Арбитражный сбор",
-    "Регламент",
-    "Арбитры",
-    "Секретарь",
-    "Статус",
-    // "До рассмотрения осталось",
-    "Документы",
-  ];
+  const openModalCRUD = (obj, status) => {
+    // 1- создание, 2 - редактирование, 3 - удаление
+    setData({ ...data, ...obj, status });
+  };
+
+  const delJournal = async () => {
+    const res = await dispatch(crudJournals({ data })).unwrap();
+    if (res?.result == 1) {
+      dispatch(getJournals()); //// get список годов
+      closeModal();
+    }
+  };
+
+  const navInfo = ({ codeid }) =>
+    navigate(`/history_isk`, { state: { codeid } });
 
   return (
-    <div className="archivePage">
-      <div className="mainTables">
-        <SortingArchive />
-        <div className="iskData">
-          <table className="table_isk">
-            <thead>
-              <tr>
-                {respSecrHeaders?.map((header, index) => (
-                  <th
-                    key={index}
-                    className="table_isk_th"
-                    style={{ width: index === 0 ? "10%" : "auto" }}
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="tbody_isk">
-              {listHistoryIsks?.map((row, index) => (
-                <tr
-                  key={index}
-                  className={`${+index % 2 === 0 ? "colorWhite" : "colorGray"}`}
-                >
-                  <td className="index">
-                    <div className="codeidIsk__inner">
-                      <span>{row?.codeid}</span>
-                    </div>
-                  </td>
-                  <td className="num codeidIsk">
-                    <div className="codeidIsk__inner">
-                      <span>{!!row?.isk_number && `№ ${row?.isk_number}`}</span>
-                    </div>
-                  </td>
-                  <td className="date">
-                    <span>{row?.isk_date}</span>
-                    <span>{row?.isk_time}</span>
-                  </td>
-                  <td className="plaintiffTable">
-                    {row?.plaintiff?.length !== 0 && (
-                      <>
-                        {row?.plaintiff?.map((i, index) => (
-                          <span key={index}>
-                            {i?.name}
-                            {index !== row?.plaintiff?.length - 1 && ","}
-                          </span>
-                        ))}
-                      </>
-                    )}
-                  </td>
-                  <td className="defendant">
-                    {row?.defendant?.length !== 0 && (
-                      <>
-                        {row?.defendant?.map((i, index) => (
-                          <span key={index}>
-                            {i.name}
-                            {index !== row?.defendant?.length - 1 && ","}
-                          </span>
-                        ))}
-                      </>
-                    )}
-                  </td>
-                  <td className="arbitrs">
-                    {+row?.arbitr_fee !== 0 && (
-                      <span>
-                        {row?.arbitr_fee}{" "}
-                        {/* {searchNameSelect(selCurrency, +row?.arbitr_curr)} */}
-                        {/* //  сумма и валюта/// */}
-                      </span>
-                    )}
-                  </td>
-                  <td className="reglamet">
-                    <span>
-                      {+row?.reglament !== 0 && (
-                        <>{searchNameSelect(selReglament, +row?.reglament)}</>
-                      )}
-                    </span>
-                  </td>
-                  <td className="arbitrs">
-                    {row?.arbitrs?.map((i, index) => (
-                      <span key={index}>
-                        {i?.fio_arbitr}
-                        {index !== row?.arbitrs?.length - 1 && ","}
-                      </span>
-                    ))}
-                  </td>
-                  <td className="secr">
-                    <span>{row?.secretary}</span>
-                  </td>
-                  <td className="allStatus">
-                    <span className="">В архиве</span>
-                  </td>
-                  <TypeActionsUsers row={row} />
-                  <td className="documents">
-                    <span className="documentBlock">
-                      {row?.files?.length !== 0 && (
-                        //  if файлы есть
-                        <div className="docsBlock">
-                          {row?.files?.map((pdf) => (
-                            <LookPdfModal
-                              pdf={pdf}
-                              key={pdf?.codeid}
-                              row={row}
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <>
+      <div className="archivePage">
+        <div className="mainTables">
+          <div className="header">
+            <h5>Список партиций</h5>
+            <button className="actionsBtn" onClick={() => openModalCRUD({}, 1)}>
+              <AddIcon width={22} height={22} color={"#fff"} />
+              <p>Добавить</p>
+            </button>
+          </div>
+          <div className="iskData listYesrs">
+            {listYesrs?.map((item, index) => (
+              <div
+                className="every"
+                onClick={() => navInfo(item)}
+                key={item?.codeid}
+              >
+                <div className="title">
+                  <span>{index + 1}.</span>
+                  <div>
+                    <p>{item?.name}</p>
+                    <b>{item?.description}</b>
+                  </div>
+                </div>
+                <div className="actions">
+                  <button onClick={() => {}}>
+                    <EyesIcon width={22} height={22} color={"#222"} />
+                  </button>
+                  <button onClick={() => openModalCRUD(item, 2)}>
+                    <EditIcon width={22} height={22} color={"#222"} />
+                  </button>
+                  <button onClick={() => openModalCRUD(item, 3)}>
+                    <DeleteIcon width={25} height={25} color={"red"} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+      <ActionsArchive setData={setData} data={data} closeModal={closeModal} />
+      <ConfirmModal
+        openModal={data?.status == 3}
+        no={closeModal}
+        yes={delJournal}
+        title={"Удалить ?"}
+      />
+    </>
   );
 };
 

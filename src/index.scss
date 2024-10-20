@@ -112,6 +112,28 @@ button {
   display: none !important;
 }
 
+.actionsBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 25px;
+  border-radius: 5px;
+  background: #4361ee;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    color: #fff;
+  }
+
+  p {
+    font-size: 18px;
+    color: #fff;
+  }
+}
+
 @keyframes animation {
   from {
     opacity: 0;
