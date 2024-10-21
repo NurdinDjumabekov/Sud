@@ -1,5 +1,5 @@
 ////hooks
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
@@ -16,14 +16,18 @@ import faceImg from "../../asstes/icons/plaintiff/fiz_face.svg";
 import logo from "../../asstes/images/logo.png";
 
 ///// store
-import { clearFilesApplicationList } from "../../store/reducers/applicationsSlice";
+import {
+  clearFilesApplicationList,
+  getFilter,
+} from "../../store/reducers/applicationsSlice";
 import { clearDataaIsk } from "../../store/reducers/applicationsSlice";
 import { toTakeTypeTypeDocs } from "../../store/reducers/applicationsSlice";
 import { notificationCount } from "../../store/reducers/notificationSlice";
-import { changeActivePage } from "../../store/reducers/typesSlice";
 
 ///// helpers
 import { shortenToTwoWords } from "../../helpers/shortenToTwoWords";
+import { listPages } from "../../helpers/dataArr";
+import { test } from "../../store/reducers/typesSlice";
 
 const MainLayouts = () => {
   const navigate = useNavigate();
@@ -36,10 +40,10 @@ const MainLayouts = () => {
 
   const { notifCount } = useSelector((state) => state.notificationSlice);
 
-  const { pages } = useSelector((state) => state.typesSlice);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
-    dispatch(changeActivePage({ path: location.pathname }));
+    setActive(location.pathname);
     /////меняю активную страницу
   }, [location.pathname]);
 
@@ -48,7 +52,7 @@ const MainLayouts = () => {
     dispatch(notificationCount(tokenA));
   }, []);
 
-  const allPage = pages?.filter((i) => !(typeUser == 3 && i.id === 2));
+  const allPage = listPages?.filter((i) => !(typeUser == 3 && i.id === 2));
   ///// для председателя, убираю страницу создания иска
 
   const clickLogo = () => navigate("/main");
@@ -81,13 +85,14 @@ const MainLayouts = () => {
           <ul key={page.id} className="everyPage">
             <li
               onClick={() => clickMenu(page)}
-              className={page.bool ? "activePage" : ""}
+              className={active == page.path ? "activePage" : ""}
             >
               <div className="everyPage__inner">
                 <img
-                  src={page.bool ? page.iconWhite : page.icon}
+                  src={active == page.path ? page.iconWhite : page.icon}
                   alt="иконка"
                   className="imgIcon"
+                  style={page?.size}
                 />
                 <p>
                   {page?.name}

@@ -12,7 +12,7 @@ import "./style.scss";
 import editIcon from "../../../asstes/icons/editBtn.svg";
 import { jwtDecode } from "jwt-decode";
 
-const MainTableData = ({ row }) => {
+const MainTableData = ({ row, index, listTodos }) => {
   const { selCurrency } = useSelector((state) => state.selectsSlice);
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
@@ -20,14 +20,10 @@ const MainTableData = ({ row }) => {
 
   return (
     <>
+      <td className="codeidIsk index">{listTodos?.length - index}</td>
       <td className="num codeidIsk">
         <div className="codeidIsk__inner">
-          {type_user == 3 && (
-            <button>
-              <img src={editIcon} alt="" />
-            </button>
-          )}
-          <span>{!!row?.isk_number && `№ ${row?.isk_number}`}</span>
+          <span>{!!row?.isk_number && `${row?.isk_number}`}</span>
         </div>
       </td>
       <td className="date">
@@ -37,7 +33,7 @@ const MainTableData = ({ row }) => {
       <td className="plaintiffTable">
         {row?.plaintiff?.length !== 0 && (
           <>
-            {row.plaintiff.map((i, index) => (
+            {row?.plaintiff?.map((i, index) => (
               <span key={index}>
                 {i?.name}
                 {index !== row?.plaintiff?.length - 1 && ","}

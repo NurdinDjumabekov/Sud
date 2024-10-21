@@ -1,56 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
-////// imgsBlack
-import myIski from "../../asstes/icons/IconPage/me_iski.svg";
-import notif from "../../asstes/icons/IconPage/notification.svg";
-import create from "../../asstes/icons/IconPage/create.svg";
-import archive from "../../asstes/icons/IconPage/archive.svg";
-
-////imgsWhite
-import myIskiWhite from "../../asstes/icons/IconPageWhite/me_iski.svg";
-import notifWhite from "../../asstes/icons/IconPageWhite/notification.svg";
-import createWhite from "../../asstes/icons/IconPageWhite/create.svg";
-import archiveWhite from "../../asstes/icons/IconPageWhite/archive.svg";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axiosInstance from "../../axiosInstance";
 
 const initialState = {
   plaintiffType: 1, //// check check
   alertText: { text: "", backColor: "", state: false },
-
-  pages: [
-    {
-      id: 1,
-      name: "Все иски",
-      path: "/main",
-      bool: true,
-      icon: myIski,
-      iconWhite: myIskiWhite,
-    },
-    {
-      id: 2,
-      name: "Создать черновик",
-      path: "/create_isk/0",
-      bool: false,
-      icon: create,
-      iconWhite: createWhite,
-    },
-    {
-      id: 3,
-      name: "Архив",
-      path: "/history",
-      bool: false,
-      icon: archive,
-      iconWhite: archiveWhite,
-    },
-    {
-      id: 4,
-      name: "Уведомления",
-      path: "/notif_user",
-      bool: false,
-      icon: notif,
-      iconWhite: notifWhite,
-      count: true,
-    },
-  ],
 };
+
+export const test = createAsyncThunk(
+  "test",
+  async function (props, { dispatch, rejectWithValue }) {
+    const url = "http://mttp-renaissance.333.kg/api/isks/get_filter";
+    try {
+      const response = await axiosInstance(url);
+      if (response.status >= 200 && response.status < 300) {
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const typesSlice = createSlice({
   name: "typesSlice",
@@ -68,24 +38,9 @@ const typesSlice = createSlice({
     clearAlertText: (state, action) => {
       state.alertText = { text: "", backColor: "", state: false };
     },
-
-    changeActivePage: (state, action) => {
-      const { path } = action.payload;
-
-      state.pages = state.pages?.map((i) => {
-        // Обрезаем path и i?.path до первых 4 символов
-        const trimmedPath = path.slice(0, 4);
-        const trimmedIPath = i?.path?.slice(0, 4);
-        return { ...i, bool: trimmedPath === trimmedIPath };
-      });
-    },
   },
 });
-export const {
-  changePlaintiffType,
-  changeAlertText,
-  clearAlertText,
-  changeActivePage,
-} = typesSlice.actions;
+export const { changePlaintiffType, changeAlertText, clearAlertText } =
+  typesSlice.actions;
 
 export default typesSlice.reducer;

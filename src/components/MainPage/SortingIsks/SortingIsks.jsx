@@ -1,5 +1,5 @@
 ////// hooks
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
@@ -7,52 +7,44 @@ import { useEffect } from "react";
 import "./style.scss";
 
 ///// fns
-import {
-  getDataSort,
-  toTakeIsksList,
-} from "../../../store/reducers/sendDocsSlice";
-import { changeMainBtnList } from "../../../store/reducers/stateSlice";
+import { toTakeIsksList } from "../../../store/reducers/sendDocsSlice";
+import { getFilter } from "../../../store/reducers/applicationsSlice";
 
 const SortingIsks = () => {
   const dispatch = useDispatch();
 
-  const { typeUser } = useSelector((state) => state.saveDataSlice);
+  const [active, setActive] = useState(0);
 
-  const { mainBtnList } = useSelector((state) => state.stateSlice);
+  const { listFilter } = useSelector((state) => state.applicationsSlice);
 
-  const clickBtn = (id) => {
-    const newList = mainBtnList?.map((i) => ({ ...i, bool: id === i.id }));
-    dispatch(changeMainBtnList(newList)); /// активная категория
-    dispatch(toTakeIsksList(id)); /// запрос для получения списка
-  };
-
-  const typeSort = {
-    1: { start: 11, end: 15 }, ///// Секретарь
-    2: { start: 0, end: 6 }, ///// Ответственный Секретарь
-    3: { start: 0, end: 6 }, ///// Председатель
-    4: { start: 6, end: 11 }, ///// Истец
+  const clickBtn = ({ codeid_filter }) => {
+    dispatch(toTakeIsksList(codeid_filter)); /// запрос для получения списка
+    setActive(codeid_filter);
   };
 
   useEffect(() => {
-    dispatch(toTakeIsksList(0));
-    dispatch(getDataSort(0));
-    ///// get все иски сразу
+    const getData = async () => {
+      const data = await dispatch(getFilter()).unwrap(); // get фильтры каждой роли
+      const codeid = data?.[0]?.codeid_filter;
+      setActive(codeid);
+      dispatch(toTakeIsksList(codeid)); /// запрос для получения списка
+    };
+    getData();
   }, []);
 
   return (
     <ul className="choice__plaintiff">
-      {mainBtnList
-        ?.slice(typeSort?.[typeUser]?.start, typeSort?.[typeUser]?.end)
-        ?.map((btn) => (
-          <li key={btn.id}>
-            <button
-              className={btn?.bool ? "activeChoice" : ""}
-              onClick={() => clickBtn(btn.id)}
-            >
-              {btn?.name} [{btn?.count}]
-            </button>
-          </li>
-        ))}
+      {listFilter?.map((btn) => (
+        <li key={btn.codeid_filter}>
+          <button
+            className={active == btn?.codeid_filter ? "activeChoice" : ""}
+            onClick={() => clickBtn(btn)}
+          >
+            {btn?.name}
+            {/* [{btn?.count}] */}
+          </button>
+        </li>
+      ))}
     </ul>
   );
 };

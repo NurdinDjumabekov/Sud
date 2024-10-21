@@ -1,7 +1,15 @@
 $paddingTableInner: 2px 10px;
 
+.index {
+  white-space: nowrap;
+  width: 50px !important;
+  text-align: center !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
 .num,
-.table_isk_th:nth-child(1) {
+.table_isk_th:nth-child(2) {
   white-space: nowrap;
   width: 140px !important;
 }
@@ -11,39 +19,21 @@ $paddingTableInner: 2px 10px;
     display: flex;
     align-items: center;
     gap: 10px;
-
-    > button {
-      margin: 0 !important;
-      border-radius: 3px;
-      background: rgb(237, 242, 249);
-      min-height: 37px;
-      height: 33px;
-      width: 33px;
-      min-width: 37px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      img {
-        width: 16px;
-        height: 16px;
-      }
-    }
   }
 }
 
 .date,
-.table_isk_th:nth-child(2) {
+.table_isk_th:nth-child(3) {
   width: 115px;
 }
 
 .plaintiffTable,
-.table_isk_th:nth-child(3) {
+.table_isk_th:nth-child(4) {
   width: 150px !important;
 }
 
 .defendant,
-.table_isk_th:nth-child(4) {
+.table_isk_th:nth-child(5) {
   width: 120px;
   padding: $paddingTableInner;
 }

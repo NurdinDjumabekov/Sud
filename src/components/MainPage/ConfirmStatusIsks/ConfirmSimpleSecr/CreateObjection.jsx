@@ -9,7 +9,10 @@ import Modals from "../../../Modals/Modals";
 
 ////// fns
 import { confirmStatusFN } from "../../../../store/reducers/stateSlice";
-import { sendDocsEveryIsks } from "../../../../store/reducers/sendDocsSlice";
+import {
+  sendDocsEveryIsks,
+  toTakeIsksList,
+} from "../../../../store/reducers/sendDocsSlice";
 
 ///// imgs
 import imgWarning from "../../../../asstes/images/warning.png";
@@ -22,12 +25,17 @@ const CreateObjection = () => {
   const [confirmAction, setConfirmAction] = useState(false);
 
   const { confirmStatus } = useSelector((state) => state.stateSlice);
+  const { listFilter } = useSelector((state) => state.applicationsSlice);
 
-  const sendObjection = () => {
+  const sendObjection = async () => {
     if (editorRef.current && editorRef.current?.editor) {
       const content = editorRef.current?.editor?.getContent();
       const obj = { content, id: confirmStatus?.id, code_file: 17 };
-      dispatch(sendDocsEveryIsks({ ...obj, reRender: true, navigate })); /// 17 - Возражение
+      await dispatch(
+        sendDocsEveryIsks({ ...obj, reRender: true, navigate })
+      ).unwrap();
+      dispatch(toTakeIsksList(listFilter?.[0]?.codeid_filter));
+      /// 17 - Возражение
       /// для создания документа "Возражение"
       ////// закрываю модалки
       dispatch(confirmStatusFN(false));

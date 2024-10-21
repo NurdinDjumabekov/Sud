@@ -16,8 +16,8 @@ const ConfirmModal = (props) => {
     <div className="confirmModal">
       <MyModals openModal={openModal} closeModal={no} title={title}>
         <div className="confirmModal__inner">
-          <button onClick={accept}>Да</button>
           <button onClick={no}>Нет</button>
+          <button onClick={accept}>Да</button>
         </div>
       </MyModals>
     </div>

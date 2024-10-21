@@ -1,0 +1,43 @@
+.actionsTable {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+  border: none !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  margin: 10px 0 0 0;
+
+  button {
+    margin: 0 !important;
+    border-radius: 3px;
+    background: transparent !important;
+    min-height: 37px;
+    height: 33px;
+    width: 33px;
+    min-width: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.actionsTableModal {
+  .inputSend {
+    width: 100%;
+
+    .react-datepicker-wrapper {
+      width: 100% !important;
+    }
+  }
+
+  .actionsBtn {
+    width: 100%;
+    margin: 10px 0 0 0;
+  }
+}

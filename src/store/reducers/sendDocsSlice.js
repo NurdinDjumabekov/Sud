@@ -33,8 +33,6 @@ export const changeStatusIsks = createAsyncThunk(
     try {
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList(0)); //// get список исков (0 - все иски)
-        dispatch(clearMainBtnList()); //// сброс сортировочных кнопок на галвной стр
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -53,8 +51,6 @@ export const deleteIsks = createAsyncThunk(
     try {
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList(0)); //// get список исков (0 - все иски)
-        dispatch(clearMainBtnList()); //// сброс сортировочных кнопок на галвной стр
         return codeid;
       } else {
         throw Error(`Error: ${response.status}`);
@@ -92,9 +88,9 @@ export const toTakeIsksList = createAsyncThunk(
     try {
       const response = await axiosInstance(url);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(sortDataIsksCounts(response?.data));
+        // dispatch(sortDataIsksCounts(response?.data));
         //// подставляю к сортировочным кнопкам кол-ва исков которые есть
-        return response.data?.recordset;
+        return response.data;
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -194,10 +190,6 @@ export const sendDocsEveryIsks = createAsyncThunk(
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
         navigate("/main");
-        if (reRender) {
-          dispatch(toTakeIsksList(0));
-        }
-        //// get список исков (0 - все иски)
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -297,8 +289,6 @@ export const choiceSecr = createAsyncThunk(
     try {
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList(0));
-        dispatch(clearMainBtnList());
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -320,8 +310,6 @@ export const choiceArbitrsFN = createAsyncThunk(
     try {
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
-        dispatch(toTakeIsksList(0));
-        dispatch(clearMainBtnList());
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -423,9 +411,6 @@ const sendDocsSlice = createSlice({
     ////// deleteIsks
     builder.addCase(deleteIsks.fulfilled, (state, action) => {
       state.preloader = false;
-      state.listTodos = state.listTodos?.filter(
-        (isk) => +isk.codeid !== +action.payload
-      );
     });
     builder.addCase(deleteIsks.rejected, (state, action) => {
       state.error = action.payload;

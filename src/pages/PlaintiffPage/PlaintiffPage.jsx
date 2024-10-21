@@ -83,6 +83,8 @@ const PlaintiffPage = () => {
     };
   }, []);
 
+  console.log(dataIsk);
+
   return (
     <div className="plaintiff">
       <div className="navBlock">

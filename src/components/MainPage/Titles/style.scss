@@ -1,0 +1,13 @@
+.titlesTable {
+  tr {
+    th:nth-child(2) {
+      text-align: center !important;
+      width: 50px !important;
+    }
+
+    th:nth-child(1) {
+      width: 100px;
+      text-align: center !important;
+    }
+  }
+}

@@ -8,7 +8,10 @@ import Modals from "../../../../Modals/Modals";
 import Selects from "../../../../Selects/Selects";
 
 /////// fns
-import { choiceSecr } from "../../../../../store/reducers/sendDocsSlice";
+import {
+  choiceSecr,
+  toTakeIsksList,
+} from "../../../../../store/reducers/sendDocsSlice";
 import { toTakeSecretarList } from "../../../../../store/reducers/selectsSlice";
 
 /////// imgs
@@ -24,17 +27,15 @@ const ChoiceSecr = ({ item }) => {
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { type_user } = jwtDecode(tokenA);
+  const { listFilter } = useSelector((state) => state.applicationsSlice);
 
   const { selSecretarDela, typeSecretarDela } = useSelector(
     (state) => state.selectsSlice
   );
 
-  useEffect(() => {
-    dispatch(toTakeSecretarList());
-  }, []);
-
-  const send = () => {
-    dispatch(choiceSecr({ typeSecretarDela, code_isk: codeid }));
+  const send = async () => {
+    await dispatch(choiceSecr({ typeSecretarDela, code_isk: codeid })).unwrap();
+    dispatch(toTakeIsksList(listFilter?.[0]?.codeid_filter));
     setModal(false);
   };
 

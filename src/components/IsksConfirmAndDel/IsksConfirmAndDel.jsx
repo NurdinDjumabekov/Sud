@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeIdStatus } from "../../store/reducers/stateSlice";
 import { changeLookChangeStatus } from "../../store/reducers/stateSlice";
 import { changeLookChangeDeleteIsks } from "../../store/reducers/stateSlice";
-import { changeStatusIsks } from "../../store/reducers/sendDocsSlice";
+import {
+  changeStatusIsks,
+  toTakeIsksList,
+} from "../../store/reducers/sendDocsSlice";
 import { deleteIsks } from "../../store/reducers/sendDocsSlice";
 
 /////// components
@@ -24,24 +27,29 @@ const IsksConfirmAndDel = () => {
   const dispatch = useDispatch();
 
   const { typeUser } = useSelector((state) => state.saveDataSlice);
+  const { listFilter } = useSelector((state) => state.applicationsSlice);
 
   const { lookChangeStatus, lookChangeDeleteIsks, idStatus } = useSelector(
     (state) => state.stateSlice
   );
 
   useEffect(() => {
-    return () => dispatch(changeIdStatus(0));
+    return () => {
+      dispatch(changeIdStatus(0));
+    };
   }, []);
 
-  const confirmIsk = () => {
+  const confirmIsk = async () => {
     /////  подтверждения иска (истец подаёт иск)
-    dispatch(changeStatusIsks(idStatus));
+    await dispatch(changeStatusIsks(idStatus)).unwrap();
+    dispatch(toTakeIsksList(listFilter?.[0]?.codeid_filter));
     dispatch(changeLookChangeStatus(false));
   };
 
-  const deleteIsk = () => {
+  const deleteIsk = async () => {
     /////  удаление иска
-    dispatch(deleteIsks(idStatus));
+    await dispatch(deleteIsks(idStatus)).unwrap();
+    dispatch(toTakeIsksList(listFilter?.[0]?.codeid_filter));
     dispatch(changeLookChangeDeleteIsks(false));
   };
 

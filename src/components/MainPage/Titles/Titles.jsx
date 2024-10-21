@@ -8,6 +8,9 @@ import { plaintiffHeaders } from "../../../helpers/dataArr";
 import { respSecrHeaders } from "../../../helpers/dataArr";
 import { simpleSecrHeaders } from "../../../helpers/dataArr";
 
+////// style
+import "./style.scss";
+
 const Titles = () => {
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { type_user } = jwtDecode(tokenA);
@@ -16,11 +19,11 @@ const Titles = () => {
     1: simpleSecrHeaders, /// Секретарь
     2: respSecrHeaders, /// Ответственный секретарь
     3: respSecrHeaders, /// Председатель
-    4: plaintiffHeaders, /// Истец
+    // 4: plaintiffHeaders, /// Истец
   };
 
   return (
-    <thead>
+    <thead className="titlesTable">
       <tr>
         {objType?.[type_user]?.map((i, index) => (
           <th key={index} className="table_isk_th">

@@ -25,17 +25,20 @@ import {
   toTakePrimPravo,
   toTakeRegions,
   toTakeReglament,
+  toTakeSecretarList,
   toTakeTypeAddress,
   toTakeTypeCompany,
   toTakeTypeOrganiz,
   toTakeTypePosition,
   toTakeTypeValuta,
 } from "../store/reducers/selectsSlice";
+
+//// pages
 import MainPage from "../pages/MainPage/MainPage";
 import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
-import { jwtDecode } from "jwt-decode";
 import ArchivePage from "../pages/ArchivePage/ArchivePage";
 import ArchiveIsksPage from "../pages/ArchiveIsksPage/ArchiveIsksPage";
+import SecretarsPage from "../pages/SecretarsPage.jsx/SecretarsPage";
 
 const MainRoutes = () => {
   const dispatch = useDispatch();
@@ -47,15 +50,6 @@ const MainRoutes = () => {
     (state) => state.applicationsSlice
   );
   const { aduf, adif } = useSelector((state) => state.inputSlice);
-
-  // console.log(aduf, "aduf");
-  // console.log(adif, "adif");
-
-  // const decodedToken = jwtDecode(tokenA);
-
-  // console.log(decodedToken);
-
-  // console.log(dataIsk, "dataIsk");
 
   React.useEffect(() => {
     if (tokenA === "" || !!!tokenA) {
@@ -80,6 +74,7 @@ const MainRoutes = () => {
 
     dispatch(toTakeTypeTypeDocs());
     ///// get список документов, которые нужны для заполнения иска (просто текста)
+    dispatch(toTakeSecretarList());
   }, []);
 
   return (
@@ -91,6 +86,7 @@ const MainRoutes = () => {
           <Route path="/create_isk/:id" element={<PlaintiffPage />} />
           <Route path="/history" element={<ArchivePage />} />
           <Route path="/history_isk" element={<ArchiveIsksPage />} />
+          <Route path="/secr" element={<SecretarsPage />} />
           {/* <Route path="/notif_user" element={<NotificationPage />} /> */}
         </Route>
         <Route path="*" element={<NotFoundPage />} />

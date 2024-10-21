@@ -10,6 +10,8 @@ import { delSidesIskFN } from "../../helpers/sortDeletePlaintiff";
 const { REACT_APP_API_URL } = process.env;
 
 const initialState = {
+  listFilter: [], /// фильтры каждой роли
+
   dataIsk: {
     codeid: 0,
     plaintiff: [], //1 plaintiff
@@ -60,7 +62,23 @@ const initialState = {
   preloaderDocs: false,
 };
 
-////-------------------////
+/////// getFilter - фильтры каждой роли
+export const getFilter = createAsyncThunk(
+  "getFilter",
+  async function (props, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/get_filter`;
+    try {
+      const response = await axiosInstance(url);
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 /// editIsks ///
 export const editIsks = createAsyncThunk(
@@ -253,13 +271,43 @@ export const createIsksInDocs = createAsyncThunk(
   }
 );
 
+/// editMainIskData - редактирование главных данных иска
+export const editMainIskData = createAsyncThunk(
+  "editMainIskData",
+  async function (props, { dispatch, rejectWithValue }) {
+    const { data } = props;
 
-
+    const url = `${REACT_APP_API_URL}/isks/edit_main_isk`;
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const applicationsSlice = createSlice({
   name: "applicationsSlice",
   initialState,
   extraReducers: (builder) => {
+    ///// getFilter
+    builder.addCase(getFilter.fulfilled, (state, action) => {
+      state.preloaderDocs = false;
+      state.listFilter = action?.payload;
+    });
+    builder.addCase(getFilter.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderDocs = false;
+    });
+    builder.addCase(getFilter.pending, (state, action) => {
+      state.preloaderDocs = true;
+    });
+
     ///// toTakeTypeTypeDocs
     builder.addCase(toTakeTypeTypeDocs.fulfilled, (state, action) => {
       state.preloaderDocs = false;
@@ -378,6 +426,18 @@ const applicationsSlice = createSlice({
       state.preloaderDocs = false;
     });
     builder.addCase(delDataSidesFN.pending, (state, action) => {
+      state.preloaderDocs = true;
+    });
+
+    ////// editMainIskData
+    builder.addCase(editMainIskData.fulfilled, (state, action) => {
+      state.preloaderDocs = false;
+    });
+    builder.addCase(editMainIskData.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderDocs = false;
+    });
+    builder.addCase(editMainIskData.pending, (state, action) => {
       state.preloaderDocs = true;
     });
   },

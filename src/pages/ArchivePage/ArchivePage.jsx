@@ -73,12 +73,8 @@ const ArchivePage = () => {
           </div>
           <div className="iskData listYesrs">
             {listYesrs?.map((item, index) => (
-              <div
-                className="every"
-                onClick={() => navInfo(item)}
-                key={item?.codeid}
-              >
-                <div className="title">
+              <div className="every" key={item?.codeid}>
+                <div className="title" onClick={() => navInfo(item)}>
                   <span>{index + 1}.</span>
                   <div>
                     <p>{item?.name}</p>
@@ -86,7 +82,7 @@ const ArchivePage = () => {
                   </div>
                 </div>
                 <div className="actions">
-                  <button onClick={() => {}}>
+                  <button onClick={() => navInfo(item)}>
                     <EyesIcon width={22} height={22} color={"#222"} />
                   </button>
                   <button onClick={() => openModalCRUD(item, 2)}>

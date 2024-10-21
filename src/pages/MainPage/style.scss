@@ -1,16 +1,14 @@
 $paddingTableInner: 2px 10px;
 
 .mainTables {
-  height: 95vh;
-  overflow-y: scroll;
+  height: 98vh;
   padding: 10px 0px 5px;
   width: 100%;
   border-radius: 10px;
   background: #fff;
   box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1),
     0 3px 6px 0 rgba(0, 0, 0, 0.07);
-  margin: 30px 0 0 0;
-  //// checkcheck
+  margin: 10px 0 0 0;
 
   .statusGreen {
     color: #16bb16 !important;
@@ -21,16 +19,17 @@ $paddingTableInner: 2px 10px;
     color: red !important;
     padding: 0px 0px 0px 10px;
   }
-  //// checkcheck
 
   .iskData {
-    overflow-y: scroll;
-    border: 1px solid rgb(237, 242, 249);
+    overflow: scroll;
+    border-top: 1px solid rgb(237, 242, 249);
     padding-bottom: 0 !important;
+    height: calc(100% - 45px);
+    width: 100%;
 
     .table_isk {
       border-collapse: collapse;
-      width: 100% !important;
+      width: 130% !important;
       display: table;
 
       thead {
@@ -90,36 +89,6 @@ $paddingTableInner: 2px 10px;
             gap: 5px;
           }
         }
-
-        //// checkcheck
-        // .statusIsks {
-        //   display: flex;
-        //   align-items: center;
-        //   justify-content: center;
-        //   gap: 5px;
-
-        //   > button {
-        //     color: #4d5969;
-        //     font-size: 12px;
-        //     font-weight: 600;
-        //     font-family: "Montserrat", sans-serif;
-        //     transition: 0.2s;
-        //     padding: 5px 13px;
-        //     height: auto !important;
-        //     margin: 0 !important;
-        //     border-radius: 3px;
-        //     background: rgb(237, 242, 249);
-
-        //     > img {
-        //       width: 15px;
-        //       height: 25px;
-        //     }
-        //   }
-        //   > button:hover {
-        //     background: rgba(215, 219, 224, 0.76);
-        //   }
-        // }
-        //// checkcheck
       }
 
       ///// заголовки
@@ -133,6 +102,14 @@ $paddingTableInner: 2px 10px;
         text-align: left;
         padding: 0 10px;
         color: #344050;
+      }
+
+      th:nth-child(1) {
+        width: 100px;
+      }
+
+      th:nth-child(2) {
+        width: 50px;
       }
 
       ///// размеры и отступы каждого столбца
@@ -197,48 +174,23 @@ $paddingTableInner: 2px 10px;
     }
 
     &::-webkit-scrollbar {
-      width: 0px;
+      height: 10px;
+      max-height: 10px;
+      min-height: 10px;
+      min-width: 10px;
+      max-width: 10px;
+      width: 10px;
+      margin: 2px;
     }
 
-    /* Кастомный скролл */
-    ::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: rgb(234, 234, 234);
-    }
-  }
-
-  &::-webkit-scrollbar {
-    min-width: 8px;
-    max-width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-    min-width: 5px;
-    max-width: 5px;
-    &:hover {
-      background-color: #b1acac;
-    }
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    cursor: pointer;
-    max-height: 50px;
-    min-height: 50px;
-  }
-
-  &:hover {
     &::-webkit-scrollbar-track {
       background-color: #f0eaea;
     }
+
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(128, 128, 128, 0.202);
-      border-radius: 5px;
+      background-color: #adc7e9b4;
+      border-radius: 2px;
+      cursor: pointer;
     }
   }
 }

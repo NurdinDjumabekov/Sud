@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
 
 ///fns
-import { choiceArbitrsFN } from "../../../../../store/reducers/sendDocsSlice";
+import {
+  choiceArbitrsFN,
+  toTakeIsksList,
+} from "../../../../../store/reducers/sendDocsSlice";
 
 ///////helpers
 import { searchNameSelect } from "../../../../../helpers/searchNameSelect";
@@ -27,12 +30,13 @@ const ChoiceReglament = ({ row }) => {
   const [dataModalArbitr, setDataModalArbitr] = useState({}); //// для выбора арбитра
 
   const { arbitrPred } = useSelector((state) => state.stateSlice);
-
   const { selCountries } = useSelector((state) => state.selectsSlice);
+  const { listFilter } = useSelector((state) => state.applicationsSlice);
 
-  const sendArbitrs = () => {
+  const sendArbitrs = async () => {
     setModal(false);
-    dispatch(choiceArbitrsFN({ arbitrPred, code_isk: codeid }));
+    await dispatch(choiceArbitrsFN({ arbitrPred, code_isk: codeid })).unwrap();
+    dispatch(toTakeIsksList(listFilter?.[0]?.codeid_filter));
   };
 
   const checkArbitrs = row?.arbitrs?.length === 0; /// if арбитров нет

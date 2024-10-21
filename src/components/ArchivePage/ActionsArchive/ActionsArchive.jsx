@@ -23,7 +23,7 @@ const ActionsArchive = ({ data, setData, closeModal }) => {
   };
 
   const obj = { 1: "Создание", 2: "Редактирование" };
-  const objSend = { 1: "Создать", 2: "Редактироваьб" };
+  const objSend = { 1: "Создать", 2: "Редактировать" };
 
   const sendJournal = async () => {
     if (!!!data?.name) alert("Название отчета не должно быть пустым");

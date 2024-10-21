@@ -22,6 +22,7 @@ import TimeAndActions from "../../components/MainPage/ActionsUsers/TimeAndAction
 import ConfirmSimpleSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmSimpleSecr/ConfirmSimpleSecr";
 import ChoiceSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ChoiceSecr/ChoiceSecr";
 import IsksConfirmAndDel from "../../components/IsksConfirmAndDel/IsksConfirmAndDel";
+import ActionsTable from "../../components/MainPage/ActionsTable/ActionsTable";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,12 @@ const MainPage = () => {
                   key={index}
                   className={`${+index % 2 === 0 ? "colorWhite" : "colorGray"}`}
                 >
-                  <MainTableData row={row} />
+                  <ActionsTable row={row} listTodos={listTodos} />
+                  <MainTableData
+                    row={row}
+                    index={index}
+                    listTodos={listTodos}
+                  />
                   <td className="reglamet">
                     <span>
                       {+row?.reglament !== 0 && (
