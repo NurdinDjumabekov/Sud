@@ -59,7 +59,8 @@ const MainPage = () => {
                       )}
                     </span>
                   </td>
-                  <Arbitrs row={row} />
+                  <Arbitrs row={row} type={1} />
+                  <Arbitrs row={row} type={2} />
                   <td className="secr">
                     <span>
                       {type_user != 3 ? (

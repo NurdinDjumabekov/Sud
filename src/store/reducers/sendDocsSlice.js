@@ -301,15 +301,12 @@ export const choiceSecr = createAsyncThunk(
 /// choiceArbitrsFN - выбор арбитров председателем
 export const choiceArbitrsFN = createAsyncThunk(
   "choiceArbitrsFN",
-  async function (props, { dispatch, rejectWithValue }) {
-    const { arbitrPred, code_isk } = props;
-
-    const url = "http://mttp-renaissance.333.kg/api/isks/set_isk_arbitrs";
-    const data = { code_isk, code_arbitr: arbitrPred };
-
+  async function (data, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/set_isk_arbitrs`;
     try {
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
+        return response.data;
       } else {
         throw Error(`Error: ${response.status}`);
       }

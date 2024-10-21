@@ -17,8 +17,13 @@ import { searchNameSelect } from "../../../../../helpers/searchNameSelect";
 ///// components
 import Modals from "../../../../Modals/Modals";
 import ChoiceArbitrsPred from "../ChoiceArbitrsPred/ChoiceArbitrsPred";
+import EditIcon from "../../../../../asstes/icons/MyIcons/EditIcon";
 
-const ChoiceReglament = ({ row }) => {
+///// icons
+
+const ChoiceReglament = ({ row, type }) => {
+  /// type - 1 истец, 2 - ответчик
+
   const { codeid } = row;
 
   const dispatch = useDispatch();
@@ -28,48 +33,65 @@ const ChoiceReglament = ({ row }) => {
   const [modalArbitrs, setModalArbitrs] = useState(false); //// модалка открытия детального просмотра арбитра
 
   const [dataModalArbitr, setDataModalArbitr] = useState({}); //// для выбора арбитра
+  const [arbitrs, setArbitrs] = useState([]); //// список выбранных арбитров
 
-  const { arbitrPred } = useSelector((state) => state.stateSlice);
   const { selCountries } = useSelector((state) => state.selectsSlice);
   const { listFilter } = useSelector((state) => state.applicationsSlice);
 
   const sendArbitrs = async () => {
-    setModal(false);
-    await dispatch(choiceArbitrsFN({ arbitrPred, code_isk: codeid })).unwrap();
-    dispatch(toTakeIsksList(listFilter?.[0]?.codeid_filter));
+    const obj = { arbitrs, code_isk: codeid, type };
+    const res = await dispatch(choiceArbitrsFN(obj)).unwrap();
+    if (res?.result == 1) {
+      setArbitrs([]);
+      dispatch(toTakeIsksList(listFilter?.[0]?.codeid_filter));
+      setModal(false);
+    }
   };
 
-  const checkArbitrs = row?.arbitrs?.length === 0; /// if арбитров нет
+  const choiceArbitr = () => {
+    setModal(true);
+    setArbitrs(list);
+  };
 
-  const checkStatus = row?.isk_status !== 4; /// if иск не отклонен предмедателем
+  const list = row?.arbitrs?.filter((i) => i?.type_man == type);
+
+  const checkArbitrs = list?.length == 0; /// if арбитров нет
 
   return (
     <>
       <td className="table_isk_td">
-        {checkArbitrs && checkStatus ? (
+        {checkArbitrs ? (
           <span>
-            <button className="choiceBtn" onClick={() => setModal(true)}>
+            <button className="choiceBtn" onClick={choiceArbitr}>
               Выбрать арбитров
             </button>
-            <Modals openModal={modal} setOpenModal={() => setModal()}>
-              <ChoiceArbitrsPred
-                setDataModalArbitr={setDataModalArbitr}
-                setModalArbitrs={setModalArbitrs}
-                sendArbitrs={sendArbitrs}
-              />
-            </Modals>
           </span>
         ) : (
-          <>
-            {row?.arbitrs?.map((i, index) => (
-              <span key={index}>
-                {i?.fio_arbitr}
-                {index !== row.arbitrs.length - 1 && ","}
-              </span>
-            ))}
-          </>
+          <div className="listArbitrs">
+            <div className="listArbitrs__inner">
+              {list?.map((i, index) => (
+                <span key={index}>
+                  {i?.fio_arbitr}
+                  {index !== list?.length - 1 && ","}
+                </span>
+              ))}
+            </div>
+            <button onClick={choiceArbitr}>
+              <EditIcon width={22} height={22} color={"#222"} />
+            </button>
+          </div>
         )}
       </td>
+
+      <Modals openModal={modal} setOpenModal={() => setModal()}>
+        <ChoiceArbitrsPred
+          setDataModalArbitr={setDataModalArbitr}
+          setModalArbitrs={setModalArbitrs}
+          sendArbitrs={sendArbitrs}
+          setArbitrs={setArbitrs}
+          arbitrs={arbitrs}
+        />
+      </Modals>
 
       {/* ////////для выбора арбитров */}
       <Modals openModal={modalArbitrs} setOpenModal={() => setModalArbitrs()}>

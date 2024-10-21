@@ -67,7 +67,7 @@ const initialState = {
 
   objectionPdfVeiw: false, /// для создания возражения ответчика
 
-  arbitrPred: 0, /// для выбора арбитра председателем
+  arbitrPred: 0, /// для выбора арбитра председателем /// del
 };
 
 const stateSlice = createSlice({
@@ -154,7 +154,7 @@ const stateSlice = createSlice({
     },
 
     changeArbitrPred: (state, action) => {
-      state.arbitrPred = action?.payload;
+      state.arbitrPred = action?.payload; /// del
     },
   },
 });

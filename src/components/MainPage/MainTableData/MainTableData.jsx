@@ -9,7 +9,6 @@ import { searchNameSelect } from "../../../helpers/searchNameSelect";
 import "./style.scss";
 
 ///// imgs
-import editIcon from "../../../asstes/icons/editBtn.svg";
 import { jwtDecode } from "jwt-decode";
 
 const MainTableData = ({ row, index, listTodos }) => {

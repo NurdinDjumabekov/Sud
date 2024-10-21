@@ -291,6 +291,26 @@ export const editMainIskData = createAsyncThunk(
   }
 );
 
+/// getArbitrsEveryIsks - get арбитров каждого иска
+export const getArbitrsEveryIsks = createAsyncThunk(
+  "getArbitrsEveryIsks",
+  async function (props, { dispatch, rejectWithValue }) {
+    const { data } = props;
+
+    const url = `${REACT_APP_API_URL}/isks/edit_main_isk`;
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const applicationsSlice = createSlice({
   name: "applicationsSlice",
   initialState,

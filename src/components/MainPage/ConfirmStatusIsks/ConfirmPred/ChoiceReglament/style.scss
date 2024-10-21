@@ -21,3 +21,16 @@
     margin: 20px 0 0 0;
   }
 }
+
+.listArbitrs {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 5px;
+
+  &__inner {
+  }
+  button {
+    background: transparent;
+  }
+}
