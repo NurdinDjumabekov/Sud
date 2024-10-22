@@ -79,8 +79,6 @@ const Fullfilled_isk = () => {
           isk_summ,
         };
 
-        // console.log(sendData, "sendData");
-
         dispatch(createIsksInDocs(sendData)); // создания иска в доксе
       }
 

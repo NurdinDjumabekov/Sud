@@ -190,6 +190,7 @@ export const sendDocsEveryIsks = createAsyncThunk(
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
         navigate("/main");
+        return response.data;
       } else {
         throw Error(`Error: ${response.status}`);
       }
@@ -239,13 +240,13 @@ export const changeStatusDocs = createAsyncThunk(
       const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
         const obj = { id, content, code_file, navigate, reRender: true };
-        dispatch(sendDocsEveryIsks(obj));
+        const res = await dispatch(sendDocsEveryIsks(obj)).unwrap();
         /// для создания документа иска
 
-        if (isk_status == 5) {
+        if (isk_status == 5 && res?.result == 1) {
           /// для создания и отправки документа "уведомления ответчика"
           setTimeout(() => {
-            dispatch(sendNotif(id)); /// отправка уведомления
+            dispatch(sendNotif({ id, urlNotif: res?.file_path })); /// отправка уведомления
           }, 1000);
         }
         return response.data;
@@ -261,10 +262,11 @@ export const changeStatusDocs = createAsyncThunk(
 /// sendNotif - для отправки смс уведомления через почту
 export const sendNotif = createAsyncThunk(
   "sendNotif",
-  async function (id, { dispatch, rejectWithValue }) {
-    const url = `${REACT_APP_API_URL}/isks/send_sms?id=${id}`;
+  async function ({ id, urlNotif }, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/send_sms`;
+    const data = { id, urlNotif };
     try {
-      const response = await axiosInstance(url);
+      const response = await axiosInstance.post(url, data);
       if (response.status >= 200 && response.status < 300) {
       } else {
         throw Error(`Error: ${response.status}`);

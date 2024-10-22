@@ -38,7 +38,7 @@ const Fullfilled_isks_for_pred = () => {
 
       dispatch(createFileAccept({ content, id }));
       /// content text для председателя
-      dispatch(sendDocsEveryIsks({ content, code_file: 12, id }));
+      // dispatch(sendDocsEveryIsks({ content, code_file: 12, id }));
       /// 12 - принятие иска председателем
       /// для создания документа о принятии иска (заполняет секретарь для председателя)
       closeAllModal();

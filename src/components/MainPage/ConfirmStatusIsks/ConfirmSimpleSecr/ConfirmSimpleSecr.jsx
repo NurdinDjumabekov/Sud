@@ -24,7 +24,7 @@ const ConfirmSimpleSecr = () => {
 
   const components = {
     5: <CreateObjection />, ////// возражение ответчика
-    7: <Fullfilled_isks_for_pred />, ////// Заполнить докумен для принятия иска вместо председателя и отправить ему же
+    7: <Fullfilled_isks_for_pred />, ////// Заполнить докумен для принятия иска вместо председателя и отправить ему
     8: <NotifyDefendants />, ////// уведомление ответчика
   };
 

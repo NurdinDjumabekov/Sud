@@ -11,6 +11,7 @@ import MySelects from "../../MySelects/MySelects";
 
 ////// style
 import "./style.scss";
+import Arbitrs from "../../MainPage/Arbitrs/Arbitrs";
 
 const GeneralInfo = () => {
   const dispatch = useDispatch();
@@ -75,7 +76,7 @@ const GeneralInfo = () => {
               value={dataIsk.arbitr_lang}
             />
           </div>
-          <div className="blockSelects">
+          {/* <div className="blockSelects">
             <MySelects
               list={selArbitrs}
               onChangeSel={onChangeSel}
@@ -83,7 +84,8 @@ const GeneralInfo = () => {
               nameKey={"code_arbitr"}
               value={dataIsk.code_arbitr}
             />
-          </div>
+          </div> */}
+          {/* <Arbitrs row={{}} type={1} /> */}
           <MyInput
             changeInput={changeInput}
             title={"Место разбирательства "}

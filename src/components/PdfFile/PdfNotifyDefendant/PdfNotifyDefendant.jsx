@@ -67,8 +67,6 @@ const PdfNotifyDefendant = ({ editorRef }) => {
       : `<div style="display: none"></div>`;
   };
 
-  console.log(dataIsk, "dataIsk");
-
   const dateIsk = transformDate(`${dataIsk?.isk_date}`);
 
   const arbirts = arbitrsLook(dataIsk?.arbitrs);

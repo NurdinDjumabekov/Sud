@@ -56,7 +56,7 @@ const PdfFulfilledAllSecr = ({ editorRef }) => {
     "font-size: 17px; padding-left:50px; text-align: justify; position: relative;";
 
   const stylesArbitrs =
-    "color: rgb(224, 15, 15); font-size: 17px; margin: 7px 0px; display: block; text-decoration: underline;";
+    "font-size: 17px; margin: 7px 0px; display: block; text-decoration: underline;";
 
   const textPlaintiff = `${
     plaintiffResper
@@ -75,7 +75,7 @@ const PdfFulfilledAllSecr = ({ editorRef }) => {
   const stylesNumsDifined = "position: absolute; top: 0px; left: 10px;";
 
   const defaultSnock =
-    "color: rgb(224, 15, 15); padding-left:30px; text-align: justify; font-size: 15px; text-indent: 15px";
+    "padding-left:30px; text-align: justify; font-size: 15px; text-indent: 15px";
 
   /////// определяю сумму сборов (надо перенестив функцию)
   /////// определяю сумму сборов (надо перенестив функцию)
@@ -118,7 +118,7 @@ const PdfFulfilledAllSecr = ({ editorRef }) => {
   
             <div style="text-align: center; margin-top: 16px;">
                 <strong>ОПРЕДЕЛЕНИЕ<br>
-                о принятии искового заявления к производству <span style="color: rgb(224, 15, 15); text-decoration: underline;">№ ${
+                о принятии искового заявления к производству <span style="text-decoration: underline;">№ ${
                   dataIsk?.isk_number
                 }</span><br>
                 </strong>
@@ -194,14 +194,14 @@ const PdfFulfilledAllSecr = ({ editorRef }) => {
                 <p style="${defaultDifined}">
                   <span style='${stylesNumsDifined}'>1.</span>
                   Исковое заявление ${plaintiff} принять к производству 
-                  МТС ТПП с присвоением регистрационного номера дела  <span style="color: rgb(224, 15, 15); font-size: 19px; margin-left: 5px; text-decoration: underline; font-weight: 600;">№${
+                  МТС ТПП с присвоением регистрационного номера дела  <span style="font-size: 19px; margin-left: 5px; text-decoration: underline; font-weight: 600;">№${
                     dataIsk?.isk_number
                   }.<span>
                 </p>
 
                 <p style="${defaultDifined}">
                   <span style='${stylesNumsDifined}'>2.</span>
-                  Определить секретарём заседания по делу  <span style="color: rgb(224, 15, 15); font-size: 19px; margin-left: 5px; text-decoration: underline; font-weight: 600;">№${
+                  Определить секретарём заседания по делу  <span style="font-size: 19px; margin-left: 5px; text-decoration: underline; font-weight: 600;">№${
                     dataIsk?.isk_number
                   } - (секретарь) .<span>
                 </p>
