@@ -10,12 +10,12 @@ import "./style.scss";
 
 ///// imgs
 import { jwtDecode } from "jwt-decode";
+import { transformDate } from "../../../helpers/transformDate";
 
 const MainTableData = ({ row, index, listTodos }) => {
   const { selCurrency } = useSelector((state) => state.selectsSlice);
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
-  const { type_user } = jwtDecode(tokenA);
 
   return (
     <>
@@ -26,8 +26,8 @@ const MainTableData = ({ row, index, listTodos }) => {
         </div>
       </td>
       <td className="date">
-        <span>{row?.isk_date}</span>
-        <span>{row?.isk_time}</span>
+        <span>{transformDate(row?.isk_active_date)}</span>
+        {/* <span>{row?.isk_time}</span> */}
       </td>
       <td className="plaintiffTable">
         {row?.plaintiff?.length !== 0 && (

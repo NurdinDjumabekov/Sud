@@ -27,6 +27,28 @@ export const transformDateTime = (dateString) => {
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 };
 
+export const dateTimeParse = (dateString) => {
+  // '08.08.2024 16:30:00' ==> Wed Aug 07 2024 17:12:26 GMT+0600 (Киргизия)
+  if (typeof dateString !== "string") {
+    console.error("Invalid date string:", dateString);
+    return null; // Возвращаем null или значение по умолчанию
+  }
+
+  const [datePart, timePart] = dateString?.split(" ");
+  if (!datePart || !timePart) {
+    console.error("Invalid date or time format:", dateString);
+    return null; // Возвращаем null, если формат неверен
+  }
+
+  const [day, month, year] = datePart.split(".");
+  const [hours, minutes, seconds] = timePart.split(":");
+
+  // Создаем объект Date
+  const date = new Date(year, month - 1, day, hours, minutes, seconds);
+
+  return date;
+};
+
 export const transformActionDate = (dateString) => {
   ///  Wed Aug 07 2024 17:12:26 GMT+0600 (Киргизия)  ===>  2024-08-07
   const date = new Date(dateString);
@@ -52,14 +74,14 @@ export const reverseTransformActionDate = (dateString) => {
 };
 
 export const reverseTransformActionTime = (dateString) => {
-  //// 2024-08-07  17:12 ===> Wed Aug 07 2024 17:12:26 GMT+0600 (Киргизия)
+  //// 2024.08.07 17:12 ===> Wed Aug 07 2024 17:12:26 GMT+0600 (Киргизия)
 
   if (!dateString || typeof dateString !== "string") return null;
 
   const [datePart, timePart] = dateString?.split(" ");
   if (!datePart || !timePart) return null;
 
-  const [year, month, day] = datePart?.split("-");
+  const [year, month, day] = datePart?.split(".");
   const [hours, minutes] = timePart?.split(":");
 
   if (!year || !month || !day || !hours || !minutes) return null;

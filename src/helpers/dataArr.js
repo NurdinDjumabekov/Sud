@@ -27,7 +27,7 @@ export const typeCountSum = [
 
 /// для отображения в таблице
 export const plaintiffHeaders = [
-  "Иск",
+  "Полное наименование номера дела",
   "Дата",
   "Истец",
   "Ответчик",
@@ -44,8 +44,8 @@ export const plaintiffHeaders = [
 export const simpleSecrHeaders = [
   "...",
   "№",
-  "Иск",
-  "Дата",
+  "Полное наименование номера дела",
+  "Дата поступления",
   "Истец",
   "Ответчик",
   "Арбитражный сбор",
@@ -62,7 +62,7 @@ export const simpleSecrHeaders = [
 export const respSecrHeaders = [
   "...",
   "№",
-  "Иск",
+  "Полное наименование номера дела",
   "Дата поступления",
   "Истец",
   "Ответчик",
@@ -80,8 +80,8 @@ export const respSecrHeaders = [
 export const predHeaders = [
   "...",
   "№",
-  "Иск",
-  "Дата",
+  "Полное наименование номера дела",
+  "Дата поступления",
   "Истец",
   "Ответчик",
   "Арбитражный сбор",

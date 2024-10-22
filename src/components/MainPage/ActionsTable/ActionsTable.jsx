@@ -13,7 +13,6 @@ import DeleteIcon from "../../../asstes/icons/MyIcons/DeleteIcon";
 ///// fns
 import {
   deleteIsks,
-  sendEveryIsks,
   toTakeIsksList,
 } from "../../../store/reducers/sendDocsSlice";
 import { changeCheckEditPlaint } from "../../../store/reducers/saveDataSlice";
@@ -34,9 +33,8 @@ import { ru } from "date-fns/locale";
 import { transformLists } from "../../../helpers/transformArrDocs";
 import {
   reverseTransformActionTime,
-  transformActionDate,
-  transformDates,
-  transformTime,
+  transformDate,
+  transformDateTime,
 } from "../../../helpers/transformDate";
 import AddIcon from "../../../asstes/icons/MyIcons/AddIcon";
 
@@ -66,26 +64,22 @@ const ActionsTable = ({ row, listTodos }) => {
     dispatch(changeCheckEditPlaint(false)); /// запрет на редактирование
   };
 
-  const onChange = (e) => {
-    setEdit({ ...edit, [e.target.name]: e.target.value });
-  };
+  const onChange = (e) => setEdit({ ...edit, [e.target.name]: e.target.value });
 
-  const onChangeSel = (item) => {
-    setEdit({ ...edit, reglament: item });
-  };
+  const onChangeSel = (item) => setEdit({ ...edit, reglament: item });
 
   const editIsksModal = (row) => {
-    const formattedDate = formatDateString(`${row?.isk_date} ${row?.isk_time}`);
     /// "21.10.2024 21:58:04"
-    const isk_date = reverseTransformActionTime(formattedDate);
+    const date = transformDate(row?.isk_active_date)?.slice(0, -3);
+    console.log(date);
+    const isk_active_date = reverseTransformActionTime(formatDateString(date));
     const reglament = { value: row?.reglament, label: row?.reglament_name };
-    setEdit({ ...row, reglament, isk_date });
+    setEdit({ ...row, reglament, isk_active_date });
   };
 
   const editIsksFN = async () => {
-    const date = transformDates(edit?.isk_date);
     const data = {
-      isk_active_date: `${date} ${transformTime(edit?.isk_date)}:00`,
+      isk_active_date: `${transformDateTime(edit?.isk_active_date)}:00`,
       reglament: edit?.reglament?.value,
       isk_number: edit?.isk_number,
       codeid: edit?.codeid,
@@ -134,8 +128,8 @@ const ActionsTable = ({ row, listTodos }) => {
           <div className="inputSend">
             <p>Дата поступления</p>
             <ReactDatePicker
-              selected={edit?.isk_date}
-              onChange={(date) => setEdit({ ...edit, isk_date: date })}
+              selected={edit?.isk_active_date}
+              onChange={(date) => setEdit({ ...edit, isk_active_date: date })}
               showTimeSelect
               timeFormat="HH:mm"
               locale="ru"
@@ -175,5 +169,5 @@ const formatDateString = (dateString) => {
   if (!day || !month || !year) return null;
 
   // Собираем дату в формате YYYY-MM-DD
-  return `${year}-${month}-${day} ${timePart}`;
+  return `${year}.${month}.${day} ${timePart}`;
 };

@@ -30,6 +30,7 @@ import kerstImg from "../../asstes/icons/krestik.svg";
 
 ////// helpers
 import { getCountry } from "../../helpers/getSelects";
+import { changeAlertText } from "../../store/reducers/typesSlice";
 
 const PlaintiffPage = () => {
   const navigate = useNavigate();
@@ -80,10 +81,11 @@ const PlaintiffPage = () => {
       dispatch(toTakeTypeTypeDocs());
       dispatch(setLookTypeRole(0));
       //// закрываю блок, где добавляются личные данные истцов, ответчиков и и х представителей
+      dispatch(changeAlertText("Данные сохранены!"));
     };
   }, []);
 
-  console.log(dataIsk);
+  // console.log(dataIsk);
 
   return (
     <div className="plaintiff">
