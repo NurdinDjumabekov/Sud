@@ -117,3 +117,4 @@ const GeneralInfo = () => {
 };
 
 export default GeneralInfo;
+

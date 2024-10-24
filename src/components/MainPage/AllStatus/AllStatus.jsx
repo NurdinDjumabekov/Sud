@@ -28,7 +28,7 @@ export default AllStatus;
 ///// default для истца
 export const DefaultPlaintiff = ({ row }) => {
   return (
-    <td className="allStatus">
+    <td className="allStatus" style={{ width: 240 }}>
       {row?.status == 1 ? (
         <>
           {row?.isk_status == 6 ? (

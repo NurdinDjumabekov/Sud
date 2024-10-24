@@ -23,6 +23,7 @@ import ConfirmSimpleSecr from "../../components/MainPage/ConfirmStatusIsks/Confi
 import ChoiceSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/ChoiceSecr/ChoiceSecr";
 import IsksConfirmAndDel from "../../components/IsksConfirmAndDel/IsksConfirmAndDel";
 import ActionsTable from "../../components/MainPage/ActionsTable/ActionsTable";
+import ActionChoiceArbitrType from "../../components/MainPage/ActionChoiceArbitrType/ActionChoiceArbitrType";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -52,16 +53,23 @@ const MainPage = () => {
                     index={index}
                     listTodos={listTodos}
                   />
-                  <td className="reglamet">
+                  <td className="reglamet" style={{ width: 240 }}>
                     <span>
                       {+row?.reglament !== 0 && (
                         <>{searchNameSelect(selReglament, +row?.reglament)}</>
                       )}
                     </span>
                   </td>
+                  <ActionChoiceArbitrType row={row} type={1} />
                   <Arbitrs row={row} type={1} />
+                  <ActionChoiceArbitrType row={row} type={2} />
                   <Arbitrs row={row} type={2} />
-                  <td className="secr">
+                  <ActionChoiceArbitrType row={row} type={3} />
+                  <Arbitrs row={row} type={3} />
+                  {/* <td className="reglametCount">
+                    <span>{objTypeReglament?.[+row?.reglament]?.count}</span>
+                  </td> */}
+                  <td className="secr" style={{ width: 240 }}>
                     <span>
                       {type_user != 3 ? (
                         row?.secretary

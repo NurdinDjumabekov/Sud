@@ -93,7 +93,7 @@ const ActionsTable = ({ row, listTodos }) => {
 
   return (
     <>
-      <td className="actionsTable">
+      <td className="actionsTable" style={{ width: 200 }}>
         <button onClick={() => setDel(row?.codeid)}>
           <DeleteIcon width={25} height={25} color={"red"} />
         </button>

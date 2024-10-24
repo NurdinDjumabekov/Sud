@@ -311,6 +311,24 @@ export const getArbitrsEveryIsks = createAsyncThunk(
   }
 );
 
+/// editTypeChoice - изменение выбора типа арбитров
+export const editTypeChoice = createAsyncThunk(
+  "editTypeChoice",
+  async function (data, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/edit_type_choice`;
+    try {
+      const response = await axiosInstance.post(url, data);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const applicationsSlice = createSlice({
   name: "applicationsSlice",
   initialState,

@@ -1,0 +1,67 @@
+.actionArbitr {
+  height: 100%;
+  position: relative;
+  text-align: center;
+
+  &__inner {
+    height: 100%;
+    display: block;
+
+    span {
+      width: 100%;
+      text-align: left;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    > button {
+      background: transparent;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+  .choiceBtn {
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      //   padding: 0px 5px;
+
+      p {
+        font-size: 13px;
+      }
+
+      > svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}
+
+.actionBtnEdit {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.listArbitrs {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+
+  &__inner {
+    span:first-child {
+      padding-right: 25px;
+    }
+  }
+
+  button {
+    background: transparent;
+  }
+}

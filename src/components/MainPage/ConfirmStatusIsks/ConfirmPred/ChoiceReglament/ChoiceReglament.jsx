@@ -13,13 +13,15 @@ import {
 
 ///////helpers
 import { searchNameSelect } from "../../../../../helpers/searchNameSelect";
+import { parseImageData } from "../../../../../helpers/transformCreateData";
 
 ///// components
 import Modals from "../../../../Modals/Modals";
 import ChoiceArbitrsPred from "../ChoiceArbitrsPred/ChoiceArbitrsPred";
-import EditIcon from "../../../../../asstes/icons/MyIcons/EditIcon";
 
 ///// icons
+import userImg from "../../../../../asstes/icons/plaintiff/fiz_face.svg";
+import EditIcon from "../../../../../asstes/icons/MyIcons/EditIcon";
 
 const ChoiceReglament = ({ row, type }) => {
   /// type - 1 истец, 2 - ответчик
@@ -50,7 +52,7 @@ const ChoiceReglament = ({ row, type }) => {
 
   const choiceArbitr = () => {
     setModal(true);
-    setArbitrs(list);
+    // setArbitrs(list);
   };
 
   const list = row?.arbitrs?.filter((i) => i?.type_man == type);
@@ -59,7 +61,7 @@ const ChoiceReglament = ({ row, type }) => {
 
   return (
     <>
-      <td className="table_isk_td">
+      <td className="table_isk_td actionReglament" style={{ width: 200 }}>
         {checkArbitrs ? (
           <span>
             <button className="choiceBtn" onClick={choiceArbitr}>
@@ -76,7 +78,7 @@ const ChoiceReglament = ({ row, type }) => {
                 </span>
               ))}
             </div>
-            <button onClick={choiceArbitr}>
+            <button onClick={choiceArbitr} className="actionBtnEdit">
               <EditIcon width={22} height={22} color={"#222"} />
             </button>
           </div>
@@ -90,6 +92,7 @@ const ChoiceReglament = ({ row, type }) => {
           sendArbitrs={sendArbitrs}
           setArbitrs={setArbitrs}
           arbitrs={arbitrs}
+          row={row}
         />
       </Modals>
 
@@ -98,8 +101,16 @@ const ChoiceReglament = ({ row, type }) => {
         <div className="moreInfoArbitrs">
           <div className="moreMainData">
             <div className="logoArbitr">
-              {/* <img src={dataModalArbitr?.photo || userImg} alt="" /> */}
-              {/* <img src={userImg} alt="" /> */}
+              <img
+                src={
+                  parseImageData(dataModalArbitr?.photo)
+                    ? `http://mttp.333.kg/${parseImageData(
+                        dataModalArbitr?.photo
+                      )}`
+                    : userImg
+                }
+                alt=""
+              />
             </div>
             <h5>{dataModalArbitr?.name}</h5>
           </div>

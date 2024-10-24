@@ -1,3 +1,10 @@
+export const parseImageData = (text) => {
+  if (!!text) {
+    const list = JSON.parse(text);
+    return list?.[0]?.path;
+  }
+};
+
 export const transformCreateData = (props, role, faceData) => {
   if (role == 1) {
     return {

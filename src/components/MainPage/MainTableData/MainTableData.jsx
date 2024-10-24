@@ -21,15 +21,15 @@ const MainTableData = ({ row, index, listTodos }) => {
     <>
       <td className="codeidIsk index">{listTodos?.length - index}</td>
       <td className="num codeidIsk">
-        <div className="codeidIsk__inner">
+        <div className="codeidIsk__inner" style={{ width: 200 }}>
           <span>{!!row?.isk_number && `${row?.isk_number}`}</span>
         </div>
       </td>
-      <td className="date">
+      <td className="date" style={{ width: 170 }}>
         <span>{transformDate(row?.isk_active_date)}</span>
         {/* <span>{row?.isk_time}</span> */}
       </td>
-      <td className="plaintiffTable">
+      <td className="plaintiffTable" style={{ width: 240 }}>
         {row?.plaintiff?.length !== 0 && (
           <>
             {row?.plaintiff?.map((i, index) => (
@@ -41,7 +41,7 @@ const MainTableData = ({ row, index, listTodos }) => {
           </>
         )}
       </td>
-      <td className="defendant">
+      <td className="defendant" style={{ width: 240 }}>
         {row?.defendant?.length !== 0 && (
           <>
             {row?.defendant?.map((i, index) => (
@@ -53,7 +53,7 @@ const MainTableData = ({ row, index, listTodos }) => {
           </>
         )}
       </td>
-      <td className="arbitrs">
+      <td className="arbitrs" style={{ width: 240 }}>
         {+row?.arbitr_fee !== 0 && (
           <span>
             {row?.arbitr_fee} {searchNameSelect(selCurrency, +row?.arbitr_curr)}

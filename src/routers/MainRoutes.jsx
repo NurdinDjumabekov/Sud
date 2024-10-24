@@ -16,6 +16,7 @@ import Alerts from "../components/Alerts/Alerts";
 
 ////fns
 import {
+  getListChoiceArbitr,
   toTakeArbitrsList,
   toTakeCountries,
   toTakeCurrency,
@@ -75,6 +76,8 @@ const MainRoutes = () => {
     dispatch(toTakeTypeTypeDocs());
     ///// get список документов, которые нужны для заполнения иска (просто текста)
     dispatch(toTakeSecretarList());
+
+    dispatch(getListChoiceArbitr());
   }, []);
 
   return (

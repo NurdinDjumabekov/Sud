@@ -7,6 +7,7 @@ const { REACT_APP_API_URL } = process.env;
 
 const initialState = {
   preloaderSel: false,
+  listChoiceArbitr: [],
   selCountries: [],
   selRegions: [],
   selDistrict: [],
@@ -27,6 +28,25 @@ const initialState = {
 };
 
 ////-------------------////
+
+/// getListChoiceArbitr get  список выбора для арбитров
+export const getListChoiceArbitr = createAsyncThunk(
+  "getListChoiceArbitr",
+  async function (props, { dispatch, rejectWithValue }) {
+    const url = `${REACT_APP_API_URL}/isks/get_choice_arbitr`;
+    try {
+      const response = await axiosInstance(url);
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data;
+      } else {
+        throw Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 /// toTakeCountries
 export const toTakeCountries = createAsyncThunk(
   "toTakeCountries",
@@ -352,6 +372,22 @@ const selectsSlice = createSlice({
   name: "selectsSlice",
   initialState,
   extraReducers: (builder) => {
+    ///// getListChoiceArbitr
+    builder.addCase(getListChoiceArbitr.fulfilled, (state, action) => {
+      state.preloaderSel = false;
+      const list = action.payload?.map((i) => {
+        return { ...i, value: i?.codeid, label: i?.name };
+      });
+      state.listChoiceArbitr = list;
+    });
+    builder.addCase(getListChoiceArbitr.rejected, (state, action) => {
+      state.error = action.payload;
+      state.preloaderSel = false;
+    });
+    builder.addCase(getListChoiceArbitr.pending, (state, action) => {
+      state.preloaderSel = true;
+    });
+
     ///// toTakeCountries
     builder.addCase(toTakeCountries.fulfilled, (state, action) => {
       // state.preloaderSel = false;

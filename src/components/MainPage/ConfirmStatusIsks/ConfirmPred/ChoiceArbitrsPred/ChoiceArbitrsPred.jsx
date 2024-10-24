@@ -15,9 +15,13 @@ import starActive from "../../../../../asstes/icons/starActive.svg";
 import { changeArbitrPred } from "../../../../../store/reducers/stateSlice";
 import { toTakeArbitrsList } from "../../../../../store/reducers/selectsSlice";
 
+////// helpers
+import { parseImageData } from "../../../../../helpers/transformCreateData";
+import { objTypeReglament } from "../../../../../helpers/localData";
+
 const ChoiceArbitrsPred = (props) => {
-  const { setDataModalArbitr, setModalArbitrs, maxCount } = props;
-  const { setArbitrs, arbitrs, sendArbitrs } = props;
+  const { setDataModalArbitr, setModalArbitrs } = props;
+  const { setArbitrs, arbitrs, sendArbitrs, row } = props;
 
   const dispatch = useDispatch();
 
@@ -45,6 +49,9 @@ const ChoiceArbitrsPred = (props) => {
     setModalArbitrs(true);
   };
 
+  const count = objTypeReglament?.[+row?.reglament]?.count;
+  const text = objTypeReglament?.[+row?.reglament]?.text;
+
   const clickArbitr = (obj) => {
     setArbitrs((prevArbitrs) => {
       const exists = prevArbitrs.some((item) => item.codeid === obj.codeid);
@@ -53,8 +60,10 @@ const ChoiceArbitrsPred = (props) => {
         return prevArbitrs.filter((item) => item.codeid !== obj.codeid);
       } else {
         // Добавляем объект, если его нет
-        if (prevArbitrs.length >= 5) {
-          alert("Вы выбрали максимальное кол-во арбитров");
+        if (prevArbitrs.length >= count) {
+          alert(
+            `Вы выбрали "${text}", максимальное кол-во арбитров не может превышать ${count}`
+          );
           return prevArbitrs; // Возвращаем предыдущее состояние, если лимит превышен
         }
         return [...prevArbitrs, obj]; // Добавляем новый объект
@@ -81,9 +90,16 @@ const ChoiceArbitrsPred = (props) => {
       <div className="choiceArbitrs__list">
         {selArbitrs?.map((i) => (
           <div key={i?.codeid} className={`every`}>
-            <div className="mainInfo">
+            <div className="mainInfo" onClick={() => moreInfo(i)}>
               <div className="logo">
-                <img src={i?.photo || userImg} alt="" />
+                <img
+                  src={
+                    parseImageData(i?.photo)
+                      ? `http://mttp.333.kg/${parseImageData(i?.photo)}`
+                      : userImg
+                  }
+                  alt=""
+                />
               </div>
               <p>{i?.name}</p>
               <svg
@@ -93,7 +109,6 @@ const ChoiceArbitrsPred = (props) => {
                 fill="#4361ee"
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 rotate-90 opacity-70 hover:opacity-100"
-                onClick={() => moreInfo(i)}
               >
                 <circle
                   cx="5"
@@ -124,7 +139,6 @@ const ChoiceArbitrsPred = (props) => {
                 {i?.education} {i?.position} {i?.description}
               </p>
             </div>
-
             <div className="actions">
               {arbitrs?.some((item) => item?.codeid === i?.codeid) ? (
                 <img src={star} alt="*" onClick={() => clickArbitr(i)} />

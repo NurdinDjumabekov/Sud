@@ -102,3 +102,11 @@ const query = `EXEC [createIsk_2024]
   0,
   0
 `;
+
+
+export const objTypeReglament = {
+  2: { count: 5, text: "Малое жюри (5 арбитров)" },
+  3: { count: 1, text: "Ускоренный" },
+  4: { count: 1, text: "Простой 1 арбитр" },
+  5: { count: 1, text: "Простой 3 арбитра" },
+};

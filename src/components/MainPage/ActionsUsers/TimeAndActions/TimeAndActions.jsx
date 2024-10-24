@@ -19,7 +19,11 @@ const TimeAndActions = ({ row }) => {
     4: <p></p>, /// Истец
   };
 
-  return <td className="times">{objType?.[type_user]}</td>;
+  return (
+    <td className="times" style={{ width: 200 }}>
+      {objType?.[type_user]}
+    </td>
+  );
 };
 
 export default TimeAndActions;
