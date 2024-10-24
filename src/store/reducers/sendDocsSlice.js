@@ -245,9 +245,7 @@ export const changeStatusDocs = createAsyncThunk(
 
         if (isk_status == 5 && res?.result == 1) {
           /// для создания и отправки документа "уведомления ответчика"
-          setTimeout(() => {
-            dispatch(sendNotif({ id, urlNotif: res?.file_path })); /// отправка уведомления
-          }, 1000);
+          // dispatch(sendNotif({ id })); /// отправка уведомления
         }
         return response.data;
       } else {
@@ -260,22 +258,22 @@ export const changeStatusDocs = createAsyncThunk(
 );
 
 /// sendNotif - для отправки смс уведомления через почту
-export const sendNotif = createAsyncThunk(
-  "sendNotif",
-  async function ({ id, urlNotif }, { dispatch, rejectWithValue }) {
-    const url = `${REACT_APP_API_URL}/isks/send_sms`;
-    const data = { id, urlNotif };
-    try {
-      const response = await axiosInstance.post(url, data);
-      if (response.status >= 200 && response.status < 300) {
-      } else {
-        throw Error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
+// export const sendNotif = createAsyncThunk(
+//   "sendNotif",
+//   async function ({ id }, { dispatch, rejectWithValue }) {
+//     const url = `${REACT_APP_API_URL}/notif/send_sms_email`;
+//     const data = { id };
+//     try {
+//       const response = await axiosInstance.post(url, data);
+//       if (response.status >= 200 && response.status < 300) {
+//       } else {
+//         throw Error(`Error: ${response.status}`);
+//       }
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
 
 ////-------------------////
 

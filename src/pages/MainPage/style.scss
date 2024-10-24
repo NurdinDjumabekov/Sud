@@ -29,7 +29,7 @@ $paddingTableInner: 2px 10px;
 
     .table_isk {
       border-collapse: collapse;
-      width: 150% !important;
+      width: 100% !important;
       display: table;
 
       thead {
@@ -54,10 +54,6 @@ $paddingTableInner: 2px 10px;
         }
       }
 
-      tr {
-        height: 70px;
-      }
-
       td {
         font-size: 12px;
         font-weight: 500;
@@ -73,7 +69,6 @@ $paddingTableInner: 2px 10px;
           width: 100%;
           text-align: left;
           font-weight: 500;
-          font-family: "Montserrat", sans-serif;
           font-size: 14px !important;
         }
 
@@ -97,60 +92,6 @@ $paddingTableInner: 2px 10px;
         }
         width: 50px;
       }
-
-      ///// заголовки
-      th {
-        font-weight: 700;
-        color: rgba(0, 0, 0, 0.76);
-        font-size: 15px;
-        background: #c4d9f8;
-        background: rgb(237, 242, 249);
-        color: #fff;
-        text-align: left;
-        padding: 0 10px;
-        color: #344050;
-      }
-
-      // th:nth-child(1) {
-      //   width: 100px;
-      // }
-
-      // th:nth-child(2) {
-      //   width: 50px;
-      // }
-
-      // ///// размеры и отступы каждого столбца
-
-      // .reglamet,
-      // .table_isk_th:nth-child(6) {
-      //   width: 150px;
-      // }
-
-      // .arbitrs,
-      // .table_isk_th:nth-child(7) {
-      //   max-width: 170px;
-      //   width: 170px;
-      // }
-
-      // .secr,
-      // .table_isk_th:nth-child(8) {
-      //   width: 145px;
-      // }
-
-      // .allStatus,
-      // .table_isk_th:nth-child(9) {
-      //   width: 120px;
-      // }
-
-      // .typeUser,
-      // .table_isk_th:nth-child(10) {
-      //   width: 150px;
-      // }
-
-      // .times,
-      // .table_isk_th:nth-child(11) {
-      //   width: 150px;
-      // }
 
       .documents,
       .table_isk_th:last-child {
@@ -179,25 +120,5 @@ $paddingTableInner: 2px 10px;
         }
       }
     }
-
-    // &::-webkit-scrollbar {
-    //   height: 10px;
-    //   max-height: 10px;
-    //   min-height: 10px;
-    //   min-width: 10px;
-    //   max-width: 10px;
-    //   width: 10px;
-    //   margin: 2px;
-    // }
-
-    // &::-webkit-scrollbar-track {
-    //   background-color: #f0eaea;
-    // }
-
-    // &::-webkit-scrollbar-thumb {
-    //   background-color: #adc7e9b4;
-    //   border-radius: 2px;
-    //   cursor: pointer;
-    // }
   }
 }

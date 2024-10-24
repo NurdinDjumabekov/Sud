@@ -24,6 +24,7 @@ import ChoiceSecr from "../../components/MainPage/ConfirmStatusIsks/ConfirmPred/
 import IsksConfirmAndDel from "../../components/IsksConfirmAndDel/IsksConfirmAndDel";
 import ActionsTable from "../../components/MainPage/ActionsTable/ActionsTable";
 import ActionChoiceArbitrType from "../../components/MainPage/ActionChoiceArbitrType/ActionChoiceArbitrType";
+import { sendSmsWA } from "../../store/reducers/notificationSlice";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,8 @@ const MainPage = () => {
 
   const { tokenA } = useSelector((state) => state.saveDataSlice);
   const { type_user } = jwtDecode(tokenA);
+
+  const send = () => dispatch(sendSmsWA());
 
   return (
     <>
@@ -103,7 +106,6 @@ const MainPage = () => {
           </table>
         </div>
       </div>
-
       {/* ///// модалки для подтверждения и удаления иска */}
       <IsksConfirmAndDel />
       {/* //// для ответ. секретаря, председателя и обычного секретаря */}

@@ -40,6 +40,7 @@ import { toTakeTypeTypeDocs } from "../store/reducers/applicationsSlice";
 import ArchivePage from "../pages/ArchivePage/ArchivePage";
 import ArchiveIsksPage from "../pages/ArchiveIsksPage/ArchiveIsksPage";
 import SecretarsPage from "../pages/SecretarsPage.jsx/SecretarsPage";
+import DocsPage from "../pages/DocsPage/DocsPage";
 
 const MainRoutes = () => {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ const MainRoutes = () => {
           <Route path="/history" element={<ArchivePage />} />
           <Route path="/history_isk" element={<ArchiveIsksPage />} />
           <Route path="/secr" element={<SecretarsPage />} />
+          <Route path="/docs" element={<DocsPage />} />
           {/* <Route path="/notif_user" element={<NotificationPage />} /> */}
         </Route>
         <Route path="*" element={<NotFoundPage />} />

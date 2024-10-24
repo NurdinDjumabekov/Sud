@@ -1,4 +1,4 @@
-$widthMenu: 290px;
+$widthMenu: 310px;
 $widthAllContent: 100%;
 
 .plaintiffBlock {
@@ -94,7 +94,7 @@ $widthAllContent: 100%;
       gap: 5px;
 
       li {
-        padding: 15px 35px 15px 20px;
+        padding: 15px 25px 15px 20px;
         width: 100%;
         display: flex;
         align-items: center;
@@ -166,9 +166,7 @@ $widthAllContent: 100%;
   }
 
   .contents {
-    width: 100%;
-    // display: flex;
-    // align-items: center;
+    width: calc(100% - $widthMenu);
     height: 100vh;
   }
 }

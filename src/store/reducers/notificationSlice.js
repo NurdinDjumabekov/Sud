@@ -80,6 +80,35 @@ export const notificationRead = createAsyncThunk(
   }
 );
 
+//////// sendSmsWA - отправка СМС по WhatsApp
+export const sendSmsWA = createAsyncThunk(
+  "sendSmsWA",
+  async function (info, { dispatch, rejectWithValue }) {
+    const phone_number = "996700754454";
+    try {
+      const response = await axios({
+        method: "POST",
+        url: "https://whatsapp-bot.333.kg/api/create_message",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        data: {
+          from: "7103907785",
+          to: phone_number,
+          message: "Добрый день",
+          urlFile: "",
+          // is_pdf: 0,
+        },
+      });
+      if (response.status >= 200 && response.status < 300) {
+        return response?.data; // Возвращаем данные ответа, если все прошло успешно
+      } else {
+        throw Error(`Error: ${response.status}`); // Генерируем ошибку, если статус ответа не успешный
+      }
+    } catch (error) {
+      return rejectWithValue(error.message); // Обработка ошибок
+    }
+  }
+);
+
 const notificationSlice = createSlice({
   name: "notificationSlice",
   initialState,
